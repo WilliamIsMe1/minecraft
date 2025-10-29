@@ -1,0 +1,12 @@
+/bin
+/output
+/.idea
+/.vscode
+/.settings
+/game
+/jars
+/md5
+.project
+.classpath
+Client.launch
+/src_original
