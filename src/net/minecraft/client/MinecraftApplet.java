@@ -4,8 +4,6 @@ import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import net.minecraft.client.render.CanvasMinecraftApplet;
-import net.minecraft.src.MinecraftAppletImpl;
-import net.minecraft.src.Session;
 
 public class MinecraftApplet extends Applet {
 	private Canvas mcCanvas;

@@ -2,7 +2,7 @@ package net.minecraft.client.render.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.NetClientHandler;
-import net.minecraft.src.StringTranslate;
+import net.minecraft.core.StringTranslate;
 import net.minecraft.network.ThreadConnectToServer;
 
 public class GuiConnecting extends GuiScreen {

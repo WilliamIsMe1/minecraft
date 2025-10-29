@@ -2,10 +2,12 @@ package net.minecraft.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRail;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.item.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.nbt.NBTTagList;
 import net.minecraft.world.World;
 
@@ -51,7 +53,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 	protected void entityInit() {
 	}
 
-	public AxisAlignedBB getCollisionBox(net.minecraft.entity.Entity var1) {
+	public net.minecraft.misc.AxisAlignedBB getCollisionBox(net.minecraft.entity.Entity var1) {
 		return var1.boundingBox;
 	}
 
@@ -208,9 +210,9 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 			this.prevPosY = this.posY;
 			this.prevPosZ = this.posZ;
 			this.motionY -= (double)0.04F;
-			int var1 = MathHelper.floor_double(this.posX);
-			int var2 = MathHelper.floor_double(this.posY);
-			int var3 = MathHelper.floor_double(this.posZ);
+			int var1 = net.minecraft.core.MathHelper.floor_double(this.posX);
+			int var2 = net.minecraft.core.MathHelper.floor_double(this.posY);
+			int var3 = net.minecraft.core.MathHelper.floor_double(this.posZ);
 			if(net.minecraft.block.BlockRail.isRailBlockAt(this.worldObj, var1, var2 - 1, var3)) {
 				--var2;
 			}
@@ -220,7 +222,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 			var7 = 1.0D / 128.0D;
 			int var9 = this.worldObj.getBlockId(var1, var2, var3);
 			if(net.minecraft.block.BlockRail.isRailBlock(var9)) {
-				Vec3D var10 = this.func_514_g(this.posX, this.posY, this.posZ);
+				net.minecraft.core.Vec3D var10 = this.func_514_g(this.posX, this.posY, this.posZ);
 				int var11 = this.worldObj.getBlockMetadata(var1, var2, var3);
 				this.posY = (double)var2;
 				boolean var12 = false;
@@ -331,9 +333,9 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 				}
 
 				this.moveEntity(var35, 0.0D, var37);
-				if(var14[0][1] != 0 && MathHelper.floor_double(this.posX) - var1 == var14[0][0] && MathHelper.floor_double(this.posZ) - var3 == var14[0][2]) {
+				if(var14[0][1] != 0 && net.minecraft.core.MathHelper.floor_double(this.posX) - var1 == var14[0][0] && net.minecraft.core.MathHelper.floor_double(this.posZ) - var3 == var14[0][2]) {
 					this.setPosition(this.posX, this.posY + (double)var14[0][1], this.posZ);
-				} else if(var14[1][1] != 0 && MathHelper.floor_double(this.posX) - var1 == var14[1][0] && MathHelper.floor_double(this.posZ) - var3 == var14[1][2]) {
+				} else if(var14[1][1] != 0 && net.minecraft.core.MathHelper.floor_double(this.posX) - var1 == var14[1][0] && net.minecraft.core.MathHelper.floor_double(this.posZ) - var3 == var14[1][2]) {
 					this.setPosition(this.posX, this.posY + (double)var14[1][1], this.posZ);
 				}
 
@@ -343,7 +345,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 					this.motionZ *= (double)0.997F;
 				} else {
 					if(this.minecartType == 2) {
-						var39 = (double)MathHelper.sqrt_double(this.pushX * this.pushX + this.pushZ * this.pushZ);
+						var39 = (double) net.minecraft.core.MathHelper.sqrt_double(this.pushX * this.pushX + this.pushZ * this.pushZ);
 						if(var39 > 0.01D) {
 							var6 = true;
 							this.pushX /= var39;
@@ -366,7 +368,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 					this.motionZ *= (double)0.96F;
 				}
 
-				Vec3D var52 = this.func_514_g(this.posX, this.posY, this.posZ);
+				net.minecraft.core.Vec3D var52 = this.func_514_g(this.posX, this.posY, this.posZ);
 				if(var52 != null && var10 != null) {
 					double var40 = (var10.yCoord - var52.yCoord) * 0.05D;
 					var23 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
@@ -378,8 +380,8 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 					this.setPosition(this.posX, var52.yCoord, this.posZ);
 				}
 
-				int var53 = MathHelper.floor_double(this.posX);
-				int var54 = MathHelper.floor_double(this.posZ);
+				int var53 = net.minecraft.core.MathHelper.floor_double(this.posX);
+				int var54 = net.minecraft.core.MathHelper.floor_double(this.posZ);
 				if(var53 != var1 || var54 != var3) {
 					var23 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
 					this.motionX = var23 * (double)(var53 - var1);
@@ -388,7 +390,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 
 				double var42;
 				if(this.minecartType == 2) {
-					var42 = (double)MathHelper.sqrt_double(this.pushX * this.pushX + this.pushZ * this.pushZ);
+					var42 = (double) net.minecraft.core.MathHelper.sqrt_double(this.pushX * this.pushX + this.pushZ * this.pushZ);
 					if(var42 > 0.01D && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.001D) {
 						this.pushX /= var42;
 						this.pushZ /= var42;
@@ -503,10 +505,10 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 		}
 	}
 
-	public Vec3D func_515_a(double var1, double var3, double var5, double var7) {
-		int var9 = MathHelper.floor_double(var1);
-		int var10 = MathHelper.floor_double(var3);
-		int var11 = MathHelper.floor_double(var5);
+	public net.minecraft.core.Vec3D func_515_a(double var1, double var3, double var5, double var7) {
+		int var9 = net.minecraft.core.MathHelper.floor_double(var1);
+		int var10 = net.minecraft.core.MathHelper.floor_double(var3);
+		int var11 = net.minecraft.core.MathHelper.floor_double(var5);
 		if(net.minecraft.block.BlockRail.isRailBlockAt(this.worldObj, var9, var10 - 1, var11)) {
 			--var10;
 		}
@@ -533,9 +535,9 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 			var17 /= var19;
 			var1 += var15 * var7;
 			var5 += var17 * var7;
-			if(var14[0][1] != 0 && MathHelper.floor_double(var1) - var9 == var14[0][0] && MathHelper.floor_double(var5) - var11 == var14[0][2]) {
+			if(var14[0][1] != 0 && net.minecraft.core.MathHelper.floor_double(var1) - var9 == var14[0][0] && net.minecraft.core.MathHelper.floor_double(var5) - var11 == var14[0][2]) {
 				var3 += (double)var14[0][1];
-			} else if(var14[1][1] != 0 && MathHelper.floor_double(var1) - var9 == var14[1][0] && MathHelper.floor_double(var5) - var11 == var14[1][2]) {
+			} else if(var14[1][1] != 0 && net.minecraft.core.MathHelper.floor_double(var1) - var9 == var14[1][0] && net.minecraft.core.MathHelper.floor_double(var5) - var11 == var14[1][2]) {
 				var3 += (double)var14[1][1];
 			}
 
@@ -543,10 +545,10 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 		}
 	}
 
-	public Vec3D func_514_g(double var1, double var3, double var5) {
-		int var7 = MathHelper.floor_double(var1);
-		int var8 = MathHelper.floor_double(var3);
-		int var9 = MathHelper.floor_double(var5);
+	public net.minecraft.core.Vec3D func_514_g(double var1, double var3, double var5) {
+		int var7 = net.minecraft.core.MathHelper.floor_double(var1);
+		int var8 = net.minecraft.core.MathHelper.floor_double(var3);
+		int var9 = net.minecraft.core.MathHelper.floor_double(var5);
 		if(net.minecraft.block.BlockRail.isRailBlockAt(this.worldObj, var7, var8 - 1, var9)) {
 			--var8;
 		}
@@ -663,7 +665,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 				double var4 = var1.posZ - this.posZ;
 				double var6 = var2 * var2 + var4 * var4;
 				if(var6 >= (double)1.0E-4F) {
-					var6 = (double)MathHelper.sqrt_double(var6);
+					var6 = (double) MathHelper.sqrt_double(var6);
 					var2 /= var6;
 					var4 /= var6;
 					double var8 = 1.0D / var6;

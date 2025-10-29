@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import net.minecraft.src.MapColor;
+import net.minecraft.map.MapColor;
 
 public class MaterialLiquid extends Material {
 	public MaterialLiquid(MapColor var1) {

@@ -14,11 +14,11 @@ public class NBTTagShort extends NBTBase {
 		this.shortValue = var1;
 	}
 
-	void writeTagContents(DataOutput var1) throws IOException {
+	public void writeTagContents(DataOutput var1) throws IOException {
 		var1.writeShort(this.shortValue);
 	}
 
-	void readTagContents(DataInput var1) throws IOException {
+	public void readTagContents(DataInput var1) throws IOException {
 		this.shortValue = var1.readShort();
 	}
 

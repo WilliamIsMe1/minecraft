@@ -5,7 +5,7 @@ import net.minecraft.achievement.Achievement;
 import net.minecraft.client.render.RenderHelper;
 import net.minecraft.client.render.RenderItem;
 import net.minecraft.client.render.ScaledResolution;
-import net.minecraft.src.StatCollector;
+import net.minecraft.achievement.stats.StatCollector;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

@@ -14,12 +14,12 @@ public class NBTTagByteArray extends NBTBase {
 		this.byteArray = var1;
 	}
 
-	void writeTagContents(DataOutput var1) throws IOException {
+	public void writeTagContents(DataOutput var1) throws IOException {
 		var1.writeInt(this.byteArray.length);
 		var1.write(this.byteArray);
 	}
 
-	void readTagContents(DataInput var1) throws IOException {
+	public void readTagContents(DataInput var1) throws IOException {
 		int var2 = var1.readInt();
 		this.byteArray = new byte[var2];
 		var1.readFully(this.byteArray);

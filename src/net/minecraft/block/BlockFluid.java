@@ -1,7 +1,8 @@
 package net.minecraft.block;
 
+import net.minecraft.core.Vec3D;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -87,8 +88,8 @@ public abstract class BlockFluid extends Block {
 		return 0;
 	}
 
-	private Vec3D getFlowVector(net.minecraft.block.IBlockAccess var1, int var2, int var3, int var4) {
-		Vec3D var5 = Vec3D.createVector(0.0D, 0.0D, 0.0D);
+	private net.minecraft.core.Vec3D getFlowVector(net.minecraft.block.IBlockAccess var1, int var2, int var3, int var4) {
+		net.minecraft.core.Vec3D var5 = net.minecraft.core.Vec3D.createVector(0.0D, 0.0D, 0.0D);
 		int var6 = this.getEffectiveFlowDecay(var1, var2, var3, var4);
 
 		for(int var7 = 0; var7 < 4; ++var7) {
@@ -169,8 +170,8 @@ public abstract class BlockFluid extends Block {
 		return var5;
 	}
 
-	public void velocityToAddToEntity(net.minecraft.world.World var1, int var2, int var3, int var4, Entity var5, Vec3D var6) {
-		Vec3D var7 = this.getFlowVector(var1, var2, var3, var4);
+	public void velocityToAddToEntity(net.minecraft.world.World var1, int var2, int var3, int var4, Entity var5, net.minecraft.core.Vec3D var6) {
+		net.minecraft.core.Vec3D var7 = this.getFlowVector(var1, var2, var3, var4);
 		var6.xCoord += var7.xCoord;
 		var6.yCoord += var7.yCoord;
 		var6.zCoord += var7.zCoord;

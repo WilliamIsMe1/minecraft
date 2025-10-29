@@ -1,8 +1,9 @@
 package net.minecraft.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.core.MathHelper;
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.map.MapData;
 import net.minecraft.world.Chunk;
 import net.minecraft.world.World;
 
@@ -12,26 +13,26 @@ public class ItemMap extends ItemMapBase {
 		this.setMaxStackSize(1);
 	}
 
-	public static MapData func_28013_a(short var0, net.minecraft.world.World var1) {
+	public static net.minecraft.map.MapData func_28013_a(short var0, net.minecraft.world.World var1) {
 		(new StringBuilder()).append("map_").append(var0).toString();
-		MapData var3 = (MapData)var1.loadItemData(MapData.class, "map_" + var0);
+		net.minecraft.map.MapData var3 = (net.minecraft.map.MapData)var1.loadItemData(net.minecraft.map.MapData.class, "map_" + var0);
 		if(var3 == null) {
 			int var4 = var1.getUniqueDataId("map");
 			String var2 = "map_" + var4;
-			var3 = new MapData(var2);
+			var3 = new net.minecraft.map.MapData(var2);
 			var1.setItemData(var2, var3);
 		}
 
 		return var3;
 	}
 
-	public MapData func_28012_a(ItemStack var1, net.minecraft.world.World var2) {
+	public net.minecraft.map.MapData func_28012_a(ItemStack var1, net.minecraft.world.World var2) {
 		(new StringBuilder()).append("map_").append(var1.getItemDamage()).toString();
-		MapData var4 = (MapData)var2.loadItemData(MapData.class, "map_" + var1.getItemDamage());
+		net.minecraft.map.MapData var4 = (net.minecraft.map.MapData)var2.loadItemData(net.minecraft.map.MapData.class, "map_" + var1.getItemDamage());
 		if(var4 == null) {
 			var1.setItemDamage(var2.getUniqueDataId("map"));
 			String var3 = "map_" + var1.getItemDamage();
-			var4 = new MapData(var3);
+			var4 = new net.minecraft.map.MapData(var3);
 			var4.xCenter = var2.getWorldInfo().getSpawnX();
 			var4.yCenter = var2.getWorldInfo().getSpawnZ();
 			var4.scale = 3;
@@ -43,15 +44,15 @@ public class ItemMap extends ItemMapBase {
 		return var4;
 	}
 
-	public void func_28011_a(net.minecraft.world.World var1, net.minecraft.entity.Entity var2, MapData var3) {
+	public void func_28011_a(net.minecraft.world.World var1, net.minecraft.entity.Entity var2, net.minecraft.map.MapData var3) {
 		if(var1.worldProvider.worldType == var3.dimension) {
 			short var4 = 128;
 			short var5 = 128;
 			int var6 = 1 << var3.scale;
 			int var7 = var3.xCenter;
 			int var8 = var3.yCenter;
-			int var9 = MathHelper.floor_double(var2.posX - (double)var7) / var6 + var4 / 2;
-			int var10 = MathHelper.floor_double(var2.posZ - (double)var8) / var6 + var5 / 2;
+			int var9 = net.minecraft.core.MathHelper.floor_double(var2.posX - (double)var7) / var6 + var4 / 2;
+			int var10 = net.minecraft.core.MathHelper.floor_double(var2.posZ - (double)var8) / var6 + var5 / 2;
 			int var11 = 128 / var6;
 			if(var1.worldProvider.hasNoSky) {
 				var11 /= 2;
@@ -109,7 +110,7 @@ public class ItemMap extends ItemMapBase {
 												var36 = var27.getBlockID(var33 + var28, var35 - 1, var34 + var29);
 												if(var36 == 0) {
 													var37 = false;
-												} else if(var35 > 0 && var36 > 0 && net.minecraft.block.Block.blocksList[var36].blockMaterial.materialMapColor == MapColor.airColor) {
+												} else if(var35 > 0 && var36 > 0 && net.minecraft.block.Block.blocksList[var36].blockMaterial.materialMapColor == net.minecraft.map.MapColor.airColor) {
 													var37 = false;
 												}
 
@@ -169,8 +170,8 @@ public class ItemMap extends ItemMapBase {
 
 							var38 = 0;
 							if(var34 > 0) {
-								MapColor var44 = Block.blocksList[var34].blockMaterial.materialMapColor;
-								if(var44 == MapColor.waterColor) {
+								net.minecraft.map.MapColor var44 = Block.blocksList[var34].blockMaterial.materialMapColor;
+								if(var44 == net.minecraft.map.MapColor.waterColor) {
 									var41 = (double)var30 * 0.1D + (double)(var12 + var17 & 1) * 0.2D;
 									var42 = 1;
 									if(var41 < 0.5D) {
@@ -215,7 +216,7 @@ public class ItemMap extends ItemMapBase {
 
 	public void onUpdate(ItemStack var1, net.minecraft.world.World var2, net.minecraft.entity.Entity var3, int var4, boolean var5) {
 		if(!var2.multiplayerWorld) {
-			MapData var6 = this.func_28012_a(var1, var2);
+			net.minecraft.map.MapData var6 = this.func_28012_a(var1, var2);
 			if(var3 instanceof net.minecraft.entity.EntityPlayer) {
 				net.minecraft.entity.EntityPlayer var7 = (net.minecraft.entity.EntityPlayer)var3;
 				var6.func_28169_a(var7, var1);
@@ -231,9 +232,9 @@ public class ItemMap extends ItemMapBase {
 	public void onCreated(ItemStack var1, World var2, EntityPlayer var3) {
 		var1.setItemDamage(var2.getUniqueDataId("map"));
 		String var4 = "map_" + var1.getItemDamage();
-		MapData var5 = new MapData(var4);
+		net.minecraft.map.MapData var5 = new MapData(var4);
 		var2.setItemData(var4, var5);
-		var5.xCenter = MathHelper.floor_double(var3.posX);
+		var5.xCenter = net.minecraft.core.MathHelper.floor_double(var3.posX);
 		var5.yCenter = MathHelper.floor_double(var3.posZ);
 		var5.scale = 3;
 		var5.dimension = (byte)var2.worldProvider.worldType;

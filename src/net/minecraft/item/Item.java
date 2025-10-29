@@ -3,7 +3,7 @@ package net.minecraft.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.achievement.stats.StatList;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -31,10 +31,10 @@ public class Item {
 	public static Item shovelStone = (new ItemSpade(17, EnumToolMaterial.STONE)).setIconCoord(1, 5).setItemName("shovelStone");
 	public static Item pickaxeStone = (new ItemPickaxe(18, EnumToolMaterial.STONE)).setIconCoord(1, 6).setItemName("pickaxeStone");
 	public static Item axeStone = (new ItemAxe(19, EnumToolMaterial.STONE)).setIconCoord(1, 7).setItemName("hatchetStone");
-	public static Item swordDiamond = (new ItemSword(20, EnumToolMaterial.EMERALD)).setIconCoord(3, 4).setItemName("swordDiamond");
-	public static Item shovelDiamond = (new ItemSpade(21, EnumToolMaterial.EMERALD)).setIconCoord(3, 5).setItemName("shovelDiamond");
-	public static Item pickaxeDiamond = (new ItemPickaxe(22, EnumToolMaterial.EMERALD)).setIconCoord(3, 6).setItemName("pickaxeDiamond");
-	public static Item axeDiamond = (new ItemAxe(23, EnumToolMaterial.EMERALD)).setIconCoord(3, 7).setItemName("hatchetDiamond");
+	public static Item swordDiamond = (new ItemSword(20, EnumToolMaterial.DIAMOND)).setIconCoord(3, 4).setItemName("swordDiamond");
+	public static Item shovelDiamond = (new ItemSpade(21, EnumToolMaterial.DIAMOND)).setIconCoord(3, 5).setItemName("shovelDiamond");
+	public static Item pickaxeDiamond = (new ItemPickaxe(22, EnumToolMaterial.DIAMOND)).setIconCoord(3, 6).setItemName("pickaxeDiamond");
+	public static Item axeDiamond = (new ItemAxe(23, EnumToolMaterial.DIAMOND)).setIconCoord(3, 7).setItemName("hatchetDiamond");
 	public static Item stick = (new Item(24)).setIconCoord(5, 3).setFull3D().setItemName("stick");
 	public static Item bowlEmpty = (new Item(25)).setIconCoord(7, 4).setItemName("bowl");
 	public static Item bowlSoup = (new ItemSoup(26, 10)).setIconCoord(8, 4).setItemName("mushroomStew");
@@ -48,7 +48,7 @@ public class Item {
 	public static Item hoeWood = (new ItemHoe(34, EnumToolMaterial.WOOD)).setIconCoord(0, 8).setItemName("hoeWood");
 	public static Item hoeStone = (new ItemHoe(35, EnumToolMaterial.STONE)).setIconCoord(1, 8).setItemName("hoeStone");
 	public static Item hoeSteel = (new ItemHoe(36, EnumToolMaterial.IRON)).setIconCoord(2, 8).setItemName("hoeIron");
-	public static Item hoeDiamond = (new ItemHoe(37, EnumToolMaterial.EMERALD)).setIconCoord(3, 8).setItemName("hoeDiamond");
+	public static Item hoeDiamond = (new ItemHoe(37, EnumToolMaterial.DIAMOND)).setIconCoord(3, 8).setItemName("hoeDiamond");
 	public static Item hoeGold = (new ItemHoe(38, EnumToolMaterial.GOLD)).setIconCoord(4, 8).setItemName("hoeGold");
 	public static Item seeds = (new ItemSeeds(39, net.minecraft.block.Block.crops.blockID)).setIconCoord(9, 0).setItemName("seeds");
 	public static Item wheat = (new Item(40)).setIconCoord(9, 1).setItemName("wheat");
@@ -263,7 +263,7 @@ public class Item {
 	}
 
 	public String getStatName() {
-		return StatCollector.translateToLocal(this.getItemName() + ".name");
+		return net.minecraft.achievement.stats.StatCollector.translateToLocal(this.getItemName() + ".name");
 	}
 
 	public int getColorFromDamage(int var1) {

@@ -1,6 +1,6 @@
 package net.minecraft.world;
 
-import net.minecraft.src.IProgressUpdate;
+import net.minecraft.misc.IProgressUpdate;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -2,8 +2,8 @@ package net.minecraft.client.render;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFish;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.Vec3D;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

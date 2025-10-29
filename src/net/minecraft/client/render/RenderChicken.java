@@ -3,7 +3,7 @@ package net.minecraft.client.render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityChicken;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 
 public class RenderChicken extends RenderLiving {
 	public RenderChicken(ModelBase var1, float var2) {

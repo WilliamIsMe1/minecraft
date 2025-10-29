@@ -2,8 +2,8 @@ package net.minecraft.world;
 
 import net.minecraft.block.TileEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.AxisAlignedBB;
-import net.minecraft.src.EnumSkyBlock;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.block.EnumSkyBlock;
 
 import java.util.List;
 import java.util.Random;

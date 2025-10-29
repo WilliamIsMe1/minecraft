@@ -1,7 +1,8 @@
 package net.minecraft.world;
 
 import net.minecraft.block.Block;
-import net.minecraft.src.*;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 
 public class WorldProviderSky extends WorldProvider {
 	public void registerWorldChunkManager() {
@@ -21,7 +22,7 @@ public class WorldProviderSky extends WorldProvider {
 		return null;
 	}
 
-	public Vec3D func_4096_a(float var1, float var2) {
+	public net.minecraft.core.Vec3D func_4096_a(float var1, float var2) {
 		int var3 = 8421536;
 		float var4 = MathHelper.cos(var1 * (float)Math.PI * 2.0F) * 2.0F + 0.5F;
 		if(var4 < 0.0F) {

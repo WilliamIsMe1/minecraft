@@ -5,8 +5,8 @@ import java.util.Random;
 import net.minecraft.entity.PlayerControllerSP;
 import net.minecraft.client.ChatAllowedCharacters;
 import net.minecraft.world.ISaveFormat;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.StringTranslate;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.StringTranslate;
 import org.lwjgl.input.Keyboard;
 
 public class GuiCreateWorld extends GuiScreen {

@@ -2,7 +2,6 @@ package net.minecraft.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
-import net.minecraft.src.EnumToolMaterial;
 
 public class ItemPickaxe extends ItemTool {
 	private static net.minecraft.block.Block[] blocksEffectiveAgainst = new net.minecraft.block.Block[]{net.minecraft.block.Block.cobblestone, net.minecraft.block.Block.stairDouble, net.minecraft.block.Block.stairSingle, net.minecraft.block.Block.stone, net.minecraft.block.Block.sandStone, net.minecraft.block.Block.cobblestoneMossy, net.minecraft.block.Block.oreIron, net.minecraft.block.Block.blockSteel, net.minecraft.block.Block.oreCoal, net.minecraft.block.Block.blockGold, net.minecraft.block.Block.oreGold, net.minecraft.block.Block.oreDiamond, net.minecraft.block.Block.blockDiamond, net.minecraft.block.Block.ice, net.minecraft.block.Block.netherrack, net.minecraft.block.Block.oreLapis, net.minecraft.block.Block.blockLapis};

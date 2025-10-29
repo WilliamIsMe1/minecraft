@@ -1,8 +1,10 @@
 package net.minecraft.block;
 
+import net.minecraft.core.Vec3D;
 import net.minecraft.entity.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -52,7 +54,7 @@ public class BlockDoor extends Block {
 		return 7;
 	}
 
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public net.minecraft.misc.AxisAlignedBB getSelectedBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
 		return super.getSelectedBoundingBoxFromPool(var1, var2, var3, var4);
 	}
@@ -177,7 +179,7 @@ public class BlockDoor extends Block {
 		return (var1 & 8) != 0 ? 0 : (this.blockMaterial == Material.iron ? net.minecraft.item.Item.doorSteel.shiftedIndex : Item.doorWood.shiftedIndex);
 	}
 
-	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
+	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
 		this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
 		return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
 	}

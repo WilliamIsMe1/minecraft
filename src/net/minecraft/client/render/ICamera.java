@@ -1,6 +1,6 @@
 package net.minecraft.client.render;
 
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 
 public interface ICamera {
 	boolean isBoundingBoxInFrustum(AxisAlignedBB var1);

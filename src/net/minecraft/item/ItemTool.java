@@ -3,7 +3,6 @@ package net.minecraft.item;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.src.EnumToolMaterial;
 
 public class ItemTool extends Item {
 	private net.minecraft.block.Block[] blocksEffectiveAgainst;

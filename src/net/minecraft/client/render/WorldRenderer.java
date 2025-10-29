@@ -7,8 +7,9 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.TileEntity;
 import net.minecraft.block.TileEntityRenderer;
+import net.minecraft.core.MathHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
@@ -37,7 +38,7 @@ public class WorldRenderer {
 	public int posZPlus;
 	public float rendererRadius;
 	public boolean needsUpdate;
-	public AxisAlignedBB rendererBoundingBox;
+	public net.minecraft.misc.AxisAlignedBB rendererBoundingBox;
 	public int chunkIndex;
 	public boolean isVisible = true;
 	public boolean isWaitingOnOcclusionQuery;
@@ -74,7 +75,7 @@ public class WorldRenderer {
 			this.posYMinus = var2 - this.posYClip;
 			this.posZMinus = var3 - this.posZClip;
 			float var4 = 6.0F;
-			this.rendererBoundingBox = AxisAlignedBB.getBoundingBox((double)((float)var1 - var4), (double)((float)var2 - var4), (double)((float)var3 - var4), (double)((float)(var1 + this.sizeWidth) + var4), (double)((float)(var2 + this.sizeHeight) + var4), (double)((float)(var3 + this.sizeDepth) + var4));
+			this.rendererBoundingBox = net.minecraft.misc.AxisAlignedBB.getBoundingBox((double)((float)var1 - var4), (double)((float)var2 - var4), (double)((float)var3 - var4), (double)((float)(var1 + this.sizeWidth) + var4), (double)((float)(var2 + this.sizeHeight) + var4), (double)((float)(var3 + this.sizeDepth) + var4));
 			GL11.glNewList(this.glRenderList + 2, GL11.GL_COMPILE);
 			RenderItem.renderAABB(AxisAlignedBB.getBoundingBoxFromPool((double)((float)this.posXClip - var4), (double)((float)this.posYClip - var4), (double)((float)this.posZClip - var4), (double)((float)(this.posXClip + this.sizeWidth) + var4), (double)((float)(this.posYClip + this.sizeHeight) + var4), (double)((float)(this.posZClip + this.sizeDepth) + var4)));
 			GL11.glEndList();

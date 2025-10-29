@@ -1,9 +1,10 @@
 package net.minecraft.world;
 
+import net.minecraft.core.MCHash;
+import net.minecraft.core.save.SaveHandlerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.NetClientHandler;
 import net.minecraft.network.Packet255KickDisconnect;
-import net.minecraft.src.*;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -13,7 +14,7 @@ public class WorldClient extends World {
 	private LinkedList field_1057_z = new LinkedList();
 	private net.minecraft.network.NetClientHandler sendQueue;
 	private ChunkProviderClient field_20915_C;
-	private MCHash field_1055_D = new MCHash();
+	private net.minecraft.core.MCHash field_1055_D = new MCHash();
 	private Set field_20914_E = new HashSet();
 	private Set field_1053_F = new HashSet();
 

@@ -1,6 +1,6 @@
 package net.minecraft.client.render;
 
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 
 public class ModelBiped extends ModelBase {
 	public ModelRenderer bipedHead;

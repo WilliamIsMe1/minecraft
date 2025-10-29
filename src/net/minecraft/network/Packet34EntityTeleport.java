@@ -1,7 +1,7 @@
 package net.minecraft.network;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

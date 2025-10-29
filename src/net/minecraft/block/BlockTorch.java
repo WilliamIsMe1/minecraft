@@ -1,6 +1,8 @@
 package net.minecraft.block;
 
-import net.minecraft.src.*;
+import net.minecraft.core.Vec3D;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -126,7 +128,7 @@ public class BlockTorch extends Block {
 		}
 	}
 
-	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
+	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
 		int var7 = var1.getBlockMetadata(var2, var3, var4) & 7;
 		float var8 = 0.15F;
 		if(var7 == 1) {

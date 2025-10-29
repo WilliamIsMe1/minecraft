@@ -5,8 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.minecraft.item.Item;
-import net.minecraft.src.StatCrafting;
-import net.minecraft.src.StringTranslate;
+import net.minecraft.achievement.stats.StatCrafting;
+import net.minecraft.core.StringTranslate;
 import net.minecraft.client.render.Tessellator;
 import org.lwjgl.input.Mouse;
 

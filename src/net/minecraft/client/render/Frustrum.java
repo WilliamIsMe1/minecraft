@@ -1,8 +1,6 @@
 package net.minecraft.client.render;
 
-import net.minecraft.src.AxisAlignedBB;
-import net.minecraft.src.ClippingHelper;
-import net.minecraft.src.ClippingHelperImpl;
+import net.minecraft.misc.AxisAlignedBB;
 
 public class Frustrum implements ICamera {
 	private ClippingHelper clippingHelper = ClippingHelperImpl.getInstance();

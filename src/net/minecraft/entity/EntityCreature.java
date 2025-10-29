@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.Vec3D;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.world.World;
 
 public class EntityCreature extends EntityLiving {

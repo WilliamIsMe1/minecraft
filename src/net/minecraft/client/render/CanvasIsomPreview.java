@@ -1,8 +1,10 @@
 package net.minecraft.client.render;
 
+import net.minecraft.client.EnumOS1;
+import net.minecraft.client.OsMap;
+import net.minecraft.core.save.SaveHandler;
 import net.minecraft.isom.IsoImageBuffer;
 import net.minecraft.isom.ThreadRunIsoClient;
-import net.minecraft.src.*;
 import net.minecraft.world.ChunkCoordinates;
 import net.minecraft.world.World;
 

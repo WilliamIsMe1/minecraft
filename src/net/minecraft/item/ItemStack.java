@@ -2,7 +2,7 @@ package net.minecraft.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.achievement.stats.StatList;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -64,7 +64,7 @@ public final class ItemStack {
 	public boolean useItem(net.minecraft.entity.EntityPlayer var1, net.minecraft.world.World var2, int var3, int var4, int var5, int var6) {
 		boolean var7 = this.getItem().onItemUse(this, var1, var2, var3, var4, var5, var6);
 		if(var7) {
-			var1.addStat(StatList.field_25172_A[this.itemID], 1);
+			var1.addStat(net.minecraft.achievement.stats.StatList.field_25172_A[this.itemID], 1);
 		}
 
 		return var7;
@@ -132,7 +132,7 @@ public final class ItemStack {
 			this.itemDamage += var1;
 			if(this.itemDamage > this.getMaxDamage()) {
 				if(var2 instanceof net.minecraft.entity.EntityPlayer) {
-					((net.minecraft.entity.EntityPlayer)var2).addStat(StatList.field_25170_B[this.itemID], 1);
+					((net.minecraft.entity.EntityPlayer)var2).addStat(net.minecraft.achievement.stats.StatList.field_25170_B[this.itemID], 1);
 				}
 
 				--this.stackSize;
@@ -149,7 +149,7 @@ public final class ItemStack {
 	public void hitEntity(net.minecraft.entity.EntityLiving var1, net.minecraft.entity.EntityPlayer var2) {
 		boolean var3 = Item.itemsList[this.itemID].hitEntity(this, var1, var2);
 		if(var3) {
-			var2.addStat(StatList.field_25172_A[this.itemID], 1);
+			var2.addStat(net.minecraft.achievement.stats.StatList.field_25172_A[this.itemID], 1);
 		}
 
 	}
@@ -157,7 +157,7 @@ public final class ItemStack {
 	public void onDestroyBlock(int var1, int var2, int var3, int var4, net.minecraft.entity.EntityPlayer var5) {
 		boolean var6 = Item.itemsList[this.itemID].onBlockDestroyed(this, var1, var2, var3, var4, var5);
 		if(var6) {
-			var5.addStat(StatList.field_25172_A[this.itemID], 1);
+			var5.addStat(net.minecraft.achievement.stats.StatList.field_25172_A[this.itemID], 1);
 		}
 
 	}

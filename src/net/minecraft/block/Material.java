@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import net.minecraft.src.MapColor;
+import net.minecraft.map.MapColor;
 
 public class Material {
 	public static final Material air = new MaterialTransparent(MapColor.airColor);

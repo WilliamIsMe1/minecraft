@@ -1,6 +1,9 @@
 package net.minecraft.entity;
 
-import net.minecraft.src.*;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -39,7 +42,7 @@ public class EntityFireball extends net.minecraft.entity.Entity {
 		this.setSize(1.0F, 1.0F);
 		this.setLocationAndAngles(var2, var4, var6, this.rotationYaw, this.rotationPitch);
 		this.setPosition(var2, var4, var6);
-		double var14 = (double) MathHelper.sqrt_double(var8 * var8 + var10 * var10 + var12 * var12);
+		double var14 = (double) net.minecraft.core.MathHelper.sqrt_double(var8 * var8 + var10 * var10 + var12 * var12);
 		this.field_9405_b = var8 / var14 * 0.1D;
 		this.field_9404_c = var10 / var14 * 0.1D;
 		this.field_9403_d = var12 / var14 * 0.1D;
@@ -56,7 +59,7 @@ public class EntityFireball extends net.minecraft.entity.Entity {
 		var3 += this.rand.nextGaussian() * 0.4D;
 		var5 += this.rand.nextGaussian() * 0.4D;
 		var7 += this.rand.nextGaussian() * 0.4D;
-		double var9 = (double)MathHelper.sqrt_double(var3 * var3 + var5 * var5 + var7 * var7);
+		double var9 = (double) net.minecraft.core.MathHelper.sqrt_double(var3 * var3 + var5 * var5 + var7 * var7);
 		this.field_9405_b = var3 / var9 * 0.1D;
 		this.field_9404_c = var5 / var9 * 0.1D;
 		this.field_9403_d = var7 / var9 * 0.1D;
@@ -90,13 +93,13 @@ public class EntityFireball extends net.minecraft.entity.Entity {
 			++this.field_9395_l;
 		}
 
-		Vec3D var15 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-		Vec3D var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-		MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
-		var15 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-		var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		net.minecraft.core.Vec3D var15 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
+		net.minecraft.core.Vec3D var2 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		net.minecraft.misc.MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
+		var15 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
+		var2 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 		if(var3 != null) {
-			var2 = Vec3D.createVector(var3.hitVec.xCoord, var3.hitVec.yCoord, var3.hitVec.zCoord);
+			var2 = net.minecraft.core.Vec3D.createVector(var3.hitVec.xCoord, var3.hitVec.yCoord, var3.hitVec.zCoord);
 		}
 
 		net.minecraft.entity.Entity var4 = null;
@@ -108,7 +111,7 @@ public class EntityFireball extends net.minecraft.entity.Entity {
 			if(var9.canBeCollidedWith() && (var9 != this.field_9397_j || this.field_9395_l >= 25)) {
 				float var10 = 0.3F;
 				AxisAlignedBB var11 = var9.boundingBox.expand((double)var10, (double)var10, (double)var10);
-				MovingObjectPosition var12 = var11.func_1169_a(var15, var2);
+				net.minecraft.misc.MovingObjectPosition var12 = var11.func_1169_a(var15, var2);
 				if(var12 != null) {
 					double var13 = var15.distanceTo(var12.hitVec);
 					if(var13 < var6 || var6 == 0.0D) {

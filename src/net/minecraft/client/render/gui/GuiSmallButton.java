@@ -1,6 +1,6 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.src.EnumOptions;
+import net.minecraft.client.EnumOptions;
 
 public class GuiSmallButton extends GuiButton {
 	private final EnumOptions enumOptions;

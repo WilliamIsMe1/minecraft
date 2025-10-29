@@ -10,7 +10,7 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import net.minecraft.src.UnexpectedThrowable;
+import net.minecraft.core.UnexpectedThrowable;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
 

@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import net.minecraft.entity.EntityPlayer;
 import net.minecraft.entity.EnumMobType;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class BlockPressurePlate extends Block {
 		return 20;
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public net.minecraft.misc.AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		return null;
 	}
 
@@ -77,11 +77,11 @@ public class BlockPressurePlate extends Block {
 		float var7 = 2.0F / 16.0F;
 		List var8 = null;
 		if(this.triggerMobType == net.minecraft.entity.EnumMobType.everything) {
-			var8 = var1.getEntitiesWithinAABBExcludingEntity((net.minecraft.entity.Entity)null, AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var7), (double)var3, (double)((float)var4 + var7), (double)((float)(var2 + 1) - var7), (double)var3 + 0.25D, (double)((float)(var4 + 1) - var7)));
+			var8 = var1.getEntitiesWithinAABBExcludingEntity((net.minecraft.entity.Entity)null, net.minecraft.misc.AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var7), (double)var3, (double)((float)var4 + var7), (double)((float)(var2 + 1) - var7), (double)var3 + 0.25D, (double)((float)(var4 + 1) - var7)));
 		}
 
 		if(this.triggerMobType == net.minecraft.entity.EnumMobType.mobs) {
-			var8 = var1.getEntitiesWithinAABB(net.minecraft.entity.EntityLiving.class, AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var7), (double)var3, (double)((float)var4 + var7), (double)((float)(var2 + 1) - var7), (double)var3 + 0.25D, (double)((float)(var4 + 1) - var7)));
+			var8 = var1.getEntitiesWithinAABB(net.minecraft.entity.EntityLiving.class, net.minecraft.misc.AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var7), (double)var3, (double)((float)var4 + var7), (double)((float)(var2 + 1) - var7), (double)var3 + 0.25D, (double)((float)(var4 + 1) - var7)));
 		}
 
 		if(this.triggerMobType == EnumMobType.players) {

@@ -1,7 +1,6 @@
 package net.minecraft.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.src.EnumToolMaterial;
 
 public class ItemAxe extends ItemTool {
 	private static net.minecraft.block.Block[] blocksEffectiveAgainst = new net.minecraft.block.Block[]{net.minecraft.block.Block.planks, net.minecraft.block.Block.bookShelf, net.minecraft.block.Block.wood, Block.chest};

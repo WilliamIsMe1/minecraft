@@ -2,7 +2,7 @@ package net.minecraft.client.render.gui;
 
 import net.minecraft.block.TileEntityFurnace;
 import net.minecraft.item.InventoryPlayer;
-import net.minecraft.src.ContainerFurnace;
+import net.minecraft.item.container.ContainerFurnace;
 import org.lwjgl.opengl.GL11;
 
 public class GuiFurnace extends GuiContainer {

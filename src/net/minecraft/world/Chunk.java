@@ -4,10 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.TileEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.AxisAlignedBB;
-import net.minecraft.src.EnumSkyBlock;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.NibbleArray;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.block.EnumSkyBlock;
+import net.minecraft.core.MathHelper;
+import net.minecraft.misc.NibbleArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;

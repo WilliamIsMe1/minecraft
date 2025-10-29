@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 public class BlockFence extends Block {

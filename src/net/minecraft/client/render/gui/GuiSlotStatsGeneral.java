@@ -1,7 +1,7 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.src.StatBase;
-import net.minecraft.src.StatList;
+import net.minecraft.achievement.stats.StatBase;
+import net.minecraft.achievement.stats.StatList;
 import net.minecraft.client.render.Tessellator;
 
 class GuiSlotStatsGeneral extends GuiSlot {

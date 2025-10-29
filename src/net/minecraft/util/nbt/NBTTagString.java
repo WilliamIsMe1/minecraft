@@ -17,11 +17,11 @@ public class NBTTagString extends NBTBase {
 		}
 	}
 
-	void writeTagContents(DataOutput var1) throws IOException {
+	public void writeTagContents(DataOutput var1) throws IOException {
 		var1.writeUTF(this.stringValue);
 	}
 
-	void readTagContents(DataInput var1) throws IOException {
+	public void readTagContents(DataInput var1) throws IOException {
 		this.stringValue = var1.readUTF();
 	}
 

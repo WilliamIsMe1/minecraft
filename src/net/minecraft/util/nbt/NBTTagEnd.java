@@ -5,10 +5,10 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class NBTTagEnd extends NBTBase {
-	void readTagContents(DataInput var1) throws IOException {
+	public void readTagContents(DataInput var1) throws IOException {
 	}
 
-	void writeTagContents(DataOutput var1) throws IOException {
+	public void writeTagContents(DataOutput var1) throws IOException {
 	}
 
 	public byte getType() {

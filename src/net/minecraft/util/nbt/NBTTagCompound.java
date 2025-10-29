@@ -11,7 +11,7 @@ import java.util.Map;
 public class NBTTagCompound extends NBTBase {
 	private Map tagMap = new HashMap();
 
-	void writeTagContents(DataOutput var1) throws IOException {
+	public void writeTagContents(DataOutput var1) throws IOException {
 		Iterator var2 = this.tagMap.values().iterator();
 
 		while(var2.hasNext()) {
@@ -22,7 +22,7 @@ public class NBTTagCompound extends NBTBase {
 		var1.writeByte(0);
 	}
 
-	void readTagContents(DataInput var1) throws IOException {
+	public void readTagContents(DataInput var1) throws IOException {
 		this.tagMap.clear();
 
 		while(true) {

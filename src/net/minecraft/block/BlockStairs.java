@@ -1,7 +1,9 @@
 package net.minecraft.block;
 
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class BlockStairs extends Block {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public net.minecraft.misc.AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		return super.getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
 	}
 
@@ -43,7 +45,7 @@ public class BlockStairs extends Block {
 		return super.shouldSideBeRendered(var1, var2, var3, var4, var5);
 	}
 
-	public void getCollidingBoundingBoxes(net.minecraft.world.World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList var6) {
+	public void getCollidingBoundingBoxes(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.misc.AxisAlignedBB var5, ArrayList var6) {
 		int var7 = var1.getBlockMetadata(var2, var3, var4);
 		if(var7 == 0) {
 			this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.5F, 0.5F, 1.0F);

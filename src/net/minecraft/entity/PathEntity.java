@@ -1,6 +1,6 @@
 package net.minecraft.entity;
 
-import net.minecraft.src.Vec3D;
+import net.minecraft.core.Vec3D;
 
 public class PathEntity {
 	private final PathPoint[] points;

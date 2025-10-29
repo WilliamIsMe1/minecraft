@@ -9,7 +9,7 @@ import net.minecraft.entity.EntityPlayerSP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class RenderPlayer extends RenderLiving {

@@ -3,7 +3,7 @@ package net.minecraft.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 import net.minecraft.world.World;
 
 public class ItemDoor extends Item {

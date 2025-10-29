@@ -19,6 +19,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.gui.GuiConnectFailed;
 import net.minecraft.client.render.gui.GuiDownloadTerrain;
 import net.minecraft.client.render.gui.GuiScreen;
+import net.minecraft.core.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityArrow;
 import net.minecraft.entity.EntityBoat;
@@ -39,12 +40,15 @@ import net.minecraft.entity.EntityPlayer;
 import net.minecraft.entity.EntityPlayerSP;
 import net.minecraft.entity.EntitySnowball;
 import net.minecraft.entity.EntityTNTPrimed;
+import net.minecraft.entity.Explosion;
 import net.minecraft.entity.PlayerControllerMP;
 import net.minecraft.item.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.*;
+import net.minecraft.item.container.Container;
+import net.minecraft.map.MapStorage;
+import net.minecraft.achievement.stats.StatList;
 import net.minecraft.world.ChunkCoordinates;
 import net.minecraft.world.ISaveHandler;
 import net.minecraft.world.World;
@@ -57,7 +61,7 @@ public class NetClientHandler extends NetHandler {
 	private Minecraft mc;
 	private net.minecraft.world.WorldClient worldClient;
 	private boolean field_1210_g = false;
-	public MapStorage field_28118_b = new MapStorage((ISaveHandler)null);
+	public net.minecraft.map.MapStorage field_28118_b = new MapStorage((ISaveHandler)null);
 	Random rand = new Random();
 
 	public NetClientHandler(Minecraft var1, String var2, int var3) throws IOException, UnknownHostException {
@@ -76,7 +80,7 @@ public class NetClientHandler extends NetHandler {
 
 	public void handleLogin(Packet1Login var1) {
 		this.mc.playerController = new PlayerControllerMP(this.mc, this);
-		this.mc.statFileWriter.readStat(StatList.joinMultiplayerStat, 1);
+		this.mc.statFileWriter.readStat(net.minecraft.achievement.stats.StatList.joinMultiplayerStat, 1);
 		this.worldClient = new net.minecraft.world.WorldClient(this, var1.mapSeed, var1.dimension);
 		this.worldClient.multiplayerWorld = true;
 		this.mc.changeWorld1(this.worldClient);
@@ -517,7 +521,7 @@ public class NetClientHandler extends NetHandler {
 	}
 
 	public void func_12245_a(Packet60Explosion var1) {
-		Explosion var2 = new Explosion(this.mc.theWorld, (net.minecraft.entity.Entity)null, var1.explosionX, var1.explosionY, var1.explosionZ, var1.explosionSize);
+		net.minecraft.entity.Explosion var2 = new Explosion(this.mc.theWorld, (net.minecraft.entity.Entity)null, var1.explosionX, var1.explosionY, var1.explosionZ, var1.explosionSize);
 		var2.destroyedBlockPositions = var1.destroyedBlockPositions;
 		var2.doExplosionB(true);
 	}
@@ -537,7 +541,7 @@ public class NetClientHandler extends NetHandler {
 			this.mc.thePlayer.craftingInventory.windowId = var1.windowId;
 		} else if(var1.inventoryType == 1) {
 			EntityPlayerSP var5 = this.mc.thePlayer;
-			this.mc.thePlayer.displayWorkbenchGUI(MathHelper.floor_double(var5.posX), MathHelper.floor_double(var5.posY), MathHelper.floor_double(var5.posZ));
+			this.mc.thePlayer.displayWorkbenchGUI(net.minecraft.core.MathHelper.floor_double(var5.posX), net.minecraft.core.MathHelper.floor_double(var5.posY), MathHelper.floor_double(var5.posZ));
 			this.mc.thePlayer.craftingInventory.windowId = var1.windowId;
 		}
 

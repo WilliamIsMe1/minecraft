@@ -3,7 +3,8 @@ package net.minecraft.block;
 import net.minecraft.entity.EntityItem;
 import net.minecraft.entity.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.achievement.stats.StatList;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -15,7 +16,7 @@ public class BlockSnow extends Block {
 		this.setTickOnLoad(true);
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public net.minecraft.misc.AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockMetadata(var2, var3, var4) & 7;
 		return var5 >= 3 ? AxisAlignedBB.getBoundingBoxFromPool((double)var2 + this.minX, (double)var3 + this.minY, (double)var4 + this.minZ, (double)var2 + this.maxX, (double)((float)var3 + 0.5F), (double)var4 + this.maxZ) : null;
 	}

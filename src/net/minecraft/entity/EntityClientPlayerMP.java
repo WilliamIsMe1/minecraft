@@ -1,10 +1,12 @@
 package net.minecraft.entity;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.MathHelper;
+import net.minecraft.client.Session;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetClientHandler;
 import net.minecraft.network.Packet101CloseWindow;
-import net.minecraft.src.*;
+import net.minecraft.achievement.stats.StatBase;
 import net.minecraft.world.World;
 
 public class EntityClientPlayerMP extends EntityPlayerSP {
@@ -34,7 +36,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 	}
 
 	public void onUpdate() {
-		if(this.worldObj.blockExists(MathHelper.floor_double(this.posX), 64, MathHelper.floor_double(this.posZ))) {
+		if(this.worldObj.blockExists(net.minecraft.core.MathHelper.floor_double(this.posX), 64, MathHelper.floor_double(this.posZ))) {
 			super.onUpdate();
 			this.func_4056_N();
 		}
@@ -150,7 +152,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 
 	}
 
-	public void addStat(StatBase var1, int var2) {
+	public void addStat(net.minecraft.achievement.stats.StatBase var1, int var2) {
 		if(var1 != null) {
 			if(var1.field_27088_g) {
 				super.addStat(var1, var2);

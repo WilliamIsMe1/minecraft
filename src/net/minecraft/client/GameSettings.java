@@ -6,7 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-import net.minecraft.src.*;
+import net.minecraft.core.StringTranslate;
+import net.minecraft.achievement.stats.StatCollector;
 import org.lwjgl.input.Keyboard;
 
 public class GameSettings {

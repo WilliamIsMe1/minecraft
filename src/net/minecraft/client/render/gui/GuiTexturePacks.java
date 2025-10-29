@@ -3,7 +3,7 @@ package net.minecraft.client.render.gui;
 import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.FontRenderer;
-import net.minecraft.src.StringTranslate;
+import net.minecraft.core.StringTranslate;
 import org.lwjgl.Sys;
 
 public class GuiTexturePacks extends GuiScreen {

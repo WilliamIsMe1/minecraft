@@ -2,8 +2,8 @@ package net.minecraft.network;
 
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.src.DataWatcher;
-import net.minecraft.src.MathHelper;
+import net.minecraft.misc.DataWatcher;
+import net.minecraft.core.MathHelper;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

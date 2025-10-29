@@ -1,9 +1,13 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.Material;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
+import net.minecraft.achievement.stats.StatList;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -68,15 +72,15 @@ public class EntityFish extends net.minecraft.entity.Entity {
 		this.angler.fishEntity = this;
 		this.setSize(0.25F, 0.25F);
 		this.setLocationAndAngles(var2.posX, var2.posY + 1.62D - (double)var2.yOffset, var2.posZ, var2.rotationYaw, var2.rotationPitch);
-		this.posX -= (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+		this.posX -= (double)(net.minecraft.core.MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
 		this.posY -= (double)0.1F;
-		this.posZ -= (double)(MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+		this.posZ -= (double)(net.minecraft.core.MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
 		this.setPosition(this.posX, this.posY, this.posZ);
 		this.yOffset = 0.0F;
 		float var3 = 0.4F;
-		this.motionX = (double)(-MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
-		this.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
-		this.motionY = (double)(-MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
+		this.motionX = (double)(-net.minecraft.core.MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
+		this.motionZ = (double)(net.minecraft.core.MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
+		this.motionY = (double)(-net.minecraft.core.MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
 		this.func_4042_a(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
 	}
 
@@ -90,7 +94,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 	}
 
 	public void func_4042_a(double var1, double var3, double var5, float var7, float var8) {
-		float var9 = MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
+		float var9 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
 		var1 /= (double)var9;
 		var3 /= (double)var9;
 		var5 /= (double)var9;
@@ -103,7 +107,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 		this.motionX = var1;
 		this.motionY = var3;
 		this.motionZ = var5;
-		float var10 = MathHelper.sqrt_double(var1 * var1 + var5 * var5);
+		float var10 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var5 * var5);
 		this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(var1, var5) * 180.0D / (double)((float)Math.PI));
 		this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(var3, (double)var10) * 180.0D / (double)((float)Math.PI));
 		this.ticksInGround = 0;
@@ -193,11 +197,11 @@ public class EntityFish extends net.minecraft.entity.Entity {
 				++this.ticksInAir;
 			}
 
-			Vec3D var20 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-			Vec3D var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-			MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var20, var2);
-			var20 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-			var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+			net.minecraft.core.Vec3D var20 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
+			net.minecraft.core.Vec3D var2 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+			net.minecraft.misc.MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var20, var2);
+			var20 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
+			var2 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 			if(var3 != null) {
 				var2 = Vec3D.createVector(var3.hitVec.xCoord, var3.hitVec.yCoord, var3.hitVec.zCoord);
 			}
@@ -211,8 +215,8 @@ public class EntityFish extends net.minecraft.entity.Entity {
 				net.minecraft.entity.Entity var9 = (Entity)var5.get(var8);
 				if(var9.canBeCollidedWith() && (var9 != this.angler || this.ticksInAir >= 5)) {
 					float var10 = 0.3F;
-					AxisAlignedBB var11 = var9.boundingBox.expand((double)var10, (double)var10, (double)var10);
-					MovingObjectPosition var12 = var11.func_1169_a(var20, var2);
+					net.minecraft.misc.AxisAlignedBB var11 = var9.boundingBox.expand((double)var10, (double)var10, (double)var10);
+					net.minecraft.misc.MovingObjectPosition var12 = var11.func_1169_a(var20, var2);
 					if(var12 != null) {
 						var13 = var20.distanceTo(var12.hitVec);
 						if(var13 < var6 || var6 == 0.0D) {
@@ -239,7 +243,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 
 			if(!this.inGround) {
 				this.moveEntity(this.motionX, this.motionY, this.motionZ);
-				float var24 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+				float var24 = net.minecraft.core.MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 				this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / (double)((float)Math.PI));
 
 				for(this.rotationPitch = (float)(Math.atan2(this.motionY, (double)var24) * 180.0D / (double)((float)Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
@@ -270,7 +274,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 				for(int var28 = 0; var28 < var26; ++var28) {
 					double var14 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double)(var28 + 0) / (double)var26 - 0.125D + 0.125D;
 					double var16 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double)(var28 + 1) / (double)var26 - 0.125D + 0.125D;
-					AxisAlignedBB var18 = AxisAlignedBB.getBoundingBoxFromPool(this.boundingBox.minX, var14, this.boundingBox.minZ, this.boundingBox.maxX, var16, this.boundingBox.maxZ);
+					net.minecraft.misc.AxisAlignedBB var18 = AxisAlignedBB.getBoundingBoxFromPool(this.boundingBox.minX, var14, this.boundingBox.minZ, this.boundingBox.maxX, var16, this.boundingBox.maxZ);
 					if(this.worldObj.isAABBInMaterial(var18, Material.water)) {
 						var27 += 1.0D / (double)var26;
 					}
@@ -281,7 +285,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 						--this.ticksCatchable;
 					} else {
 						short var29 = 500;
-						if(this.worldObj.canBlockBeRainedOn(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY) + 1, MathHelper.floor_double(this.posZ))) {
+						if(this.worldObj.canBlockBeRainedOn(net.minecraft.core.MathHelper.floor_double(this.posX), net.minecraft.core.MathHelper.floor_double(this.posY) + 1, net.minecraft.core.MathHelper.floor_double(this.posZ))) {
 							var29 = 300;
 						}
 
@@ -289,7 +293,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 							this.ticksCatchable = this.rand.nextInt(30) + 10;
 							this.motionY -= (double)0.2F;
 							this.worldObj.playSoundAtEntity(this, "random.splash", 0.25F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
-							float var30 = (float)MathHelper.floor_double(this.boundingBox.minY);
+							float var30 = (float) net.minecraft.core.MathHelper.floor_double(this.boundingBox.minY);
 
 							int var15;
 							float var17;
@@ -356,10 +360,10 @@ public class EntityFish extends net.minecraft.entity.Entity {
 			double var2 = this.angler.posX - this.posX;
 			double var4 = this.angler.posY - this.posY;
 			double var6 = this.angler.posZ - this.posZ;
-			double var8 = (double)MathHelper.sqrt_double(var2 * var2 + var4 * var4 + var6 * var6);
+			double var8 = (double) net.minecraft.core.MathHelper.sqrt_double(var2 * var2 + var4 * var4 + var6 * var6);
 			double var10 = 0.1D;
 			this.bobber.motionX += var2 * var10;
-			this.bobber.motionY += var4 * var10 + (double)MathHelper.sqrt_double(var8) * 0.08D;
+			this.bobber.motionY += var4 * var10 + (double) net.minecraft.core.MathHelper.sqrt_double(var8) * 0.08D;
 			this.bobber.motionZ += var6 * var10;
 			var1 = 3;
 		} else if(this.ticksCatchable > 0) {
@@ -367,10 +371,10 @@ public class EntityFish extends net.minecraft.entity.Entity {
 			double var3 = this.angler.posX - this.posX;
 			double var5 = this.angler.posY - this.posY;
 			double var7 = this.angler.posZ - this.posZ;
-			double var9 = (double)MathHelper.sqrt_double(var3 * var3 + var5 * var5 + var7 * var7);
+			double var9 = (double) net.minecraft.core.MathHelper.sqrt_double(var3 * var3 + var5 * var5 + var7 * var7);
 			double var11 = 0.1D;
 			var13.motionX = var3 * var11;
-			var13.motionY = var5 * var11 + (double)MathHelper.sqrt_double(var9) * 0.08D;
+			var13.motionY = var5 * var11 + (double) MathHelper.sqrt_double(var9) * 0.08D;
 			var13.motionZ = var7 * var11;
 			this.worldObj.entityJoinedWorld(var13);
 			this.angler.addStat(StatList.fishCaughtStat, 1);

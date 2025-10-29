@@ -10,7 +10,7 @@ public class NBTTagList extends NBTBase {
 	private List tagList = new ArrayList();
 	private byte tagType;
 
-	void writeTagContents(DataOutput var1) throws IOException {
+	public void writeTagContents(DataOutput var1) throws IOException {
 		if(this.tagList.size() > 0) {
 			this.tagType = ((NBTBase)this.tagList.get(0)).getType();
 		} else {
@@ -26,7 +26,7 @@ public class NBTTagList extends NBTBase {
 
 	}
 
-	void readTagContents(DataInput var1) throws IOException {
+	public void readTagContents(DataInput var1) throws IOException {
 		this.tagType = var1.readByte();
 		int var2 = var1.readInt();
 		this.tagList = new ArrayList();

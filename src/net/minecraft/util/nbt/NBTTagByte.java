@@ -14,11 +14,11 @@ public class NBTTagByte extends NBTBase {
 		this.byteValue = var1;
 	}
 
-	void writeTagContents(DataOutput var1) throws IOException {
+	public void writeTagContents(DataOutput var1) throws IOException {
 		var1.writeByte(this.byteValue);
 	}
 
-	void readTagContents(DataInput var1) throws IOException {
+	public void readTagContents(DataInput var1) throws IOException {
 		this.byteValue = var1.readByte();
 	}
 

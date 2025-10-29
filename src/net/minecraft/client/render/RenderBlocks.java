@@ -13,8 +13,8 @@ import net.minecraft.block.IBlockAccess;
 import net.minecraft.block.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityRenderer;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.Vec3D;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 

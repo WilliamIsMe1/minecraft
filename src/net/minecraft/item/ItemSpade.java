@@ -1,7 +1,6 @@
 package net.minecraft.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.src.EnumToolMaterial;
 
 public class ItemSpade extends ItemTool {
 	private static net.minecraft.block.Block[] blocksEffectiveAgainst = new net.minecraft.block.Block[]{net.minecraft.block.Block.grass, net.minecraft.block.Block.dirt, net.minecraft.block.Block.sand, net.minecraft.block.Block.gravel, net.minecraft.block.Block.snow, net.minecraft.block.Block.blockSnow, net.minecraft.block.Block.blockClay, net.minecraft.block.Block.tilledField};

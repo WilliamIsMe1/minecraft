@@ -1,7 +1,5 @@
 package net.minecraft.util.json;
 
-import net.minecraft.src.EnumJsonNodeTypeMappingHelper;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;

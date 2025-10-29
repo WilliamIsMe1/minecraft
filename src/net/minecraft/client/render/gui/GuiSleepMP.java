@@ -3,7 +3,7 @@ package net.minecraft.client.render.gui;
 import net.minecraft.entity.EntityClientPlayerMP;
 import net.minecraft.network.NetClientHandler;
 import net.minecraft.network.Packet19EntityAction;
-import net.minecraft.src.StringTranslate;
+import net.minecraft.core.StringTranslate;
 import org.lwjgl.input.Keyboard;
 
 public class GuiSleepMP extends GuiChat {

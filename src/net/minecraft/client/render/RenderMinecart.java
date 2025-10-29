@@ -3,8 +3,8 @@ package net.minecraft.client.render;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityMinecart;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.Vec3D;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import org.lwjgl.opengl.GL11;
 
 public class RenderMinecart extends Render {

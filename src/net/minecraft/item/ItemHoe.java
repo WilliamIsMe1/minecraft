@@ -2,7 +2,6 @@ package net.minecraft.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.EnumToolMaterial;
 import net.minecraft.world.World;
 
 public class ItemHoe extends Item {

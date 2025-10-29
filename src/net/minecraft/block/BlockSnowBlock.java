@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import net.minecraft.src.EnumSkyBlock;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 

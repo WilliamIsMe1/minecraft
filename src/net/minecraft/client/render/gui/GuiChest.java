@@ -1,7 +1,7 @@
 package net.minecraft.client.render.gui;
 
 import net.minecraft.item.IInventory;
-import net.minecraft.src.ContainerChest;
+import net.minecraft.item.container.ContainerChest;
 import org.lwjgl.opengl.GL11;
 
 public class GuiChest extends GuiContainer {

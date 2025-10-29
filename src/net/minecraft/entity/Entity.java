@@ -4,8 +4,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFluid;
 import net.minecraft.block.Material;
 import net.minecraft.block.StepSound;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.DataWatcher;
 import net.minecraft.util.nbt.NBTTagList;
 import net.minecraft.world.World;
 
@@ -33,7 +36,7 @@ public abstract class Entity {
 	public float rotationPitch;
 	public float prevRotationYaw;
 	public float prevRotationPitch;
-	public final AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+	public final net.minecraft.misc.AxisAlignedBB boundingBox = net.minecraft.misc.AxisAlignedBB.getBoundingBox(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 	public boolean onGround = false;
 	public boolean isCollidedHorizontally;
 	public boolean isCollidedVertically;
@@ -68,7 +71,7 @@ public abstract class Entity {
 	public String skinUrl;
 	public String cloakUrl;
 	protected boolean isImmuneToFire = false;
-	protected DataWatcher dataWatcher = new DataWatcher();
+	protected net.minecraft.misc.DataWatcher dataWatcher = new net.minecraft.misc.DataWatcher();
 	public float entityBrightness = 0.0F;
 	private double entityRiderPitchDelta;
 	private double entityRiderYawDelta;
@@ -176,13 +179,13 @@ public abstract class Entity {
 		this.prevRotationYaw = this.rotationYaw;
 		if(this.handleWaterMovement()) {
 			if(!this.inWater && !this.isFirstUpdate) {
-				float var1 = MathHelper.sqrt_double(this.motionX * this.motionX * (double)0.2F + this.motionY * this.motionY + this.motionZ * this.motionZ * (double)0.2F) * 0.2F;
+				float var1 = net.minecraft.core.MathHelper.sqrt_double(this.motionX * this.motionX * (double)0.2F + this.motionY * this.motionY + this.motionZ * this.motionZ * (double)0.2F) * 0.2F;
 				if(var1 > 1.0F) {
 					var1 = 1.0F;
 				}
 
 				this.worldObj.playSoundAtEntity(this, "random.splash", var1, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
-				float var2 = (float)MathHelper.floor_double(this.boundingBox.minY);
+				float var2 = (float) net.minecraft.core.MathHelper.floor_double(this.boundingBox.minY);
 
 				int var3;
 				float var4;
@@ -253,7 +256,7 @@ public abstract class Entity {
 	}
 
 	public boolean isOffsetPositionInLiquid(double var1, double var3, double var5) {
-		AxisAlignedBB var7 = this.boundingBox.getOffsetBoundingBox(var1, var3, var5);
+		net.minecraft.misc.AxisAlignedBB var7 = this.boundingBox.getOffsetBoundingBox(var1, var3, var5);
 		List var8 = this.worldObj.getCollidingBoundingBoxes(this, var7);
 		return var8.size() > 0 ? false : !this.worldObj.getIsAnyLiquid(var7);
 	}
@@ -281,7 +284,7 @@ public abstract class Entity {
 			double var11 = var1;
 			double var13 = var3;
 			double var15 = var5;
-			AxisAlignedBB var17 = this.boundingBox.copy();
+			net.minecraft.misc.AxisAlignedBB var17 = this.boundingBox.copy();
 			boolean var18 = this.onGround && this.isSneaking();
 			if(var18) {
 				double var19;
@@ -309,7 +312,7 @@ public abstract class Entity {
 			List var35 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(var1, var3, var5));
 
 			for(int var20 = 0; var20 < var35.size(); ++var20) {
-				var3 = ((AxisAlignedBB)var35.get(var20)).calculateYOffset(this.boundingBox, var3);
+				var3 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var20)).calculateYOffset(this.boundingBox, var3);
 			}
 
 			this.boundingBox.offset(0.0D, var3, 0.0D);
@@ -323,7 +326,7 @@ public abstract class Entity {
 
 			int var21;
 			for(var21 = 0; var21 < var35.size(); ++var21) {
-				var1 = ((AxisAlignedBB)var35.get(var21)).calculateXOffset(this.boundingBox, var1);
+				var1 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var21)).calculateXOffset(this.boundingBox, var1);
 			}
 
 			this.boundingBox.offset(var1, 0.0D, 0.0D);
@@ -334,7 +337,7 @@ public abstract class Entity {
 			}
 
 			for(var21 = 0; var21 < var35.size(); ++var21) {
-				var5 = ((AxisAlignedBB)var35.get(var21)).calculateZOffset(this.boundingBox, var5);
+				var5 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var21)).calculateZOffset(this.boundingBox, var5);
 			}
 
 			this.boundingBox.offset(0.0D, 0.0D, var5);
@@ -354,12 +357,12 @@ public abstract class Entity {
 				var1 = var11;
 				var3 = (double)this.stepHeight;
 				var5 = var15;
-				AxisAlignedBB var27 = this.boundingBox.copy();
+				net.minecraft.misc.AxisAlignedBB var27 = this.boundingBox.copy();
 				this.boundingBox.setBB(var17);
 				var35 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(var11, var3, var15));
 
 				for(var28 = 0; var28 < var35.size(); ++var28) {
-					var3 = ((AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
+					var3 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
 				}
 
 				this.boundingBox.offset(0.0D, var3, 0.0D);
@@ -370,7 +373,7 @@ public abstract class Entity {
 				}
 
 				for(var28 = 0; var28 < var35.size(); ++var28) {
-					var1 = ((AxisAlignedBB)var35.get(var28)).calculateXOffset(this.boundingBox, var1);
+					var1 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateXOffset(this.boundingBox, var1);
 				}
 
 				this.boundingBox.offset(var1, 0.0D, 0.0D);
@@ -381,7 +384,7 @@ public abstract class Entity {
 				}
 
 				for(var28 = 0; var28 < var35.size(); ++var28) {
-					var5 = ((AxisAlignedBB)var35.get(var28)).calculateZOffset(this.boundingBox, var5);
+					var5 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateZOffset(this.boundingBox, var5);
 				}
 
 				this.boundingBox.offset(0.0D, 0.0D, var5);
@@ -399,7 +402,7 @@ public abstract class Entity {
 					var3 = (double)(-this.stepHeight);
 
 					for(var28 = 0; var28 < var35.size(); ++var28) {
-						var3 = ((AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
+						var3 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
 					}
 
 					this.boundingBox.offset(0.0D, var3, 0.0D);
@@ -444,10 +447,10 @@ public abstract class Entity {
 			int var38;
 			int var39;
 			if(this.canTriggerWalking() && !var18 && this.ridingEntity == null) {
-				this.distanceWalkedModified = (float)((double)this.distanceWalkedModified + (double)MathHelper.sqrt_double(var37 * var37 + var23 * var23) * 0.6D);
-				var38 = MathHelper.floor_double(this.posX);
-				var26 = MathHelper.floor_double(this.posY - (double)0.2F - (double)this.yOffset);
-				var39 = MathHelper.floor_double(this.posZ);
+				this.distanceWalkedModified = (float)((double)this.distanceWalkedModified + (double) net.minecraft.core.MathHelper.sqrt_double(var37 * var37 + var23 * var23) * 0.6D);
+				var38 = net.minecraft.core.MathHelper.floor_double(this.posX);
+				var26 = net.minecraft.core.MathHelper.floor_double(this.posY - (double)0.2F - (double)this.yOffset);
+				var39 = net.minecraft.core.MathHelper.floor_double(this.posZ);
 				var28 = this.worldObj.getBlockId(var38, var26, var39);
 				if(this.worldObj.getBlockId(var38, var26 - 1, var39) == net.minecraft.block.Block.fence.blockID) {
 					var28 = this.worldObj.getBlockId(var38, var26 - 1, var39);
@@ -467,12 +470,12 @@ public abstract class Entity {
 				}
 			}
 
-			var38 = MathHelper.floor_double(this.boundingBox.minX + 0.001D);
-			var26 = MathHelper.floor_double(this.boundingBox.minY + 0.001D);
-			var39 = MathHelper.floor_double(this.boundingBox.minZ + 0.001D);
-			var28 = MathHelper.floor_double(this.boundingBox.maxX - 0.001D);
-			int var40 = MathHelper.floor_double(this.boundingBox.maxY - 0.001D);
-			int var30 = MathHelper.floor_double(this.boundingBox.maxZ - 0.001D);
+			var38 = net.minecraft.core.MathHelper.floor_double(this.boundingBox.minX + 0.001D);
+			var26 = net.minecraft.core.MathHelper.floor_double(this.boundingBox.minY + 0.001D);
+			var39 = net.minecraft.core.MathHelper.floor_double(this.boundingBox.minZ + 0.001D);
+			var28 = net.minecraft.core.MathHelper.floor_double(this.boundingBox.maxX - 0.001D);
+			int var40 = net.minecraft.core.MathHelper.floor_double(this.boundingBox.maxY - 0.001D);
+			int var30 = net.minecraft.core.MathHelper.floor_double(this.boundingBox.maxZ - 0.001D);
 			if(this.worldObj.checkChunksExist(var38, var26, var39, var28, var40, var30)) {
 				for(int var31 = var38; var31 <= var28; ++var31) {
 					for(int var32 = var26; var32 <= var40; ++var32) {
@@ -523,7 +526,7 @@ public abstract class Entity {
 
 	}
 
-	public AxisAlignedBB getBoundingBox() {
+	public net.minecraft.misc.AxisAlignedBB getBoundingBox() {
 		return null;
 	}
 
@@ -542,7 +545,7 @@ public abstract class Entity {
 	}
 
 	public boolean isWet() {
-		return this.inWater || this.worldObj.canBlockBeRainedOn(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ));
+		return this.inWater || this.worldObj.canBlockBeRainedOn(net.minecraft.core.MathHelper.floor_double(this.posX), net.minecraft.core.MathHelper.floor_double(this.posY), net.minecraft.core.MathHelper.floor_double(this.posZ));
 	}
 
 	public boolean isInWater() {
@@ -555,9 +558,9 @@ public abstract class Entity {
 
 	public boolean isInsideOfMaterial(net.minecraft.block.Material var1) {
 		double var2 = this.posY + (double)this.getEyeHeight();
-		int var4 = MathHelper.floor_double(this.posX);
-		int var5 = MathHelper.floor_float((float)MathHelper.floor_double(var2));
-		int var6 = MathHelper.floor_double(this.posZ);
+		int var4 = net.minecraft.core.MathHelper.floor_double(this.posX);
+		int var5 = net.minecraft.core.MathHelper.floor_float((float) net.minecraft.core.MathHelper.floor_double(var2));
+		int var6 = net.minecraft.core.MathHelper.floor_double(this.posZ);
 		int var7 = this.worldObj.getBlockId(var4, var5, var6);
 		if(var7 != 0 && Block.blocksList[var7].blockMaterial == var1) {
 			float var8 = BlockFluid.getPercentAir(this.worldObj.getBlockMetadata(var4, var5, var6)) - 1.0F / 9.0F;
@@ -577,7 +580,7 @@ public abstract class Entity {
 	}
 
 	public void moveFlying(float var1, float var2, float var3) {
-		float var4 = MathHelper.sqrt_float(var1 * var1 + var2 * var2);
+		float var4 = net.minecraft.core.MathHelper.sqrt_float(var1 * var1 + var2 * var2);
 		if(var4 >= 0.01F) {
 			if(var4 < 1.0F) {
 				var4 = 1.0F;
@@ -586,19 +589,19 @@ public abstract class Entity {
 			var4 = var3 / var4;
 			var1 *= var4;
 			var2 *= var4;
-			float var5 = MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F);
-			float var6 = MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F);
+			float var5 = net.minecraft.core.MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F);
+			float var6 = net.minecraft.core.MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F);
 			this.motionX += (double)(var1 * var6 - var2 * var5);
 			this.motionZ += (double)(var2 * var6 + var1 * var5);
 		}
 	}
 
 	public float getEntityBrightness(float var1) {
-		int var2 = MathHelper.floor_double(this.posX);
+		int var2 = net.minecraft.core.MathHelper.floor_double(this.posX);
 		double var3 = (this.boundingBox.maxY - this.boundingBox.minY) * 0.66D;
-		int var5 = MathHelper.floor_double(this.posY - (double)this.yOffset + var3);
-		int var6 = MathHelper.floor_double(this.posZ);
-		if(this.worldObj.checkChunksExist(MathHelper.floor_double(this.boundingBox.minX), MathHelper.floor_double(this.boundingBox.minY), MathHelper.floor_double(this.boundingBox.minZ), MathHelper.floor_double(this.boundingBox.maxX), MathHelper.floor_double(this.boundingBox.maxY), MathHelper.floor_double(this.boundingBox.maxZ))) {
+		int var5 = net.minecraft.core.MathHelper.floor_double(this.posY - (double)this.yOffset + var3);
+		int var6 = net.minecraft.core.MathHelper.floor_double(this.posZ);
+		if(this.worldObj.checkChunksExist(net.minecraft.core.MathHelper.floor_double(this.boundingBox.minX), net.minecraft.core.MathHelper.floor_double(this.boundingBox.minY), net.minecraft.core.MathHelper.floor_double(this.boundingBox.minZ), net.minecraft.core.MathHelper.floor_double(this.boundingBox.maxX), net.minecraft.core.MathHelper.floor_double(this.boundingBox.maxY), net.minecraft.core.MathHelper.floor_double(this.boundingBox.maxZ))) {
 			float var7 = this.worldObj.getLightBrightness(var2, var5, var6);
 			if(var7 < this.entityBrightness) {
 				var7 = this.entityBrightness;
@@ -647,7 +650,7 @@ public abstract class Entity {
 		float var2 = (float)(this.posX - var1.posX);
 		float var3 = (float)(this.posY - var1.posY);
 		float var4 = (float)(this.posZ - var1.posZ);
-		return MathHelper.sqrt_float(var2 * var2 + var3 * var3 + var4 * var4);
+		return net.minecraft.core.MathHelper.sqrt_float(var2 * var2 + var3 * var3 + var4 * var4);
 	}
 
 	public double getDistanceSq(double var1, double var3, double var5) {
@@ -661,7 +664,7 @@ public abstract class Entity {
 		double var7 = this.posX - var1;
 		double var9 = this.posY - var3;
 		double var11 = this.posZ - var5;
-		return (double)MathHelper.sqrt_double(var7 * var7 + var9 * var9 + var11 * var11);
+		return (double) net.minecraft.core.MathHelper.sqrt_double(var7 * var7 + var9 * var9 + var11 * var11);
 	}
 
 	public double getDistanceSqToEntity(Entity var1) {
@@ -678,9 +681,9 @@ public abstract class Entity {
 		if(var1.riddenByEntity != this && var1.ridingEntity != this) {
 			double var2 = var1.posX - this.posX;
 			double var4 = var1.posZ - this.posZ;
-			double var6 = MathHelper.abs_max(var2, var4);
+			double var6 = net.minecraft.core.MathHelper.abs_max(var2, var4);
 			if(var6 >= (double)0.01F) {
-				var6 = (double)MathHelper.sqrt_double(var6);
+				var6 = (double) net.minecraft.core.MathHelper.sqrt_double(var6);
 				var2 /= var6;
 				var4 /= var6;
 				double var8 = 1.0D / var6;
@@ -727,7 +730,7 @@ public abstract class Entity {
 	public void addToPlayerScore(Entity var1, int var2) {
 	}
 
-	public boolean isInRangeToRenderVec3D(Vec3D var1) {
+	public boolean isInRangeToRenderVec3D(net.minecraft.core.Vec3D var1) {
 		double var2 = this.posX - var1.xCoord;
 		double var4 = this.posY - var1.yCoord;
 		double var6 = this.posZ - var1.zCoord;
@@ -862,9 +865,9 @@ public abstract class Entity {
 			float var2 = ((float)((var1 >> 0) % 2) - 0.5F) * this.width * 0.9F;
 			float var3 = ((float)((var1 >> 1) % 2) - 0.5F) * 0.1F;
 			float var4 = ((float)((var1 >> 2) % 2) - 0.5F) * this.width * 0.9F;
-			int var5 = MathHelper.floor_double(this.posX + (double)var2);
-			int var6 = MathHelper.floor_double(this.posY + (double)this.getEyeHeight() + (double)var3);
-			int var7 = MathHelper.floor_double(this.posZ + (double)var4);
+			int var5 = net.minecraft.core.MathHelper.floor_double(this.posX + (double)var2);
+			int var6 = net.minecraft.core.MathHelper.floor_double(this.posY + (double)this.getEyeHeight() + (double)var3);
+			int var7 = net.minecraft.core.MathHelper.floor_double(this.posZ + (double)var4);
 			if(this.worldObj.isBlockNormalCube(var5, var6, var7)) {
 				return true;
 			}
@@ -877,7 +880,7 @@ public abstract class Entity {
 		return false;
 	}
 
-	public AxisAlignedBB getCollisionBox(Entity var1) {
+	public net.minecraft.misc.AxisAlignedBB getCollisionBox(Entity var1) {
 		return null;
 	}
 
@@ -983,7 +986,7 @@ public abstract class Entity {
 			double var11 = 0.0D;
 
 			for(int var13 = 0; var13 < var10.size(); ++var13) {
-				AxisAlignedBB var14 = (AxisAlignedBB)var10.get(var13);
+				net.minecraft.misc.AxisAlignedBB var14 = (AxisAlignedBB)var10.get(var13);
 				if(var14.maxY > var11) {
 					var11 = var14.maxY;
 				}
@@ -1063,8 +1066,8 @@ public abstract class Entity {
 	}
 
 	protected boolean pushOutOfBlocks(double var1, double var3, double var5) {
-		int var7 = MathHelper.floor_double(var1);
-		int var8 = MathHelper.floor_double(var3);
+		int var7 = net.minecraft.core.MathHelper.floor_double(var1);
+		int var8 = net.minecraft.core.MathHelper.floor_double(var3);
 		int var9 = MathHelper.floor_double(var5);
 		double var10 = var1 - (double)var7;
 		double var12 = var3 - (double)var8;

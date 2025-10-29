@@ -7,8 +7,10 @@ import net.minecraft.block.TileEntitySign;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MovementInput;
 import net.minecraft.client.render.gui.GuiScreen;
+import net.minecraft.core.MathHelper;
+import net.minecraft.client.Session;
 import net.minecraft.item.IInventory;
-import net.minecraft.src.*;
+import net.minecraft.achievement.stats.StatBase;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -206,8 +208,8 @@ public class EntityPlayerSP extends EntityPlayer {
 	}
 
 	protected boolean pushOutOfBlocks(double var1, double var3, double var5) {
-		int var7 = MathHelper.floor_double(var1);
-		int var8 = MathHelper.floor_double(var3);
+		int var7 = net.minecraft.core.MathHelper.floor_double(var1);
+		int var8 = net.minecraft.core.MathHelper.floor_double(var3);
 		int var9 = MathHelper.floor_double(var5);
 		double var10 = var1 - (double)var7;
 		double var12 = var5 - (double)var9;

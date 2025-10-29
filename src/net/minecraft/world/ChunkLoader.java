@@ -3,10 +3,10 @@ package net.minecraft.world;
 import net.minecraft.block.TileEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.src.CompressedStreamTools;
+import net.minecraft.core.CompressedStreamTools;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.util.nbt.NBTTagList;
-import net.minecraft.src.NibbleArray;
+import net.minecraft.misc.NibbleArray;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -3,8 +3,8 @@ package net.minecraft.entity;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.item.Item;
-import net.minecraft.src.AxisAlignedBB;
-import net.minecraft.src.MathHelper;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.core.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 

@@ -1,7 +1,7 @@
 package net.minecraft.world;
 
 import net.minecraft.entity.EntityChicken;
-import net.minecraft.src.SpawnListEntry;
+import net.minecraft.core.SpawnListEntry;
 
 public class BiomeGenSky extends BiomeGenBase {
 	public BiomeGenSky() {

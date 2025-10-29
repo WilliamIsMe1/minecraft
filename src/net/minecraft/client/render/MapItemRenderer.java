@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import net.minecraft.client.GameSettings;
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.map.MapData;
 import org.lwjgl.opengl.GL11;
 
 public class MapItemRenderer {
@@ -31,7 +31,7 @@ public class MapItemRenderer {
 			if(var5 / 4 == 0) {
 				this.field_28159_a[var4] = (var4 + var4 / 128 & 1) * 8 + 16 << 24;
 			} else {
-				int var6 = MapColor.mapColorArray[var5 / 4].colorValue;
+				int var6 = net.minecraft.map.MapColor.mapColorArray[var5 / 4].colorValue;
 				int var7 = var5 & 3;
 				short var8 = 220;
 				if(var7 == 2) {
@@ -78,7 +78,7 @@ public class MapItemRenderer {
 		Iterator var19 = var3.field_28173_i.iterator();
 
 		while(var19.hasNext()) {
-			MapCoord var20 = (MapCoord)var19.next();
+			net.minecraft.map.MapCoord var20 = (net.minecraft.map.MapCoord)var19.next();
 			GL11.glPushMatrix();
 			GL11.glTranslatef((float)var15 + (float)var20.field_28216_b / 2.0F + 64.0F, (float)var16 + (float)var20.field_28220_c / 2.0F + 64.0F, -0.02F);
 			GL11.glRotatef((float)(var20.field_28219_d * 360) / 16.0F, 0.0F, 0.0F, 1.0F);

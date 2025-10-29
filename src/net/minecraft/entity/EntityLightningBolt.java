@@ -1,7 +1,9 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.Block;
-import net.minecraft.src.*;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -18,18 +20,18 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 		this.field_27028_b = 2;
 		this.field_27029_a = this.rand.nextLong();
 		this.field_27030_c = this.rand.nextInt(3) + 1;
-		if(var1.difficultySetting >= 2 && var1.doChunksNearChunkExist(MathHelper.floor_double(var2), MathHelper.floor_double(var4), MathHelper.floor_double(var6), 10)) {
-			int var8 = MathHelper.floor_double(var2);
-			int var9 = MathHelper.floor_double(var4);
-			int var10 = MathHelper.floor_double(var6);
+		if(var1.difficultySetting >= 2 && var1.doChunksNearChunkExist(net.minecraft.core.MathHelper.floor_double(var2), net.minecraft.core.MathHelper.floor_double(var4), net.minecraft.core.MathHelper.floor_double(var6), 10)) {
+			int var8 = net.minecraft.core.MathHelper.floor_double(var2);
+			int var9 = net.minecraft.core.MathHelper.floor_double(var4);
+			int var10 = net.minecraft.core.MathHelper.floor_double(var6);
 			if(var1.getBlockId(var8, var9, var10) == 0 && net.minecraft.block.Block.fire.canPlaceBlockAt(var1, var8, var9, var10)) {
 				var1.setBlockWithNotify(var8, var9, var10, net.minecraft.block.Block.fire.blockID);
 			}
 
 			for(var8 = 0; var8 < 4; ++var8) {
-				var9 = MathHelper.floor_double(var2) + this.rand.nextInt(3) - 1;
-				var10 = MathHelper.floor_double(var4) + this.rand.nextInt(3) - 1;
-				int var11 = MathHelper.floor_double(var6) + this.rand.nextInt(3) - 1;
+				var9 = net.minecraft.core.MathHelper.floor_double(var2) + this.rand.nextInt(3) - 1;
+				var10 = net.minecraft.core.MathHelper.floor_double(var4) + this.rand.nextInt(3) - 1;
+				int var11 = net.minecraft.core.MathHelper.floor_double(var6) + this.rand.nextInt(3) - 1;
 				if(var1.getBlockId(var9, var10, var11) == 0 && net.minecraft.block.Block.fire.canPlaceBlockAt(var1, var9, var10, var11)) {
 					var1.setBlockWithNotify(var9, var10, var11, net.minecraft.block.Block.fire.blockID);
 				}
@@ -53,9 +55,9 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 				--this.field_27030_c;
 				this.field_27028_b = 1;
 				this.field_27029_a = this.rand.nextLong();
-				if(this.worldObj.doChunksNearChunkExist(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ), 10)) {
-					int var1 = MathHelper.floor_double(this.posX);
-					int var2 = MathHelper.floor_double(this.posY);
+				if(this.worldObj.doChunksNearChunkExist(net.minecraft.core.MathHelper.floor_double(this.posX), net.minecraft.core.MathHelper.floor_double(this.posY), net.minecraft.core.MathHelper.floor_double(this.posZ), 10)) {
+					int var1 = net.minecraft.core.MathHelper.floor_double(this.posX);
+					int var2 = net.minecraft.core.MathHelper.floor_double(this.posY);
 					int var3 = MathHelper.floor_double(this.posZ);
 					if(this.worldObj.getBlockId(var1, var2, var3) == 0 && net.minecraft.block.Block.fire.canPlaceBlockAt(this.worldObj, var1, var2, var3)) {
 						this.worldObj.setBlockWithNotify(var1, var2, var3, Block.fire.blockID);

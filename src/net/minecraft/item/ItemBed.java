@@ -3,7 +3,7 @@ package net.minecraft.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 import net.minecraft.world.World;
 
 public class ItemBed extends Item {

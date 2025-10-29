@@ -1,7 +1,7 @@
 package net.minecraft.world;
 
 import net.minecraft.block.Block;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 
 import java.util.Random;
 

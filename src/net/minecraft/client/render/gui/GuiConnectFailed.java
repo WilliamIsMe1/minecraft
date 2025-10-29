@@ -1,6 +1,6 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.src.StringTranslate;
+import net.minecraft.core.StringTranslate;
 
 public class GuiConnectFailed extends GuiScreen {
 	private String errorMessage;

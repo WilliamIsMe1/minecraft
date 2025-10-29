@@ -14,11 +14,11 @@ public class NBTTagInt extends NBTBase {
 		this.intValue = var1;
 	}
 
-	void writeTagContents(DataOutput var1) throws IOException {
+	public void writeTagContents(DataOutput var1) throws IOException {
 		var1.writeInt(this.intValue);
 	}
 
-	void readTagContents(DataInput var1) throws IOException {
+	public void readTagContents(DataInput var1) throws IOException {
 		this.intValue = var1.readInt();
 	}
 

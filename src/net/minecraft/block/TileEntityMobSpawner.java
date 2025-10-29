@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.nbt.NBTTagCompound;

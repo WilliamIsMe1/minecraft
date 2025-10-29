@@ -1,9 +1,12 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.Block;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -40,14 +43,14 @@ public class EntityArrow extends net.minecraft.entity.Entity {
 		this.doesArrowBelongToPlayer = var2 instanceof net.minecraft.entity.EntityPlayer;
 		this.setSize(0.5F, 0.5F);
 		this.setLocationAndAngles(var2.posX, var2.posY + (double)var2.getEyeHeight(), var2.posZ, var2.rotationYaw, var2.rotationPitch);
-		this.posX -= (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+		this.posX -= (double)(net.minecraft.core.MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
 		this.posY -= (double)0.1F;
-		this.posZ -= (double)(MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+		this.posZ -= (double)(net.minecraft.core.MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
 		this.setPosition(this.posX, this.posY, this.posZ);
 		this.yOffset = 0.0F;
-		this.motionX = (double)(-MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
-		this.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
-		this.motionY = (double)(-MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI));
+		this.motionX = (double)(-net.minecraft.core.MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
+		this.motionZ = (double)(net.minecraft.core.MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
+		this.motionY = (double)(-net.minecraft.core.MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI));
 		this.setArrowHeading(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
 	}
 
@@ -55,7 +58,7 @@ public class EntityArrow extends net.minecraft.entity.Entity {
 	}
 
 	public void setArrowHeading(double var1, double var3, double var5, float var7, float var8) {
-		float var9 = MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
+		float var9 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
 		var1 /= (double)var9;
 		var3 /= (double)var9;
 		var5 /= (double)var9;
@@ -68,7 +71,7 @@ public class EntityArrow extends net.minecraft.entity.Entity {
 		this.motionX = var1;
 		this.motionY = var3;
 		this.motionZ = var5;
-		float var10 = MathHelper.sqrt_double(var1 * var1 + var5 * var5);
+		float var10 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var5 * var5);
 		this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(var1, var5) * 180.0D / (double)((float)Math.PI));
 		this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(var3, (double)var10) * 180.0D / (double)((float)Math.PI));
 		this.ticksInGround = 0;
@@ -79,7 +82,7 @@ public class EntityArrow extends net.minecraft.entity.Entity {
 		this.motionY = var3;
 		this.motionZ = var5;
 		if(this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
-			float var7 = MathHelper.sqrt_double(var1 * var1 + var5 * var5);
+			float var7 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var5 * var5);
 			this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(var1, var5) * 180.0D / (double)((float)Math.PI));
 			this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(var3, (double)var7) * 180.0D / (double)((float)Math.PI));
 			this.prevRotationPitch = this.rotationPitch;
@@ -93,7 +96,7 @@ public class EntityArrow extends net.minecraft.entity.Entity {
 	public void onUpdate() {
 		super.onUpdate();
 		if(this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
-			float var1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+			float var1 = net.minecraft.core.MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 			this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / (double)((float)Math.PI));
 			this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(this.motionY, (double)var1) * 180.0D / (double)((float)Math.PI));
 		}
@@ -101,8 +104,8 @@ public class EntityArrow extends net.minecraft.entity.Entity {
 		int var15 = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
 		if(var15 > 0) {
 			net.minecraft.block.Block.blocksList[var15].setBlockBoundsBasedOnState(this.worldObj, this.xTile, this.yTile, this.zTile);
-			AxisAlignedBB var2 = Block.blocksList[var15].getCollisionBoundingBoxFromPool(this.worldObj, this.xTile, this.yTile, this.zTile);
-			if(var2 != null && var2.isVecInside(Vec3D.createVector(this.posX, this.posY, this.posZ))) {
+			net.minecraft.misc.AxisAlignedBB var2 = Block.blocksList[var15].getCollisionBoundingBoxFromPool(this.worldObj, this.xTile, this.yTile, this.zTile);
+			if(var2 != null && var2.isVecInside(net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ))) {
 				this.inGround = true;
 			}
 		}
@@ -130,11 +133,11 @@ public class EntityArrow extends net.minecraft.entity.Entity {
 			}
 		} else {
 			++this.ticksInAir;
-			Vec3D var16 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-			Vec3D var17 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-			MovingObjectPosition var3 = this.worldObj.func_28105_a(var16, var17, false, true);
-			var16 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-			var17 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+			net.minecraft.core.Vec3D var16 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
+			net.minecraft.core.Vec3D var17 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+			net.minecraft.misc.MovingObjectPosition var3 = this.worldObj.func_28105_a(var16, var17, false, true);
+			var16 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
+			var17 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 			if(var3 != null) {
 				var17 = Vec3D.createVector(var3.hitVec.xCoord, var3.hitVec.yCoord, var3.hitVec.zCoord);
 			}
@@ -149,7 +152,7 @@ public class EntityArrow extends net.minecraft.entity.Entity {
 				if(var9.canBeCollidedWith() && (var9 != this.owner || this.ticksInAir >= 5)) {
 					var10 = 0.3F;
 					AxisAlignedBB var11 = var9.boundingBox.expand((double)var10, (double)var10, (double)var10);
-					MovingObjectPosition var12 = var11.func_1169_a(var16, var17);
+					net.minecraft.misc.MovingObjectPosition var12 = var11.func_1169_a(var16, var17);
 					if(var12 != null) {
 						double var13 = var16.distanceTo(var12.hitVec);
 						if(var13 < var6 || var6 == 0.0D) {
@@ -187,7 +190,7 @@ public class EntityArrow extends net.minecraft.entity.Entity {
 					this.motionX = (double)((float)(var3.hitVec.xCoord - this.posX));
 					this.motionY = (double)((float)(var3.hitVec.yCoord - this.posY));
 					this.motionZ = (double)((float)(var3.hitVec.zCoord - this.posZ));
-					var19 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+					var19 = net.minecraft.core.MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
 					this.posX -= this.motionX / (double)var19 * (double)0.05F;
 					this.posY -= this.motionY / (double)var19 * (double)0.05F;
 					this.posZ -= this.motionZ / (double)var19 * (double)0.05F;

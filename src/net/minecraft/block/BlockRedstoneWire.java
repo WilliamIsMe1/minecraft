@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import net.minecraft.client.render.ModelBed;
 import net.minecraft.item.Item;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 

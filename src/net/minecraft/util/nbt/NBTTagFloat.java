@@ -14,11 +14,11 @@ public class NBTTagFloat extends NBTBase {
 		this.floatValue = var1;
 	}
 
-	void writeTagContents(DataOutput var1) throws IOException {
+	public void writeTagContents(DataOutput var1) throws IOException {
 		var1.writeFloat(this.floatValue);
 	}
 
-	void readTagContents(DataInput var1) throws IOException {
+	public void readTagContents(DataInput var1) throws IOException {
 		this.floatValue = var1.readFloat();
 	}
 

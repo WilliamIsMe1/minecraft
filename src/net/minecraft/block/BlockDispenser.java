@@ -1,9 +1,9 @@
 package net.minecraft.block;
 
+import net.minecraft.core.MathHelper;
 import net.minecraft.entity.EntityPlayer;
 import net.minecraft.entity.EntitySnowball;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.*;
 import net.minecraft.world.World;
 
 import java.util.Random;

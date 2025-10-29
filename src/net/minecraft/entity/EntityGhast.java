@@ -1,9 +1,9 @@
 package net.minecraft.entity;
 
 import net.minecraft.item.Item;
-import net.minecraft.src.AxisAlignedBB;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.Vec3D;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.world.World;
 
 public class EntityGhast extends EntityFlying implements IMob {

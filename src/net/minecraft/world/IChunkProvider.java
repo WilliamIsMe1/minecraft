@@ -1,6 +1,6 @@
 package net.minecraft.world;
 
-import net.minecraft.src.IProgressUpdate;
+import net.minecraft.misc.IProgressUpdate;
 
 public interface IChunkProvider {
 	boolean chunkExists(int var1, int var2);

@@ -1,8 +1,8 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.src.EnumOptions;
+import net.minecraft.client.EnumOptions;
 import net.minecraft.client.GameSettings;
-import net.minecraft.src.StringTranslate;
+import net.minecraft.core.StringTranslate;
 
 public class GuiOptions extends GuiScreen {
 	private GuiScreen parentScreen;

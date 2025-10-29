@@ -2,7 +2,7 @@ package net.minecraft.client.render;
 
 import net.minecraft.entity.EntityCreeper;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class RenderCreeper extends RenderLiving {

@@ -1,7 +1,7 @@
 package net.minecraft.world;
 
 import net.minecraft.entity.EntityWolf;
-import net.minecraft.src.SpawnListEntry;
+import net.minecraft.core.SpawnListEntry;
 
 import java.util.Random;
 

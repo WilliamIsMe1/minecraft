@@ -7,6 +7,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.client.MouseFilter;
+import net.minecraft.client.render.ClippingHelperImpl;
 import net.minecraft.client.render.ScaledResolution;
 import net.minecraft.client.render.Frustrum;
 import net.minecraft.client.Minecraft;
@@ -14,8 +15,11 @@ import net.minecraft.client.render.EffectRenderer;
 import net.minecraft.client.render.GLAllocation;
 import net.minecraft.client.render.RenderHelper;
 import net.minecraft.client.render.Tessellator;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.item.ItemRenderer;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.world.ChunkProviderLoadOrGenerate;
 import net.minecraft.world.IChunkProvider;
 import net.minecraft.world.World;
@@ -83,7 +87,7 @@ public class EntityRenderer {
 			this.mc.renderViewEntity = this.mc.thePlayer;
 		}
 
-		float var1 = this.mc.theWorld.getLightBrightness(MathHelper.floor_double(this.mc.renderViewEntity.posX), MathHelper.floor_double(this.mc.renderViewEntity.posY), MathHelper.floor_double(this.mc.renderViewEntity.posZ));
+		float var1 = this.mc.theWorld.getLightBrightness(net.minecraft.core.MathHelper.floor_double(this.mc.renderViewEntity.posX), net.minecraft.core.MathHelper.floor_double(this.mc.renderViewEntity.posY), net.minecraft.core.MathHelper.floor_double(this.mc.renderViewEntity.posZ));
 		float var2 = (float)(3 - this.mc.gameSettings.renderDistance) / 3.0F;
 		float var3 = var1 * (1.0F - var2) + var2;
 		this.fogColor1 += (var3 - this.fogColor1) * 0.1F;
@@ -98,7 +102,7 @@ public class EntityRenderer {
 				double var2 = (double)this.mc.playerController.getBlockReachDistance();
 				this.mc.objectMouseOver = this.mc.renderViewEntity.rayTrace(var2, var1);
 				double var4 = var2;
-				Vec3D var6 = this.mc.renderViewEntity.getPosition(var1);
+				net.minecraft.core.Vec3D var6 = this.mc.renderViewEntity.getPosition(var1);
 				if(this.mc.objectMouseOver != null) {
 					var4 = this.mc.objectMouseOver.hitVec.distanceTo(var6);
 				}
@@ -113,8 +117,8 @@ public class EntityRenderer {
 					var2 = var4;
 				}
 
-				Vec3D var7 = this.mc.renderViewEntity.getLook(var1);
-				Vec3D var8 = var6.addVector(var7.xCoord * var2, var7.yCoord * var2, var7.zCoord * var2);
+				net.minecraft.core.Vec3D var7 = this.mc.renderViewEntity.getLook(var1);
+				net.minecraft.core.Vec3D var8 = var6.addVector(var7.xCoord * var2, var7.yCoord * var2, var7.zCoord * var2);
 				this.pointedEntity = null;
 				float var9 = 1.0F;
 				List var10 = this.mc.theWorld.getEntitiesWithinAABBExcludingEntity(this.mc.renderViewEntity, this.mc.renderViewEntity.boundingBox.addCoord(var7.xCoord * var2, var7.yCoord * var2, var7.zCoord * var2).expand((double)var9, (double)var9, (double)var9));
@@ -125,7 +129,7 @@ public class EntityRenderer {
 					if(var14.canBeCollidedWith()) {
 						float var15 = var14.getCollisionBorderSize();
 						AxisAlignedBB var16 = var14.boundingBox.expand((double)var15, (double)var15, (double)var15);
-						MovingObjectPosition var17 = var16.func_1169_a(var6, var8);
+						net.minecraft.misc.MovingObjectPosition var17 = var16.func_1169_a(var6, var8);
 						if(var16.isVecInside(var6)) {
 							if(0.0D < var11 || var11 == 0.0D) {
 								this.pointedEntity = var14;
@@ -142,7 +146,7 @@ public class EntityRenderer {
 				}
 
 				if(this.pointedEntity != null && !(this.mc.playerController instanceof PlayerControllerTest)) {
-					this.mc.objectMouseOver = new MovingObjectPosition(this.pointedEntity);
+					this.mc.objectMouseOver = new net.minecraft.misc.MovingObjectPosition(this.pointedEntity);
 				}
 
 			}
@@ -175,7 +179,7 @@ public class EntityRenderer {
 
 		if(var3 >= 0.0F) {
 			var3 /= (float)var2.maxHurtTime;
-			var3 = MathHelper.sin(var3 * var3 * var3 * var3 * (float)Math.PI);
+			var3 = net.minecraft.core.MathHelper.sin(var3 * var3 * var3 * var3 * (float)Math.PI);
 			var4 = var2.attackedAtYaw;
 			GL11.glRotatef(-var4, 0.0F, 1.0F, 0.0F);
 			GL11.glRotatef(-var3 * 14.0F, 0.0F, 0.0F, 1.0F);
@@ -190,9 +194,9 @@ public class EntityRenderer {
 			float var4 = -(var2.distanceWalkedModified + var3 * var1);
 			float var5 = var2.field_775_e + (var2.field_774_f - var2.field_775_e) * var1;
 			float var6 = var2.cameraPitch + (var2.field_9328_R - var2.cameraPitch) * var1;
-			GL11.glTranslatef(MathHelper.sin(var4 * (float)Math.PI) * var5 * 0.5F, -Math.abs(MathHelper.cos(var4 * (float)Math.PI) * var5), 0.0F);
-			GL11.glRotatef(MathHelper.sin(var4 * (float)Math.PI) * var5 * 3.0F, 0.0F, 0.0F, 1.0F);
-			GL11.glRotatef(Math.abs(MathHelper.cos(var4 * (float)Math.PI - 0.2F) * var5) * 5.0F, 1.0F, 0.0F, 0.0F);
+			GL11.glTranslatef(net.minecraft.core.MathHelper.sin(var4 * (float)Math.PI) * var5 * 0.5F, -Math.abs(net.minecraft.core.MathHelper.cos(var4 * (float)Math.PI) * var5), 0.0F);
+			GL11.glRotatef(net.minecraft.core.MathHelper.sin(var4 * (float)Math.PI) * var5 * 3.0F, 0.0F, 0.0F, 1.0F);
+			GL11.glRotatef(Math.abs(net.minecraft.core.MathHelper.cos(var4 * (float)Math.PI - 0.2F) * var5) * 5.0F, 1.0F, 0.0F, 0.0F);
 			GL11.glRotatef(var6, 1.0F, 0.0F, 0.0F);
 		}
 	}
@@ -208,9 +212,9 @@ public class EntityRenderer {
 			var3 = (float)((double)var3 + 1.0D);
 			GL11.glTranslatef(0.0F, 0.3F, 0.0F);
 			if(!this.mc.gameSettings.field_22273_E) {
-				int var10 = this.mc.theWorld.getBlockId(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
+				int var10 = this.mc.theWorld.getBlockId(net.minecraft.core.MathHelper.floor_double(var2.posX), net.minecraft.core.MathHelper.floor_double(var2.posY), net.minecraft.core.MathHelper.floor_double(var2.posZ));
 				if(var10 == net.minecraft.block.Block.blockBed.blockID) {
-					int var11 = this.mc.theWorld.getBlockMetadata(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
+					int var11 = this.mc.theWorld.getBlockMetadata(net.minecraft.core.MathHelper.floor_double(var2.posX), net.minecraft.core.MathHelper.floor_double(var2.posY), net.minecraft.core.MathHelper.floor_double(var2.posZ));
 					int var12 = var11 & 3;
 					GL11.glRotatef((float)(var12 * 90), 0.0F, 1.0F, 0.0F);
 				}
@@ -231,9 +235,9 @@ public class EntityRenderer {
 			} else {
 				var28 = var2.rotationYaw;
 				var13 = var2.rotationPitch;
-				double var14 = (double)(-MathHelper.sin(var28 / 180.0F * (float)Math.PI) * MathHelper.cos(var13 / 180.0F * (float)Math.PI)) * var27;
-				double var16 = (double)(MathHelper.cos(var28 / 180.0F * (float)Math.PI) * MathHelper.cos(var13 / 180.0F * (float)Math.PI)) * var27;
-				double var18 = (double)(-MathHelper.sin(var13 / 180.0F * (float)Math.PI)) * var27;
+				double var14 = (double)(-net.minecraft.core.MathHelper.sin(var28 / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(var13 / 180.0F * (float)Math.PI)) * var27;
+				double var16 = (double)(net.minecraft.core.MathHelper.cos(var28 / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(var13 / 180.0F * (float)Math.PI)) * var27;
+				double var18 = (double)(-net.minecraft.core.MathHelper.sin(var13 / 180.0F * (float)Math.PI)) * var27;
 
 				for(int var20 = 0; var20 < 8; ++var20) {
 					float var21 = (float)((var20 & 1) * 2 - 1);
@@ -242,9 +246,9 @@ public class EntityRenderer {
 					var21 *= 0.1F;
 					var22 *= 0.1F;
 					var23 *= 0.1F;
-					MovingObjectPosition var24 = this.mc.theWorld.rayTraceBlocks(Vec3D.createVector(var4 + (double)var21, var6 + (double)var22, var8 + (double)var23), Vec3D.createVector(var4 - var14 + (double)var21 + (double)var23, var6 - var18 + (double)var22, var8 - var16 + (double)var23));
+					MovingObjectPosition var24 = this.mc.theWorld.rayTraceBlocks(net.minecraft.core.Vec3D.createVector(var4 + (double)var21, var6 + (double)var22, var8 + (double)var23), net.minecraft.core.Vec3D.createVector(var4 - var14 + (double)var21 + (double)var23, var6 - var18 + (double)var22, var8 - var16 + (double)var23));
 					if(var24 != null) {
-						double var25 = var24.hitVec.distanceTo(Vec3D.createVector(var4, var6, var8));
+						double var25 = var24.hitVec.distanceTo(net.minecraft.core.Vec3D.createVector(var4, var6, var8));
 						if(var25 < var27) {
 							var27 = var25;
 						}
@@ -462,8 +466,8 @@ public class EntityRenderer {
 		int var16;
 		if(var13 instanceof net.minecraft.world.ChunkProviderLoadOrGenerate) {
 			net.minecraft.world.ChunkProviderLoadOrGenerate var14 = (ChunkProviderLoadOrGenerate)var13;
-			int var15 = MathHelper.floor_float((float)((int)var7)) >> 4;
-			var16 = MathHelper.floor_float((float)((int)var11)) >> 4;
+			int var15 = net.minecraft.core.MathHelper.floor_float((float)((int)var7)) >> 4;
+			var16 = net.minecraft.core.MathHelper.floor_float((float)((int)var11)) >> 4;
 			var14.setCurrentChunkOver(var15, var16);
 		}
 
@@ -602,9 +606,9 @@ public class EntityRenderer {
 			this.random.setSeed((long)this.rendererUpdateCount * 312987231L);
 			net.minecraft.entity.EntityLiving var2 = this.mc.renderViewEntity;
 			net.minecraft.world.World var3 = this.mc.theWorld;
-			int var4 = MathHelper.floor_double(var2.posX);
-			int var5 = MathHelper.floor_double(var2.posY);
-			int var6 = MathHelper.floor_double(var2.posZ);
+			int var4 = net.minecraft.core.MathHelper.floor_double(var2.posX);
+			int var5 = net.minecraft.core.MathHelper.floor_double(var2.posY);
+			int var6 = net.minecraft.core.MathHelper.floor_double(var2.posZ);
 			byte var7 = 10;
 			double var8 = 0.0D;
 			double var10 = 0.0D;
@@ -638,7 +642,7 @@ public class EntityRenderer {
 
 			if(var14 > 0 && this.random.nextInt(3) < this.rainSoundCounter++) {
 				this.rainSoundCounter = 0;
-				if(var10 > var2.posY + 1.0D && var3.findTopSolidBlock(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posZ)) > MathHelper.floor_double(var2.posY)) {
+				if(var10 > var2.posY + 1.0D && var3.findTopSolidBlock(net.minecraft.core.MathHelper.floor_double(var2.posX), net.minecraft.core.MathHelper.floor_double(var2.posZ)) > net.minecraft.core.MathHelper.floor_double(var2.posY)) {
 					this.mc.theWorld.playSoundEffect(var8, var10, var12, "ambient.weather.rain", 0.1F, 0.5F);
 				} else {
 					this.mc.theWorld.playSoundEffect(var8, var10, var12, "ambient.weather.rain", 0.2F, 1.0F);
@@ -653,9 +657,9 @@ public class EntityRenderer {
 		if(var2 > 0.0F) {
 			net.minecraft.entity.EntityLiving var3 = this.mc.renderViewEntity;
 			net.minecraft.world.World var4 = this.mc.theWorld;
-			int var5 = MathHelper.floor_double(var3.posX);
-			int var6 = MathHelper.floor_double(var3.posY);
-			int var7 = MathHelper.floor_double(var3.posZ);
+			int var5 = net.minecraft.core.MathHelper.floor_double(var3.posX);
+			int var6 = net.minecraft.core.MathHelper.floor_double(var3.posY);
+			int var7 = net.minecraft.core.MathHelper.floor_double(var3.posZ);
 			net.minecraft.client.render.Tessellator var8 = Tessellator.instance;
 			GL11.glDisable(GL11.GL_CULL_FACE);
 			GL11.glNormal3f(0.0F, 1.0F, 0.0F);
@@ -666,7 +670,7 @@ public class EntityRenderer {
 			double var9 = var3.lastTickPosX + (var3.posX - var3.lastTickPosX) * (double)var1;
 			double var11 = var3.lastTickPosY + (var3.posY - var3.lastTickPosY) * (double)var1;
 			double var13 = var3.lastTickPosZ + (var3.posZ - var3.lastTickPosZ) * (double)var1;
-			int var15 = MathHelper.floor_double(var11);
+			int var15 = net.minecraft.core.MathHelper.floor_double(var11);
 			byte var16 = 5;
 			if(this.mc.gameSettings.fancyGraphics) {
 				var16 = 10;
@@ -715,7 +719,7 @@ public class EntityRenderer {
 							float var30 = this.random.nextFloat() + var27 * (float)this.random.nextGaussian() * 0.001F;
 							double var31 = (double)((float)var19 + 0.5F) - var3.posX;
 							double var33 = (double)((float)var20 + 0.5F) - var3.posZ;
-							float var35 = MathHelper.sqrt_double(var31 * var31 + var33 * var33) / (float)var16;
+							float var35 = net.minecraft.core.MathHelper.sqrt_double(var31 * var31 + var33 * var33) / (float)var16;
 							var8.startDrawingQuads();
 							float var36 = var4.getLightBrightness(var19, var23, var20);
 							GL11.glColor4f(var36, var36, var36, ((1.0F - var35 * var35) * 0.3F + 0.5F) * var2);
@@ -805,11 +809,11 @@ public class EntityRenderer {
 		net.minecraft.entity.EntityLiving var3 = this.mc.renderViewEntity;
 		float var4 = 1.0F / (float)(4 - this.mc.gameSettings.renderDistance);
 		var4 = 1.0F - (float)Math.pow((double)var4, 0.25D);
-		Vec3D var5 = var2.func_4079_a(this.mc.renderViewEntity, var1);
+		net.minecraft.core.Vec3D var5 = var2.func_4079_a(this.mc.renderViewEntity, var1);
 		float var6 = (float)var5.xCoord;
 		float var7 = (float)var5.yCoord;
 		float var8 = (float)var5.zCoord;
-		Vec3D var9 = var2.getFogColor(var1);
+		net.minecraft.core.Vec3D var9 = var2.getFogColor(var1);
 		this.fogColorRed = (float)var9.xCoord;
 		this.fogColorGreen = (float)var9.yCoord;
 		this.fogColorBlue = (float)var9.zCoord;

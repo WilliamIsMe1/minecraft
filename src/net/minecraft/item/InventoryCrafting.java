@@ -1,6 +1,6 @@
 package net.minecraft.item;
 
-import net.minecraft.src.Container;
+import net.minecraft.item.container.Container;
 import net.minecraft.entity.EntityPlayer;
 
 public class InventoryCrafting implements IInventory {

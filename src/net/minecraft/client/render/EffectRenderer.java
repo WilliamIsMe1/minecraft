@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDiggingFX;
 import net.minecraft.entity.EntityFX;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 

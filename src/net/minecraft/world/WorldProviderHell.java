@@ -1,7 +1,7 @@
 package net.minecraft.world;
 
 import net.minecraft.block.Block;
-import net.minecraft.src.*;
+import net.minecraft.core.Vec3D;
 
 public class WorldProviderHell extends WorldProvider {
 	public void registerWorldChunkManager() {
@@ -12,7 +12,7 @@ public class WorldProviderHell extends WorldProvider {
 		this.worldType = -1;
 	}
 
-	public Vec3D func_4096_a(float var1, float var2) {
+	public net.minecraft.core.Vec3D func_4096_a(float var1, float var2) {
 		return Vec3D.createVector((double)0.2F, (double)0.03F, (double)0.03F);
 	}
 

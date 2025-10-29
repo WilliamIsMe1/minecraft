@@ -1,7 +1,7 @@
 package net.minecraft.client.render.gui;
 
 import net.minecraft.world.ISaveFormat;
-import net.minecraft.src.StringTranslate;
+import net.minecraft.core.StringTranslate;
 import net.minecraft.world.WorldInfo;
 import org.lwjgl.input.Keyboard;
 

@@ -1,8 +1,8 @@
 package net.minecraft.client.render;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.IProgressUpdate;
-import net.minecraft.src.MinecraftError;
+import net.minecraft.misc.IProgressUpdate;
+import net.minecraft.core.MinecraftError;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 

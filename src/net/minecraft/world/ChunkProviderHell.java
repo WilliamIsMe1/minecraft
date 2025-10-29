@@ -2,9 +2,9 @@ package net.minecraft.world;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
-import net.minecraft.src.IProgressUpdate;
-import net.minecraft.src.MapGenBase;
-import net.minecraft.src.MapGenCavesHell;
+import net.minecraft.misc.IProgressUpdate;
+import net.minecraft.map.MapGenBase;
+import net.minecraft.map.MapGenCavesHell;
 
 import java.util.Random;
 

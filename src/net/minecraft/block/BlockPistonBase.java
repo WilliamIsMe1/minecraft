@@ -1,8 +1,9 @@
 package net.minecraft.block;
 
 import net.minecraft.client.render.PistonBlockTextures;
+import net.minecraft.core.MathHelper;
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -197,7 +198,7 @@ public class BlockPistonBase extends Block {
 	}
 
 	private static int func_31039_c(net.minecraft.world.World var0, int var1, int var2, int var3, EntityPlayer var4) {
-		if(MathHelper.abs((float)var4.posX - (float)var1) < 2.0F && MathHelper.abs((float)var4.posZ - (float)var3) < 2.0F) {
+		if(net.minecraft.core.MathHelper.abs((float)var4.posX - (float)var1) < 2.0F && net.minecraft.core.MathHelper.abs((float)var4.posZ - (float)var3) < 2.0F) {
 			double var5 = var4.posY + 1.82D - (double)var4.yOffset;
 			if(var5 - (double)var2 > 2.0D) {
 				return 1;

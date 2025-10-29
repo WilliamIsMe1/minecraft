@@ -3,9 +3,9 @@ package net.minecraft.world;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.Material;
-import net.minecraft.src.IProgressUpdate;
-import net.minecraft.src.MapGenBase;
-import net.minecraft.src.MapGenCaves;
+import net.minecraft.misc.IProgressUpdate;
+import net.minecraft.map.MapGenBase;
+import net.minecraft.map.MapGenCaves;
 
 import java.util.Random;
 

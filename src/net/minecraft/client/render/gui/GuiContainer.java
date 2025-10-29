@@ -1,9 +1,10 @@
 package net.minecraft.client.render.gui;
 
+import net.minecraft.core.StringTranslate;
 import net.minecraft.client.render.RenderItem;
 import net.minecraft.item.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.*;
+import net.minecraft.item.container.Container;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -12,7 +13,7 @@ public abstract class GuiContainer extends GuiScreen {
 	private static net.minecraft.client.render.RenderItem itemRenderer = new RenderItem();
 	protected int xSize = 176;
 	protected int ySize = 166;
-	public Container inventorySlots;
+	public net.minecraft.item.container.Container inventorySlots;
 
 	public GuiContainer(Container var1) {
 		this.inventorySlots = var1;

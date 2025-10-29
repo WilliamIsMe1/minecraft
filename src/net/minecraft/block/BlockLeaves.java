@@ -3,7 +3,7 @@ package net.minecraft.block;
 import net.minecraft.client.render.ColorizerFoliage;
 import net.minecraft.entity.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.*;
+import net.minecraft.achievement.stats.StatList;
 import net.minecraft.world.World;
 
 import java.util.Random;

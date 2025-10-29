@@ -1,6 +1,6 @@
 package net.minecraft.item;
 
-import net.minecraft.src.Container;
+import net.minecraft.item.container.Container;
 
 public interface ICrafting {
 	void func_20159_a(Container var1, int var2, ItemStack var3);

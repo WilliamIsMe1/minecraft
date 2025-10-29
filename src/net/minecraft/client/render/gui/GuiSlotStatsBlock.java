@@ -1,8 +1,8 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.src.SorterStatsBlock;
-import net.minecraft.src.StatCrafting;
-import net.minecraft.src.StatList;
+import net.minecraft.achievement.stats.SorterStatsBlock;
+import net.minecraft.achievement.stats.StatCrafting;
+import net.minecraft.achievement.stats.StatList;
 import net.minecraft.client.render.Tessellator;
 
 import java.util.ArrayList;

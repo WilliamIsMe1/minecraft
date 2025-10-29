@@ -12,7 +12,7 @@ import net.minecraft.entity.EntitySpider;
 import net.minecraft.entity.EntitySquid;
 import net.minecraft.entity.EntityZombie;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.src.SpawnListEntry;
+import net.minecraft.core.SpawnListEntry;
 
 import java.awt.Color;
 import java.util.ArrayList;

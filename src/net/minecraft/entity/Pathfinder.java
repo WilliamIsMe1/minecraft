@@ -4,8 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.IBlockAccess;
 import net.minecraft.block.Material;
-import net.minecraft.src.MCHash;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MCHash;
+import net.minecraft.core.MathHelper;
 
 public class Pathfinder {
 	private net.minecraft.block.IBlockAccess worldMap;

@@ -3,7 +3,7 @@ package net.minecraft.entity;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.Session;
+import net.minecraft.client.Session;
 import net.minecraft.world.World;
 
 public class PlayerControllerTest extends PlayerController {

@@ -2,9 +2,9 @@ package net.minecraft.client.render.gui;
 
 import net.minecraft.entity.PlayerControllerSP;
 import net.minecraft.world.ISaveFormat;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.SaveFormatComparator;
-import net.minecraft.src.StringTranslate;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.save.SaveFormatComparator;
+import net.minecraft.core.StringTranslate;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

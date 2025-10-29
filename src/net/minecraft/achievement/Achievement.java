@@ -3,9 +3,9 @@ package net.minecraft.achievement;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.IStatStringFormat;
-import net.minecraft.src.StatBase;
-import net.minecraft.src.StatCollector;
+import net.minecraft.achievement.stats.IStatStringFormat;
+import net.minecraft.achievement.stats.StatBase;
+import net.minecraft.achievement.stats.StatCollector;
 
 public class Achievement extends StatBase {
 	public final int displayColumn;

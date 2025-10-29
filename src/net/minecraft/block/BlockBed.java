@@ -1,9 +1,9 @@
 package net.minecraft.block;
 
 import net.minecraft.client.render.ModelBed;
+import net.minecraft.core.EnumStatus;
 import net.minecraft.entity.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.src.*;
 import net.minecraft.world.ChunkCoordinates;
 import net.minecraft.world.World;
 
@@ -74,8 +74,8 @@ public class BlockBed extends Block {
 					setBedOccupied(var1, var2, var3, var4, false);
 				}
 
-				EnumStatus var15 = var5.sleepInBedAt(var2, var3, var4);
-				if(var15 == EnumStatus.OK) {
+				net.minecraft.core.EnumStatus var15 = var5.sleepInBedAt(var2, var3, var4);
+				if(var15 == net.minecraft.core.EnumStatus.OK) {
 					setBedOccupied(var1, var2, var3, var4, true);
 					return true;
 				} else {

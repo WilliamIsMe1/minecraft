@@ -5,7 +5,7 @@ import java.util.Random;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPainting;
 import net.minecraft.entity.EnumArt;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

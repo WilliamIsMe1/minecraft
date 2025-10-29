@@ -1,6 +1,6 @@
 package net.minecraft.block;
 
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.client.render.PistonBlockTextures;
 import net.minecraft.world.World;
 

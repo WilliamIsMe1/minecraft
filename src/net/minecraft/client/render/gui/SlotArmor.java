@@ -4,13 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.item.IInventory;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.ContainerPlayer;
+import net.minecraft.item.container.ContainerPlayer;
 
 public class SlotArmor extends Slot {
 	final int armorType;
 	final ContainerPlayer inventory;
 
-	SlotArmor(ContainerPlayer var1, IInventory var2, int var3, int var4, int var5, int var6) {
+	public SlotArmor(ContainerPlayer var1, IInventory var2, int var3, int var4, int var5, int var6) {
 		super(var2, var3, var4, var5);
 		this.inventory = var1;
 		this.armorType = var6;

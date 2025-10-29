@@ -8,8 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.StringTranslate;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.StringTranslate;
 import net.minecraft.client.render.Tessellator;
 import org.lwjgl.opengl.GL11;
 

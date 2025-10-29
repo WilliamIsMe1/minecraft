@@ -1,8 +1,9 @@
 package net.minecraft.client.render;
 
 import net.minecraft.block.Block;
+import net.minecraft.core.MathHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
@@ -103,11 +104,11 @@ public abstract class Render {
 		double var13 = var1.lastTickPosX + (var1.posX - var1.lastTickPosX) * (double)var9;
 		double var15 = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * (double)var9 + (double)var1.getShadowSize();
 		double var17 = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * (double)var9;
-		int var19 = MathHelper.floor_double(var13 - (double)var12);
-		int var20 = MathHelper.floor_double(var13 + (double)var12);
-		int var21 = MathHelper.floor_double(var15 - (double)var12);
-		int var22 = MathHelper.floor_double(var15);
-		int var23 = MathHelper.floor_double(var17 - (double)var12);
+		int var19 = net.minecraft.core.MathHelper.floor_double(var13 - (double)var12);
+		int var20 = net.minecraft.core.MathHelper.floor_double(var13 + (double)var12);
+		int var21 = net.minecraft.core.MathHelper.floor_double(var15 - (double)var12);
+		int var22 = net.minecraft.core.MathHelper.floor_double(var15);
+		int var23 = net.minecraft.core.MathHelper.floor_double(var17 - (double)var12);
 		int var24 = MathHelper.floor_double(var17 + (double)var12);
 		double var25 = var2 - var13;
 		double var27 = var4 - var15;
@@ -163,7 +164,7 @@ public abstract class Render {
 		}
 	}
 
-	public static void renderOffsetAABB(AxisAlignedBB var0, double var1, double var3, double var5) {
+	public static void renderOffsetAABB(net.minecraft.misc.AxisAlignedBB var0, double var1, double var3, double var5) {
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		Tessellator var7 = Tessellator.instance;
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

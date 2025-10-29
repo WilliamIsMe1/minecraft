@@ -1,8 +1,8 @@
 package net.minecraft.world;
 
 import net.minecraft.block.Block;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.Vec3D;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 
 public abstract class WorldProvider {
 	public net.minecraft.world.World worldObj;

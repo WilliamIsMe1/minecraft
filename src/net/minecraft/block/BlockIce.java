@@ -1,7 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.EnumSkyBlock;
 import net.minecraft.world.World;
 
 import java.util.Random;

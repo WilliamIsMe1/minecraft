@@ -1,8 +1,11 @@
 package net.minecraft.entity;
 
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -38,15 +41,15 @@ public class EntitySnowball extends net.minecraft.entity.Entity {
 		this.thrower = var2;
 		this.setSize(0.25F, 0.25F);
 		this.setLocationAndAngles(var2.posX, var2.posY + (double)var2.getEyeHeight(), var2.posZ, var2.rotationYaw, var2.rotationPitch);
-		this.posX -= (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+		this.posX -= (double)(net.minecraft.core.MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
 		this.posY -= (double)0.1F;
-		this.posZ -= (double)(MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+		this.posZ -= (double)(net.minecraft.core.MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
 		this.setPosition(this.posX, this.posY, this.posZ);
 		this.yOffset = 0.0F;
 		float var3 = 0.4F;
-		this.motionX = (double)(-MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
-		this.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
-		this.motionY = (double)(-MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
+		this.motionX = (double)(-net.minecraft.core.MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
+		this.motionZ = (double)(net.minecraft.core.MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
+		this.motionY = (double)(-net.minecraft.core.MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
 		this.setSnowballHeading(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
 	}
 
@@ -59,7 +62,7 @@ public class EntitySnowball extends net.minecraft.entity.Entity {
 	}
 
 	public void setSnowballHeading(double var1, double var3, double var5, float var7, float var8) {
-		float var9 = MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
+		float var9 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
 		var1 /= (double)var9;
 		var3 /= (double)var9;
 		var5 /= (double)var9;
@@ -72,7 +75,7 @@ public class EntitySnowball extends net.minecraft.entity.Entity {
 		this.motionX = var1;
 		this.motionY = var3;
 		this.motionZ = var5;
-		float var10 = MathHelper.sqrt_double(var1 * var1 + var5 * var5);
+		float var10 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var5 * var5);
 		this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(var1, var5) * 180.0D / (double)((float)Math.PI));
 		this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(var3, (double)var10) * 180.0D / (double)((float)Math.PI));
 		this.ticksInGroundSnowball = 0;
@@ -83,7 +86,7 @@ public class EntitySnowball extends net.minecraft.entity.Entity {
 		this.motionY = var3;
 		this.motionZ = var5;
 		if(this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
-			float var7 = MathHelper.sqrt_double(var1 * var1 + var5 * var5);
+			float var7 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var5 * var5);
 			this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(var1, var5) * 180.0D / (double)((float)Math.PI));
 			this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(var3, (double)var7) * 180.0D / (double)((float)Math.PI));
 		}
@@ -120,11 +123,11 @@ public class EntitySnowball extends net.minecraft.entity.Entity {
 			++this.ticksInAirSnowball;
 		}
 
-		Vec3D var15 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-		Vec3D var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-		MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
-		var15 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-		var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		net.minecraft.core.Vec3D var15 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
+		net.minecraft.core.Vec3D var2 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		net.minecraft.misc.MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
+		var15 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
+		var2 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 		if(var3 != null) {
 			var2 = Vec3D.createVector(var3.hitVec.xCoord, var3.hitVec.yCoord, var3.hitVec.zCoord);
 		}
@@ -139,7 +142,7 @@ public class EntitySnowball extends net.minecraft.entity.Entity {
 				if(var9.canBeCollidedWith() && (var9 != this.thrower || this.ticksInAirSnowball >= 5)) {
 					float var10 = 0.3F;
 					AxisAlignedBB var11 = var9.boundingBox.expand((double)var10, (double)var10, (double)var10);
-					MovingObjectPosition var12 = var11.func_1169_a(var15, var2);
+					net.minecraft.misc.MovingObjectPosition var12 = var11.func_1169_a(var15, var2);
 					if(var12 != null) {
 						double var13 = var15.distanceTo(var12.hitVec);
 						if(var13 < var6 || var6 == 0.0D) {

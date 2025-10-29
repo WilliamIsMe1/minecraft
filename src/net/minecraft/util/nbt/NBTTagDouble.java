@@ -14,11 +14,11 @@ public class NBTTagDouble extends NBTBase {
 		this.doubleValue = var1;
 	}
 
-	void writeTagContents(DataOutput var1) throws IOException {
+	public void writeTagContents(DataOutput var1) throws IOException {
 		var1.writeDouble(this.doubleValue);
 	}
 
-	void readTagContents(DataInput var1) throws IOException {
+	public void readTagContents(DataInput var1) throws IOException {
 		this.doubleValue = var1.readDouble();
 	}
 

@@ -1,9 +1,12 @@
 package net.minecraft.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.Vec3D;
 import net.minecraft.entity.EntityBoat;
 import net.minecraft.entity.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.misc.EnumMovingObjectType;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class ItemBoat extends Item {
@@ -19,10 +22,10 @@ public class ItemBoat extends Item {
 		double var7 = var3.prevPosX + (var3.posX - var3.prevPosX) * (double)var4;
 		double var9 = var3.prevPosY + (var3.posY - var3.prevPosY) * (double)var4 + 1.62D - (double)var3.yOffset;
 		double var11 = var3.prevPosZ + (var3.posZ - var3.prevPosZ) * (double)var4;
-		Vec3D var13 = Vec3D.createVector(var7, var9, var11);
-		float var14 = MathHelper.cos(-var6 * ((float)Math.PI / 180.0F) - (float)Math.PI);
-		float var15 = MathHelper.sin(-var6 * ((float)Math.PI / 180.0F) - (float)Math.PI);
-		float var16 = -MathHelper.cos(-var5 * ((float)Math.PI / 180.0F));
+		net.minecraft.core.Vec3D var13 = net.minecraft.core.Vec3D.createVector(var7, var9, var11);
+		float var14 = net.minecraft.core.MathHelper.cos(-var6 * ((float)Math.PI / 180.0F) - (float)Math.PI);
+		float var15 = net.minecraft.core.MathHelper.sin(-var6 * ((float)Math.PI / 180.0F) - (float)Math.PI);
+		float var16 = -net.minecraft.core.MathHelper.cos(-var5 * ((float)Math.PI / 180.0F));
 		float var17 = MathHelper.sin(-var5 * ((float)Math.PI / 180.0F));
 		float var18 = var15 * var16;
 		float var20 = var14 * var16;

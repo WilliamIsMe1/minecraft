@@ -1,7 +1,7 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.SaveFormatComparator;
+import net.minecraft.core.MathHelper;
+import net.minecraft.core.save.SaveFormatComparator;
 import net.minecraft.client.render.Tessellator;
 
 import java.util.Date;

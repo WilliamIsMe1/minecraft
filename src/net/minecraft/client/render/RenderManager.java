@@ -36,7 +36,7 @@ import net.minecraft.entity.EntityWolf;
 import net.minecraft.entity.EntityZombie;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemRenderer;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 

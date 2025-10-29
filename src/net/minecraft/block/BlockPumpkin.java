@@ -1,7 +1,7 @@
 package net.minecraft.block;
 
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.src.MathHelper;
+import net.minecraft.core.MathHelper;
 import net.minecraft.world.World;
 
 public class BlockPumpkin extends Block {

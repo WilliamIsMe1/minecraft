@@ -2,7 +2,7 @@ package net.minecraft.client.render.gui;
 
 import net.minecraft.block.TileEntityDispenser;
 import net.minecraft.item.InventoryPlayer;
-import net.minecraft.src.ContainerDispenser;
+import net.minecraft.item.container.ContainerDispenser;
 import org.lwjgl.opengl.GL11;
 
 public class GuiDispenser extends GuiContainer {
