@@ -1,20 +1,20 @@
 package net.minecraft.item.container;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.client.render.gui.Slot;
 import net.minecraft.client.render.gui.SlotCrafting;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.item.CraftingManager;
-import net.minecraft.item.IInventory;
-import net.minecraft.item.InventoryCraftResult;
-import net.minecraft.item.InventoryCrafting;
-import net.minecraft.item.InventoryPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.recipe.CraftingManager;
+import net.minecraft.item.container.inventory.IInventory;
+import net.minecraft.item.container.inventory.InventoryCraftResult;
+import net.minecraft.item.container.inventory.InventoryCrafting;
+import net.minecraft.item.container.inventory.InventoryPlayer;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;
 
 public class ContainerWorkbench extends Container {
-	public net.minecraft.item.InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
-	public net.minecraft.item.IInventory craftResult = new InventoryCraftResult();
+	public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
+	public IInventory craftResult = new InventoryCraftResult();
 	private net.minecraft.world.World field_20133_c;
 	private int field_20132_h;
 	private int field_20131_i;
@@ -52,11 +52,11 @@ public class ContainerWorkbench extends Container {
 		this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix));
 	}
 
-	public void onCraftGuiClosed(net.minecraft.entity.EntityPlayer var1) {
+	public void onCraftGuiClosed(EntityPlayer var1) {
 		super.onCraftGuiClosed(var1);
 		if(!this.field_20133_c.multiplayerWorld) {
 			for(int var2 = 0; var2 < 9; ++var2) {
-				net.minecraft.item.ItemStack var3 = this.craftMatrix.getStackInSlot(var2);
+				ItemStack var3 = this.craftMatrix.getStackInSlot(var2);
 				if(var3 != null) {
 					var1.dropPlayerItem(var3);
 				}
@@ -66,14 +66,14 @@ public class ContainerWorkbench extends Container {
 	}
 
 	public boolean isUsableByPlayer(EntityPlayer var1) {
-		return this.field_20133_c.getBlockId(this.field_20132_h, this.field_20131_i, this.field_20130_j) != Block.workbench.blockID ? false : var1.getDistanceSq((double)this.field_20132_h + 0.5D, (double)this.field_20131_i + 0.5D, (double)this.field_20130_j + 0.5D) <= 64.0D;
+		return this.field_20133_c.getBlockId(this.field_20132_h, this.field_20131_i, this.field_20130_j) != Block.workbench.getBlockID() ? false : var1.getDistanceSq((double)this.field_20132_h + 0.5D, (double)this.field_20131_i + 0.5D, (double)this.field_20130_j + 0.5D) <= 64.0D;
 	}
 
-	public net.minecraft.item.ItemStack getStackInSlot(int var1) {
-		net.minecraft.item.ItemStack var2 = null;
+	public ItemStack getStackInSlot(int var1) {
+		ItemStack var2 = null;
 		Slot var3 = (Slot)this.slots.get(var1);
 		if(var3 != null && var3.getHasStack()) {
-			net.minecraft.item.ItemStack var4 = var3.getStack();
+			ItemStack var4 = var3.getStack();
 			var2 = var4.copy();
 			if(var1 == 0) {
 				this.func_28125_a(var4, 10, 46, true);

@@ -1,5 +1,7 @@
 package net.minecraft.world;
 
+import net.minecraft.world.chunk.IChunkLoader;
+
 import java.io.File;
 import java.util.List;
 

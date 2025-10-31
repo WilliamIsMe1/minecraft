@@ -1,5 +1,8 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
+
 import java.util.Random;
 
 public class BlockBookshelf extends Block {
@@ -8,7 +11,7 @@ public class BlockBookshelf extends Block {
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 <= 1 ? 4 : this.blockIndexInTexture;
+		return var1 <= 1 ? 4 : this.getBlockIndexInTexture();
 	}
 
 	public int quantityDropped(Random var1) {

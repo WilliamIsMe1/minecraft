@@ -1,5 +1,8 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
+
 public class BlockCloth extends Block {
 	public BlockCloth() {
 		super(35, 64, Material.cloth);
@@ -7,7 +10,7 @@ public class BlockCloth extends Block {
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
 		if(var2 == 0) {
-			return this.blockIndexInTexture;
+			return this.getBlockIndexInTexture();
 		} else {
 			var2 = ~(var2 & 15);
 			return 113 + ((var2 & 8) >> 3) + (var2 & 7) * 16;

@@ -1,5 +1,9 @@
 package net.minecraft.world;
 
+import net.minecraft.world.chunk.ChunkCoordIntPair;
+import net.minecraft.world.gen.BiomeGenBase;
+import net.minecraft.world.gen.NoiseGeneratorOctaves2;
+
 import java.util.Random;
 
 public class WorldChunkManager {

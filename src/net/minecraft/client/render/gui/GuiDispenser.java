@@ -1,7 +1,7 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.block.TileEntityDispenser;
-import net.minecraft.item.InventoryPlayer;
+import net.minecraft.block.tileentity.TileEntityDispenser;
+import net.minecraft.item.container.inventory.InventoryPlayer;
 import net.minecraft.item.container.ContainerDispenser;
 import org.lwjgl.opengl.GL11;
 

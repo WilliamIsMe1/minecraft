@@ -1,12 +1,14 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockLadder extends Block {
-	protected BlockLadder(int var1, int var2) {
+	public BlockLadder(int var1, int var2) {
 		super(var1, var2, Material.circuits);
 	}
 

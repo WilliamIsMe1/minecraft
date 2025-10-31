@@ -1,6 +1,6 @@
 package net.minecraft.client.render;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.living.EntityLiving;
 
 public abstract class ModelBase {
 	public float onGround;

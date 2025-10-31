@@ -1,8 +1,8 @@
 package net.minecraft.achievement;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.core.Block;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.achievement.stats.IStatStringFormat;
 import net.minecraft.achievement.stats.StatBase;
 import net.minecraft.achievement.stats.StatCollector;
@@ -13,15 +13,15 @@ public class Achievement extends StatBase {
 	public final Achievement parentAchievement;
 	private final String achievementDescription;
 	private IStatStringFormat statStringFormatter;
-	public final net.minecraft.item.ItemStack theItemStack;
+	public final ItemStack theItemStack;
 	private boolean isSpecial;
 
 	public Achievement(int var1, String var2, int var3, int var4, Item var5, Achievement var6) {
-		this(var1, var2, var3, var4, new net.minecraft.item.ItemStack(var5), var6);
+		this(var1, var2, var3, var4, new ItemStack(var5), var6);
 	}
 
 	public Achievement(int var1, String var2, int var3, int var4, Block var5, Achievement var6) {
-		this(var1, var2, var3, var4, new net.minecraft.item.ItemStack(var5), var6);
+		this(var1, var2, var3, var4, new ItemStack(var5), var6);
 	}
 
 	public Achievement(int var1, String var2, int var3, int var4, ItemStack var5, Achievement var6) {

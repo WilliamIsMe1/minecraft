@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
+import net.minecraft.item.core.Item;
 
 public class TextureWatchFX extends TextureFX {
 	private Minecraft mc;

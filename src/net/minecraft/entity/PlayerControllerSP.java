@@ -1,8 +1,9 @@
 package net.minecraft.entity;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;
 
 public class PlayerControllerSP extends PlayerController {
@@ -27,7 +28,7 @@ public class PlayerControllerSP extends PlayerController {
 		int var6 = this.mc.theWorld.getBlockMetadata(var1, var2, var3);
 		boolean var7 = super.sendBlockRemoved(var1, var2, var3, var4);
 		ItemStack var8 = this.mc.thePlayer.getCurrentEquippedItem();
-		boolean var9 = this.mc.thePlayer.canHarvestBlock(net.minecraft.block.Block.blocksList[var5]);
+		boolean var9 = this.mc.thePlayer.canHarvestBlock(Block.blocksList[var5]);
 		if(var8 != null) {
 			var8.onDestroyBlock(var5, var1, var2, var3, this.mc.thePlayer);
 			if(var8.stackSize == 0) {
@@ -37,21 +38,21 @@ public class PlayerControllerSP extends PlayerController {
 		}
 
 		if(var7 && var9) {
-			net.minecraft.block.Block.blocksList[var5].harvestBlock(this.mc.theWorld, this.mc.thePlayer, var1, var2, var3, var6);
+			Block.blocksList[var5].harvestBlock(this.mc.theWorld, this.mc.thePlayer, var1, var2, var3, var6);
 		}
 
 		return var7;
 	}
 
-	public void clickBlock(int var1, int var2, int var3, int var4) {
-		this.mc.theWorld.onBlockHit(this.mc.thePlayer, var1, var2, var3, var4);
-		int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
-		if(var5 > 0 && this.curBlockDamage == 0.0F) {
-			net.minecraft.block.Block.blocksList[var5].onBlockClicked(this.mc.theWorld, var1, var2, var3, this.mc.thePlayer);
+	public void clickBlock(int x, int y, int z, int var4) {
+		this.mc.theWorld.onBlockHit(this.mc.thePlayer, x, y, z, var4);
+		int blockId = this.mc.theWorld.getBlockId(x, y, z);
+		if(blockId > 0 && this.curBlockDamage == 0.0F) {
+			Block.blocksList[blockId].onBlockClicked(this.mc.theWorld, x, y, z, this.mc.thePlayer);
 		}
 
-		if(var5 > 0 && net.minecraft.block.Block.blocksList[var5].blockStrength(this.mc.thePlayer) >= 1.0F) {
-			this.sendBlockRemoved(var1, var2, var3, var4);
+		if(blockId > 0 && Block.blocksList[blockId].blockStrength(this.mc.thePlayer) >= 1.0F) {
+			this.sendBlockRemoved(x, y, z, var4);
 		}
 
 	}
@@ -61,25 +62,25 @@ public class PlayerControllerSP extends PlayerController {
 		this.blockHitWait = 0;
 	}
 
-	public void sendBlockRemoving(int var1, int var2, int var3, int var4) {
+	public void sendBlockRemoving(int x, int y, int z, int var4) {
 		if(this.blockHitWait > 0) {
 			--this.blockHitWait;
 		} else {
-			if(var1 == this.field_1074_c && var2 == this.field_1073_d && var3 == this.field_1072_e) {
-				int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
+			if(x == this.field_1074_c && y == this.field_1073_d && z == this.field_1072_e) {
+				int var5 = this.mc.theWorld.getBlockId(x, y, z);
 				if(var5 == 0) {
 					return;
 				}
 
-				net.minecraft.block.Block var6 = Block.blocksList[var5];
+				Block var6 = Block.blocksList[var5];
 				this.curBlockDamage += var6.blockStrength(this.mc.thePlayer);
-				if(this.field_1069_h % 4.0F == 0.0F && var6 != null) {
-					this.mc.sndManager.playSound(var6.stepSound.func_1145_d(), (float)var1 + 0.5F, (float)var2 + 0.5F, (float)var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);
+				if(this.field_1069_h % 4.0F == 0.0F) {
+					this.mc.sndManager.playSound(var6.getStepSound().func_1145_d(), (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, (var6.getStepSound().getVolume() + 1.0F) / 8.0F, var6.getStepSound().getPitch() * 0.5F);
 				}
 
 				++this.field_1069_h;
 				if(this.curBlockDamage >= 1.0F) {
-					this.sendBlockRemoved(var1, var2, var3, var4);
+					this.sendBlockRemoved(x, y, z, var4);
 					this.curBlockDamage = 0.0F;
 					this.prevBlockDamage = 0.0F;
 					this.field_1069_h = 0.0F;
@@ -89,9 +90,9 @@ public class PlayerControllerSP extends PlayerController {
 				this.curBlockDamage = 0.0F;
 				this.prevBlockDamage = 0.0F;
 				this.field_1069_h = 0.0F;
-				this.field_1074_c = var1;
-				this.field_1073_d = var2;
-				this.field_1072_e = var3;
+				this.field_1074_c = x;
+				this.field_1073_d = y;
+				this.field_1072_e = z;
 			}
 
 		}

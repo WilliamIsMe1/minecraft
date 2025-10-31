@@ -1,6 +1,7 @@
 package net.minecraft.item;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
+import net.minecraft.item.core.ItemBlock;
 
 public class ItemLog extends ItemBlock {
 	public ItemLog(int var1) {

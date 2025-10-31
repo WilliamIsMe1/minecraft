@@ -1,8 +1,8 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.entity.EntityClientPlayerMP;
+import net.minecraft.entity.living.EntityClientPlayerMP;
 import net.minecraft.network.NetClientHandler;
-import net.minecraft.network.Packet19EntityAction;
+import net.minecraft.network.packet.Packet19EntityAction;
 import net.minecraft.core.StringTranslate;
 import org.lwjgl.input.Keyboard;
 
@@ -47,7 +47,7 @@ public class GuiSleepMP extends GuiChat {
 	}
 
 	private void func_22115_j() {
-		if(this.mc.thePlayer instanceof net.minecraft.entity.EntityClientPlayerMP) {
+		if(this.mc.thePlayer instanceof EntityClientPlayerMP) {
 			NetClientHandler var1 = ((EntityClientPlayerMP)this.mc.thePlayer).sendQueue;
 			var1.addToSendQueue(new Packet19EntityAction(this.mc.thePlayer, 3));
 		}

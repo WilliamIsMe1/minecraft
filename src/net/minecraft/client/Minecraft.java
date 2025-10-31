@@ -12,18 +12,18 @@ import net.minecraft.achievement.AchievementList;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.render.ScaledResolution;
 import net.minecraft.misc.AxisAlignedBB;
-import net.minecraft.block.Block;
-import net.minecraft.world.ChunkCoordinates;
-import net.minecraft.world.ChunkProviderLoadOrGenerate;
+import net.minecraft.block.core.Block;
+import net.minecraft.world.chunk.ChunkCoordinates;
+import net.minecraft.world.chunk.ChunkProviderLoadOrGenerate;
 import net.minecraft.client.render.ColorizerFoliage;
 import net.minecraft.client.render.ColorizerGrass;
 import net.minecraft.client.render.ColorizerWater;
 import net.minecraft.client.render.EffectRenderer;
-import net.minecraft.entity.EntityClientPlayerMP;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.entity.EntityPlayerSP;
-import net.minecraft.entity.EntityRenderer;
+import net.minecraft.entity.living.EntityClientPlayerMP;
+import net.minecraft.entity.living.EntityLiving;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayerSP;
+import net.minecraft.client.render.EntityRenderer;
 import net.minecraft.misc.EnumMovingObjectType;
 import net.minecraft.client.render.GLAllocation;
 import net.minecraft.client.render.gui.GuiAchievement;
@@ -39,25 +39,25 @@ import net.minecraft.client.render.gui.GuiMainMenu;
 import net.minecraft.client.render.gui.GuiScreen;
 import net.minecraft.client.render.gui.GuiSleepMP;
 import net.minecraft.client.render.gui.GuiUnused;
-import net.minecraft.world.IChunkProvider;
+import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.ISaveFormat;
 import net.minecraft.world.ISaveHandler;
-import net.minecraft.item.ItemRenderer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.render.ItemRenderer;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.client.render.LoadingScreenRenderer;
 import net.minecraft.core.MathHelper;
 import net.minecraft.core.MinecraftError;
 import net.minecraft.core.MinecraftException;
-import net.minecraft.client.render.ModelBiped;
+import net.minecraft.client.render.entity.model.ModelBiped;
 import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.network.NetClientHandler;
 import net.minecraft.client.render.OpenGlCapsChecker;
 import net.minecraft.entity.PlayerController;
 import net.minecraft.entity.PlayerControllerTest;
-import net.minecraft.client.render.RenderBlocks;
-import net.minecraft.client.render.RenderEngine;
-import net.minecraft.client.render.RenderGlobal;
-import net.minecraft.client.render.RenderManager;
+import net.minecraft.client.render.entity.render.RenderBlocks;
+import net.minecraft.client.render.entity.render.RenderEngine;
+import net.minecraft.client.render.entity.render.RenderGlobal;
+import net.minecraft.client.render.entity.render.RenderManager;
 import net.minecraft.core.save.SaveConverterMcRegion;
 import net.minecraft.sound.SoundManager;
 import net.minecraft.achievement.stats.StatFileWriter;
@@ -154,6 +154,7 @@ public abstract class Minecraft implements Runnable {
 	long systemTime = System.currentTimeMillis();
 	private int joinPlayerCounter = 0;
 
+	@SuppressWarnings("deprecated")
 	public Minecraft(Component var1, Canvas var2, MinecraftApplet var3, int var4, int var5, boolean var6) {
 		StatList.func_27360_a();
 		this.tempDisplayHeight = var5;
@@ -164,9 +165,13 @@ public abstract class Minecraft implements Runnable {
 		this.displayWidth = var4;
 		this.displayHeight = var5;
 		this.fullscreen = var6;
+		/*
 		if(var3 == null || "true".equals(var3.getParameter("stand-alone"))) {
 			this.hideQuitButton = false;
 		}
+		 */
+		this.hideQuitButton = false;
+
 
 		theMinecraft = this;
 	}
@@ -490,9 +495,11 @@ public abstract class Minecraft implements Runnable {
 
 			while(this.running) {
 				try {
+					/*
 					if(this.mcApplet != null && !this.mcApplet.isActive()) {
 						break;
 					}
+					 */
 
 					AxisAlignedBB.clearBoundingBoxPool();
 					Vec3D.initialize();
@@ -898,16 +905,16 @@ public abstract class Minecraft implements Runnable {
 	private void clickMiddleMouseButton() {
 		if(this.objectMouseOver != null) {
 			int var1 = this.theWorld.getBlockId(this.objectMouseOver.blockX, this.objectMouseOver.blockY, this.objectMouseOver.blockZ);
-			if(var1 == Block.grass.blockID) {
-				var1 = Block.dirt.blockID;
+			if(var1 == Block.grass.getBlockID()) {
+				var1 = Block.dirt.getBlockID();
 			}
 
-			if(var1 == Block.stairDouble.blockID) {
-				var1 = Block.stairSingle.blockID;
+			if(var1 == Block.stairDouble.getBlockID()) {
+				var1 = Block.stairSingle.getBlockID();
 			}
 
-			if(var1 == Block.bedrock.blockID) {
-				var1 = Block.stone.blockID;
+			if(var1 == Block.bedrock.getBlockID()) {
+				var1 = Block.stone.getBlockID();
 			}
 
 			this.thePlayer.inventory.setCurrentItem(var1, this.playerController instanceof PlayerControllerTest);
@@ -1457,7 +1464,7 @@ public abstract class Minecraft implements Runnable {
 	}
 
 	public static void startMainThread(String var0, String var1, String var2) {
-		boolean var3 = false;
+		boolean fullscreen = false;
 		Frame var5 = new Frame("Minecraft");
 		Canvas var6 = new Canvas();
 		var5.setLayout(new BorderLayout());
@@ -1465,7 +1472,7 @@ public abstract class Minecraft implements Runnable {
 		var6.setPreferredSize(new Dimension(854, 480));
 		var5.pack();
 		var5.setLocationRelativeTo((Component)null);
-		MinecraftImpl var7 = new MinecraftImpl(var5, var6, (MinecraftApplet)null, 854, 480, var3, var5);
+		MinecraftImpl var7 = new MinecraftImpl(var5, var6, (MinecraftApplet)null, 854, 480, fullscreen, var5);
 		Thread var8 = new Thread(var7, "Minecraft main thread");
 		var8.setPriority(10);
 		var7.minecraftUri = "www.minecraft.net";

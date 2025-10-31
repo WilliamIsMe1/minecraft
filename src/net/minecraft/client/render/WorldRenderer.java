@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.TileEntity;
-import net.minecraft.block.TileEntityRenderer;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.tileentity.TileEntity;
+import net.minecraft.client.render.entity.render.RenderBlocks;
+import net.minecraft.client.render.entity.render.RenderItem;
 import net.minecraft.core.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.misc.AxisAlignedBB;
-import net.minecraft.world.ChunkCache;
+import net.minecraft.world.chunk.ChunkCache;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.opengl.GL11;
 
 public class WorldRenderer {
@@ -101,12 +103,12 @@ public class WorldRenderer {
 				this.skipRenderPass[var7] = true;
 			}
 
-			net.minecraft.world.Chunk.isLit = false;
+			Chunk.isLit = false;
 			HashSet var21 = new HashSet();
 			var21.addAll(this.tileEntityRenderers);
 			this.tileEntityRenderers.clear();
 			byte var8 = 1;
-			net.minecraft.world.ChunkCache var9 = new ChunkCache(this.worldObj, var1 - var8, var2 - var8, var3 - var8, var4 + var8, var5 + var8, var6 + var8);
+			ChunkCache var9 = new ChunkCache(this.worldObj, var1 - var8, var2 - var8, var3 - var8, var4 + var8, var5 + var8, var6 + var8);
 			RenderBlocks var10 = new RenderBlocks(var9);
 
 			for(int var11 = 0; var11 < 2; ++var11) {
@@ -132,14 +134,14 @@ public class WorldRenderer {
 									tessellator.setTranslationD((double)(-this.posX), (double)(-this.posY), (double)(-this.posZ));
 								}
 
-								if(var11 == 0 && net.minecraft.block.Block.isBlockContainer[var18]) {
+								if(var11 == 0 && Block.isBlockContainer[var18]) {
 									TileEntity var23 = var9.getBlockTileEntity(var17, var15, var16);
 									if(TileEntityRenderer.instance.hasSpecialRenderer(var23)) {
 										this.tileEntityRenderers.add(var23);
 									}
 								}
 
-								net.minecraft.block.Block var24 = Block.blocksList[var18];
+								Block var24 = Block.blocksList[var18];
 								int var20 = var24.getRenderBlockPass();
 								if(var20 != var11) {
 									var12 = true;
@@ -175,7 +177,7 @@ public class WorldRenderer {
 			this.tileEntities.addAll(var22);
 			var21.removeAll(this.tileEntityRenderers);
 			this.tileEntities.removeAll(var21);
-			this.isChunkLit = net.minecraft.world.Chunk.isLit;
+			this.isChunkLit = Chunk.isLit;
 			this.isInitialized = true;
 		}
 	}

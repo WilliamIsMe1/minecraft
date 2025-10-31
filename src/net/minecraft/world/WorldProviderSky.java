@@ -1,8 +1,11 @@
 package net.minecraft.world;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.core.MathHelper;
 import net.minecraft.core.Vec3D;
+import net.minecraft.world.chunk.ChunkProviderSky;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.BiomeGenBase;
 
 public class WorldProviderSky extends WorldProvider {
 	public void registerWorldChunkManager() {
@@ -52,6 +55,6 @@ public class WorldProviderSky extends WorldProvider {
 
 	public boolean canCoordinateBeSpawn(int var1, int var2) {
 		int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
-		return var3 == 0 ? false : Block.blocksList[var3].blockMaterial.getIsSolid();
+		return var3 == 0 ? false : Block.blocksList[var3].getBlockMaterial().getIsSolid();
 	}
 }

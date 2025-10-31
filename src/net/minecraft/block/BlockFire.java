@@ -1,5 +1,8 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.block.material.Material;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -9,21 +12,21 @@ public class BlockFire extends Block {
 	private int[] chanceToEncourageFire = new int[256];
 	private int[] abilityToCatchFire = new int[256];
 
-	protected BlockFire(int var1, int var2) {
+	public BlockFire(int var1, int var2) {
 		super(var1, var2, Material.fire);
 		this.setTickOnLoad(true);
 	}
 
 	public void initializeBlock() {
-		this.setBurnRate(Block.planks.blockID, 5, 20);
-		this.setBurnRate(Block.fence.blockID, 5, 20);
-		this.setBurnRate(Block.stairCompactPlanks.blockID, 5, 20);
-		this.setBurnRate(Block.wood.blockID, 5, 5);
-		this.setBurnRate(Block.leaves.blockID, 30, 60);
-		this.setBurnRate(Block.bookShelf.blockID, 30, 20);
-		this.setBurnRate(Block.tnt.blockID, 15, 100);
-		this.setBurnRate(Block.tallGrass.blockID, 60, 100);
-		this.setBurnRate(Block.cloth.blockID, 30, 60);
+		this.setBurnRate(Block.planks.getBlockID(), 5, 20);
+		this.setBurnRate(Block.fence.getBlockID(), 5, 20);
+		this.setBurnRate(Block.stairCompactPlanks.getBlockID(), 5, 20);
+		this.setBurnRate(Block.wood.getBlockID(), 5, 5);
+		this.setBurnRate(Block.leaves.getBlockID(), 30, 60);
+		this.setBurnRate(Block.bookShelf.getBlockID(), 30, 20);
+		this.setBurnRate(Block.tnt.getBlockID(), 15, 100);
+		this.setBurnRate(Block.tallGrass.getBlockID(), 60, 100);
+		this.setBurnRate(Block.cloth.getBlockID(), 30, 60);
 	}
 
 	private void setBurnRate(int var1, int var2, int var3) {
@@ -56,7 +59,7 @@ public class BlockFire extends Block {
 	}
 
 	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-		boolean var6 = var1.getBlockId(var2, var3 - 1, var4) == Block.netherrack.blockID;
+		boolean var6 = var1.getBlockId(var2, var3 - 1, var4) == Block.netherrack.getBlockID();
 		if(!this.canPlaceBlockAt(var1, var2, var3, var4)) {
 			var1.setBlockWithNotify(var2, var3, var4, 0);
 		}
@@ -67,7 +70,7 @@ public class BlockFire extends Block {
 				var1.setBlockMetadata(var2, var3, var4, var7 + var5.nextInt(3) / 2);
 			}
 
-			var1.scheduleBlockUpdate(var2, var3, var4, this.blockID, this.tickRate());
+			var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), this.tickRate());
 			if(!var6 && !this.func_263_h(var1, var2, var3, var4)) {
 				if(!var1.isBlockNormalCube(var2, var3 - 1, var4) || var7 > 3) {
 					var1.setBlockWithNotify(var2, var3, var4, 0);
@@ -101,7 +104,7 @@ public class BlockFire extends Block {
 											var14 = 15;
 										}
 
-										var1.setBlockAndMetadataWithNotify(var8, var10, var9, this.blockID, var14);
+										var1.setBlockAndMetadataWithNotify(var8, var10, var9, this.getBlockID(), var14);
 									}
 								}
 							}
@@ -118,14 +121,14 @@ public class BlockFire extends Block {
 	private void tryToCatchBlockOnFire(World var1, int var2, int var3, int var4, int var5, Random var6, int var7) {
 		int var8 = this.abilityToCatchFire[var1.getBlockId(var2, var3, var4)];
 		if(var6.nextInt(var5) < var8) {
-			boolean var9 = var1.getBlockId(var2, var3, var4) == Block.tnt.blockID;
+			boolean var9 = var1.getBlockId(var2, var3, var4) == Block.tnt.getBlockID();
 			if(var6.nextInt(var7 + 10) < 5 && !var1.canBlockBeRainedOn(var2, var3, var4)) {
 				int var10 = var7 + var6.nextInt(5) / 4;
 				if(var10 > 15) {
 					var10 = 15;
 				}
 
-				var1.setBlockAndMetadataWithNotify(var2, var3, var4, this.blockID, var10);
+				var1.setBlockAndMetadataWithNotify(var2, var3, var4, this.getBlockID(), var10);
 			} else {
 				var1.setBlockWithNotify(var2, var3, var4, 0);
 			}
@@ -180,11 +183,11 @@ public class BlockFire extends Block {
 	}
 
 	public void onBlockAdded(World var1, int var2, int var3, int var4) {
-		if(var1.getBlockId(var2, var3 - 1, var4) != Block.obsidian.blockID || !Block.portal.tryToCreatePortal(var1, var2, var3, var4)) {
+		if(var1.getBlockId(var2, var3 - 1, var4) != Block.obsidian.getBlockID() || !Block.portal.tryToCreatePortal(var1, var2, var3, var4)) {
 			if(!var1.isBlockNormalCube(var2, var3 - 1, var4) && !this.func_263_h(var1, var2, var3, var4)) {
 				var1.setBlockWithNotify(var2, var3, var4, 0);
 			} else {
-				var1.scheduleBlockUpdate(var2, var3, var4, this.blockID, this.tickRate());
+				var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), this.tickRate());
 			}
 		}
 	}

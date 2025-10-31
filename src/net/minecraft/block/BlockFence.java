@@ -1,5 +1,7 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -9,7 +11,7 @@ public class BlockFence extends Block {
 	}
 
 	public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-		return var1.getBlockId(var2, var3 - 1, var4) == this.blockID ? true : (!var1.getBlockMaterial(var2, var3 - 1, var4).isSolid() ? false : super.canPlaceBlockAt(var1, var2, var3, var4));
+		return var1.getBlockId(var2, var3 - 1, var4) == this.getBlockID() ? true : (!var1.getBlockMaterial(var2, var3 - 1, var4).isSolid() ? false : super.canPlaceBlockAt(var1, var2, var3, var4));
 	}
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {

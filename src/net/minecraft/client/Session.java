@@ -1,6 +1,6 @@
 package net.minecraft.client;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,33 +17,33 @@ public class Session {
 	}
 
 	static {
-		registeredBlocksList.add(net.minecraft.block.Block.stone);
-		registeredBlocksList.add(net.minecraft.block.Block.cobblestone);
-		registeredBlocksList.add(net.minecraft.block.Block.brick);
-		registeredBlocksList.add(net.minecraft.block.Block.dirt);
-		registeredBlocksList.add(net.minecraft.block.Block.planks);
-		registeredBlocksList.add(net.minecraft.block.Block.wood);
-		registeredBlocksList.add(net.minecraft.block.Block.leaves);
-		registeredBlocksList.add(net.minecraft.block.Block.torchWood);
-		registeredBlocksList.add(net.minecraft.block.Block.stairSingle);
-		registeredBlocksList.add(net.minecraft.block.Block.glass);
-		registeredBlocksList.add(net.minecraft.block.Block.cobblestoneMossy);
-		registeredBlocksList.add(net.minecraft.block.Block.sapling);
-		registeredBlocksList.add(net.minecraft.block.Block.plantYellow);
-		registeredBlocksList.add(net.minecraft.block.Block.plantRed);
-		registeredBlocksList.add(net.minecraft.block.Block.mushroomBrown);
-		registeredBlocksList.add(net.minecraft.block.Block.mushroomRed);
-		registeredBlocksList.add(net.minecraft.block.Block.sand);
-		registeredBlocksList.add(net.minecraft.block.Block.gravel);
-		registeredBlocksList.add(net.minecraft.block.Block.sponge);
-		registeredBlocksList.add(net.minecraft.block.Block.cloth);
-		registeredBlocksList.add(net.minecraft.block.Block.oreCoal);
-		registeredBlocksList.add(net.minecraft.block.Block.oreIron);
-		registeredBlocksList.add(net.minecraft.block.Block.oreGold);
-		registeredBlocksList.add(net.minecraft.block.Block.blockSteel);
-		registeredBlocksList.add(net.minecraft.block.Block.blockGold);
-		registeredBlocksList.add(net.minecraft.block.Block.bookShelf);
-		registeredBlocksList.add(net.minecraft.block.Block.tnt);
+		registeredBlocksList.add(Block.stone);
+		registeredBlocksList.add(Block.cobblestone);
+		registeredBlocksList.add(Block.brick);
+		registeredBlocksList.add(Block.dirt);
+		registeredBlocksList.add(Block.planks);
+		registeredBlocksList.add(Block.wood);
+		registeredBlocksList.add(Block.leaves);
+		registeredBlocksList.add(Block.torchWood);
+		registeredBlocksList.add(Block.stairSingle);
+		registeredBlocksList.add(Block.glass);
+		registeredBlocksList.add(Block.cobblestoneMossy);
+		registeredBlocksList.add(Block.sapling);
+		registeredBlocksList.add(Block.plantYellow);
+		registeredBlocksList.add(Block.plantRed);
+		registeredBlocksList.add(Block.mushroomBrown);
+		registeredBlocksList.add(Block.mushroomRed);
+		registeredBlocksList.add(Block.sand);
+		registeredBlocksList.add(Block.gravel);
+		registeredBlocksList.add(Block.sponge);
+		registeredBlocksList.add(Block.cloth);
+		registeredBlocksList.add(Block.oreCoal);
+		registeredBlocksList.add(Block.oreIron);
+		registeredBlocksList.add(Block.oreGold);
+		registeredBlocksList.add(Block.blockSteel);
+		registeredBlocksList.add(Block.blockGold);
+		registeredBlocksList.add(Block.bookShelf);
+		registeredBlocksList.add(Block.tnt);
 		registeredBlocksList.add(Block.obsidian);
 	}
 }

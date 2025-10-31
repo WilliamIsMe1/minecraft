@@ -1,5 +1,8 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -18,12 +21,12 @@ public class BlockStep extends Block {
 		this.setLightOpacity(255);
 	}
 
-	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-		return var2 == 0 ? (var1 <= 1 ? 6 : 5) : (var2 == 1 ? (var1 == 0 ? 208 : (var1 == 1 ? 176 : 192)) : (var2 == 2 ? 4 : (var2 == 3 ? 16 : 6)));
+	public int getBlockTextureFromSideAndMetadata(int side, int var2) {
+		return var2 == 0 ? (side <= 1 ? 6 : 5) : (var2 == 1 ? (side == 0 ? 208 : (side == 1 ? 176 : 192)) : (var2 == 2 ? 4 : (var2 == 3 ? 16 : 6)));
 	}
 
-	public int getBlockTextureFromSide(int var1) {
-		return this.getBlockTextureFromSideAndMetadata(var1, 0);
+	public int getBlockTextureFromSide(int side) {
+		return this.getBlockTextureFromSideAndMetadata(side, 0);
 	}
 
 	public boolean isOpaqueCube() {
@@ -39,16 +42,16 @@ public class BlockStep extends Block {
 		int var6 = var1.getBlockMetadata(var2, var3, var4);
 		int var7 = var1.getBlockMetadata(var2, var3 - 1, var4);
 		if(var6 == var7) {
-			if(var5 == stairSingle.blockID) {
+			if(var5 == stairSingle.getBlockID()) {
 				var1.setBlockWithNotify(var2, var3, var4, 0);
-				var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, Block.stairDouble.blockID, var6);
+				var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, Block.stairDouble.getBlockID(), var6);
 			}
 
 		}
 	}
 
 	public int idDropped(int var1, Random var2) {
-		return Block.stairSingle.blockID;
+		return Block.stairSingle.getBlockID();
 	}
 
 	public int quantityDropped(Random var1) {
@@ -68,6 +71,6 @@ public class BlockStep extends Block {
 			super.shouldSideBeRendered(var1, var2, var3, var4, var5);
 		}
 
-		return var5 == 1 ? true : (!super.shouldSideBeRendered(var1, var2, var3, var4, var5) ? false : (var5 == 0 ? true : var1.getBlockId(var2, var3, var4) != this.blockID));
+		return var5 == 1 ? true : (!super.shouldSideBeRendered(var1, var2, var3, var4, var5) ? false : (var5 == 0 ? true : var1.getBlockId(var2, var3, var4) != this.getBlockID()));
 	}
 }

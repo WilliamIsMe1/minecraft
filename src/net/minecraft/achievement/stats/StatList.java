@@ -1,12 +1,12 @@
 package net.minecraft.achievement.stats;
 
 import net.minecraft.achievement.AchievementList;
-import net.minecraft.block.Block;
-import net.minecraft.item.CraftingManager;
-import net.minecraft.item.FurnaceRecipes;
-import net.minecraft.item.IRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.core.Block;
+import net.minecraft.item.recipe.CraftingManager;
+import net.minecraft.item.recipe.FurnaceRecipes;
+import net.minecraft.item.recipe.IRecipe;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,15 +55,15 @@ public class StatList {
 	}
 
 	public static void func_25154_a() {
-		field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, 0, net.minecraft.block.Block.blocksList.length);
-		field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, 0, net.minecraft.block.Block.blocksList.length);
+		field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, 0, Block.blocksList.length);
+		field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, 0, Block.blocksList.length);
 		field_25166_D = true;
 		func_25157_c();
 	}
 
 	public static void func_25151_b() {
-		field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, net.minecraft.block.Block.blocksList.length, 32000);
-		field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, net.minecraft.block.Block.blocksList.length, 32000);
+		field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, Block.blocksList.length, 32000);
+		field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, Block.blocksList.length, 32000);
 		field_25164_E = true;
 		func_25157_c();
 	}
@@ -74,14 +74,14 @@ public class StatList {
 			Iterator var1 = CraftingManager.getInstance().getRecipeList().iterator();
 
 			while(var1.hasNext()) {
-				net.minecraft.item.IRecipe var2 = (IRecipe)var1.next();
+				IRecipe var2 = (IRecipe)var1.next();
 				var0.add(Integer.valueOf(var2.getRecipeOutput().itemID));
 			}
 
 			var1 = FurnaceRecipes.smelting().getSmeltingList().values().iterator();
 
 			while(var1.hasNext()) {
-				net.minecraft.item.ItemStack var4 = (ItemStack)var1.next();
+				ItemStack var4 = (ItemStack)var1.next();
 				var0.add(Integer.valueOf(var4.itemID));
 			}
 
@@ -90,8 +90,8 @@ public class StatList {
 
 			while(var1.hasNext()) {
 				Integer var5 = (Integer)var1.next();
-				if(net.minecraft.item.Item.itemsList[var5.intValue()] != null) {
-					String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", new Object[]{net.minecraft.item.Item.itemsList[var5.intValue()].getStatName()});
+				if(Item.itemsList[var5.intValue()] != null) {
+					String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", new Object[]{Item.itemsList[var5.intValue()].getStatName()});
 					field_25158_z[var5.intValue()] = (new StatCrafting(16842752 + var5.intValue(), var3, var5.intValue())).registerStat();
 				}
 			}
@@ -104,8 +104,8 @@ public class StatList {
 		StatBase[] var2 = new StatBase[256];
 
 		for(int var3 = 0; var3 < 256; ++var3) {
-			if(net.minecraft.block.Block.blocksList[var3] != null && net.minecraft.block.Block.blocksList[var3].getEnableStats()) {
-				String var4 = StatCollector.translateToLocalFormatted(var0, new Object[]{net.minecraft.block.Block.blocksList[var3].translateBlockName()});
+			if(Block.blocksList[var3] != null && Block.blocksList[var3].getEnableStats()) {
+				String var4 = StatCollector.translateToLocalFormatted(var0, new Object[]{Block.blocksList[var3].translateBlockName()});
 				var2[var3] = (new StatCrafting(var1 + var3, var4, var3)).registerStat();
 				field_25185_d.add((StatCrafting)var2[var3]);
 			}
@@ -121,10 +121,10 @@ public class StatList {
 		}
 
 		for(int var5 = var3; var5 < var4; ++var5) {
-			if(net.minecraft.item.Item.itemsList[var5] != null) {
-				String var6 = StatCollector.translateToLocalFormatted(var1, new Object[]{net.minecraft.item.Item.itemsList[var5].getStatName()});
+			if(Item.itemsList[var5] != null) {
+				String var6 = StatCollector.translateToLocalFormatted(var1, new Object[]{Item.itemsList[var5].getStatName()});
 				var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).registerStat();
-				if(var5 >= net.minecraft.block.Block.blocksList.length) {
+				if(var5 >= Block.blocksList.length) {
 					field_25186_c.add((StatCrafting)var0[var5]);
 				}
 			}
@@ -140,7 +140,7 @@ public class StatList {
 		}
 
 		for(int var5 = var3; var5 < var4; ++var5) {
-			if(net.minecraft.item.Item.itemsList[var5] != null && net.minecraft.item.Item.itemsList[var5].isDamagable()) {
+			if(Item.itemsList[var5] != null && Item.itemsList[var5].isDamagable()) {
 				String var6 = StatCollector.translateToLocalFormatted(var1, new Object[]{Item.itemsList[var5].getStatName()});
 				var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).registerStat();
 			}
@@ -151,17 +151,17 @@ public class StatList {
 	}
 
 	private static void replaceAllSimilarBlocks(StatBase[] var0) {
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.waterStill.blockID, net.minecraft.block.Block.waterMoving.blockID);
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.lavaStill.blockID, net.minecraft.block.Block.lavaStill.blockID);
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.pumpkinLantern.blockID, net.minecraft.block.Block.pumpkin.blockID);
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.stoneOvenActive.blockID, net.minecraft.block.Block.stoneOvenIdle.blockID);
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.oreRedstoneGlowing.blockID, net.minecraft.block.Block.oreRedstone.blockID);
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.redstoneRepeaterActive.blockID, net.minecraft.block.Block.redstoneRepeaterIdle.blockID);
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.torchRedstoneActive.blockID, net.minecraft.block.Block.torchRedstoneIdle.blockID);
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.mushroomRed.blockID, net.minecraft.block.Block.mushroomBrown.blockID);
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.stairDouble.blockID, net.minecraft.block.Block.stairSingle.blockID);
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.grass.blockID, net.minecraft.block.Block.dirt.blockID);
-		replaceSimilarBlocks(var0, net.minecraft.block.Block.tilledField.blockID, Block.dirt.blockID);
+		replaceSimilarBlocks(var0, Block.waterStill.getBlockID(), Block.waterMoving.getBlockID());
+		replaceSimilarBlocks(var0, Block.lavaStill.getBlockID(), Block.lavaStill.getBlockID());
+		replaceSimilarBlocks(var0, Block.pumpkinLantern.getBlockID(), Block.pumpkin.getBlockID());
+		replaceSimilarBlocks(var0, Block.stoneOvenActive.getBlockID(), Block.stoneOvenIdle.getBlockID());
+		replaceSimilarBlocks(var0, Block.oreRedstoneGlowing.getBlockID(), Block.oreRedstone.getBlockID());
+		replaceSimilarBlocks(var0, Block.redstoneRepeaterActive.getBlockID(), Block.redstoneRepeaterIdle.getBlockID());
+		replaceSimilarBlocks(var0, Block.torchRedstoneActive.getBlockID(), Block.torchRedstoneIdle.getBlockID());
+		replaceSimilarBlocks(var0, Block.mushroomRed.getBlockID(), Block.mushroomBrown.getBlockID());
+		replaceSimilarBlocks(var0, Block.stairDouble.getBlockID(), Block.stairSingle.getBlockID());
+		replaceSimilarBlocks(var0, Block.grass.getBlockID(), Block.dirt.getBlockID());
+		replaceSimilarBlocks(var0, Block.tilledField.getBlockID(), Block.dirt.getBlockID());
 	}
 
 	private static void replaceSimilarBlocks(StatBase[] var0, int var1, int var2) {

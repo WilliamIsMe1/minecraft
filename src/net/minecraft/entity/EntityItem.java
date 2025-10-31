@@ -1,23 +1,24 @@
 package net.minecraft.entity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.core.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class EntityItem extends net.minecraft.entity.Entity {
-	public net.minecraft.item.ItemStack item;
+	public ItemStack item;
 	private int field_803_e;
 	public int age = 0;
 	public int delayBeforeCanPickup;
 	private int health = 5;
 	public float field_804_d = (float)(Math.random() * Math.PI * 2.0D);
 
-	public EntityItem(World var1, double var2, double var4, double var6, net.minecraft.item.ItemStack var8) {
+	public EntityItem(World var1, double var2, double var4, double var6, ItemStack var8) {
 		super(var1);
 		this.setSize(0.25F, 0.25F);
 		this.yOffset = this.height / 2.0F;
@@ -52,7 +53,7 @@ public class EntityItem extends net.minecraft.entity.Entity {
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
 		this.motionY -= (double)0.04F;
-		if(this.worldObj.getBlockMaterial(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) == net.minecraft.block.Material.lava) {
+		if(this.worldObj.getBlockMaterial(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) == Material.lava) {
 			this.motionY = (double)0.2F;
 			this.motionX = (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
 			this.motionZ = (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
@@ -66,7 +67,7 @@ public class EntityItem extends net.minecraft.entity.Entity {
 			var1 = 0.1F * 0.1F * 58.8F;
 			int var2 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
 			if(var2 > 0) {
-				var1 = net.minecraft.block.Block.blocksList[var2].slipperiness * 0.98F;
+				var1 = Block.blocksList[var2].getSlipperiness() * 0.98F;
 			}
 		}
 
@@ -120,7 +121,7 @@ public class EntityItem extends net.minecraft.entity.Entity {
 		if(!this.worldObj.multiplayerWorld) {
 			int var2 = this.item.stackSize;
 			if(this.delayBeforeCanPickup == 0 && var1.inventory.addItemStackToInventory(this.item)) {
-				if(this.item.itemID == Block.wood.blockID) {
+				if(this.item.itemID == Block.wood.getBlockID()) {
 					var1.triggerAchievement(AchievementList.mineWood);
 				}
 

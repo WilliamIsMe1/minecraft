@@ -1,10 +1,12 @@
 package net.minecraft.item;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.core.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.EntityBoat;
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.misc.EnumMovingObjectType;
 import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -40,7 +42,7 @@ public class ItemBoat extends Item {
 				int var26 = var24.blockY;
 				int var27 = var24.blockZ;
 				if(!var2.multiplayerWorld) {
-					if(var2.getBlockId(var25, var26, var27) == Block.snow.blockID) {
+					if(var2.getBlockId(var25, var26, var27) == Block.snow.getBlockID()) {
 						--var26;
 					}
 

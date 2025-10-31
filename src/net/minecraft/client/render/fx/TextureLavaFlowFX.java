@@ -1,6 +1,6 @@
 package net.minecraft.client.render.fx;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.core.MathHelper;
 
 public class TextureLavaFlowFX extends TextureFX {
@@ -11,7 +11,7 @@ public class TextureLavaFlowFX extends TextureFX {
 	int field_1139_k = 0;
 
 	public TextureLavaFlowFX() {
-		super(Block.lavaMoving.blockIndexInTexture + 1);
+		super(Block.lavaMoving.getBlockIndexInTexture() + 1);
 		this.tileSize = 2;
 	}
 

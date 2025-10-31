@@ -1,15 +1,15 @@
 package net.minecraft.item.container;
 
-import net.minecraft.block.TileEntityFurnace;
+import net.minecraft.block.tileentity.TileEntityFurnace;
 import net.minecraft.client.render.gui.Slot;
 import net.minecraft.client.render.gui.SlotFurnace;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.item.ICrafting;
-import net.minecraft.item.InventoryPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.recipe.ICrafting;
+import net.minecraft.item.container.inventory.InventoryPlayer;
+import net.minecraft.item.core.ItemStack;
 
 public class ContainerFurnace extends Container {
-	private net.minecraft.block.TileEntityFurnace furnace;
+	private TileEntityFurnace furnace;
 	private int cookTime = 0;
 	private int burnTime = 0;
 	private int itemBurnTime = 0;
@@ -37,7 +37,7 @@ public class ContainerFurnace extends Container {
 		super.updateCraftingResults();
 
 		for(int var1 = 0; var1 < this.field_20121_g.size(); ++var1) {
-			net.minecraft.item.ICrafting var2 = (ICrafting)this.field_20121_g.get(var1);
+			ICrafting var2 = (ICrafting)this.field_20121_g.get(var1);
 			if(this.cookTime != this.furnace.furnaceCookTime) {
 				var2.func_20158_a(this, 0, this.furnace.furnaceCookTime);
 			}
@@ -75,11 +75,11 @@ public class ContainerFurnace extends Container {
 		return this.furnace.canInteractWith(var1);
 	}
 
-	public net.minecraft.item.ItemStack getStackInSlot(int var1) {
-		net.minecraft.item.ItemStack var2 = null;
+	public ItemStack getStackInSlot(int var1) {
+		ItemStack var2 = null;
 		Slot var3 = (Slot)this.slots.get(var1);
 		if(var3 != null && var3.getHasStack()) {
-			net.minecraft.item.ItemStack var4 = var3.getStack();
+			ItemStack var4 = var3.getStack();
 			var2 = var4.copy();
 			if(var1 == 2) {
 				this.func_28125_a(var4, 3, 39, true);

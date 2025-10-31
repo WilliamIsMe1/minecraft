@@ -1,13 +1,16 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.block.material.Material;
 import net.minecraft.misc.AxisAlignedBB;
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockCake extends Block {
-	protected BlockCake(int var1, int var2) {
+	public BlockCake(int var1, int var2) {
 		super(var1, var2, Material.cakeMaterial);
 		this.setTickOnLoad(true);
 	}
@@ -43,11 +46,11 @@ public class BlockCake extends Block {
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-		return var1 == 1 ? this.blockIndexInTexture : (var1 == 0 ? this.blockIndexInTexture + 3 : (var2 > 0 && var1 == 4 ? this.blockIndexInTexture + 2 : this.blockIndexInTexture + 1));
+		return var1 == 1 ? this.getBlockIndexInTexture() : (var1 == 0 ? this.getBlockIndexInTexture() + 3 : (var2 > 0 && var1 == 4 ? this.getBlockIndexInTexture() + 2 : this.getBlockIndexInTexture() + 1));
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.blockIndexInTexture : (var1 == 0 ? this.blockIndexInTexture + 3 : this.blockIndexInTexture + 1);
+		return var1 == 1 ? this.getBlockIndexInTexture() : (var1 == 0 ? this.getBlockIndexInTexture() + 3 : this.getBlockIndexInTexture() + 1);
 	}
 
 	public boolean renderAsNormalBlock() {

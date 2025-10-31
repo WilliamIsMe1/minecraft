@@ -1,7 +1,9 @@
 package net.minecraft.item;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.block.BlockStep;
+import net.minecraft.item.core.ItemBlock;
+import net.minecraft.item.core.ItemStack;
 
 public class ItemSlab extends ItemBlock {
 	public ItemSlab(int var1) {

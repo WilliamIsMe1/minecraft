@@ -1,10 +1,13 @@
 package net.minecraft.block;
 
-import net.minecraft.client.render.ModelBed;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.render.entity.model.ModelBed;
 import net.minecraft.core.EnumStatus;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.world.ChunkCoordinates;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.Item;
+import net.minecraft.world.chunk.ChunkCoordinates;
 import net.minecraft.world.World;
 
 import java.util.Iterator;
@@ -18,7 +21,7 @@ public class BlockBed extends Block {
 		this.setBounds();
 	}
 
-	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.entity.EntityPlayer var5) {
+	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
 		if(var1.multiplayerWorld) {
 			return true;
 		} else {
@@ -27,7 +30,7 @@ public class BlockBed extends Block {
 				int var7 = getDirectionFromMetadata(var6);
 				var2 += headBlockToFootBlockMap[var7][0];
 				var4 += headBlockToFootBlockMap[var7][1];
-				if(var1.getBlockId(var2, var3, var4) != this.blockID) {
+				if(var1.getBlockId(var2, var3, var4) != this.getBlockID()) {
 					return true;
 				}
 
@@ -42,7 +45,7 @@ public class BlockBed extends Block {
 				int var13 = getDirectionFromMetadata(var6);
 				var2 += headBlockToFootBlockMap[var13][0];
 				var4 += headBlockToFootBlockMap[var13][1];
-				if(var1.getBlockId(var2, var3, var4) == this.blockID) {
+				if(var1.getBlockId(var2, var3, var4) == this.getBlockID()) {
 					var1.setBlockWithNotify(var2, var3, var4, 0);
 					var16 = (var16 + (double)var2 + 0.5D) / 2.0D;
 					var17 = (var17 + (double)var3 + 0.5D) / 2.0D;
@@ -53,13 +56,13 @@ public class BlockBed extends Block {
 				return true;
 			} else {
 				if(isBedOccupied(var6)) {
-					net.minecraft.entity.EntityPlayer var14 = null;
+					EntityPlayer var14 = null;
 					Iterator var8 = var1.playerEntities.iterator();
 
 					while(var8.hasNext()) {
-						net.minecraft.entity.EntityPlayer var9 = (EntityPlayer)var8.next();
+						EntityPlayer var9 = (EntityPlayer)var8.next();
 						if(var9.isPlayerSleeping()) {
-							net.minecraft.world.ChunkCoordinates var10 = var9.bedChunkCoordinates;
+							ChunkCoordinates var10 = var9.bedChunkCoordinates;
 							if(var10.x == var2 && var10.y == var3 && var10.z == var4) {
 								var14 = var9;
 							}
@@ -91,11 +94,11 @@ public class BlockBed extends Block {
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
 		if(var1 == 0) {
-			return Block.planks.blockIndexInTexture;
+			return Block.planks.getBlockIndexInTexture();
 		} else {
 			int var3 = getDirectionFromMetadata(var2);
 			int var4 = ModelBed.bedDirection[var3][var1];
-			return isBlockFootOfBed(var2) ? (var4 == 2 ? this.blockIndexInTexture + 2 + 16 : (var4 != 5 && var4 != 4 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture + 1 + 16)) : (var4 == 3 ? this.blockIndexInTexture - 1 + 16 : (var4 != 5 && var4 != 4 ? this.blockIndexInTexture : this.blockIndexInTexture + 16));
+			return isBlockFootOfBed(var2) ? (var4 == 2 ? this.getBlockIndexInTexture() + 2 + 16 : (var4 != 5 && var4 != 4 ? this.getBlockIndexInTexture() + 1 : this.getBlockIndexInTexture() + 1 + 16)) : (var4 == 3 ? this.getBlockIndexInTexture() - 1 + 16 : (var4 != 5 && var4 != 4 ? this.getBlockIndexInTexture() : this.getBlockIndexInTexture() + 16));
 		}
 	}
 
@@ -119,10 +122,10 @@ public class BlockBed extends Block {
 		int var6 = var1.getBlockMetadata(var2, var3, var4);
 		int var7 = getDirectionFromMetadata(var6);
 		if(isBlockFootOfBed(var6)) {
-			if(var1.getBlockId(var2 - headBlockToFootBlockMap[var7][0], var3, var4 - headBlockToFootBlockMap[var7][1]) != this.blockID) {
+			if(var1.getBlockId(var2 - headBlockToFootBlockMap[var7][0], var3, var4 - headBlockToFootBlockMap[var7][1]) != this.getBlockID()) {
 				var1.setBlockWithNotify(var2, var3, var4, 0);
 			}
-		} else if(var1.getBlockId(var2 + headBlockToFootBlockMap[var7][0], var3, var4 + headBlockToFootBlockMap[var7][1]) != this.blockID) {
+		} else if(var1.getBlockId(var2 + headBlockToFootBlockMap[var7][0], var3, var4 + headBlockToFootBlockMap[var7][1]) != this.getBlockID()) {
 			var1.setBlockWithNotify(var2, var3, var4, 0);
 			if(!var1.multiplayerWorld) {
 				this.dropBlockAsItem(var1, var2, var3, var4, var6);
@@ -162,7 +165,7 @@ public class BlockBed extends Block {
 		var0.setBlockMetadataWithNotify(var1, var2, var3, var5);
 	}
 
-	public static net.minecraft.world.ChunkCoordinates getNearestEmptyChunkCoordinates(net.minecraft.world.World var0, int var1, int var2, int var3, int var4) {
+	public static ChunkCoordinates getNearestEmptyChunkCoordinates(net.minecraft.world.World var0, int var1, int var2, int var3, int var4) {
 		int var5 = var0.getBlockMetadata(var1, var2, var3);
 		int var6 = getDirectionFromMetadata(var5);
 

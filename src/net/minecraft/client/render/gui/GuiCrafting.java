@@ -1,6 +1,6 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.item.InventoryPlayer;
+import net.minecraft.item.container.inventory.InventoryPlayer;
 import net.minecraft.item.container.ContainerWorkbench;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;

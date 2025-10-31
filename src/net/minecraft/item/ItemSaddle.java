@@ -1,7 +1,9 @@
 package net.minecraft.item;
 
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityPig;
+import net.minecraft.entity.living.EntityLiving;
+import net.minecraft.entity.living.creature.animal.EntityPig;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 
 public class ItemSaddle extends Item {
 	public ItemSaddle(int var1) {

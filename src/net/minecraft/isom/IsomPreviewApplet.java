@@ -2,7 +2,7 @@ package net.minecraft.isom;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import net.minecraft.client.render.CanvasIsomPreview;
+import net.minecraft.client.render.canvas.CanvasIsomPreview;
 
 public class IsomPreviewApplet extends Applet {
 	private CanvasIsomPreview a = new CanvasIsomPreview();

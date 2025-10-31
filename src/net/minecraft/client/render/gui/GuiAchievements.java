@@ -2,12 +2,12 @@ package net.minecraft.client.render.gui;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.achievement.Achievement;
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.core.MathHelper;
-import net.minecraft.client.render.RenderHelper;
-import net.minecraft.client.render.RenderItem;
+import net.minecraft.client.render.entity.render.RenderHelper;
+import net.minecraft.client.render.entity.render.RenderItem;
 import net.minecraft.achievement.stats.StatCollector;
 import net.minecraft.achievement.stats.StatFileWriter;
 import org.lwjgl.input.Mouse;
@@ -181,25 +181,25 @@ public class GuiAchievements extends GuiScreen {
 				var21.setSeed((long)(1234 + var12 + var24));
 				var21.nextInt();
 				int var25 = var21.nextInt(1 + var13 + var22) + (var13 + var22) / 2;
-				int var26 = net.minecraft.block.Block.sand.blockIndexInTexture;
+				int var26 = Block.sand.getBlockIndexInTexture();
 				if(var25 <= 37 && var13 + var22 != 35) {
 					if(var25 == 22) {
 						if(var21.nextInt(2) == 0) {
-							var26 = net.minecraft.block.Block.oreDiamond.blockIndexInTexture;
+							var26 = Block.oreDiamond.getBlockIndexInTexture();
 						} else {
-							var26 = net.minecraft.block.Block.oreRedstone.blockIndexInTexture;
+							var26 = Block.oreRedstone.getBlockIndexInTexture();
 						}
 					} else if(var25 == 10) {
-						var26 = net.minecraft.block.Block.oreIron.blockIndexInTexture;
+						var26 = Block.oreIron.getBlockIndexInTexture();
 					} else if(var25 == 8) {
-						var26 = net.minecraft.block.Block.oreCoal.blockIndexInTexture;
+						var26 = Block.oreCoal.getBlockIndexInTexture();
 					} else if(var25 > 4) {
-						var26 = net.minecraft.block.Block.stone.blockIndexInTexture;
+						var26 = Block.stone.getBlockIndexInTexture();
 					} else if(var25 > 0) {
-						var26 = net.minecraft.block.Block.dirt.blockIndexInTexture;
+						var26 = Block.dirt.getBlockIndexInTexture();
 					}
 				} else {
-					var26 = Block.bedrock.blockIndexInTexture;
+					var26 = Block.bedrock.getBlockIndexInTexture();
 				}
 
 				this.drawTexturedModalRect(var10 + var24 * 16 - var14, var11 + var22 * 16 - var15, var26 % 16 << 4, var26 >> 4 << 4, 16, 16);

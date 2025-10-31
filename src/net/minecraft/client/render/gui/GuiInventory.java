@@ -1,9 +1,9 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.achievement.AchievementList;
-import net.minecraft.client.render.RenderHelper;
-import net.minecraft.client.render.RenderManager;
+import net.minecraft.client.render.entity.render.RenderHelper;
+import net.minecraft.client.render.entity.render.RenderManager;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

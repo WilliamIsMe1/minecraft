@@ -1,9 +1,9 @@
 package net.minecraft.client.render;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.isom.IsoImageBuffer;
-import net.minecraft.world.Chunk;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.World;
 
 import java.awt.image.BufferedImage;
@@ -60,10 +60,10 @@ public class TerrainTextureManager {
 		}
 
 		for(int var15 = 0; var15 < 256; ++var15) {
-			if(net.minecraft.block.Block.blocksList[var15] != null) {
-				this.field_1182_g[var15 * 3 + 0] = net.minecraft.block.Block.blocksList[var15].getBlockTextureFromSide(1);
-				this.field_1182_g[var15 * 3 + 1] = net.minecraft.block.Block.blocksList[var15].getBlockTextureFromSide(2);
-				this.field_1182_g[var15 * 3 + 2] = net.minecraft.block.Block.blocksList[var15].getBlockTextureFromSide(3);
+			if(Block.blocksList[var15] != null) {
+				this.field_1182_g[var15 * 3 + 0] = Block.blocksList[var15].getBlockTextureFromSide(1);
+				this.field_1182_g[var15 * 3 + 1] = Block.blocksList[var15].getBlockTextureFromSide(2);
+				this.field_1182_g[var15 * 3 + 2] = Block.blocksList[var15].getBlockTextureFromSide(3);
 			}
 		}
 
@@ -99,12 +99,12 @@ public class TerrainTextureManager {
 						for(int var14 = 0; var14 < 128; ++var14) {
 							int var15 = var11 - var10 - var14 + 160 - 16;
 							if(var15 < this.field_1183_f[var12] || var15 < this.field_1183_f[var12 + 1]) {
-								net.minecraft.block.Block var16 = net.minecraft.block.Block.blocksList[var2.getBlockId(var9, var14, var8)];
+								Block var16 = Block.blocksList[var2.getBlockId(var9, var14, var8)];
 								if(var16 == null) {
 									var13 = false;
-								} else if(var16.blockMaterial == net.minecraft.block.Material.water) {
+								} else if(var16.getBlockMaterial() == Material.water) {
 									int var24 = var2.getBlockId(var9, var14 + 1, var8);
-									if(var24 == 0 || Block.blocksList[var24].blockMaterial != Material.water) {
+									if(var24 == 0 || Block.blocksList[var24].getBlockMaterial() != Material.water) {
 										float var25 = (float)var14 / 127.0F * 0.6F + 0.4F;
 										float var26 = var2.getLightBrightness(var9, var14 + 1, var8) * var25;
 										if(var15 >= 0 && var15 < 160) {
@@ -140,7 +140,7 @@ public class TerrainTextureManager {
 									float var22;
 									if(var15 >= 0 && var15 < 160) {
 										var18 = var12 + var15 * 32;
-										var19 = this.field_1182_g[var16.blockID * 3 + 0];
+										var19 = this.field_1182_g[var16.getBlockID() * 3 + 0];
 										var20 = (var2.getLightBrightness(var9, var14 + 1, var8) * 0.8F + 0.2F) * var17;
 										if(var12 >= 0 && this.field_1186_c[var18] <= var14) {
 											this.field_1186_c[var18] = var14;
@@ -158,9 +158,9 @@ public class TerrainTextureManager {
 
 									if(var15 >= -1 && var15 < 159) {
 										var18 = var12 + (var15 + 1) * 32;
-										var19 = this.field_1182_g[var16.blockID * 3 + 1];
+										var19 = this.field_1182_g[var16.getBlockID() * 3 + 1];
 										var20 = var2.getLightBrightness(var9 - 1, var14, var8) * 0.8F + 0.2F;
-										int var21 = this.field_1182_g[var16.blockID * 3 + 2];
+										int var21 = this.field_1182_g[var16.getBlockID() * 3 + 2];
 										var22 = var2.getLightBrightness(var9, var14, var8 + 1) * 0.8F + 0.2F;
 										float var23;
 										if(var12 >= 0) {

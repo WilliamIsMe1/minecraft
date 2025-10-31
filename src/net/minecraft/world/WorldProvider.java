@@ -1,8 +1,10 @@
 package net.minecraft.world;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.core.MathHelper;
 import net.minecraft.core.Vec3D;
+import net.minecraft.world.chunk.ChunkProviderGenerate;
+import net.minecraft.world.chunk.IChunkProvider;
 
 public abstract class WorldProvider {
 	public net.minecraft.world.World worldObj;
@@ -40,7 +42,7 @@ public abstract class WorldProvider {
 
 	public boolean canCoordinateBeSpawn(int var1, int var2) {
 		int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
-		return var3 == Block.sand.blockID;
+		return var3 == Block.sand.getBlockID();
 	}
 
 	public float calculateCelestialAngle(long var1, float var3) {

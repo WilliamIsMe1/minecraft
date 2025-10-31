@@ -1,6 +1,6 @@
 package net.minecraft.map;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.core.MathHelper;
 import net.minecraft.world.World;
 
@@ -105,7 +105,7 @@ public class MapGenCavesHell extends MapGenBase {
 							for(int var42 = var36 + 1; !var55 && var42 >= var53 - 1; --var42) {
 								var43 = (var40 * 16 + var41) * 128 + var42;
 								if(var42 < 128) {
-									if(var3[var43] == net.minecraft.block.Block.lavaMoving.blockID || var3[var43] == net.minecraft.block.Block.lavaStill.blockID) {
+									if(var3[var43] == Block.lavaMoving.getBlockID() || var3[var43] == Block.lavaStill.getBlockID()) {
 										var55 = true;
 									}
 
@@ -129,7 +129,7 @@ public class MapGenCavesHell extends MapGenBase {
 									double var48 = ((double)var47 + 0.5D - var6) / var29;
 									if(var48 > -0.7D && var56 * var56 + var48 * var48 + var44 * var44 < 1.0D) {
 										byte var50 = var3[var46];
-										if(var50 == net.minecraft.block.Block.netherrack.blockID || var50 == net.minecraft.block.Block.dirt.blockID || var50 == Block.grass.blockID) {
+										if(var50 == Block.netherrack.getBlockID() || var50 == Block.dirt.getBlockID() || var50 == Block.grass.getBlockID()) {
 											var3[var46] = 0;
 										}
 									}

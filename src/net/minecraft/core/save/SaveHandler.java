@@ -3,8 +3,8 @@ package net.minecraft.core.save;
 import net.minecraft.core.CompressedStreamTools;
 import net.minecraft.core.MinecraftException;
 import net.minecraft.util.nbt.NBTTagCompound;
-import net.minecraft.world.ChunkLoader;
-import net.minecraft.world.IChunkLoader;
+import net.minecraft.world.chunk.ChunkLoader;
+import net.minecraft.world.chunk.IChunkLoader;
 import net.minecraft.world.ISaveHandler;
 import net.minecraft.world.WorldInfo;
 import net.minecraft.world.WorldProvider;
@@ -82,7 +82,7 @@ public class SaveHandler implements ISaveHandler {
 		if(var1 instanceof WorldProviderHell) {
 			File var2 = new File(this.saveDirectory, "DIM-1");
 			var2.mkdirs();
-			return new net.minecraft.world.ChunkLoader(var2, true);
+			return new ChunkLoader(var2, true);
 		} else {
 			return new ChunkLoader(this.saveDirectory, true);
 		}

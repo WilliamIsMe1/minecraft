@@ -10,6 +10,8 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import net.minecraft.client.render.canvas.CanvasCrashReport;
+import net.minecraft.client.render.canvas.CanvasMojangLogo;
 import net.minecraft.core.UnexpectedThrowable;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
@@ -79,8 +81,8 @@ public class PanelCrashReport extends Panel {
 		TextArea var7 = new TextArea(var6, 0, 0, 1);
 		var7.setFont(new Font("Monospaced", 0, 12));
 		this.add(new CanvasMojangLogo(), "North");
-		this.add(new net.minecraft.client.render.CanvasCrashReport(80), "East");
-		this.add(new net.minecraft.client.render.CanvasCrashReport(80), "West");
+		this.add(new CanvasCrashReport(80), "East");
+		this.add(new CanvasCrashReport(80), "West");
 		this.add(new CanvasCrashReport(100), "South");
 		this.add(var7, "Center");
 	}

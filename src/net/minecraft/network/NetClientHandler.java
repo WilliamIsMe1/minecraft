@@ -10,49 +10,94 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.TileEntity;
-import net.minecraft.block.TileEntityDispenser;
-import net.minecraft.block.TileEntityFurnace;
-import net.minecraft.block.TileEntitySign;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.tileentity.TileEntity;
+import net.minecraft.block.tileentity.TileEntityDispenser;
+import net.minecraft.block.tileentity.TileEntityFurnace;
+import net.minecraft.block.tileentity.TileEntitySign;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.gui.GuiConnectFailed;
 import net.minecraft.client.render.gui.GuiDownloadTerrain;
 import net.minecraft.client.render.gui.GuiScreen;
 import net.minecraft.core.MathHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityArrow;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.EntityBoat;
-import net.minecraft.entity.EntityClientPlayerMP;
-import net.minecraft.entity.EntityEgg;
+import net.minecraft.entity.living.EntityClientPlayerMP;
+import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.entity.EntityFallingSand;
-import net.minecraft.entity.EntityFireball;
-import net.minecraft.entity.EntityFish;
+import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.living.creature.animal.EntityFish;
 import net.minecraft.entity.EntityItem;
 import net.minecraft.entity.EntityLightningBolt;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.entity.EntityMinecart;
-import net.minecraft.entity.EntityOtherPlayerMP;
+import net.minecraft.entity.living.EntityOtherPlayerMP;
 import net.minecraft.entity.EntityPainting;
-import net.minecraft.entity.EntityPickupFX;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.entity.EntityPlayerSP;
-import net.minecraft.entity.EntitySnowball;
+import net.minecraft.entity.fx.EntityPickupFX;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayerSP;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.entity.EntityTNTPrimed;
 import net.minecraft.entity.Explosion;
 import net.minecraft.entity.PlayerControllerMP;
-import net.minecraft.item.InventoryBasic;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemMap;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.container.inventory.InventoryBasic;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.gear.ItemMap;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.item.container.Container;
 import net.minecraft.map.MapStorage;
 import net.minecraft.achievement.stats.StatList;
-import net.minecraft.world.ChunkCoordinates;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet100OpenWindow;
+import net.minecraft.network.packet.Packet101CloseWindow;
+import net.minecraft.network.packet.Packet103SetSlot;
+import net.minecraft.network.packet.Packet104WindowItems;
+import net.minecraft.network.packet.Packet105UpdateProgressbar;
+import net.minecraft.network.packet.Packet106Transaction;
+import net.minecraft.network.packet.Packet10Flying;
+import net.minecraft.network.packet.Packet130UpdateSign;
+import net.minecraft.network.packet.Packet131MapData;
+import net.minecraft.network.packet.Packet17Sleep;
+import net.minecraft.network.packet.Packet18Animation;
+import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.network.packet.Packet200Statistic;
+import net.minecraft.network.packet.Packet20NamedEntitySpawn;
+import net.minecraft.network.packet.Packet21PickupSpawn;
+import net.minecraft.network.packet.Packet22Collect;
+import net.minecraft.network.packet.Packet23VehicleSpawn;
+import net.minecraft.network.packet.Packet24MobSpawn;
+import net.minecraft.network.packet.Packet255KickDisconnect;
+import net.minecraft.network.packet.Packet25EntityPainting;
+import net.minecraft.network.packet.Packet28EntityVelocity;
+import net.minecraft.network.packet.Packet29DestroyEntity;
+import net.minecraft.network.packet.Packet2Handshake;
+import net.minecraft.network.packet.Packet30Entity;
+import net.minecraft.network.packet.Packet34EntityTeleport;
+import net.minecraft.network.packet.Packet38EntityStatus;
+import net.minecraft.network.packet.Packet39AttachEntity;
+import net.minecraft.network.packet.Packet3Chat;
+import net.minecraft.network.packet.Packet40EntityMetadata;
+import net.minecraft.network.packet.Packet4UpdateTime;
+import net.minecraft.network.packet.Packet50PreChunk;
+import net.minecraft.network.packet.Packet51MapChunk;
+import net.minecraft.network.packet.Packet52MultiBlockChange;
+import net.minecraft.network.packet.Packet53BlockChange;
+import net.minecraft.network.packet.Packet54PlayNoteBlock;
+import net.minecraft.network.packet.Packet5PlayerInventory;
+import net.minecraft.network.packet.Packet60Explosion;
+import net.minecraft.network.packet.Packet61DoorChange;
+import net.minecraft.network.packet.Packet6SpawnPosition;
+import net.minecraft.network.packet.Packet70Bed;
+import net.minecraft.network.packet.Packet71Weather;
+import net.minecraft.network.packet.Packet8UpdateHealth;
+import net.minecraft.network.packet.Packet9Respawn;
+import net.minecraft.world.chunk.ChunkCoordinates;
 import net.minecraft.world.ISaveHandler;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldClient;
+import net.minecraft.world.chunk.Chunk;
 
 public class NetClientHandler extends NetHandler {
 	private boolean disconnected = false;
@@ -93,7 +138,7 @@ public class NetClientHandler extends NetHandler {
 		double var2 = (double)var1.xPosition / 32.0D;
 		double var4 = (double)var1.yPosition / 32.0D;
 		double var6 = (double)var1.zPosition / 32.0D;
-		net.minecraft.entity.EntityItem var8 = new EntityItem(this.worldClient, var2, var4, var6, new net.minecraft.item.ItemStack(var1.itemID, var1.count, var1.itemDamage));
+		net.minecraft.entity.EntityItem var8 = new EntityItem(this.worldClient, var2, var4, var6, new ItemStack(var1.itemID, var1.count, var1.itemDamage));
 		var8.motionX = (double)var1.rotation / 128.0D;
 		var8.motionY = (double)var1.pitch / 128.0D;
 		var8.motionZ = (double)var1.roll / 128.0D;
@@ -125,7 +170,7 @@ public class NetClientHandler extends NetHandler {
 		}
 
 		if(var1.type == 60) {
-			var8 = new net.minecraft.entity.EntityArrow(this.worldClient, var2, var4, var6);
+			var8 = new EntityArrow(this.worldClient, var2, var4, var6);
 		}
 
 		if(var1.type == 61) {
@@ -150,11 +195,11 @@ public class NetClientHandler extends NetHandler {
 		}
 
 		if(var1.type == 70) {
-			var8 = new net.minecraft.entity.EntityFallingSand(this.worldClient, var2, var4, var6, net.minecraft.block.Block.sand.blockID);
+			var8 = new net.minecraft.entity.EntityFallingSand(this.worldClient, var2, var4, var6, Block.sand.getBlockID());
 		}
 
 		if(var1.type == 71) {
-			var8 = new EntityFallingSand(this.worldClient, var2, var4, var6, Block.gravel.blockID);
+			var8 = new EntityFallingSand(this.worldClient, var2, var4, var6, Block.gravel.getBlockID());
 		}
 
 		if(var8 != null) {
@@ -168,8 +213,8 @@ public class NetClientHandler extends NetHandler {
 			if(var1.field_28044_i > 0) {
 				if(var1.type == 60) {
 					net.minecraft.entity.Entity var9 = this.getEntityByID(var1.field_28044_i);
-					if(var9 instanceof net.minecraft.entity.EntityLiving) {
-						((EntityArrow)var8).owner = (net.minecraft.entity.EntityLiving)var9;
+					if(var9 instanceof EntityLiving) {
+						((EntityArrow)var8).owner = (EntityLiving)var9;
 					}
 				}
 
@@ -226,7 +271,7 @@ public class NetClientHandler extends NetHandler {
 		double var6 = (double)var1.zPosition / 32.0D;
 		float var8 = (float)(var1.rotation * 360) / 256.0F;
 		float var9 = (float)(var1.pitch * 360) / 256.0F;
-		net.minecraft.entity.EntityOtherPlayerMP var10 = new EntityOtherPlayerMP(this.mc.theWorld, var1.name);
+		EntityOtherPlayerMP var10 = new EntityOtherPlayerMP(this.mc.theWorld, var1.name);
 		var10.prevPosX = var10.lastTickPosX = (double)(var10.serverPosX = var1.xPosition);
 		var10.prevPosY = var10.lastTickPosY = (double)(var10.serverPosY = var1.yPosition);
 		var10.prevPosZ = var10.lastTickPosZ = (double)(var10.serverPosZ = var1.zPosition);
@@ -234,7 +279,7 @@ public class NetClientHandler extends NetHandler {
 		if(var11 == 0) {
 			var10.inventory.mainInventory[var10.inventory.currentItem] = null;
 		} else {
-			var10.inventory.mainInventory[var10.inventory.currentItem] = new net.minecraft.item.ItemStack(var11, 1, 0);
+			var10.inventory.mainInventory[var10.inventory.currentItem] = new ItemStack(var11, 1, 0);
 		}
 
 		var10.setPositionAndRotation(var2, var4, var6, var8, var9);
@@ -276,7 +321,7 @@ public class NetClientHandler extends NetHandler {
 	}
 
 	public void handleFlying(Packet10Flying var1) {
-		net.minecraft.entity.EntityPlayerSP var2 = this.mc.thePlayer;
+		EntityPlayerSP var2 = this.mc.thePlayer;
 		double var3 = var2.posX;
 		double var5 = var2.posY;
 		double var7 = var2.posZ;
@@ -316,7 +361,7 @@ public class NetClientHandler extends NetHandler {
 	}
 
 	public void handleMultiBlockChange(Packet52MultiBlockChange var1) {
-		net.minecraft.world.Chunk var2 = this.worldClient.getChunkFromChunkCoords(var1.xPosition, var1.zPosition);
+		Chunk var2 = this.worldClient.getChunkFromChunkCoords(var1.xPosition, var1.zPosition);
 		int var3 = var1.xPosition * 16;
 		int var4 = var1.zPosition * 16;
 
@@ -358,7 +403,7 @@ public class NetClientHandler extends NetHandler {
 		}
 	}
 
-	public void func_28117_a(net.minecraft.network.Packet var1) {
+	public void func_28117_a(Packet var1) {
 		if(!this.disconnected) {
 			this.netManager.addToSendQueue(var1);
 			this.netManager.func_28142_c();
@@ -373,7 +418,7 @@ public class NetClientHandler extends NetHandler {
 
 	public void handleCollect(Packet22Collect var1) {
 		net.minecraft.entity.Entity var2 = this.getEntityByID(var1.collectedEntityId);
-		Object var3 = (net.minecraft.entity.EntityLiving)this.getEntityByID(var1.collectorEntityId);
+		Object var3 = (EntityLiving)this.getEntityByID(var1.collectorEntityId);
 		if(var3 == null) {
 			var3 = this.mc.thePlayer;
 		}
@@ -393,17 +438,17 @@ public class NetClientHandler extends NetHandler {
 	public void handleArmAnimation(Packet18Animation var1) {
 		net.minecraft.entity.Entity var2 = this.getEntityByID(var1.entityId);
 		if(var2 != null) {
-			net.minecraft.entity.EntityPlayer var3;
+			EntityPlayer var3;
 			if(var1.animate == 1) {
-				var3 = (net.minecraft.entity.EntityPlayer)var2;
+				var3 = (EntityPlayer)var2;
 				var3.swingItem();
 			} else if(var1.animate == 2) {
 				var2.performHurtAnimation();
 			} else if(var1.animate == 3) {
-				var3 = (net.minecraft.entity.EntityPlayer)var2;
+				var3 = (EntityPlayer)var2;
 				var3.wakeUpPlayer(false, false, false);
 			} else if(var1.animate == 4) {
-				var3 = (net.minecraft.entity.EntityPlayer)var2;
+				var3 = (EntityPlayer)var2;
 				var3.func_6420_o();
 			}
 
@@ -414,7 +459,7 @@ public class NetClientHandler extends NetHandler {
 		net.minecraft.entity.Entity var2 = this.getEntityByID(var1.field_22045_a);
 		if(var2 != null) {
 			if(var1.field_22046_e == 0) {
-				net.minecraft.entity.EntityPlayer var3 = (EntityPlayer)var2;
+				EntityPlayer var3 = (EntityPlayer)var2;
 				var3.sleepInBedAt(var1.field_22044_b, var1.field_22048_c, var1.field_22047_d);
 			}
 
@@ -455,7 +500,7 @@ public class NetClientHandler extends NetHandler {
 		double var6 = (double)var1.zPosition / 32.0D;
 		float var8 = (float)(var1.yaw * 360) / 256.0F;
 		float var9 = (float)(var1.pitch * 360) / 256.0F;
-		net.minecraft.entity.EntityLiving var10 = (EntityLiving) EntityList.createEntity(var1.type, this.mc.theWorld);
+		EntityLiving var10 = (EntityLiving) EntityList.createEntity(var1.type, this.mc.theWorld);
 		var10.serverPosX = var1.xPosition;
 		var10.serverPosY = var1.yPosition;
 		var10.serverPosZ = var1.zPosition;
@@ -528,15 +573,15 @@ public class NetClientHandler extends NetHandler {
 
 	public void func_20087_a(Packet100OpenWindow var1) {
 		if(var1.inventoryType == 0) {
-			net.minecraft.item.InventoryBasic var2 = new InventoryBasic(var1.windowTitle, var1.slotsCount);
+			InventoryBasic var2 = new InventoryBasic(var1.windowTitle, var1.slotsCount);
 			this.mc.thePlayer.displayGUIChest(var2);
 			this.mc.thePlayer.craftingInventory.windowId = var1.windowId;
 		} else if(var1.inventoryType == 2) {
-			net.minecraft.block.TileEntityFurnace var3 = new TileEntityFurnace();
+			TileEntityFurnace var3 = new TileEntityFurnace();
 			this.mc.thePlayer.displayGUIFurnace(var3);
 			this.mc.thePlayer.craftingInventory.windowId = var1.windowId;
 		} else if(var1.inventoryType == 3) {
-			net.minecraft.block.TileEntityDispenser var4 = new TileEntityDispenser();
+			TileEntityDispenser var4 = new TileEntityDispenser();
 			this.mc.thePlayer.displayGUIDispenser(var4);
 			this.mc.thePlayer.craftingInventory.windowId = var1.windowId;
 		} else if(var1.inventoryType == 1) {
@@ -594,8 +639,8 @@ public class NetClientHandler extends NetHandler {
 	public void handleSignUpdate(Packet130UpdateSign var1) {
 		if(this.mc.theWorld.blockExists(var1.xPosition, var1.yPosition, var1.zPosition)) {
 			TileEntity var2 = this.mc.theWorld.getBlockTileEntity(var1.xPosition, var1.yPosition, var1.zPosition);
-			if(var2 instanceof net.minecraft.block.TileEntitySign) {
-				net.minecraft.block.TileEntitySign var3 = (TileEntitySign)var2;
+			if(var2 instanceof TileEntitySign) {
+				TileEntitySign var3 = (TileEntitySign)var2;
 
 				for(int var4 = 0; var4 < 4; ++var4) {
 					var3.signText[var4] = var1.signLines[var4];

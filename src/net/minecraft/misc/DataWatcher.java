@@ -1,8 +1,8 @@
 package net.minecraft.misc;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.Packet;
-import net.minecraft.world.ChunkCoordinates;
+import net.minecraft.item.core.ItemStack;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.world.chunk.ChunkCoordinates;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -95,16 +95,16 @@ public class DataWatcher {
 			var0.writeFloat(((Float)var1.getObject()).floatValue());
 			break;
 		case 4:
-			net.minecraft.network.Packet.writeString((String)var1.getObject(), var0);
+			Packet.writeString((String)var1.getObject(), var0);
 			break;
 		case 5:
-			net.minecraft.item.ItemStack var4 = (net.minecraft.item.ItemStack)var1.getObject();
+			ItemStack var4 = (ItemStack)var1.getObject();
 			var0.writeShort(var4.getItem().shiftedIndex);
 			var0.writeByte(var4.stackSize);
 			var0.writeShort(var4.getItemDamage());
 			break;
 		case 6:
-			net.minecraft.world.ChunkCoordinates var3 = (net.minecraft.world.ChunkCoordinates)var1.getObject();
+			ChunkCoordinates var3 = (ChunkCoordinates)var1.getObject();
 			var0.writeInt(var3.x);
 			var0.writeInt(var3.y);
 			var0.writeInt(var3.z);
@@ -143,13 +143,13 @@ public class DataWatcher {
 				short var9 = var0.readShort();
 				byte var10 = var0.readByte();
 				short var11 = var0.readShort();
-				var5 = new net.minecraft.misc.WatchableObject(var3, var4, new net.minecraft.item.ItemStack(var9, var10, var11));
+				var5 = new net.minecraft.misc.WatchableObject(var3, var4, new ItemStack(var9, var10, var11));
 				break;
 			case 6:
 				int var6 = var0.readInt();
 				int var7 = var0.readInt();
 				int var8 = var0.readInt();
-				var5 = new net.minecraft.misc.WatchableObject(var3, var4, new net.minecraft.world.ChunkCoordinates(var6, var7, var8));
+				var5 = new net.minecraft.misc.WatchableObject(var3, var4, new ChunkCoordinates(var6, var7, var8));
 			}
 
 			var1.add(var5);

@@ -1,8 +1,9 @@
 package net.minecraft.entity;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.client.Session;
 import net.minecraft.world.World;
 

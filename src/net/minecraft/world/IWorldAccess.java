@@ -1,8 +1,8 @@
 package net.minecraft.world;
 
-import net.minecraft.block.TileEntity;
+import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayer;
 
 public interface IWorldAccess {
 	void markBlockAndNeighborsNeedsUpdate(int var1, int var2, int var3);

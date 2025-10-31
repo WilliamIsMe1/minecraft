@@ -1,9 +1,9 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.IInventory;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.core.Block;
+import net.minecraft.item.container.inventory.IInventory;
+import net.minecraft.item.gear.ItemArmor;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.item.container.ContainerPlayer;
 
 public class SlotArmor extends Slot {
@@ -21,6 +21,6 @@ public class SlotArmor extends Slot {
 	}
 
 	public boolean isItemValid(ItemStack var1) {
-		return var1.getItem() instanceof net.minecraft.item.ItemArmor ? ((ItemArmor)var1.getItem()).armorType == this.armorType : (var1.getItem().shiftedIndex == Block.pumpkin.blockID ? this.armorType == 0 : false);
+		return var1.getItem() instanceof ItemArmor ? ((ItemArmor)var1.getItem()).armorType == this.armorType : (var1.getItem().shiftedIndex == Block.pumpkin.getBlockID() ? this.armorType == 0 : false);
 	}
 }

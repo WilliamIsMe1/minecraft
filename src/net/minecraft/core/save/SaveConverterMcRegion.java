@@ -2,9 +2,9 @@ package net.minecraft.core.save;
 
 import net.minecraft.core.MathHelper;
 import net.minecraft.misc.IProgressUpdate;
-import net.minecraft.world.ChunkFile;
-import net.minecraft.world.ChunkFilePattern;
-import net.minecraft.world.ChunkFolderPattern;
+import net.minecraft.world.chunk.ChunkFile;
+import net.minecraft.world.chunk.ChunkFilePattern;
+import net.minecraft.world.chunk.ChunkFolderPattern;
 import net.minecraft.world.Empty2;
 import net.minecraft.world.ISaveHandler;
 import net.minecraft.world.WorldInfo;
@@ -99,8 +99,8 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 	}
 
 	private void func_22183_a(File var1, ArrayList var2, ArrayList var3) {
-		net.minecraft.world.ChunkFolderPattern var4 = new ChunkFolderPattern((net.minecraft.world.Empty2)null);
-		net.minecraft.world.ChunkFilePattern var5 = new ChunkFilePattern((Empty2)null);
+		ChunkFolderPattern var4 = new ChunkFolderPattern((net.minecraft.world.Empty2)null);
+		ChunkFilePattern var5 = new ChunkFilePattern((Empty2)null);
 		File[] var6 = var1.listFiles(var4);
 		File[] var7 = var6;
 		int var8 = var6.length;
@@ -120,7 +120,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 
 				for(int var19 = 0; var19 < var18; ++var19) {
 					File var20 = var17[var19];
-					var2.add(new net.minecraft.world.ChunkFile(var20));
+					var2.add(new ChunkFile(var20));
 				}
 			}
 		}
@@ -133,7 +133,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 		Iterator var7 = var2.iterator();
 
 		while(var7.hasNext()) {
-			net.minecraft.world.ChunkFile var8 = (ChunkFile)var7.next();
+			ChunkFile var8 = (ChunkFile)var7.next();
 			int var9 = var8.func_22323_b();
 			int var10 = var8.func_22321_c();
 			RegionFile var11 = RegionFileCache.func_22193_a(var1, var9, var10);

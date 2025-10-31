@@ -1,6 +1,6 @@
 package net.minecraft.client.render.fx;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.core.MathHelper;
 
 public class TextureLavaFX extends TextureFX {
@@ -10,7 +10,7 @@ public class TextureLavaFX extends TextureFX {
 	protected float[] field_1144_j = new float[256];
 
 	public TextureLavaFX() {
-		super(Block.lavaMoving.blockIndexInTexture);
+		super(Block.lavaMoving.getBlockIndexInTexture());
 	}
 
 	public void onTick() {

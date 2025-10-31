@@ -1,6 +1,6 @@
 package net.minecraft.client.render.fx;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.core.MathHelper;
 
 import java.util.Random;
@@ -10,7 +10,7 @@ public class TexturePortalFX extends TextureFX {
 	private byte[][] portalTextureData = new byte[32][1024];
 
 	public TexturePortalFX() {
-		super(Block.portal.blockIndexInTexture);
+		super(Block.portal.getBlockIndexInTexture());
 		Random var1 = new Random(100L);
 
 		for(int var2 = 0; var2 < 32; ++var2) {

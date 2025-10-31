@@ -1,9 +1,9 @@
 package net.minecraft.map;
 
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayer;
 
 public class MapInfo {
-	public final net.minecraft.entity.EntityPlayer entityplayerObj;
+	public final EntityPlayer entityplayerObj;
 	public int[] field_28119_b;
 	public int[] field_28124_c;
 	private int field_28122_e;

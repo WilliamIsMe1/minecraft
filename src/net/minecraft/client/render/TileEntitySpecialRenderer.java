@@ -1,11 +1,11 @@
 package net.minecraft.client.render;
 
-import net.minecraft.block.TileEntity;
-import net.minecraft.block.TileEntityRenderer;
+import net.minecraft.block.tileentity.TileEntity;
+import net.minecraft.client.render.entity.render.RenderEngine;
 import net.minecraft.world.World;
 
 public abstract class TileEntitySpecialRenderer {
-	protected net.minecraft.block.TileEntityRenderer tileEntityRenderer;
+	protected TileEntityRenderer tileEntityRenderer;
 
 	public abstract void renderTileEntityAt(TileEntity var1, double var2, double var4, double var6, float var8);
 

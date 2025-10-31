@@ -5,7 +5,7 @@ import java.util.Random;
 
 import net.minecraft.client.GameSettings;
 import net.minecraft.core.MathHelper;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.living.EntityLiving;
 import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.codecs.CodecJOrbis;

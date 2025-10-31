@@ -1,6 +1,10 @@
 package net.minecraft.block;
 
-import net.minecraft.item.Item;
+import net.minecraft.block.core.BlockContainer;
+import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.tileentity.TileEntity;
+import net.minecraft.item.core.Item;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -10,10 +14,10 @@ public class BlockSign extends BlockContainer {
 	private Class signEntityClass;
 	private boolean isFreestanding;
 
-	protected BlockSign(int var1, Class var2, boolean var3) {
+	public BlockSign(int var1, Class var2, boolean var3) {
 		super(var1, Material.wood);
 		this.isFreestanding = var3;
-		this.blockIndexInTexture = 4;
+		this.setBlockIndexInTexture(4);
 		this.signEntityClass = var2;
 		float var4 = 0.25F;
 		float var5 = 1.0F;

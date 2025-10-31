@@ -1,13 +1,13 @@
 package net.minecraft.client.render.fx;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 
 public class TextureFlamesFX extends TextureFX {
 	protected float[] field_1133_g = new float[320];
 	protected float[] field_1132_h = new float[320];
 
 	public TextureFlamesFX(int var1) {
-		super(Block.fire.blockIndexInTexture + var1 * 16);
+		super(Block.fire.getBlockIndexInTexture() + var1 * 16);
 	}
 
 	public void onTick() {

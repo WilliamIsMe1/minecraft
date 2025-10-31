@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
+import net.minecraft.client.render.entity.render.RenderEngine;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDiggingFX;
-import net.minecraft.entity.EntityFX;
+import net.minecraft.entity.fx.EntityDiggingFX;
+import net.minecraft.entity.fx.EntityFX;
 import net.minecraft.core.MathHelper;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
@@ -31,7 +32,7 @@ public class EffectRenderer {
 
 	}
 
-	public void addEffect(net.minecraft.entity.EntityFX var1) {
+	public void addEffect(EntityFX var1) {
 		int var2 = var1.getFXLayer();
 		if(this.fxLayers[var2].size() >= 4000) {
 			this.fxLayers[var2].remove(0);
@@ -43,7 +44,7 @@ public class EffectRenderer {
 	public void updateEffects() {
 		for(int var1 = 0; var1 < 4; ++var1) {
 			for(int var2 = 0; var2 < this.fxLayers[var1].size(); ++var2) {
-				net.minecraft.entity.EntityFX var3 = (net.minecraft.entity.EntityFX)this.fxLayers[var1].get(var2);
+				EntityFX var3 = (EntityFX)this.fxLayers[var1].get(var2);
 				var3.onUpdate();
 				if(var3.isDead) {
 					this.fxLayers[var1].remove(var2--);
@@ -59,9 +60,9 @@ public class EffectRenderer {
 		float var5 = -var4 * MathHelper.sin(var1.rotationPitch * (float)Math.PI / 180.0F);
 		float var6 = var3 * MathHelper.sin(var1.rotationPitch * (float)Math.PI / 180.0F);
 		float var7 = MathHelper.cos(var1.rotationPitch * (float)Math.PI / 180.0F);
-		net.minecraft.entity.EntityFX.interpPosX = var1.lastTickPosX + (var1.posX - var1.lastTickPosX) * (double)var2;
-		net.minecraft.entity.EntityFX.interpPosY = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * (double)var2;
-		net.minecraft.entity.EntityFX.interpPosZ = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * (double)var2;
+		EntityFX.interpPosX = var1.lastTickPosX + (var1.posX - var1.lastTickPosX) * (double)var2;
+		EntityFX.interpPosY = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * (double)var2;
+		EntityFX.interpPosZ = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * (double)var2;
 
 		for(int var8 = 0; var8 < 3; ++var8) {
 			if(this.fxLayers[var8].size() != 0) {
@@ -83,7 +84,7 @@ public class EffectRenderer {
 				var10.startDrawingQuads();
 
 				for(int var11 = 0; var11 < this.fxLayers[var8].size(); ++var11) {
-					net.minecraft.entity.EntityFX var12 = (net.minecraft.entity.EntityFX)this.fxLayers[var8].get(var11);
+					EntityFX var12 = (EntityFX)this.fxLayers[var8].get(var11);
 					var12.renderParticle(var10, var2, var3, var7, var4, var5, var6);
 				}
 
@@ -99,7 +100,7 @@ public class EffectRenderer {
 			Tessellator var4 = Tessellator.instance;
 
 			for(int var5 = 0; var5 < this.fxLayers[var3].size(); ++var5) {
-				net.minecraft.entity.EntityFX var6 = (EntityFX)this.fxLayers[var3].get(var5);
+				EntityFX var6 = (EntityFX)this.fxLayers[var3].get(var5);
 				var6.renderParticle(var4, var2, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
 			}
 
@@ -117,7 +118,7 @@ public class EffectRenderer {
 
 	public void addBlockDestroyEffects(int var1, int var2, int var3, int var4, int var5) {
 		if(var4 != 0) {
-			net.minecraft.block.Block var6 = net.minecraft.block.Block.blocksList[var4];
+			Block var6 = Block.blocksList[var4];
 			byte var7 = 4;
 
 			for(int var8 = 0; var8 < var7; ++var8) {
@@ -127,7 +128,7 @@ public class EffectRenderer {
 						double var13 = (double)var2 + ((double)var9 + 0.5D) / (double)var7;
 						double var15 = (double)var3 + ((double)var10 + 0.5D) / (double)var7;
 						int var17 = this.rand.nextInt(6);
-						this.addEffect((new net.minecraft.entity.EntityDiggingFX(this.worldObj, var11, var13, var15, var11 - (double)var1 - 0.5D, var13 - (double)var2 - 0.5D, var15 - (double)var3 - 0.5D, var6, var17, var5)).func_4041_a(var1, var2, var3));
+						this.addEffect((new EntityDiggingFX(this.worldObj, var11, var13, var15, var11 - (double)var1 - 0.5D, var13 - (double)var2 - 0.5D, var15 - (double)var3 - 0.5D, var6, var17, var5)).func_4041_a(var1, var2, var3));
 					}
 				}
 			}
@@ -138,33 +139,33 @@ public class EffectRenderer {
 	public void addBlockHitEffects(int var1, int var2, int var3, int var4) {
 		int var5 = this.worldObj.getBlockId(var1, var2, var3);
 		if(var5 != 0) {
-			net.minecraft.block.Block var6 = Block.blocksList[var5];
+			Block var6 = Block.blocksList[var5];
 			float var7 = 0.1F;
-			double var8 = (double)var1 + this.rand.nextDouble() * (var6.maxX - var6.minX - (double)(var7 * 2.0F)) + (double)var7 + var6.minX;
-			double var10 = (double)var2 + this.rand.nextDouble() * (var6.maxY - var6.minY - (double)(var7 * 2.0F)) + (double)var7 + var6.minY;
-			double var12 = (double)var3 + this.rand.nextDouble() * (var6.maxZ - var6.minZ - (double)(var7 * 2.0F)) + (double)var7 + var6.minZ;
+			double var8 = (double)var1 + this.rand.nextDouble() * (var6.getMaxX() - var6.getMinX() - (double)(var7 * 2.0F)) + (double)var7 + var6.getMinX();
+			double var10 = (double)var2 + this.rand.nextDouble() * (var6.getMaxY() - var6.getMinY() - (double)(var7 * 2.0F)) + (double)var7 + var6.getMinY();
+			double var12 = (double)var3 + this.rand.nextDouble() * (var6.getMaxZ() - var6.getMinZ() - (double)(var7 * 2.0F)) + (double)var7 + var6.getMinZ();
 			if(var4 == 0) {
-				var10 = (double)var2 + var6.minY - (double)var7;
+				var10 = (double)var2 + var6.getMinY() - (double)var7;
 			}
 
 			if(var4 == 1) {
-				var10 = (double)var2 + var6.maxY + (double)var7;
+				var10 = (double)var2 + var6.getMaxY() + (double)var7;
 			}
 
 			if(var4 == 2) {
-				var12 = (double)var3 + var6.minZ - (double)var7;
+				var12 = (double)var3 + var6.getMinZ() - (double)var7;
 			}
 
 			if(var4 == 3) {
-				var12 = (double)var3 + var6.maxZ + (double)var7;
+				var12 = (double)var3 + var6.getMaxZ() + (double)var7;
 			}
 
 			if(var4 == 4) {
-				var8 = (double)var1 + var6.minX - (double)var7;
+				var8 = (double)var1 + var6.getMinX() - (double)var7;
 			}
 
 			if(var4 == 5) {
-				var8 = (double)var1 + var6.maxX + (double)var7;
+				var8 = (double)var1 + var6.getMaxX() + (double)var7;
 			}
 
 			this.addEffect((new EntityDiggingFX(this.worldObj, var8, var10, var12, 0.0D, 0.0D, 0.0D, var6, var4, this.worldObj.getBlockMetadata(var1, var2, var3))).func_4041_a(var1, var2, var3).func_407_b(0.2F).func_405_d(0.6F));

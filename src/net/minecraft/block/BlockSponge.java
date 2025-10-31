@@ -1,11 +1,13 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
 public class BlockSponge extends Block {
-	protected BlockSponge(int var1) {
+	public BlockSponge(int var1) {
 		super(var1, Material.sponge);
-		this.blockIndexInTexture = 48;
+		this.setBlockIndexInTexture(48);
 	}
 
 	public void onBlockAdded(World var1, int var2, int var3, int var4) {

@@ -1,15 +1,15 @@
 package net.minecraft.item.container;
 
 import net.minecraft.client.render.gui.Slot;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.item.IInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.container.inventory.IInventory;
+import net.minecraft.item.core.ItemStack;
 
 public class ContainerChest extends Container {
-	private net.minecraft.item.IInventory field_20125_a;
+	private IInventory field_20125_a;
 	private int field_27282_b;
 
-	public ContainerChest(net.minecraft.item.IInventory var1, IInventory var2) {
+	public ContainerChest(IInventory var1, IInventory var2) {
 		this.field_20125_a = var2;
 		this.field_27282_b = var2.getSizeInventory() / 9;
 		int var3 = (this.field_27282_b - 4) * 18;
@@ -38,11 +38,11 @@ public class ContainerChest extends Container {
 		return this.field_20125_a.canInteractWith(var1);
 	}
 
-	public net.minecraft.item.ItemStack getStackInSlot(int var1) {
-		net.minecraft.item.ItemStack var2 = null;
+	public ItemStack getStackInSlot(int var1) {
+		ItemStack var2 = null;
 		Slot var3 = (Slot)this.slots.get(var1);
 		if(var3 != null && var3.getHasStack()) {
-			net.minecraft.item.ItemStack var4 = var3.getStack();
+			ItemStack var4 = var3.getStack();
 			var2 = var4.copy();
 			if(var1 < this.field_27282_b * 9) {
 				this.func_28125_a(var4, this.field_27282_b * 9, this.slots.size(), true);

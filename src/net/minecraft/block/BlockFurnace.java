@@ -1,9 +1,16 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.core.BlockContainer;
+import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.tileentity.TileEntity;
+import net.minecraft.block.tileentity.TileEntityFurnace;
 import net.minecraft.core.MathHelper;
 import net.minecraft.entity.EntityItem;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.entity.living.EntityLiving;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -13,14 +20,14 @@ public class BlockFurnace extends BlockContainer {
 	private final boolean isActive;
 	private static boolean keepFurnaceInventory = false;
 
-	protected BlockFurnace(int var1, boolean var2) {
+	public BlockFurnace(int var1, boolean var2) {
 		super(var1, Material.rock);
 		this.isActive = var2;
-		this.blockIndexInTexture = 45;
+		this.setBlockIndexInTexture(45);
 	}
 
 	public int idDropped(int var1, Random var2) {
-		return Block.stoneOvenIdle.blockID;
+		return Block.stoneOvenIdle.getBlockID();
 	}
 
 	public void onBlockAdded(net.minecraft.world.World var1, int var2, int var3, int var4) {
@@ -57,12 +64,12 @@ public class BlockFurnace extends BlockContainer {
 
 	public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
 		if(var5 == 1) {
-			return this.blockIndexInTexture + 17;
+			return this.getBlockIndexInTexture() + 17;
 		} else if(var5 == 0) {
-			return this.blockIndexInTexture + 17;
+			return this.getBlockIndexInTexture() + 17;
 		} else {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
-			return var5 != var6 ? this.blockIndexInTexture : (this.isActive ? this.blockIndexInTexture + 16 : this.blockIndexInTexture - 1);
+			return var5 != var6 ? this.getBlockIndexInTexture() : (this.isActive ? this.getBlockIndexInTexture() + 16 : this.getBlockIndexInTexture() - 1);
 		}
 	}
 
@@ -92,7 +99,7 @@ public class BlockFurnace extends BlockContainer {
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.blockIndexInTexture + 17 : (var1 == 0 ? this.blockIndexInTexture + 17 : (var1 == 3 ? this.blockIndexInTexture - 1 : this.blockIndexInTexture));
+		return var1 == 1 ? this.getBlockIndexInTexture() + 17 : (var1 == 0 ? this.getBlockIndexInTexture() + 17 : (var1 == 3 ? this.getBlockIndexInTexture() - 1 : this.getBlockIndexInTexture()));
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
@@ -110,9 +117,9 @@ public class BlockFurnace extends BlockContainer {
 		TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
 		keepFurnaceInventory = true;
 		if(var0) {
-			var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenActive.blockID);
+			var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenActive.getBlockID());
 		} else {
-			var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenIdle.blockID);
+			var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenIdle.getBlockID());
 		}
 
 		keepFurnaceInventory = false;
@@ -125,7 +132,7 @@ public class BlockFurnace extends BlockContainer {
 		return new TileEntityFurnace();
 	}
 
-	public void onBlockPlacedBy(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.entity.EntityLiving var5) {
+	public void onBlockPlacedBy(net.minecraft.world.World var1, int var2, int var3, int var4, EntityLiving var5) {
 		int var6 = MathHelper.floor_double((double)(var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		if(var6 == 0) {
 			var1.setBlockMetadataWithNotify(var2, var3, var4, 2);
@@ -150,7 +157,7 @@ public class BlockFurnace extends BlockContainer {
 			TileEntityFurnace var5 = (TileEntityFurnace)var1.getBlockTileEntity(var2, var3, var4);
 
 			for(int var6 = 0; var6 < var5.getSizeInventory(); ++var6) {
-				net.minecraft.item.ItemStack var7 = var5.getStackInSlot(var6);
+				ItemStack var7 = var5.getStackInSlot(var6);
 				if(var7 != null) {
 					float var8 = this.furnaceRand.nextFloat() * 0.8F + 0.1F;
 					float var9 = this.furnaceRand.nextFloat() * 0.8F + 0.1F;

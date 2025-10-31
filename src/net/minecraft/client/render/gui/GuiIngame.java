@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.InventoryPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.container.inventory.InventoryPlayer;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.client.ChatLine;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.core.MathHelper;
-import net.minecraft.client.render.RenderHelper;
-import net.minecraft.client.render.RenderItem;
+import net.minecraft.client.render.entity.render.RenderHelper;
+import net.minecraft.client.render.entity.render.RenderItem;
 import net.minecraft.client.render.ScaledResolution;
 import net.minecraft.core.StringTranslate;
 import net.minecraft.client.render.Tessellator;
@@ -49,8 +49,8 @@ public class GuiIngame extends Gui {
 			this.renderVignette(this.mc.thePlayer.getEntityBrightness(var1), var6, var7);
 		}
 
-		net.minecraft.item.ItemStack var9 = this.mc.thePlayer.inventory.armorItemInSlot(3);
-		if(!this.mc.gameSettings.thirdPersonView && var9 != null && var9.itemID == net.minecraft.block.Block.pumpkin.blockID) {
+		ItemStack var9 = this.mc.thePlayer.inventory.armorItemInSlot(3);
+		if(!this.mc.gameSettings.thirdPersonView && var9 != null && var9.itemID == Block.pumpkin.getBlockID()) {
 			this.renderPumpkinBlur(var6, var7);
 		}
 
@@ -336,10 +336,10 @@ public class GuiIngame extends Gui {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, var1);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/terrain.png"));
-		float var4 = (float)(net.minecraft.block.Block.portal.blockIndexInTexture % 16) / 16.0F;
-		float var5 = (float)(net.minecraft.block.Block.portal.blockIndexInTexture / 16) / 16.0F;
-		float var6 = (float)(net.minecraft.block.Block.portal.blockIndexInTexture % 16 + 1) / 16.0F;
-		float var7 = (float)(Block.portal.blockIndexInTexture / 16 + 1) / 16.0F;
+		float var4 = (float)(Block.portal.getBlockIndexInTexture() % 16) / 16.0F;
+		float var5 = (float)(Block.portal.getBlockIndexInTexture() / 16) / 16.0F;
+		float var6 = (float)(Block.portal.getBlockIndexInTexture() % 16 + 1) / 16.0F;
+		float var7 = (float)(Block.portal.getBlockIndexInTexture() / 16 + 1) / 16.0F;
 		Tessellator var8 = Tessellator.instance;
 		var8.startDrawingQuads();
 		var8.addVertexWithUV(0.0D, (double)var3, -90.0D, (double)var4, (double)var7);

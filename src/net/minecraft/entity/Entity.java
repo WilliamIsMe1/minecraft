@@ -1,12 +1,14 @@
 package net.minecraft.entity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFluid;
-import net.minecraft.block.Material;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.core.BlockFluid;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.StepSound;
 import net.minecraft.core.MathHelper;
 import net.minecraft.core.Vec3D;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityLiving;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.misc.DataWatcher;
 import net.minecraft.util.nbt.NBTTagList;
@@ -452,21 +454,21 @@ public abstract class Entity {
 				var26 = net.minecraft.core.MathHelper.floor_double(this.posY - (double)0.2F - (double)this.yOffset);
 				var39 = net.minecraft.core.MathHelper.floor_double(this.posZ);
 				var28 = this.worldObj.getBlockId(var38, var26, var39);
-				if(this.worldObj.getBlockId(var38, var26 - 1, var39) == net.minecraft.block.Block.fence.blockID) {
+				if(this.worldObj.getBlockId(var38, var26 - 1, var39) == Block.fence.getBlockID()) {
 					var28 = this.worldObj.getBlockId(var38, var26 - 1, var39);
 				}
 
 				if(this.distanceWalkedModified > (float)this.nextStepDistance && var28 > 0) {
 					++this.nextStepDistance;
-					StepSound var29 = net.minecraft.block.Block.blocksList[var28].stepSound;
-					if(this.worldObj.getBlockId(var38, var26 + 1, var39) == net.minecraft.block.Block.snow.blockID) {
-						var29 = net.minecraft.block.Block.snow.stepSound;
+					StepSound var29 = Block.blocksList[var28].getStepSound();
+					if(this.worldObj.getBlockId(var38, var26 + 1, var39) == Block.snow.getBlockID()) {
+						var29 = Block.snow.getStepSound();
 						this.worldObj.playSoundAtEntity(this, var29.func_1145_d(), var29.getVolume() * 0.15F, var29.getPitch());
-					} else if(!net.minecraft.block.Block.blocksList[var28].blockMaterial.getIsLiquid()) {
+					} else if(!Block.blocksList[var28].getBlockMaterial().getIsLiquid()) {
 						this.worldObj.playSoundAtEntity(this, var29.func_1145_d(), var29.getVolume() * 0.15F, var29.getPitch());
 					}
 
-					net.minecraft.block.Block.blocksList[var28].onEntityWalking(this.worldObj, var38, var26, var39, this);
+					Block.blocksList[var28].onEntityWalking(this.worldObj, var38, var26, var39, this);
 				}
 			}
 
@@ -482,7 +484,7 @@ public abstract class Entity {
 						for(int var33 = var39; var33 <= var30; ++var33) {
 							int var34 = this.worldObj.getBlockId(var31, var32, var33);
 							if(var34 > 0) {
-								net.minecraft.block.Block.blocksList[var34].onEntityCollidedWithBlock(this.worldObj, var31, var32, var33, this);
+								Block.blocksList[var34].onEntityCollidedWithBlock(this.worldObj, var31, var32, var33, this);
 							}
 						}
 					}
@@ -553,16 +555,16 @@ public abstract class Entity {
 	}
 
 	public boolean handleWaterMovement() {
-		return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, (double)-0.4F, 0.0D).func_28195_e(0.001D, 0.001D, 0.001D), net.minecraft.block.Material.water, this);
+		return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, (double)-0.4F, 0.0D).func_28195_e(0.001D, 0.001D, 0.001D), Material.water, this);
 	}
 
-	public boolean isInsideOfMaterial(net.minecraft.block.Material var1) {
+	public boolean isInsideOfMaterial(Material var1) {
 		double var2 = this.posY + (double)this.getEyeHeight();
 		int var4 = net.minecraft.core.MathHelper.floor_double(this.posX);
 		int var5 = net.minecraft.core.MathHelper.floor_float((float) net.minecraft.core.MathHelper.floor_double(var2));
 		int var6 = net.minecraft.core.MathHelper.floor_double(this.posZ);
 		int var7 = this.worldObj.getBlockId(var4, var5, var6);
-		if(var7 != 0 && Block.blocksList[var7].blockMaterial == var1) {
+		if(var7 != 0 && Block.blocksList[var7].getBlockMaterial() == var1) {
 			float var8 = BlockFluid.getPercentAir(this.worldObj.getBlockMetadata(var4, var5, var6)) - 1.0F / 9.0F;
 			float var9 = (float)(var5 + 1) - var8;
 			return var2 < (double)var9;
@@ -846,7 +848,7 @@ public abstract class Entity {
 	}
 
 	public EntityItem dropItemWithOffset(int var1, int var2, float var3) {
-		return this.entityDropItem(new net.minecraft.item.ItemStack(var1, var2, 0), var3);
+		return this.entityDropItem(new ItemStack(var1, var2, 0), var3);
 	}
 
 	public EntityItem entityDropItem(ItemStack var1, float var2) {

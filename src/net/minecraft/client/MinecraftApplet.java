@@ -3,7 +3,7 @@ package net.minecraft.client;
 import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
-import net.minecraft.client.render.CanvasMinecraftApplet;
+import net.minecraft.client.render.canvas.CanvasMinecraftApplet;
 
 public class MinecraftApplet extends Applet {
 	private Canvas mcCanvas;

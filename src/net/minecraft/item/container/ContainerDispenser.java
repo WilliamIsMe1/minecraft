@@ -1,12 +1,12 @@
 package net.minecraft.item.container;
 
-import net.minecraft.block.TileEntityDispenser;
+import net.minecraft.block.tileentity.TileEntityDispenser;
 import net.minecraft.client.render.gui.Slot;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.item.IInventory;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.container.inventory.IInventory;
 
 public class ContainerDispenser extends Container {
-	private net.minecraft.block.TileEntityDispenser field_21149_a;
+	private TileEntityDispenser field_21149_a;
 
 	public ContainerDispenser(IInventory var1, TileEntityDispenser var2) {
 		this.field_21149_a = var2;

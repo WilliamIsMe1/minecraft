@@ -1,8 +1,10 @@
 package net.minecraft.client.render;
 
+import net.minecraft.client.render.entity.model.ModelRenderer;
+
 public class SignModel {
-	public net.minecraft.client.render.ModelRenderer signBoard = new net.minecraft.client.render.ModelRenderer(0, 0);
-	public net.minecraft.client.render.ModelRenderer signStick;
+	public ModelRenderer signBoard = new ModelRenderer(0, 0);
+	public ModelRenderer signStick;
 
 	public SignModel() {
 		this.signBoard.addBox(-12.0F, -14.0F, -1.0F, 24, 12, 2, 0.0F);

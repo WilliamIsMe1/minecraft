@@ -1,5 +1,8 @@
 package net.minecraft.item;
 
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
+
 public class ItemCoal extends Item {
 	public ItemCoal(int var1) {
 		super(var1);

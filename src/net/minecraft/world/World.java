@@ -1,27 +1,37 @@
 package net.minecraft.world;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFluid;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.core.BlockFluid;
 import net.minecraft.block.EnumSkyBlock;
-import net.minecraft.block.IBlockAccess;
-import net.minecraft.block.Material;
-import net.minecraft.block.TileEntity;
+import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.core.MathHelper;
 import net.minecraft.core.NextTickListEntry;
 import net.minecraft.core.SpawnerAnimals;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLightningBolt;
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.entity.Explosion;
-import net.minecraft.entity.PathEntity;
-import net.minecraft.entity.Pathfinder;
+import net.minecraft.entity.pathfinding.PathEntity;
+import net.minecraft.entity.pathfinding.Pathfinder;
 import net.minecraft.map.MapDataBase;
 import net.minecraft.map.MapStorage;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.misc.IProgressUpdate;
 import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.util.nbt.NBTTagCompound;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.ChunkCache;
+import net.minecraft.world.chunk.ChunkCoordIntPair;
+import net.minecraft.world.chunk.ChunkCoordinates;
+import net.minecraft.world.chunk.ChunkProvider;
+import net.minecraft.world.chunk.ChunkProviderLoadOrGenerate;
+import net.minecraft.world.chunk.IChunkLoader;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.chunk.MetadataChunkBlock;
+import net.minecraft.world.gen.BiomeGenBase;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -276,7 +286,7 @@ public class World implements IBlockAccess {
 	public void emptyMethod1() {
 	}
 
-	public void spawnPlayerWithLoadedChunks(net.minecraft.entity.EntityPlayer var1) {
+	public void spawnPlayerWithLoadedChunks(EntityPlayer var1) {
 		try {
 			net.minecraft.util.nbt.NBTTagCompound var2 = this.worldInfo.getPlayerNBTTagCompound();
 			if(var2 != null) {
@@ -412,9 +422,9 @@ public class World implements IBlockAccess {
 		}
 	}
 
-	public net.minecraft.block.Material getBlockMaterial(int var1, int var2, int var3) {
+	public Material getBlockMaterial(int var1, int var2, int var3) {
 		int var4 = this.getBlockId(var1, var2, var3);
-		return var4 == 0 ? net.minecraft.block.Material.air : net.minecraft.block.Block.blocksList[var4].blockMaterial;
+		return var4 == 0 ? Material.air : Block.blocksList[var4].getBlockMaterial();
 	}
 
 	public int getBlockMetadata(int var1, int var2, int var3) {
@@ -437,7 +447,7 @@ public class World implements IBlockAccess {
 	public void setBlockMetadataWithNotify(int var1, int var2, int var3, int var4) {
 		if(this.setBlockMetadata(var1, var2, var3, var4)) {
 			int var5 = this.getBlockId(var1, var2, var3);
-			if(net.minecraft.block.Block.field_28032_t[var5 & 255]) {
+			if(Block.field_28032_t[var5 & 255]) {
 				this.notifyBlockChange(var1, var2, var3, var5);
 			} else {
 				this.notifyBlocksOfNeighborChange(var1, var2, var3, var5);
@@ -529,7 +539,7 @@ public class World implements IBlockAccess {
 
 	private void notifyBlockOfNeighborChange(int var1, int var2, int var3, int var4) {
 		if(!this.editingBlocks && !this.multiplayerWorld) {
-			net.minecraft.block.Block var5 = net.minecraft.block.Block.blocksList[this.getBlockId(var1, var2, var3)];
+			Block var5 = Block.blocksList[this.getBlockId(var1, var2, var3)];
 			if(var5 != null) {
 				var5.onNeighborBlockChange(this, var1, var2, var3, var4);
 			}
@@ -561,7 +571,7 @@ public class World implements IBlockAccess {
 		if(var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
 			if(var4) {
 				int var5 = this.getBlockId(var1, var2, var3);
-				if(var5 == net.minecraft.block.Block.stairSingle.blockID || var5 == net.minecraft.block.Block.tilledField.blockID || var5 == net.minecraft.block.Block.stairCompactCobblestone.blockID || var5 == net.minecraft.block.Block.stairCompactPlanks.blockID) {
+				if(var5 == Block.stairSingle.getBlockID() || var5 == Block.tilledField.getBlockID() || var5 == Block.stairCompactCobblestone.getBlockID() || var5 == Block.stairCompactPlanks.getBlockID()) {
 					int var6 = this.getBlockLightValue_do(var1, var2 + 1, var3, false);
 					int var7 = this.getBlockLightValue_do(var1 + 1, var2, var3, false);
 					int var8 = this.getBlockLightValue_do(var1 - 1, var2, var3, false);
@@ -645,8 +655,8 @@ public class World implements IBlockAccess {
 					}
 				} else if(var1 == net.minecraft.block.EnumSkyBlock.Block) {
 					int var6 = this.getBlockId(var2, var3, var4);
-					if(net.minecraft.block.Block.lightValue[var6] > var5) {
-						var5 = net.minecraft.block.Block.lightValue[var6];
+					if(Block.lightValue[var6] > var5) {
+						var5 = Block.lightValue[var6];
 					}
 				}
 
@@ -735,7 +745,7 @@ public class World implements IBlockAccess {
 				int var10 = net.minecraft.core.MathHelper.floor_double(var1.zCoord);
 				int var11 = this.getBlockId(var8, var9, var10);
 				int var12 = this.getBlockMetadata(var8, var9, var10);
-				net.minecraft.block.Block var13 = net.minecraft.block.Block.blocksList[var11];
+				Block var13 = Block.blocksList[var11];
 				if((!var4 || var13 == null || var13.getCollisionBoundingBoxFromPool(this, var8, var9, var10) != null) && var11 > 0 && var13.canCollideCheck(var12, var3)) {
 					net.minecraft.misc.MovingObjectPosition var14 = var13.collisionRayTrace(this, var8, var9, var10, var1, var2);
 					if(var14 != null) {
@@ -857,7 +867,7 @@ public class World implements IBlockAccess {
 
 					int var35 = this.getBlockId(var8, var9, var10);
 					int var36 = this.getBlockMetadata(var8, var9, var10);
-					net.minecraft.block.Block var37 = net.minecraft.block.Block.blocksList[var35];
+					Block var37 = Block.blocksList[var35];
 					if((!var4 || var37 == null || var37.getCollisionBoundingBoxFromPool(this, var8, var9, var10) != null) && var35 > 0 && var37.canCollideCheck(var36, var3)) {
 						MovingObjectPosition var38 = var37.collisionRayTrace(this, var8, var9, var10, var1, var2);
 						if(var38 != null) {
@@ -912,15 +922,15 @@ public class World implements IBlockAccess {
 		int var2 = net.minecraft.core.MathHelper.floor_double(var1.posX / 16.0D);
 		int var3 = net.minecraft.core.MathHelper.floor_double(var1.posZ / 16.0D);
 		boolean var4 = false;
-		if(var1 instanceof net.minecraft.entity.EntityPlayer) {
+		if(var1 instanceof EntityPlayer) {
 			var4 = true;
 		}
 
 		if(!var4 && !this.chunkExists(var2, var3)) {
 			return false;
 		} else {
-			if(var1 instanceof net.minecraft.entity.EntityPlayer) {
-				net.minecraft.entity.EntityPlayer var5 = (net.minecraft.entity.EntityPlayer)var1;
+			if(var1 instanceof EntityPlayer) {
+				EntityPlayer var5 = (EntityPlayer)var1;
 				this.playerEntities.add(var5);
 				this.updateAllPlayersSleepingFlag();
 			}
@@ -956,8 +966,8 @@ public class World implements IBlockAccess {
 		}
 
 		var1.setEntityDead();
-		if(var1 instanceof net.minecraft.entity.EntityPlayer) {
-			this.playerEntities.remove((net.minecraft.entity.EntityPlayer)var1);
+		if(var1 instanceof EntityPlayer) {
+			this.playerEntities.remove((EntityPlayer)var1);
 			this.updateAllPlayersSleepingFlag();
 		}
 
@@ -984,7 +994,7 @@ public class World implements IBlockAccess {
 			for(int var10 = var7; var10 < var8; ++var10) {
 				if(this.blockExists(var9, 64, var10)) {
 					for(int var11 = var5 - 1; var11 < var6; ++var11) {
-						net.minecraft.block.Block var12 = net.minecraft.block.Block.blocksList[this.getBlockId(var9, var11, var10)];
+						Block var12 = Block.blocksList[this.getBlockId(var9, var11, var10)];
 						if(var12 != null) {
 							var12.getCollidingBoundingBoxes(this, var9, var11, var10, var2, this.collidingBoundingBoxes);
 						}
@@ -1141,7 +1151,7 @@ public class World implements IBlockAccess {
 
 		for(var2 &= 15; var4 > 0; --var4) {
 			int var5 = var3.getBlockID(var1, var4, var2);
-			net.minecraft.block.Material var6 = var5 == 0 ? net.minecraft.block.Material.air : net.minecraft.block.Block.blocksList[var5].blockMaterial;
+			Material var6 = var5 == 0 ? Material.air : Block.blocksList[var5].getBlockMaterial();
 			if(var6.getIsSolid() || var6.getIsLiquid()) {
 				return var4 + 1;
 			}
@@ -1171,7 +1181,7 @@ public class World implements IBlockAccess {
 			if(this.checkChunksExist(var6.xCoord - var7, var6.yCoord - var7, var6.zCoord - var7, var6.xCoord + var7, var6.yCoord + var7, var6.zCoord + var7)) {
 				int var8 = this.getBlockId(var6.xCoord, var6.yCoord, var6.zCoord);
 				if(var8 == var6.blockID && var8 > 0) {
-					net.minecraft.block.Block.blocksList[var8].updateTick(this, var6.xCoord, var6.yCoord, var6.zCoord, this.rand);
+					Block.blocksList[var8].updateTick(this, var6.xCoord, var6.yCoord, var6.zCoord, this.rand);
 				}
 			}
 
@@ -1251,7 +1261,7 @@ public class World implements IBlockAccess {
 		Iterator var10 = this.loadedTileEntityList.iterator();
 
 		while(var10.hasNext()) {
-			net.minecraft.block.TileEntity var5 = (net.minecraft.block.TileEntity)var10.next();
+			TileEntity var5 = (TileEntity)var10.next();
 			if(!var5.func_31006_g()) {
 				var5.updateEntity();
 			}
@@ -1270,7 +1280,7 @@ public class World implements IBlockAccess {
 			Iterator var6 = this.field_30900_E.iterator();
 
 			while(var6.hasNext()) {
-				net.minecraft.block.TileEntity var8 = (net.minecraft.block.TileEntity)var6.next();
+				TileEntity var8 = (TileEntity)var6.next();
 				if(!var8.func_31006_g()) {
 					if(!this.loadedTileEntityList.contains(var8)) {
 						this.loadedTileEntityList.add(var8);
@@ -1404,8 +1414,8 @@ public class World implements IBlockAccess {
 		for(int var8 = var2; var8 < var3; ++var8) {
 			for(int var9 = var4; var9 < var5; ++var9) {
 				for(int var10 = var6; var10 < var7; ++var10) {
-					net.minecraft.block.Block var11 = net.minecraft.block.Block.blocksList[this.getBlockId(var8, var9, var10)];
-					if(var11 != null && var11.blockMaterial.getIsLiquid()) {
+					Block var11 = Block.blocksList[this.getBlockId(var8, var9, var10)];
+					if(var11 != null && var11.getBlockMaterial().getIsLiquid()) {
 						return true;
 					}
 				}
@@ -1427,7 +1437,7 @@ public class World implements IBlockAccess {
 				for(int var9 = var4; var9 < var5; ++var9) {
 					for(int var10 = var6; var10 < var7; ++var10) {
 						int var11 = this.getBlockId(var8, var9, var10);
-						if(var11 == net.minecraft.block.Block.fire.blockID || var11 == net.minecraft.block.Block.lavaMoving.blockID || var11 == net.minecraft.block.Block.lavaStill.blockID) {
+						if(var11 == Block.fire.getBlockID() || var11 == Block.lavaMoving.getBlockID() || var11 == Block.lavaStill.getBlockID()) {
 							return true;
 						}
 					}
@@ -1438,7 +1448,7 @@ public class World implements IBlockAccess {
 		return false;
 	}
 
-	public boolean handleMaterialAcceleration(net.minecraft.misc.AxisAlignedBB var1, net.minecraft.block.Material var2, net.minecraft.entity.Entity var3) {
+	public boolean handleMaterialAcceleration(net.minecraft.misc.AxisAlignedBB var1, Material var2, net.minecraft.entity.Entity var3) {
 		int var4 = net.minecraft.core.MathHelper.floor_double(var1.minX);
 		int var5 = net.minecraft.core.MathHelper.floor_double(var1.maxX + 1.0D);
 		int var6 = net.minecraft.core.MathHelper.floor_double(var1.minY);
@@ -1454,8 +1464,8 @@ public class World implements IBlockAccess {
 			for(int var12 = var4; var12 < var5; ++var12) {
 				for(int var13 = var6; var13 < var7; ++var13) {
 					for(int var14 = var8; var14 < var9; ++var14) {
-						net.minecraft.block.Block var15 = net.minecraft.block.Block.blocksList[this.getBlockId(var12, var13, var14)];
-						if(var15 != null && var15.blockMaterial == var2) {
+						Block var15 = Block.blocksList[this.getBlockId(var12, var13, var14)];
+						if(var15 != null && var15.getBlockMaterial() == var2) {
 							double var16 = (double)((float)(var13 + 1) - BlockFluid.getPercentAir(this.getBlockMetadata(var12, var13, var14)));
 							if((double)var7 >= var16) {
 								var10 = true;
@@ -1478,7 +1488,7 @@ public class World implements IBlockAccess {
 		}
 	}
 
-	public boolean isMaterialInBB(net.minecraft.misc.AxisAlignedBB var1, net.minecraft.block.Material var2) {
+	public boolean isMaterialInBB(net.minecraft.misc.AxisAlignedBB var1, Material var2) {
 		int var3 = net.minecraft.core.MathHelper.floor_double(var1.minX);
 		int var4 = net.minecraft.core.MathHelper.floor_double(var1.maxX + 1.0D);
 		int var5 = net.minecraft.core.MathHelper.floor_double(var1.minY);
@@ -1489,8 +1499,8 @@ public class World implements IBlockAccess {
 		for(int var9 = var3; var9 < var4; ++var9) {
 			for(int var10 = var5; var10 < var6; ++var10) {
 				for(int var11 = var7; var11 < var8; ++var11) {
-					net.minecraft.block.Block var12 = net.minecraft.block.Block.blocksList[this.getBlockId(var9, var10, var11)];
-					if(var12 != null && var12.blockMaterial == var2) {
+					Block var12 = Block.blocksList[this.getBlockId(var9, var10, var11)];
+					if(var12 != null && var12.getBlockMaterial() == var2) {
 						return true;
 					}
 				}
@@ -1511,8 +1521,8 @@ public class World implements IBlockAccess {
 		for(int var9 = var3; var9 < var4; ++var9) {
 			for(int var10 = var5; var10 < var6; ++var10) {
 				for(int var11 = var7; var11 < var8; ++var11) {
-					net.minecraft.block.Block var12 = net.minecraft.block.Block.blocksList[this.getBlockId(var9, var10, var11)];
-					if(var12 != null && var12.blockMaterial == var2) {
+					Block var12 = Block.blocksList[this.getBlockId(var9, var10, var11)];
+					if(var12 != null && var12.getBlockMaterial() == var2) {
 						int var13 = this.getBlockMetadata(var9, var10, var11);
 						double var14 = (double)(var10 + 1);
 						if(var13 < 8) {
@@ -1567,7 +1577,7 @@ public class World implements IBlockAccess {
 		return (float)var9 / (float)var10;
 	}
 
-	public void onBlockHit(net.minecraft.entity.EntityPlayer var1, int var2, int var3, int var4, int var5) {
+	public void onBlockHit(EntityPlayer var1, int var2, int var3, int var4, int var5) {
 		if(var5 == 0) {
 			--var3;
 		}
@@ -1592,7 +1602,7 @@ public class World implements IBlockAccess {
 			++var2;
 		}
 
-		if(this.getBlockId(var2, var3, var4) == net.minecraft.block.Block.fire.blockID) {
+		if(this.getBlockId(var2, var3, var4) == Block.fire.getBlockID()) {
 			this.func_28107_a(var1, 1004, var2, var3, var4, 0);
 			this.setBlockWithNotify(var2, var3, var4, 0);
 		}
@@ -1611,12 +1621,12 @@ public class World implements IBlockAccess {
 		return this.chunkProvider.makeString();
 	}
 
-	public net.minecraft.block.TileEntity getBlockTileEntity(int var1, int var2, int var3) {
+	public TileEntity getBlockTileEntity(int var1, int var2, int var3) {
 		Chunk var4 = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
 		return var4 != null ? var4.getChunkBlockTileEntity(var1 & 15, var2, var3 & 15) : null;
 	}
 
-	public void setBlockTileEntity(int var1, int var2, int var3, net.minecraft.block.TileEntity var4) {
+	public void setBlockTileEntity(int var1, int var2, int var3, TileEntity var4) {
 		if(!var4.func_31006_g()) {
 			if(this.field_31055_L) {
 				var4.xCoord = var1;
@@ -1635,7 +1645,7 @@ public class World implements IBlockAccess {
 	}
 
 	public void removeBlockTileEntity(int var1, int var2, int var3) {
-		net.minecraft.block.TileEntity var4 = this.getBlockTileEntity(var1, var2, var3);
+		TileEntity var4 = this.getBlockTileEntity(var1, var2, var3);
 		if(var4 != null && this.field_31055_L) {
 			var4.func_31005_i();
 		} else {
@@ -1652,13 +1662,13 @@ public class World implements IBlockAccess {
 	}
 
 	public boolean isBlockOpaqueCube(int var1, int var2, int var3) {
-		net.minecraft.block.Block var4 = net.minecraft.block.Block.blocksList[this.getBlockId(var1, var2, var3)];
+		Block var4 = Block.blocksList[this.getBlockId(var1, var2, var3)];
 		return var4 == null ? false : var4.isOpaqueCube();
 	}
 
 	public boolean isBlockNormalCube(int var1, int var2, int var3) {
-		net.minecraft.block.Block var4 = net.minecraft.block.Block.blocksList[this.getBlockId(var1, var2, var3)];
-		return var4 == null ? false : var4.blockMaterial.getIsTranslucent() && var4.renderAsNormalBlock();
+		Block var4 = Block.blocksList[this.getBlockId(var1, var2, var3)];
+		return var4 == null ? false : var4.getBlockMaterial().getIsTranslucent() && var4.renderAsNormalBlock();
 	}
 
 	public void saveWorldIndirectly(net.minecraft.misc.IProgressUpdate var1) {
@@ -1883,7 +1893,7 @@ public class World implements IBlockAccess {
 		int var6;
 		int var7;
 		for(int var1 = 0; var1 < this.playerEntities.size(); ++var1) {
-			net.minecraft.entity.EntityPlayer var2 = (net.minecraft.entity.EntityPlayer)this.playerEntities.get(var1);
+			EntityPlayer var2 = (EntityPlayer)this.playerEntities.get(var1);
 			var3 = net.minecraft.core.MathHelper.floor_double(var2.posX / 16.0D);
 			var4 = net.minecraft.core.MathHelper.floor_double(var2.posZ / 16.0D);
 			byte var5 = 9;
@@ -1919,7 +1929,7 @@ public class World implements IBlockAccess {
 				var7 += var3;
 				var8 += var4;
 				if(var10 == 0 && this.getFullBlockLightValue(var7, var9, var8) <= this.rand.nextInt(8) && this.getSavedLightValue(net.minecraft.block.EnumSkyBlock.Sky, var7, var9, var8) <= 0) {
-					net.minecraft.entity.EntityPlayer var11 = this.getClosestPlayer((double)var7 + 0.5D, (double)var9 + 0.5D, (double)var8 + 0.5D, 8.0D);
+					EntityPlayer var11 = this.getClosestPlayer((double)var7 + 0.5D, (double)var9 + 0.5D, (double)var8 + 0.5D, 8.0D);
 					if(var11 != null && var11.getDistanceSq((double)var7 + 0.5D, (double)var9 + 0.5D, (double)var8 + 0.5D) > 4.0D) {
 						this.playSoundEffect((double)var7 + 0.5D, (double)var9 + 0.5D, (double)var8 + 0.5D, "ambient.cave.cave", 0.7F, 0.8F + this.rand.nextFloat() * 0.2F);
 						this.soundCounter = this.rand.nextInt(12000) + 6000;
@@ -1949,12 +1959,12 @@ public class World implements IBlockAccess {
 				if(this.getWorldChunkManager().getBiomeGenAt(var7 + var3, var8 + var4).getEnableSnow() && var9 >= 0 && var9 < 128 && var14.getSavedLightValue(EnumSkyBlock.Block, var7, var9, var8) < 10) {
 					var10 = var14.getBlockID(var7, var9 - 1, var8);
 					var15 = var14.getBlockID(var7, var9, var8);
-					if(this.func_27161_C() && var15 == 0 && net.minecraft.block.Block.snow.canPlaceBlockAt(this, var7 + var3, var9, var8 + var4) && var10 != 0 && var10 != net.minecraft.block.Block.ice.blockID && net.minecraft.block.Block.blocksList[var10].blockMaterial.getIsSolid()) {
-						this.setBlockWithNotify(var7 + var3, var9, var8 + var4, net.minecraft.block.Block.snow.blockID);
+					if(this.func_27161_C() && var15 == 0 && Block.snow.canPlaceBlockAt(this, var7 + var3, var9, var8 + var4) && var10 != 0 && var10 != Block.ice.getBlockID() && Block.blocksList[var10].getBlockMaterial().getIsSolid()) {
+						this.setBlockWithNotify(var7 + var3, var9, var8 + var4, Block.snow.getBlockID());
 					}
 
-					if(var10 == net.minecraft.block.Block.waterStill.blockID && var14.getBlockMetadata(var7, var9 - 1, var8) == 0) {
-						this.setBlockWithNotify(var7 + var3, var9 - 1, var8 + var4, net.minecraft.block.Block.ice.blockID);
+					if(var10 == Block.waterStill.getBlockID() && var14.getBlockMetadata(var7, var9 - 1, var8) == 0) {
+						this.setBlockWithNotify(var7 + var3, var9 - 1, var8 + var4, Block.ice.getBlockID());
 					}
 				}
 			}
@@ -1966,8 +1976,8 @@ public class World implements IBlockAccess {
 				var9 = var7 >> 8 & 15;
 				var10 = var7 >> 16 & 127;
 				var15 = var14.blocks[var8 << 11 | var9 << 7 | var10] & 255;
-				if(net.minecraft.block.Block.tickOnLoad[var15]) {
-					net.minecraft.block.Block.blocksList[var15].updateTick(this, var8 + var3, var10, var9 + var4, this.rand);
+				if(Block.tickOnLoad[var15]) {
+					Block.blocksList[var15].updateTick(this, var8 + var3, var10, var9 + var4, this.rand);
 				}
 			}
 		}
@@ -1995,7 +2005,7 @@ public class World implements IBlockAccess {
 				if(this.checkChunksExist(var4.xCoord - var5, var4.yCoord - var5, var4.zCoord - var5, var4.xCoord + var5, var4.yCoord + var5, var4.zCoord + var5)) {
 					int var6 = this.getBlockId(var4.xCoord, var4.yCoord, var4.zCoord);
 					if(var6 == var4.blockID && var6 > 0) {
-						net.minecraft.block.Block.blocksList[var6].updateTick(this, var4.xCoord, var4.yCoord, var4.zCoord, this.rand);
+						Block.blocksList[var6].updateTick(this, var4.xCoord, var4.yCoord, var4.zCoord, this.rand);
 					}
 				}
 			}
@@ -2014,7 +2024,7 @@ public class World implements IBlockAccess {
 			int var9 = var3 + this.rand.nextInt(var4) - this.rand.nextInt(var4);
 			int var10 = this.getBlockId(var7, var8, var9);
 			if(var10 > 0) {
-				net.minecraft.block.Block.blocksList[var10].randomDisplayTick(this, var7, var8, var9, var5);
+				Block.blocksList[var10].randomDisplayTick(this, var7, var8, var9, var5);
 			}
 		}
 
@@ -2105,8 +2115,8 @@ public class World implements IBlockAccess {
 
 	public boolean canBlockBePlacedAt(int var1, int var2, int var3, int var4, boolean var5, int var6) {
 		int var7 = this.getBlockId(var2, var3, var4);
-		net.minecraft.block.Block var8 = net.minecraft.block.Block.blocksList[var7];
-		net.minecraft.block.Block var9 = net.minecraft.block.Block.blocksList[var1];
+		Block var8 = Block.blocksList[var7];
+		Block var9 = Block.blocksList[var1];
 		AxisAlignedBB var10 = var9.getCollisionBoundingBoxFromPool(this, var2, var3, var4);
 		if(var5) {
 			var10 = null;
@@ -2115,7 +2125,7 @@ public class World implements IBlockAccess {
 		if(var10 != null && !this.checkIfAABBIsClear(var10)) {
 			return false;
 		} else {
-			if(var8 == net.minecraft.block.Block.waterMoving || var8 == net.minecraft.block.Block.waterStill || var8 == net.minecraft.block.Block.lavaMoving || var8 == net.minecraft.block.Block.lavaStill || var8 == net.minecraft.block.Block.fire || var8 == net.minecraft.block.Block.snow) {
+			if(var8 == Block.waterMoving || var8 == Block.waterStill || var8 == Block.lavaMoving || var8 == Block.lavaStill || var8 == Block.fire || var8 == Block.snow) {
 				var8 = null;
 			}
 
@@ -2123,7 +2133,7 @@ public class World implements IBlockAccess {
 		}
 	}
 
-	public net.minecraft.entity.PathEntity getPathToEntity(net.minecraft.entity.Entity var1, net.minecraft.entity.Entity var2, float var3) {
+	public PathEntity getPathToEntity(net.minecraft.entity.Entity var1, net.minecraft.entity.Entity var2, float var3) {
 		int var4 = net.minecraft.core.MathHelper.floor_double(var1.posX);
 		int var5 = net.minecraft.core.MathHelper.floor_double(var1.posY);
 		int var6 = net.minecraft.core.MathHelper.floor_double(var1.posZ);
@@ -2135,7 +2145,7 @@ public class World implements IBlockAccess {
 		int var12 = var5 + var7;
 		int var13 = var6 + var7;
 		ChunkCache var14 = new ChunkCache(this, var8, var9, var10, var11, var12, var13);
-		return (new net.minecraft.entity.Pathfinder(var14)).createEntityPathTo(var1, var2, var3);
+		return (new Pathfinder(var14)).createEntityPathTo(var1, var2, var3);
 	}
 
 	public PathEntity getEntityPathToXYZ(net.minecraft.entity.Entity var1, int var2, int var3, int var4, float var5) {
@@ -2155,7 +2165,7 @@ public class World implements IBlockAccess {
 
 	public boolean isBlockProvidingPowerTo(int var1, int var2, int var3, int var4) {
 		int var5 = this.getBlockId(var1, var2, var3);
-		return var5 == 0 ? false : net.minecraft.block.Block.blocksList[var5].isIndirectlyPoweringTo(this, var1, var2, var3, var4);
+		return var5 == 0 ? false : Block.blocksList[var5].isIndirectlyPoweringTo(this, var1, var2, var3, var4);
 	}
 
 	public boolean isBlockGettingPowered(int var1, int var2, int var3) {
@@ -2167,7 +2177,7 @@ public class World implements IBlockAccess {
 			return this.isBlockGettingPowered(var1, var2, var3);
 		} else {
 			int var5 = this.getBlockId(var1, var2, var3);
-			return var5 == 0 ? false : net.minecraft.block.Block.blocksList[var5].isPoweringTo(this, var1, var2, var3, var4);
+			return var5 == 0 ? false : Block.blocksList[var5].isPoweringTo(this, var1, var2, var3, var4);
 		}
 	}
 
@@ -2175,16 +2185,16 @@ public class World implements IBlockAccess {
 		return this.isBlockIndirectlyProvidingPowerTo(var1, var2 - 1, var3, 0) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1, var2 + 1, var3, 1) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1, var2, var3 - 1, 2) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1, var2, var3 + 1, 3) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1 - 1, var2, var3, 4) ? true : this.isBlockIndirectlyProvidingPowerTo(var1 + 1, var2, var3, 5)))));
 	}
 
-	public net.minecraft.entity.EntityPlayer getClosestPlayerToEntity(net.minecraft.entity.Entity var1, double var2) {
+	public EntityPlayer getClosestPlayerToEntity(net.minecraft.entity.Entity var1, double var2) {
 		return this.getClosestPlayer(var1.posX, var1.posY, var1.posZ, var2);
 	}
 
-	public net.minecraft.entity.EntityPlayer getClosestPlayer(double var1, double var3, double var5, double var7) {
+	public EntityPlayer getClosestPlayer(double var1, double var3, double var5, double var7) {
 		double var9 = -1.0D;
-		net.minecraft.entity.EntityPlayer var11 = null;
+		EntityPlayer var11 = null;
 
 		for(int var12 = 0; var12 < this.playerEntities.size(); ++var12) {
-			net.minecraft.entity.EntityPlayer var13 = (net.minecraft.entity.EntityPlayer)this.playerEntities.get(var12);
+			EntityPlayer var13 = (EntityPlayer)this.playerEntities.get(var12);
 			double var14 = var13.getDistanceSq(var1, var3, var5);
 			if((var7 < 0.0D || var14 < var7 * var7) && (var9 == -1.0D || var14 < var9)) {
 				var9 = var14;
@@ -2195,10 +2205,10 @@ public class World implements IBlockAccess {
 		return var11;
 	}
 
-	public net.minecraft.entity.EntityPlayer getPlayerEntityByName(String var1) {
+	public EntityPlayer getPlayerEntityByName(String var1) {
 		for(int var2 = 0; var2 < this.playerEntities.size(); ++var2) {
-			if(var1.equals(((net.minecraft.entity.EntityPlayer)this.playerEntities.get(var2)).username)) {
-				return (net.minecraft.entity.EntityPlayer)this.playerEntities.get(var2);
+			if(var1.equals(((EntityPlayer)this.playerEntities.get(var2)).username)) {
+				return (EntityPlayer)this.playerEntities.get(var2);
 			}
 		}
 
@@ -2294,7 +2304,7 @@ public class World implements IBlockAccess {
 
 	}
 
-	public boolean func_6466_a(net.minecraft.entity.EntityPlayer var1, int var2, int var3, int var4) {
+	public boolean func_6466_a(EntityPlayer var1, int var2, int var3, int var4) {
 		return true;
 	}
 
@@ -2369,7 +2379,7 @@ public class World implements IBlockAccess {
 		Iterator var1 = this.playerEntities.iterator();
 
 		while(var1.hasNext()) {
-			net.minecraft.entity.EntityPlayer var2 = (net.minecraft.entity.EntityPlayer)var1.next();
+			EntityPlayer var2 = (EntityPlayer)var1.next();
 			if(!var2.isPlayerSleeping()) {
 				this.allPlayersSleeping = false;
 				break;
@@ -2383,7 +2393,7 @@ public class World implements IBlockAccess {
 		Iterator var1 = this.playerEntities.iterator();
 
 		while(var1.hasNext()) {
-			net.minecraft.entity.EntityPlayer var2 = (net.minecraft.entity.EntityPlayer)var1.next();
+			EntityPlayer var2 = (EntityPlayer)var1.next();
 			if(var2.isPlayerSleeping()) {
 				var2.wakeUpPlayer(false, false, true);
 			}
@@ -2396,13 +2406,13 @@ public class World implements IBlockAccess {
 		if(this.allPlayersSleeping && !this.multiplayerWorld) {
 			Iterator var1 = this.playerEntities.iterator();
 
-			net.minecraft.entity.EntityPlayer var2;
+			EntityPlayer var2;
 			do {
 				if(!var1.hasNext()) {
 					return true;
 				}
 
-				var2 = (net.minecraft.entity.EntityPlayer)var1.next();
+				var2 = (EntityPlayer)var1.next();
 			} while(var2.isPlayerFullyAsleep());
 
 			return false;
@@ -2458,7 +2468,7 @@ public class World implements IBlockAccess {
 	}
 
 	public void func_28106_e(int var1, int var2, int var3, int var4, int var5) {
-		this.func_28107_a((net.minecraft.entity.EntityPlayer)null, var1, var2, var3, var4, var5);
+		this.func_28107_a((EntityPlayer)null, var1, var2, var3, var4, var5);
 	}
 
 	public void func_28107_a(EntityPlayer var1, int var2, int var3, int var4, int var5, int var6) {

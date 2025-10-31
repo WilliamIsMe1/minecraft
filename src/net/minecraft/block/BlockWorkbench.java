@@ -1,16 +1,18 @@
 package net.minecraft.block;
 
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.world.World;
 
 public class BlockWorkbench extends Block {
-	protected BlockWorkbench(int var1) {
+	public BlockWorkbench(int var1) {
 		super(var1, Material.wood);
-		this.blockIndexInTexture = 59;
+		this.setBlockIndexInTexture(59);
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.blockIndexInTexture - 16 : (var1 == 0 ? Block.planks.getBlockTextureFromSide(0) : (var1 != 2 && var1 != 4 ? this.blockIndexInTexture : this.blockIndexInTexture + 1));
+		return var1 == 1 ? this.getBlockIndexInTexture() - 16 : (var1 == 0 ? Block.planks.getBlockTextureFromSide(0) : (var1 != 2 && var1 != 4 ? this.getBlockIndexInTexture() : this.getBlockIndexInTexture() + 1));
 	}
 
 	public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {

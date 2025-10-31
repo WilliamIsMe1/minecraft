@@ -1,7 +1,10 @@
 package net.minecraft.world;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.core.Vec3D;
+import net.minecraft.world.chunk.ChunkProviderHell;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.BiomeGenBase;
 
 public class WorldProviderHell extends WorldProvider {
 	public void registerWorldChunkManager() {
@@ -32,7 +35,7 @@ public class WorldProviderHell extends WorldProvider {
 
 	public boolean canCoordinateBeSpawn(int var1, int var2) {
 		int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
-		return var3 == net.minecraft.block.Block.bedrock.blockID ? false : (var3 == 0 ? false : Block.opaqueCubeLookup[var3]);
+		return var3 == Block.bedrock.getBlockID() ? false : (var3 == 0 ? false : Block.opaqueCubeLookup[var3]);
 	}
 
 	public float calculateCelestialAngle(long var1, float var3) {

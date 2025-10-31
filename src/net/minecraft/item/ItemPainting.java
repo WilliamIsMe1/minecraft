@@ -1,7 +1,9 @@
 package net.minecraft.item;
 
 import net.minecraft.entity.EntityPainting;
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemPainting extends Item {

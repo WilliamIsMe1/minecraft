@@ -1,6 +1,6 @@
 package net.minecraft.misc;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.core.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
@@ -34,8 +34,8 @@ public class Teleporter {
 				double var15 = (double)var14 + 0.5D - var2.posZ;
 
 				for(int var17 = 127; var17 >= 0; --var17) {
-					if(var1.getBlockId(var11, var17, var14) == net.minecraft.block.Block.portal.blockID) {
-						while(var1.getBlockId(var11, var17 - 1, var14) == net.minecraft.block.Block.portal.blockID) {
+					if(var1.getBlockId(var11, var17, var14) == Block.portal.getBlockID()) {
+						while(var1.getBlockId(var11, var17 - 1, var14) == Block.portal.getBlockID()) {
 							--var17;
 						}
 
@@ -56,19 +56,19 @@ public class Teleporter {
 			double var22 = (double)var6 + 0.5D;
 			double var16 = (double)var7 + 0.5D;
 			var18 = (double)var8 + 0.5D;
-			if(var1.getBlockId(var6 - 1, var7, var8) == net.minecraft.block.Block.portal.blockID) {
+			if(var1.getBlockId(var6 - 1, var7, var8) == Block.portal.getBlockID()) {
 				var22 -= 0.5D;
 			}
 
-			if(var1.getBlockId(var6 + 1, var7, var8) == net.minecraft.block.Block.portal.blockID) {
+			if(var1.getBlockId(var6 + 1, var7, var8) == Block.portal.getBlockID()) {
 				var22 += 0.5D;
 			}
 
-			if(var1.getBlockId(var6, var7, var8 - 1) == net.minecraft.block.Block.portal.blockID) {
+			if(var1.getBlockId(var6, var7, var8 - 1) == Block.portal.getBlockID()) {
 				var18 -= 0.5D;
 			}
 
-			if(var1.getBlockId(var6, var7, var8 + 1) == net.minecraft.block.Block.portal.blockID) {
+			if(var1.getBlockId(var6, var7, var8 + 1) == Block.portal.getBlockID()) {
 				var18 += 0.5D;
 			}
 
@@ -230,7 +230,7 @@ public class Teleporter {
 						var24 = var16 + var22;
 						var25 = var17 + (var21 - 1) * var19 - var20 * var31;
 						var34 = var22 < 0;
-						var1.setBlockWithNotify(var23, var24, var25, var34 ? net.minecraft.block.Block.obsidian.blockID : 0);
+						var1.setBlockWithNotify(var23, var24, var25, var34 ? Block.obsidian.getBlockID() : 0);
 					}
 				}
 			}
@@ -245,7 +245,7 @@ public class Teleporter {
 					var24 = var16 + var22;
 					var25 = var17 + (var21 - 1) * var19;
 					var34 = var21 == 0 || var21 == 3 || var22 == -1 || var22 == 3;
-					var1.setBlockWithNotify(var23, var24, var25, var34 ? net.minecraft.block.Block.obsidian.blockID : Block.portal.blockID);
+					var1.setBlockWithNotify(var23, var24, var25, var34 ? Block.obsidian.getBlockID() : Block.portal.getBlockID());
 				}
 			}
 

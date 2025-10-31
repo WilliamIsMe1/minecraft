@@ -1,7 +1,7 @@
 package net.minecraft.client.render.gui;
 
 import net.minecraft.network.NetClientHandler;
-import net.minecraft.network.Packet0KeepAlive;
+import net.minecraft.network.packet.Packet0KeepAlive;
 import net.minecraft.core.StringTranslate;
 
 public class GuiDownloadTerrain extends GuiScreen {

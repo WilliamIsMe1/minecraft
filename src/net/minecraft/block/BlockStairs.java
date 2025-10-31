@@ -1,8 +1,11 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.core.MathHelper;
 import net.minecraft.core.Vec3D;
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -12,16 +15,16 @@ import java.util.Random;
 public class BlockStairs extends Block {
 	private Block modelBlock;
 
-	protected BlockStairs(int var1, Block var2) {
-		super(var1, var2.blockIndexInTexture, var2.blockMaterial);
+	public BlockStairs(int var1, Block var2) {
+		super(var1, var2.getBlockIndexInTexture(), var2.getBlockMaterial());
 		this.modelBlock = var2;
-		this.setHardness(var2.blockHardness);
-		this.setResistance(var2.blockResistance / 3.0F);
-		this.setStepSound(var2.stepSound);
+		this.setHardness(var2.getBlockHardness());
+		this.setResistance(var2.getBlockResistance() / 3.0F);
+		this.setStepSound(var2.getStepSound());
 		this.setLightOpacity(255);
 	}
 
-	public void setBlockBoundsBasedOnState(net.minecraft.block.IBlockAccess var1, int var2, int var3, int var4) {
+	public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 
@@ -41,7 +44,7 @@ public class BlockStairs extends Block {
 		return 10;
 	}
 
-	public boolean shouldSideBeRendered(net.minecraft.block.IBlockAccess var1, int var2, int var3, int var4, int var5) {
+	public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
 		return super.shouldSideBeRendered(var1, var2, var3, var4, var5);
 	}
 
@@ -76,7 +79,7 @@ public class BlockStairs extends Block {
 		this.modelBlock.randomDisplayTick(var1, var2, var3, var4, var5);
 	}
 
-	public void onBlockClicked(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.entity.EntityPlayer var5) {
+	public void onBlockClicked(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
 		this.modelBlock.onBlockClicked(var1, var2, var3, var4, var5);
 	}
 
@@ -84,7 +87,7 @@ public class BlockStairs extends Block {
 		this.modelBlock.onBlockDestroyedByPlayer(var1, var2, var3, var4, var5);
 	}
 
-	public float getBlockBrightness(net.minecraft.block.IBlockAccess var1, int var2, int var3, int var4) {
+	public float getBlockBrightness(IBlockAccess var1, int var2, int var3, int var4) {
 		return this.modelBlock.getBlockBrightness(var1, var2, var3, var4);
 	}
 
@@ -169,7 +172,7 @@ public class BlockStairs extends Block {
 		this.modelBlock.onBlockDestroyedByExplosion(var1, var2, var3, var4);
 	}
 
-	public void onBlockPlacedBy(World var1, int var2, int var3, int var4, net.minecraft.entity.EntityLiving var5) {
+	public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
 		int var6 = MathHelper.floor_double((double)(var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		if(var6 == 0) {
 			var1.setBlockMetadataWithNotify(var2, var3, var4, 2);

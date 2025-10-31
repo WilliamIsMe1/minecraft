@@ -1,12 +1,14 @@
 package net.minecraft.entity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRail;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.redstone.BlockRail;
 import net.minecraft.core.MathHelper;
 import net.minecraft.core.Vec3D;
-import net.minecraft.item.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityLiving;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.container.inventory.IInventory;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.nbt.NBTTagList;
 import net.minecraft.world.World;
@@ -14,7 +16,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class EntityMinecart extends net.minecraft.entity.Entity implements IInventory {
-	private net.minecraft.item.ItemStack[] cargoItems;
+	private ItemStack[] cargoItems;
 	public int minecartCurrentDamage;
 	public int minecartTimeSinceHit;
 	public int minecartRockDirection;
@@ -36,7 +38,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 
 	public EntityMinecart(net.minecraft.world.World var1) {
 		super(var1);
-		this.cargoItems = new net.minecraft.item.ItemStack[36];
+		this.cargoItems = new ItemStack[36];
 		this.minecartCurrentDamage = 0;
 		this.minecartTimeSinceHit = 0;
 		this.minecartRockDirection = 1;
@@ -93,12 +95,12 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 				}
 
 				this.setEntityDead();
-				this.dropItemWithOffset(net.minecraft.item.Item.minecartEmpty.shiftedIndex, 1, 0.0F);
+				this.dropItemWithOffset(Item.minecartEmpty.shiftedIndex, 1, 0.0F);
 				if(this.minecartType == 1) {
 					EntityMinecart var3 = this;
 
 					for(int var4 = 0; var4 < var3.getSizeInventory(); ++var4) {
-						net.minecraft.item.ItemStack var5 = var3.getStackInSlot(var4);
+						ItemStack var5 = var3.getStackInSlot(var4);
 						if(var5 != null) {
 							float var6 = this.rand.nextFloat() * 0.8F + 0.1F;
 							float var7 = this.rand.nextFloat() * 0.8F + 0.1F;
@@ -111,7 +113,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 								}
 
 								var5.stackSize -= var9;
-								EntityItem var10 = new EntityItem(this.worldObj, this.posX + (double)var6, this.posY + (double)var7, this.posZ + (double)var8, new net.minecraft.item.ItemStack(var5.itemID, var9, var5.getItemDamage()));
+								EntityItem var10 = new EntityItem(this.worldObj, this.posX + (double)var6, this.posY + (double)var7, this.posZ + (double)var8, new ItemStack(var5.itemID, var9, var5.getItemDamage()));
 								float var11 = 0.05F;
 								var10.motionX = (double)((float)this.rand.nextGaussian() * var11);
 								var10.motionY = (double)((float)this.rand.nextGaussian() * var11 + 0.2F);
@@ -121,9 +123,9 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 						}
 					}
 
-					this.dropItemWithOffset(net.minecraft.block.Block.chest.blockID, 1, 0.0F);
+					this.dropItemWithOffset(Block.chest.getBlockID(), 1, 0.0F);
 				} else if(this.minecartType == 2) {
-					this.dropItemWithOffset(net.minecraft.block.Block.stoneOvenIdle.blockID, 1, 0.0F);
+					this.dropItemWithOffset(Block.stoneOvenIdle.getBlockID(), 1, 0.0F);
 				}
 			}
 
@@ -146,7 +148,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 
 	public void setEntityDead() {
 		for(int var1 = 0; var1 < this.getSizeInventory(); ++var1) {
-			net.minecraft.item.ItemStack var2 = this.getStackInSlot(var1);
+			ItemStack var2 = this.getStackInSlot(var1);
 			if(var2 != null) {
 				float var3 = this.rand.nextFloat() * 0.8F + 0.1F;
 				float var4 = this.rand.nextFloat() * 0.8F + 0.1F;
@@ -159,7 +161,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 					}
 
 					var2.stackSize -= var6;
-					EntityItem var7 = new EntityItem(this.worldObj, this.posX + (double)var3, this.posY + (double)var4, this.posZ + (double)var5, new net.minecraft.item.ItemStack(var2.itemID, var6, var2.getItemDamage()));
+					EntityItem var7 = new EntityItem(this.worldObj, this.posX + (double)var3, this.posY + (double)var4, this.posZ + (double)var5, new ItemStack(var2.itemID, var6, var2.getItemDamage()));
 					float var8 = 0.05F;
 					var7.motionX = (double)((float)this.rand.nextGaussian() * var8);
 					var7.motionY = (double)((float)this.rand.nextGaussian() * var8 + 0.2F);
@@ -213,7 +215,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 			int var1 = net.minecraft.core.MathHelper.floor_double(this.posX);
 			int var2 = net.minecraft.core.MathHelper.floor_double(this.posY);
 			int var3 = net.minecraft.core.MathHelper.floor_double(this.posZ);
-			if(net.minecraft.block.BlockRail.isRailBlockAt(this.worldObj, var1, var2 - 1, var3)) {
+			if(BlockRail.isRailBlockAt(this.worldObj, var1, var2 - 1, var3)) {
 				--var2;
 			}
 
@@ -221,18 +223,18 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 			boolean var6 = false;
 			var7 = 1.0D / 128.0D;
 			int var9 = this.worldObj.getBlockId(var1, var2, var3);
-			if(net.minecraft.block.BlockRail.isRailBlock(var9)) {
+			if(BlockRail.isRailBlock(var9)) {
 				net.minecraft.core.Vec3D var10 = this.func_514_g(this.posX, this.posY, this.posZ);
 				int var11 = this.worldObj.getBlockMetadata(var1, var2, var3);
 				this.posY = (double)var2;
 				boolean var12 = false;
 				boolean var13 = false;
-				if(var9 == net.minecraft.block.Block.railPowered.blockID) {
+				if(var9 == Block.railPowered.getBlockID()) {
 					var12 = (var11 & 8) != 0;
 					var13 = !var12;
 				}
 
-				if(((net.minecraft.block.BlockRail) net.minecraft.block.Block.blocksList[var9]).getIsPowered()) {
+				if(((BlockRail) Block.blocksList[var9]).getIsPowered()) {
 					var11 &= 7;
 				}
 
@@ -509,16 +511,16 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 		int var9 = net.minecraft.core.MathHelper.floor_double(var1);
 		int var10 = net.minecraft.core.MathHelper.floor_double(var3);
 		int var11 = net.minecraft.core.MathHelper.floor_double(var5);
-		if(net.minecraft.block.BlockRail.isRailBlockAt(this.worldObj, var9, var10 - 1, var11)) {
+		if(BlockRail.isRailBlockAt(this.worldObj, var9, var10 - 1, var11)) {
 			--var10;
 		}
 
 		int var12 = this.worldObj.getBlockId(var9, var10, var11);
-		if(!net.minecraft.block.BlockRail.isRailBlock(var12)) {
+		if(!BlockRail.isRailBlock(var12)) {
 			return null;
 		} else {
 			int var13 = this.worldObj.getBlockMetadata(var9, var10, var11);
-			if(((net.minecraft.block.BlockRail) net.minecraft.block.Block.blocksList[var12]).getIsPowered()) {
+			if(((BlockRail) Block.blocksList[var12]).getIsPowered()) {
 				var13 &= 7;
 			}
 
@@ -549,12 +551,12 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 		int var7 = net.minecraft.core.MathHelper.floor_double(var1);
 		int var8 = net.minecraft.core.MathHelper.floor_double(var3);
 		int var9 = net.minecraft.core.MathHelper.floor_double(var5);
-		if(net.minecraft.block.BlockRail.isRailBlockAt(this.worldObj, var7, var8 - 1, var9)) {
+		if(BlockRail.isRailBlockAt(this.worldObj, var7, var8 - 1, var9)) {
 			--var8;
 		}
 
 		int var10 = this.worldObj.getBlockId(var7, var8, var9);
-		if(net.minecraft.block.BlockRail.isRailBlock(var10)) {
+		if(BlockRail.isRailBlock(var10)) {
 			int var11 = this.worldObj.getBlockMetadata(var7, var8, var9);
 			var3 = (double)var8;
 			if(((BlockRail) Block.blocksList[var10]).getIsPowered()) {
@@ -637,13 +639,13 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 			this.fuel = var1.getShort("Fuel");
 		} else if(this.minecartType == 1) {
 			NBTTagList var2 = var1.getTagList("Items");
-			this.cargoItems = new net.minecraft.item.ItemStack[this.getSizeInventory()];
+			this.cargoItems = new ItemStack[this.getSizeInventory()];
 
 			for(int var3 = 0; var3 < var2.tagCount(); ++var3) {
 				net.minecraft.util.nbt.NBTTagCompound var4 = (net.minecraft.util.nbt.NBTTagCompound)var2.tagAt(var3);
 				int var5 = var4.getByte("Slot") & 255;
 				if(var5 >= 0 && var5 < this.cargoItems.length) {
-					this.cargoItems[var5] = new net.minecraft.item.ItemStack(var4);
+					this.cargoItems[var5] = new ItemStack(var4);
 				}
 			}
 		}
@@ -657,7 +659,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 	public void applyEntityCollision(Entity var1) {
 		if(!this.worldObj.multiplayerWorld) {
 			if(var1 != this.riddenByEntity) {
-				if(var1 instanceof EntityLiving && !(var1 instanceof net.minecraft.entity.EntityPlayer) && this.minecartType == 0 && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.01D && this.riddenByEntity == null && var1.ridingEntity == null) {
+				if(var1 instanceof EntityLiving && !(var1 instanceof EntityPlayer) && this.minecartType == 0 && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.01D && this.riddenByEntity == null && var1.ridingEntity == null) {
 					var1.mountEntity(this);
 				}
 
@@ -728,13 +730,13 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 		return 27;
 	}
 
-	public net.minecraft.item.ItemStack getStackInSlot(int var1) {
+	public ItemStack getStackInSlot(int var1) {
 		return this.cargoItems[var1];
 	}
 
-	public net.minecraft.item.ItemStack decrStackSize(int var1, int var2) {
+	public ItemStack decrStackSize(int var1, int var2) {
 		if(this.cargoItems[var1] != null) {
-			net.minecraft.item.ItemStack var3;
+			ItemStack var3;
 			if(this.cargoItems[var1].stackSize <= var2) {
 				var3 = this.cargoItems[var1];
 				this.cargoItems[var1] = null;
@@ -752,7 +754,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 		}
 	}
 
-	public void setInventorySlotContents(int var1, net.minecraft.item.ItemStack var2) {
+	public void setInventorySlotContents(int var1, ItemStack var2) {
 		this.cargoItems[var1] = var2;
 		if(var2 != null && var2.stackSize > this.getInventoryStackLimit()) {
 			var2.stackSize = this.getInventoryStackLimit();
@@ -771,9 +773,9 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 	public void onInventoryChanged() {
 	}
 
-	public boolean interact(net.minecraft.entity.EntityPlayer var1) {
+	public boolean interact(EntityPlayer var1) {
 		if(this.minecartType == 0) {
-			if(this.riddenByEntity != null && this.riddenByEntity instanceof net.minecraft.entity.EntityPlayer && this.riddenByEntity != var1) {
+			if(this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != var1) {
 				return true;
 			}
 
@@ -785,7 +787,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 				var1.displayGUIChest(this);
 			}
 		} else if(this.minecartType == 2) {
-			net.minecraft.item.ItemStack var2 = var1.inventory.getCurrentItem();
+			ItemStack var2 = var1.inventory.getCurrentItem();
 			if(var2 != null && var2.itemID == Item.coal.shiftedIndex) {
 				if(--var2.stackSize == 0) {
 					var1.inventory.setInventorySlotContents(var1.inventory.currentItem, (ItemStack)null);

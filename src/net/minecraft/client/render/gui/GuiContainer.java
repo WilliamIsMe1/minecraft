@@ -1,16 +1,17 @@
 package net.minecraft.client.render.gui;
 
+import net.minecraft.client.render.entity.render.RenderHelper;
 import net.minecraft.core.StringTranslate;
-import net.minecraft.client.render.RenderItem;
-import net.minecraft.item.InventoryPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.render.entity.render.RenderItem;
+import net.minecraft.item.container.inventory.InventoryPlayer;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.item.container.Container;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public abstract class GuiContainer extends GuiScreen {
-	private static net.minecraft.client.render.RenderItem itemRenderer = new RenderItem();
+	private static RenderItem itemRenderer = new RenderItem();
 	protected int xSize = 176;
 	protected int ySize = 166;
 	public net.minecraft.item.container.Container inventorySlots;
@@ -31,7 +32,7 @@ public abstract class GuiContainer extends GuiScreen {
 		this.drawGuiContainerBackgroundLayer(var3);
 		GL11.glPushMatrix();
 		GL11.glRotatef(120.0F, 1.0F, 0.0F, 0.0F);
-		net.minecraft.client.render.RenderHelper.enableStandardItemLighting();
+		RenderHelper.enableStandardItemLighting();
 		GL11.glPopMatrix();
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)var4, (float)var5, 0.0F);
@@ -64,7 +65,7 @@ public abstract class GuiContainer extends GuiScreen {
 		}
 
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		net.minecraft.client.render.RenderHelper.disableStandardItemLighting();
+		RenderHelper.disableStandardItemLighting();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		this.drawGuiContainerForegroundLayer();

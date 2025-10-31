@@ -1,15 +1,15 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.item.IInventory;
+import net.minecraft.item.container.inventory.IInventory;
 import net.minecraft.item.container.ContainerChest;
 import org.lwjgl.opengl.GL11;
 
 public class GuiChest extends GuiContainer {
-	private net.minecraft.item.IInventory upperChestInventory;
-	private net.minecraft.item.IInventory lowerChestInventory;
+	private IInventory upperChestInventory;
+	private IInventory lowerChestInventory;
 	private int inventoryRows = 0;
 
-	public GuiChest(net.minecraft.item.IInventory var1, IInventory var2) {
+	public GuiChest(IInventory var1, IInventory var2) {
 		super(new ContainerChest(var1, var2));
 		this.upperChestInventory = var1;
 		this.lowerChestInventory = var2;

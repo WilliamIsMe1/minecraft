@@ -1,19 +1,21 @@
 package net.minecraft.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.block.core.Block;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemReed extends Item {
 	private int field_320_a;
 
-	public ItemReed(int var1, net.minecraft.block.Block var2) {
+	public ItemReed(int var1, Block var2) {
 		super(var1);
-		this.field_320_a = var2.blockID;
+		this.field_320_a = var2.getBlockID();
 	}
 
 	public boolean onItemUse(ItemStack var1, EntityPlayer var2, World var3, int var4, int var5, int var6, int var7) {
-		if(var3.getBlockId(var4, var5, var6) == net.minecraft.block.Block.snow.blockID) {
+		if(var3.getBlockId(var4, var5, var6) == Block.snow.getBlockID()) {
 			var7 = 0;
 		} else {
 			if(var7 == 0) {
@@ -45,11 +47,11 @@ public class ItemReed extends Item {
 			return false;
 		} else {
 			if(var3.canBlockBePlacedAt(this.field_320_a, var4, var5, var6, false, var7)) {
-				net.minecraft.block.Block var8 = net.minecraft.block.Block.blocksList[this.field_320_a];
+				Block var8 = Block.blocksList[this.field_320_a];
 				if(var3.setBlockWithNotify(var4, var5, var6, this.field_320_a)) {
-					net.minecraft.block.Block.blocksList[this.field_320_a].onBlockPlaced(var3, var4, var5, var6, var7);
+					Block.blocksList[this.field_320_a].onBlockPlaced(var3, var4, var5, var6, var7);
 					Block.blocksList[this.field_320_a].onBlockPlacedBy(var3, var4, var5, var6, var2);
-					var3.playSoundEffect((double)((float)var4 + 0.5F), (double)((float)var5 + 0.5F), (double)((float)var6 + 0.5F), var8.stepSound.func_1145_d(), (var8.stepSound.getVolume() + 1.0F) / 2.0F, var8.stepSound.getPitch() * 0.8F);
+					var3.playSoundEffect((double)((float)var4 + 0.5F), (double)((float)var5 + 0.5F), (double)((float)var6 + 0.5F), var8.getStepSound().func_1145_d(), (var8.getStepSound().getVolume() + 1.0F) / 2.0F, var8.getStepSound().getPitch() * 0.8F);
 					--var1.stackSize;
 				}
 			}

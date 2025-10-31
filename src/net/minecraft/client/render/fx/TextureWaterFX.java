@@ -1,6 +1,6 @@
 package net.minecraft.client.render.fx;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 
 public class TextureWaterFX extends TextureFX {
 	protected float[] field_1158_g = new float[256];
@@ -10,7 +10,7 @@ public class TextureWaterFX extends TextureFX {
 	private int tickCounter = 0;
 
 	public TextureWaterFX() {
-		super(Block.waterMoving.blockIndexInTexture);
+		super(Block.waterMoving.getBlockIndexInTexture());
 	}
 
 	public void onTick() {

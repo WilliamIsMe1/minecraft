@@ -1,6 +1,6 @@
 package net.minecraft.client.render.fx;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 
 public class TextureWaterFlowFX extends TextureFX {
 	protected float[] field_1138_g = new float[256];
@@ -10,7 +10,7 @@ public class TextureWaterFlowFX extends TextureFX {
 	private int field_1134_k = 0;
 
 	public TextureWaterFlowFX() {
-		super(Block.waterMoving.blockIndexInTexture + 1);
+		super(Block.waterMoving.getBlockIndexInTexture() + 1);
 		this.tileSize = 2;
 	}
 

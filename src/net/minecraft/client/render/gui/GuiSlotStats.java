@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import net.minecraft.item.Item;
+import net.minecraft.item.core.Item;
 import net.minecraft.achievement.stats.StatCrafting;
 import net.minecraft.core.StringTranslate;
 import net.minecraft.client.render.Tessellator;
@@ -159,7 +159,7 @@ public abstract class GuiSlotStats extends GuiSlot {
 
 	protected void func_27267_a(StatCrafting var1, int var2, int var3) {
 		if(var1 != null) {
-			net.minecraft.item.Item var4 = Item.itemsList[var1.func_25072_b()];
+			Item var4 = Item.itemsList[var1.func_25072_b()];
 			String var5 = ("" + StringTranslate.getInstance().translateNamedKey(var4.getItemName())).trim();
 			if(var5.length() > 0) {
 				int var6 = var2 + 12;

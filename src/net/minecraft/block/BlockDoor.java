@@ -1,8 +1,11 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.Block;
+import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.block.material.Material;
 import net.minecraft.core.Vec3D;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.Item;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -10,11 +13,11 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockDoor extends Block {
-	protected BlockDoor(int var1, Material var2) {
+	public BlockDoor(int var1, Material var2) {
 		super(var1, var2);
-		this.blockIndexInTexture = 97;
+		this.setBlockIndexInTexture(97);
 		if(var2 == Material.iron) {
-			++this.blockIndexInTexture;
+			this.setBlockIndexInTexture(this.getBlockIndexInTexture() + 1);
 		}
 
 		float var3 = 0.5F;
@@ -26,11 +29,11 @@ public class BlockDoor extends Block {
 		if(var1 != 0 && var1 != 1) {
 			int var3 = this.getState(var2);
 			if((var3 == 0 || var3 == 2) ^ var1 <= 3) {
-				return this.blockIndexInTexture;
+				return this.getBlockIndexInTexture();
 			} else {
 				int var4 = var3 / 2 + (var1 & 1 ^ var3);
 				var4 += (var2 & 4) / 4;
-				int var5 = this.blockIndexInTexture - (var2 & 8) * 2;
+				int var5 = this.getBlockIndexInTexture() - (var2 & 8) * 2;
 				if((var4 & 1) != 0) {
 					var5 = -var5;
 				}
@@ -38,7 +41,7 @@ public class BlockDoor extends Block {
 				return var5;
 			}
 		} else {
-			return this.blockIndexInTexture;
+			return this.getBlockIndexInTexture();
 		}
 	}
 
@@ -89,23 +92,23 @@ public class BlockDoor extends Block {
 
 	}
 
-	public void onBlockClicked(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.entity.EntityPlayer var5) {
+	public void onBlockClicked(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
 		this.blockActivated(var1, var2, var3, var4, var5);
 	}
 
-	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.entity.EntityPlayer var5) {
-		if(this.blockMaterial == Material.iron) {
+	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
+		if(this.getBlockMaterial() == Material.iron) {
 			return true;
 		} else {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
 			if((var6 & 8) != 0) {
-				if(var1.getBlockId(var2, var3 - 1, var4) == this.blockID) {
+				if(var1.getBlockId(var2, var3 - 1, var4) == this.getBlockID()) {
 					this.blockActivated(var1, var2, var3 - 1, var4, var5);
 				}
 
 				return true;
 			} else {
-				if(var1.getBlockId(var2, var3 + 1, var4) == this.blockID) {
+				if(var1.getBlockId(var2, var3 + 1, var4) == this.getBlockID()) {
 					var1.setBlockMetadataWithNotify(var2, var3 + 1, var4, (var6 ^ 4) + 8);
 				}
 
@@ -120,14 +123,14 @@ public class BlockDoor extends Block {
 	public void onPoweredBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, boolean var5) {
 		int var6 = var1.getBlockMetadata(var2, var3, var4);
 		if((var6 & 8) != 0) {
-			if(var1.getBlockId(var2, var3 - 1, var4) == this.blockID) {
+			if(var1.getBlockId(var2, var3 - 1, var4) == this.getBlockID()) {
 				this.onPoweredBlockChange(var1, var2, var3 - 1, var4, var5);
 			}
 
 		} else {
 			boolean var7 = (var1.getBlockMetadata(var2, var3, var4) & 4) > 0;
 			if(var7 != var5) {
-				if(var1.getBlockId(var2, var3 + 1, var4) == this.blockID) {
+				if(var1.getBlockId(var2, var3 + 1, var4) == this.getBlockID()) {
 					var1.setBlockMetadataWithNotify(var2, var3 + 1, var4, (var6 ^ 4) + 8);
 				}
 
@@ -141,7 +144,7 @@ public class BlockDoor extends Block {
 	public void onNeighborBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
 		int var6 = var1.getBlockMetadata(var2, var3, var4);
 		if((var6 & 8) != 0) {
-			if(var1.getBlockId(var2, var3 - 1, var4) != this.blockID) {
+			if(var1.getBlockId(var2, var3 - 1, var4) != this.getBlockID()) {
 				var1.setBlockWithNotify(var2, var3, var4, 0);
 			}
 
@@ -150,7 +153,7 @@ public class BlockDoor extends Block {
 			}
 		} else {
 			boolean var7 = false;
-			if(var1.getBlockId(var2, var3 + 1, var4) != this.blockID) {
+			if(var1.getBlockId(var2, var3 + 1, var4) != this.getBlockID()) {
 				var1.setBlockWithNotify(var2, var3, var4, 0);
 				var7 = true;
 			}
@@ -158,7 +161,7 @@ public class BlockDoor extends Block {
 			if(!var1.isBlockNormalCube(var2, var3 - 1, var4)) {
 				var1.setBlockWithNotify(var2, var3, var4, 0);
 				var7 = true;
-				if(var1.getBlockId(var2, var3 + 1, var4) == this.blockID) {
+				if(var1.getBlockId(var2, var3 + 1, var4) == this.getBlockID()) {
 					var1.setBlockWithNotify(var2, var3 + 1, var4, 0);
 				}
 			}
@@ -176,7 +179,7 @@ public class BlockDoor extends Block {
 	}
 
 	public int idDropped(int var1, Random var2) {
-		return (var1 & 8) != 0 ? 0 : (this.blockMaterial == Material.iron ? net.minecraft.item.Item.doorSteel.shiftedIndex : Item.doorWood.shiftedIndex);
+		return (var1 & 8) != 0 ? 0 : (this.getBlockMaterial() == Material.iron ? Item.doorSteel.shiftedIndex : Item.doorWood.shiftedIndex);
 	}
 
 	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {

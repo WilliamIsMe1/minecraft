@@ -1,5 +1,7 @@
 package net.minecraft.network;
 
+import net.minecraft.network.packet.Packet;
+
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -58,7 +60,7 @@ public class NetworkManager {
 		this.writeThread.start();
 	}
 
-	public void addToSendQueue(net.minecraft.network.Packet var1) {
+	public void addToSendQueue(Packet var1) {
 		if(!this.isServerTerminating) {
 			Object var2 = this.sendQueueLock;
 			synchronized(var2) {
@@ -79,30 +81,30 @@ public class NetworkManager {
 		try {
 			int[] var10000;
 			int var10001;
-			net.minecraft.network.Packet var2;
+			Packet var2;
 			Object var3;
-			if(!this.dataPackets.isEmpty() && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - ((net.minecraft.network.Packet)this.dataPackets.get(0)).creationTimeMillis >= (long)this.chunkDataSendCounter)) {
+			if(!this.dataPackets.isEmpty() && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - ((Packet)this.dataPackets.get(0)).creationTimeMillis >= (long)this.chunkDataSendCounter)) {
 				var3 = this.sendQueueLock;
 				synchronized(var3) {
-					var2 = (net.minecraft.network.Packet)this.dataPackets.remove(0);
+					var2 = (Packet)this.dataPackets.remove(0);
 					this.sendQueueByteLength -= var2.getPacketSize() + 1;
 				}
 
-				net.minecraft.network.Packet.writePacket(var2, this.socketOutputStream);
+				Packet.writePacket(var2, this.socketOutputStream);
 				var10000 = field_28144_e;
 				var10001 = var2.getPacketId();
 				var10000[var10001] += var2.getPacketSize() + 1;
 				var1 = true;
 			}
 
-			if(this.field_20100_w-- <= 0 && !this.chunkDataPackets.isEmpty() && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - ((net.minecraft.network.Packet)this.chunkDataPackets.get(0)).creationTimeMillis >= (long)this.chunkDataSendCounter)) {
+			if(this.field_20100_w-- <= 0 && !this.chunkDataPackets.isEmpty() && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - ((Packet)this.chunkDataPackets.get(0)).creationTimeMillis >= (long)this.chunkDataSendCounter)) {
 				var3 = this.sendQueueLock;
 				synchronized(var3) {
-					var2 = (net.minecraft.network.Packet)this.chunkDataPackets.remove(0);
+					var2 = (Packet)this.chunkDataPackets.remove(0);
 					this.sendQueueByteLength -= var2.getPacketSize() + 1;
 				}
 
-				net.minecraft.network.Packet.writePacket(var2, this.socketOutputStream);
+				Packet.writePacket(var2, this.socketOutputStream);
 				var10000 = field_28144_e;
 				var10001 = var2.getPacketId();
 				var10000[var10001] += var2.getPacketSize() + 1;
@@ -129,7 +131,7 @@ public class NetworkManager {
 		boolean var1 = false;
 
 		try {
-			net.minecraft.network.Packet var2 = net.minecraft.network.Packet.readPacket(this.socketInputStream, this.netHandler.isServerHandler());
+			Packet var2 = Packet.readPacket(this.socketInputStream, this.netHandler.isServerHandler());
 			if(var2 != null) {
 				int[] var10000 = field_28145_d;
 				int var10001 = var2.getPacketId();
@@ -200,7 +202,7 @@ public class NetworkManager {
 		int var1 = 100;
 
 		while(!this.readPackets.isEmpty() && var1-- >= 0) {
-			net.minecraft.network.Packet var2 = (Packet)this.readPackets.remove(0);
+			Packet var2 = (Packet)this.readPackets.remove(0);
 			var2.processPacket(this.netHandler);
 		}
 

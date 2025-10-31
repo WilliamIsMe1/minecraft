@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 
 import net.minecraft.client.ChatAllowedCharacters;
 import net.minecraft.client.GameSettings;
+import net.minecraft.client.render.entity.render.RenderEngine;
 import org.lwjgl.opengl.GL11;
 
 public class FontRenderer {

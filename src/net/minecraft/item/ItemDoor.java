@@ -1,15 +1,17 @@
 package net.minecraft.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.core.MathHelper;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemDoor extends Item {
-	private net.minecraft.block.Material doorMaterial;
+	private Material doorMaterial;
 
-	public ItemDoor(int var1, net.minecraft.block.Material var2) {
+	public ItemDoor(int var1, Material var2) {
 		super(var1);
 		this.doorMaterial = var2;
 		this.maxStackSize = 1;
@@ -20,9 +22,9 @@ public class ItemDoor extends Item {
 			return false;
 		} else {
 			++var5;
-			net.minecraft.block.Block var8;
+			Block var8;
 			if(this.doorMaterial == Material.wood) {
-				var8 = net.minecraft.block.Block.doorWood;
+				var8 = Block.doorWood;
 			} else {
 				var8 = Block.doorSteel;
 			}
@@ -51,8 +53,8 @@ public class ItemDoor extends Item {
 
 				int var12 = (var3.isBlockNormalCube(var4 - var10, var5, var6 - var11) ? 1 : 0) + (var3.isBlockNormalCube(var4 - var10, var5 + 1, var6 - var11) ? 1 : 0);
 				int var13 = (var3.isBlockNormalCube(var4 + var10, var5, var6 + var11) ? 1 : 0) + (var3.isBlockNormalCube(var4 + var10, var5 + 1, var6 + var11) ? 1 : 0);
-				boolean var14 = var3.getBlockId(var4 - var10, var5, var6 - var11) == var8.blockID || var3.getBlockId(var4 - var10, var5 + 1, var6 - var11) == var8.blockID;
-				boolean var15 = var3.getBlockId(var4 + var10, var5, var6 + var11) == var8.blockID || var3.getBlockId(var4 + var10, var5 + 1, var6 + var11) == var8.blockID;
+				boolean var14 = var3.getBlockId(var4 - var10, var5, var6 - var11) == var8.getBlockID() || var3.getBlockId(var4 - var10, var5 + 1, var6 - var11) == var8.getBlockID();
+				boolean var15 = var3.getBlockId(var4 + var10, var5, var6 + var11) == var8.getBlockID() || var3.getBlockId(var4 + var10, var5 + 1, var6 + var11) == var8.getBlockID();
 				boolean var16 = false;
 				if(var14 && !var15) {
 					var16 = true;
@@ -66,11 +68,11 @@ public class ItemDoor extends Item {
 				}
 
 				var3.editingBlocks = true;
-				var3.setBlockAndMetadataWithNotify(var4, var5, var6, var8.blockID, var9);
-				var3.setBlockAndMetadataWithNotify(var4, var5 + 1, var6, var8.blockID, var9 + 8);
+				var3.setBlockAndMetadataWithNotify(var4, var5, var6, var8.getBlockID(), var9);
+				var3.setBlockAndMetadataWithNotify(var4, var5 + 1, var6, var8.getBlockID(), var9 + 8);
 				var3.editingBlocks = false;
-				var3.notifyBlocksOfNeighborChange(var4, var5, var6, var8.blockID);
-				var3.notifyBlocksOfNeighborChange(var4, var5 + 1, var6, var8.blockID);
+				var3.notifyBlocksOfNeighborChange(var4, var5, var6, var8.getBlockID());
+				var3.notifyBlocksOfNeighborChange(var4, var5 + 1, var6, var8.getBlockID());
 				--var1.stackSize;
 				return true;
 			}

@@ -1,5 +1,23 @@
 package net.minecraft.entity;
 
+import net.minecraft.entity.living.EntityLiving;
+import net.minecraft.entity.living.creature.animal.EntityChicken;
+import net.minecraft.entity.living.creature.animal.EntityCow;
+import net.minecraft.entity.living.creature.animal.EntityPig;
+import net.minecraft.entity.living.creature.animal.EntitySheep;
+import net.minecraft.entity.living.creature.animal.EntitySquid;
+import net.minecraft.entity.living.creature.mob.EntityCreeper;
+import net.minecraft.entity.living.creature.mob.EntityGhast;
+import net.minecraft.entity.living.creature.mob.EntityGiantZombie;
+import net.minecraft.entity.living.creature.mob.EntityMob;
+import net.minecraft.entity.living.creature.mob.EntityPigZombie;
+import net.minecraft.entity.living.creature.mob.EntitySkeleton;
+import net.minecraft.entity.living.creature.mob.EntitySlime;
+import net.minecraft.entity.living.creature.mob.EntitySpider;
+import net.minecraft.entity.living.creature.mob.EntityWolf;
+import net.minecraft.entity.living.creature.mob.EntityZombie;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -95,7 +113,7 @@ public class EntityList {
 		addMapping(EntityGiantZombie.class, "Giant", 53);
 		addMapping(EntityZombie.class, "Zombie", 54);
 		addMapping(EntitySlime.class, "Slime", 55);
-		addMapping(EntityGhast.class, "Ghast", 56);
+		addMapping(EntityGhast.class, "Ghost", 56);
 		addMapping(EntityPigZombie.class, "PigZombie", 57);
 		addMapping(EntityPig.class, "Pig", 90);
 		addMapping(EntitySheep.class, "Sheep", 91);

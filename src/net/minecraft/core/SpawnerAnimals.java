@@ -1,21 +1,21 @@
 package net.minecraft.core;
 
 import net.minecraft.block.BlockBed;
-import net.minecraft.block.Material;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.entity.EntitySheep;
-import net.minecraft.entity.EntitySkeleton;
-import net.minecraft.entity.EntitySpider;
-import net.minecraft.entity.EntityZombie;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.living.EntityLiving;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.entity.living.creature.animal.EntitySheep;
+import net.minecraft.entity.living.creature.mob.EntitySkeleton;
+import net.minecraft.entity.living.creature.mob.EntitySpider;
+import net.minecraft.entity.living.creature.mob.EntityZombie;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.PathEntity;
-import net.minecraft.entity.PathPoint;
-import net.minecraft.entity.Pathfinder;
-import net.minecraft.world.BiomeGenBase;
-import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.ChunkCoordinates;
-import net.minecraft.world.ChunkPosition;
+import net.minecraft.entity.pathfinding.PathEntity;
+import net.minecraft.entity.pathfinding.PathPoint;
+import net.minecraft.entity.pathfinding.Pathfinder;
+import net.minecraft.world.gen.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkCoordIntPair;
+import net.minecraft.world.chunk.ChunkCoordinates;
+import net.minecraft.world.chunk.ChunkPosition;
 import net.minecraft.world.World;
 
 import java.util.HashSet;
@@ -25,13 +25,13 @@ import java.util.Set;
 
 public final class SpawnerAnimals {
 	private static Set eligibleChunksForSpawning = new HashSet();
-	protected static final Class[] nightSpawnEntities = new Class[]{net.minecraft.entity.EntitySpider.class, EntityZombie.class, net.minecraft.entity.EntitySkeleton.class};
+	protected static final Class[] nightSpawnEntities = new Class[]{EntitySpider.class, EntityZombie.class, EntitySkeleton.class};
 
-	protected static net.minecraft.world.ChunkPosition getRandomSpawningPointInChunk(net.minecraft.world.World var0, int var1, int var2) {
+	protected static ChunkPosition getRandomSpawningPointInChunk(net.minecraft.world.World var0, int var1, int var2) {
 		int var3 = var1 + var0.rand.nextInt(16);
 		int var4 = var0.rand.nextInt(128);
 		int var5 = var2 + var0.rand.nextInt(16);
-		return new net.minecraft.world.ChunkPosition(var3, var4, var5);
+		return new ChunkPosition(var3, var4, var5);
 	}
 
 	public static final int performSpawning(net.minecraft.world.World var0, boolean var1, boolean var2) {
@@ -43,20 +43,20 @@ public final class SpawnerAnimals {
 			int var3;
 			int var6;
 			for(var3 = 0; var3 < var0.playerEntities.size(); ++var3) {
-				net.minecraft.entity.EntityPlayer var4 = (net.minecraft.entity.EntityPlayer)var0.playerEntities.get(var3);
+				EntityPlayer var4 = (EntityPlayer)var0.playerEntities.get(var3);
 				int var5 = net.minecraft.core.MathHelper.floor_double(var4.posX / 16.0D);
 				var6 = net.minecraft.core.MathHelper.floor_double(var4.posZ / 16.0D);
 				byte var7 = 8;
 
 				for(int var8 = -var7; var8 <= var7; ++var8) {
 					for(int var9 = -var7; var9 <= var7; ++var9) {
-						eligibleChunksForSpawning.add(new net.minecraft.world.ChunkCoordIntPair(var8 + var5, var9 + var6));
+						eligibleChunksForSpawning.add(new ChunkCoordIntPair(var8 + var5, var9 + var6));
 					}
 				}
 			}
 
 			var3 = 0;
-			net.minecraft.world.ChunkCoordinates var35 = var0.getSpawnPoint();
+			ChunkCoordinates var35 = var0.getSpawnPoint();
 			net.minecraft.entity.EnumCreatureType[] var36 = net.minecraft.entity.EnumCreatureType.values();
 			var6 = var36.length;
 
@@ -74,7 +74,7 @@ public final class SpawnerAnimals {
 						int var42;
 						do {
 							do {
-								net.minecraft.world.ChunkCoordIntPair var10;
+								ChunkCoordIntPair var10;
 								List var12;
 								do {
 									do {
@@ -136,9 +136,9 @@ public final class SpawnerAnimals {
 										float var32 = var29 - (float)var35.z;
 										float var33 = var30 * var30 + var31 * var31 + var32 * var32;
 										if(var33 >= 576.0F) {
-											net.minecraft.entity.EntityLiving var43;
+											EntityLiving var43;
 											try {
-												var43 = (net.minecraft.entity.EntityLiving)var15.entityClass.getConstructor(new Class[]{net.minecraft.world.World.class}).newInstance(new Object[]{var0});
+												var43 = (EntityLiving)var15.entityClass.getConstructor(new Class[]{net.minecraft.world.World.class}).newInstance(new Object[]{var0});
 											} catch (Exception var34) {
 												var34.printStackTrace();
 												return var3;
@@ -172,25 +172,25 @@ public final class SpawnerAnimals {
 		return var0.getCreatureMaterial() == Material.water ? var1.getBlockMaterial(var2, var3, var4).getIsLiquid() && !var1.isBlockNormalCube(var2, var3 + 1, var4) : var1.isBlockNormalCube(var2, var3 - 1, var4) && !var1.isBlockNormalCube(var2, var3, var4) && !var1.getBlockMaterial(var2, var3, var4).getIsLiquid() && !var1.isBlockNormalCube(var2, var3 + 1, var4);
 	}
 
-	private static void creatureSpecificInit(net.minecraft.entity.EntityLiving var0, net.minecraft.world.World var1, float var2, float var3, float var4) {
+	private static void creatureSpecificInit(EntityLiving var0, net.minecraft.world.World var1, float var2, float var3, float var4) {
 		if(var0 instanceof EntitySpider && var1.rand.nextInt(100) == 0) {
-			net.minecraft.entity.EntitySkeleton var5 = new EntitySkeleton(var1);
+			EntitySkeleton var5 = new EntitySkeleton(var1);
 			var5.setLocationAndAngles((double)var2, (double)var3, (double)var4, var0.rotationYaw, 0.0F);
 			var1.entityJoinedWorld(var5);
 			var5.mountEntity(var0);
-		} else if(var0 instanceof net.minecraft.entity.EntitySheep) {
-			((net.minecraft.entity.EntitySheep)var0).setFleeceColor(EntitySheep.getRandomFleeceColor(var1.rand));
+		} else if(var0 instanceof EntitySheep) {
+			((EntitySheep)var0).setFleeceColor(EntitySheep.getRandomFleeceColor(var1.rand));
 		}
 
 	}
 
 	public static boolean performSleepSpawning(net.minecraft.world.World var0, List var1) {
 		boolean var2 = false;
-		net.minecraft.entity.Pathfinder var3 = new Pathfinder(var0);
+		Pathfinder var3 = new Pathfinder(var0);
 		Iterator var4 = var1.iterator();
 
 		while(true) {
-			net.minecraft.entity.EntityPlayer var5;
+			EntityPlayer var5;
 			Class[] var6;
 			do {
 				do {
@@ -230,7 +230,7 @@ public final class SpawnerAnimals {
 					float var15 = (float)var13;
 					float var16 = (float)var10 + 0.5F;
 
-					net.minecraft.entity.EntityLiving var17;
+					EntityLiving var17;
 					try {
 						var17 = (EntityLiving)var6[var12].getConstructor(new Class[]{World.class}).newInstance(new Object[]{var0});
 					} catch (Exception var21) {
@@ -244,7 +244,7 @@ public final class SpawnerAnimals {
 						if(var18 != null && var18.pathLength > 1) {
 							PathPoint var19 = var18.func_22328_c();
 							if(Math.abs((double)var19.xCoord - var5.posX) < 1.5D && Math.abs((double)var19.zCoord - var5.posZ) < 1.5D && Math.abs((double)var19.yCoord - var5.posY) < 1.5D) {
-								net.minecraft.world.ChunkCoordinates var20 = BlockBed.getNearestEmptyChunkCoordinates(var0, net.minecraft.core.MathHelper.floor_double(var5.posX), net.minecraft.core.MathHelper.floor_double(var5.posY), MathHelper.floor_double(var5.posZ), 1);
+								ChunkCoordinates var20 = BlockBed.getNearestEmptyChunkCoordinates(var0, net.minecraft.core.MathHelper.floor_double(var5.posX), net.minecraft.core.MathHelper.floor_double(var5.posY), MathHelper.floor_double(var5.posZ), 1);
 								if(var20 == null) {
 									var20 = new ChunkCoordinates(var9, var13 + 1, var10);
 								}

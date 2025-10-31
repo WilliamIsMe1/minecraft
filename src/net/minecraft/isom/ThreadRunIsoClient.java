@@ -1,11 +1,11 @@
 package net.minecraft.isom;
 
-import net.minecraft.client.render.CanvasIsomPreview;
+import net.minecraft.client.render.canvas.CanvasIsomPreview;
 
 public class ThreadRunIsoClient extends Thread {
-	final net.minecraft.client.render.CanvasIsomPreview isoCanvas;
+	final CanvasIsomPreview isoCanvas;
 
-	public ThreadRunIsoClient(net.minecraft.client.render.CanvasIsomPreview var1) {
+	public ThreadRunIsoClient(CanvasIsomPreview var1) {
 		this.isoCanvas = var1;
 	}
 

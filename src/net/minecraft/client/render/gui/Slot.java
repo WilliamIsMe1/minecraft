@@ -1,11 +1,11 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.item.IInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.container.inventory.IInventory;
+import net.minecraft.item.core.ItemStack;
 
 public class Slot {
 	private final int slotIndex;
-	private final net.minecraft.item.IInventory inventory;
+	private final IInventory inventory;
 	public int slotNumber;
 	public int xDisplayPosition;
 	public int yDisplayPosition;
@@ -17,15 +17,15 @@ public class Slot {
 		this.yDisplayPosition = var4;
 	}
 
-	public void onPickupFromSlot(net.minecraft.item.ItemStack var1) {
+	public void onPickupFromSlot(ItemStack var1) {
 		this.onSlotChanged();
 	}
 
-	public boolean isItemValid(net.minecraft.item.ItemStack var1) {
+	public boolean isItemValid(ItemStack var1) {
 		return true;
 	}
 
-	public net.minecraft.item.ItemStack getStack() {
+	public ItemStack getStack() {
 		return this.inventory.getStackInSlot(this.slotIndex);
 	}
 
@@ -33,7 +33,7 @@ public class Slot {
 		return this.getStack() != null;
 	}
 
-	public void putStack(net.minecraft.item.ItemStack var1) {
+	public void putStack(ItemStack var1) {
 		this.inventory.setInventorySlotContents(this.slotIndex, var1);
 		this.onSlotChanged();
 	}

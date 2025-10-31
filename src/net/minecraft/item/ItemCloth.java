@@ -1,7 +1,9 @@
 package net.minecraft.item;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.block.BlockCloth;
+import net.minecraft.item.core.ItemBlock;
+import net.minecraft.item.core.ItemStack;
 
 public class ItemCloth extends ItemBlock {
 	public ItemCloth(int var1) {

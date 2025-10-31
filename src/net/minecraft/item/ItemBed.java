@@ -1,9 +1,11 @@
 package net.minecraft.item;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.block.BlockBed;
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.core.MathHelper;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemBed extends Item {
@@ -37,8 +39,8 @@ public class ItemBed extends Item {
 			}
 
 			if(var3.isAirBlock(var4, var5, var6) && var3.isAirBlock(var4 + var10, var5, var6 + var11) && var3.isBlockNormalCube(var4, var5 - 1, var6) && var3.isBlockNormalCube(var4 + var10, var5 - 1, var6 + var11)) {
-				var3.setBlockAndMetadataWithNotify(var4, var5, var6, var8.blockID, var9);
-				var3.setBlockAndMetadataWithNotify(var4 + var10, var5, var6 + var11, var8.blockID, var9 + 8);
+				var3.setBlockAndMetadataWithNotify(var4, var5, var6, var8.getBlockID(), var9);
+				var3.setBlockAndMetadataWithNotify(var4 + var10, var5, var6 + var11, var8.getBlockID(), var9 + 8);
 				--var1.stackSize;
 				return true;
 			} else {

@@ -1,6 +1,7 @@
 package net.minecraft.item;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
+import net.minecraft.item.core.ItemBlock;
 
 public class ItemSapling extends ItemBlock {
 	public ItemSapling(int var1) {

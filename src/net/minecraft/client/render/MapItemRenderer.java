@@ -4,7 +4,8 @@ import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
 import net.minecraft.client.GameSettings;
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.client.render.entity.render.RenderEngine;
+import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.map.MapData;
 import org.lwjgl.opengl.GL11;
 

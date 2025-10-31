@@ -1,6 +1,6 @@
 package net.minecraft.core.save;
 
-import net.minecraft.world.IChunkLoader;
+import net.minecraft.world.chunk.IChunkLoader;
 import net.minecraft.world.ISaveHandler;
 import net.minecraft.world.WorldInfo;
 import net.minecraft.world.WorldProvider;

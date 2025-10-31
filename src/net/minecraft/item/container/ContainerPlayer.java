@@ -3,20 +3,20 @@ package net.minecraft.item.container;
 import net.minecraft.client.render.gui.Slot;
 import net.minecraft.client.render.gui.SlotArmor;
 import net.minecraft.client.render.gui.SlotCrafting;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.item.CraftingManager;
-import net.minecraft.item.IInventory;
-import net.minecraft.item.InventoryCraftResult;
-import net.minecraft.item.InventoryCrafting;
-import net.minecraft.item.InventoryPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.recipe.CraftingManager;
+import net.minecraft.item.container.inventory.IInventory;
+import net.minecraft.item.container.inventory.InventoryCraftResult;
+import net.minecraft.item.container.inventory.InventoryCrafting;
+import net.minecraft.item.container.inventory.InventoryPlayer;
+import net.minecraft.item.core.ItemStack;
 
 public class ContainerPlayer extends Container {
-	public net.minecraft.item.InventoryCrafting craftMatrix;
-	public net.minecraft.item.IInventory craftResult;
+	public InventoryCrafting craftMatrix;
+	public IInventory craftResult;
 	public boolean isSinglePlayer;
 
-	public ContainerPlayer(net.minecraft.item.InventoryPlayer var1) {
+	public ContainerPlayer(InventoryPlayer var1) {
 		this(var1, true);
 	}
 
@@ -56,14 +56,14 @@ public class ContainerPlayer extends Container {
 		this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix));
 	}
 
-	public void onCraftGuiClosed(net.minecraft.entity.EntityPlayer var1) {
+	public void onCraftGuiClosed(EntityPlayer var1) {
 		super.onCraftGuiClosed(var1);
 
 		for(int var2 = 0; var2 < 4; ++var2) {
-			net.minecraft.item.ItemStack var3 = this.craftMatrix.getStackInSlot(var2);
+			ItemStack var3 = this.craftMatrix.getStackInSlot(var2);
 			if(var3 != null) {
 				var1.dropPlayerItem(var3);
-				this.craftMatrix.setInventorySlotContents(var2, (net.minecraft.item.ItemStack)null);
+				this.craftMatrix.setInventorySlotContents(var2, (ItemStack)null);
 			}
 		}
 
@@ -73,11 +73,11 @@ public class ContainerPlayer extends Container {
 		return true;
 	}
 
-	public net.minecraft.item.ItemStack getStackInSlot(int var1) {
-		net.minecraft.item.ItemStack var2 = null;
+	public ItemStack getStackInSlot(int var1) {
+		ItemStack var2 = null;
 		Slot var3 = (Slot)this.slots.get(var1);
 		if(var3 != null && var3.getHasStack()) {
-			net.minecraft.item.ItemStack var4 = var3.getStack();
+			ItemStack var4 = var3.getStack();
 			var2 = var4.copy();
 			if(var1 == 0) {
 				this.func_28125_a(var4, 9, 45, true);

@@ -1,6 +1,10 @@
 package net.minecraft.client.render;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
+import net.minecraft.client.render.entity.model.ModelBiped;
+import net.minecraft.client.render.entity.render.RenderBlocks;
+import net.minecraft.client.render.entity.render.RenderEngine;
+import net.minecraft.client.render.entity.render.RenderManager;
 import net.minecraft.core.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.misc.AxisAlignedBB;
@@ -34,7 +38,7 @@ public abstract class Render {
 
 	private void renderEntityOnFire(net.minecraft.entity.Entity var1, double var2, double var4, double var6, float var8) {
 		GL11.glDisable(GL11.GL_LIGHTING);
-		int var9 = net.minecraft.block.Block.fire.blockIndexInTexture;
+		int var9 = Block.fire.getBlockIndexInTexture();
 		int var10 = (var9 & 15) << 4;
 		int var11 = var9 & 240;
 		float var12 = (float)var10 / 256.0F;
@@ -121,7 +125,7 @@ public abstract class Render {
 				for(int var34 = var23; var34 <= var24; ++var34) {
 					int var35 = var11.getBlockId(var32, var33 - 1, var34);
 					if(var35 > 0 && var11.getBlockLightValue(var32, var33, var34) > 3) {
-						this.renderShadowOnBlock(net.minecraft.block.Block.blocksList[var35], var2, var4 + (double)var1.getShadowSize(), var6, var32, var33, var34, var8, var12, var25, var27 + (double)var1.getShadowSize(), var29);
+						this.renderShadowOnBlock(Block.blocksList[var35], var2, var4 + (double)var1.getShadowSize(), var6, var32, var33, var34, var8, var12, var25, var27 + (double)var1.getShadowSize(), var29);
 					}
 				}
 			}
@@ -147,11 +151,11 @@ public abstract class Render {
 				}
 
 				var19.setColorRGBA_F(1.0F, 1.0F, 1.0F, (float)var20);
-				double var22 = (double)var8 + var1.minX + var13;
-				double var24 = (double)var8 + var1.maxX + var13;
-				double var26 = (double)var9 + var1.minY + var15 + 1.0D / 64.0D;
-				double var28 = (double)var10 + var1.minZ + var17;
-				double var30 = (double)var10 + var1.maxZ + var17;
+				double var22 = (double)var8 + var1.getMinX() + var13;
+				double var24 = (double)var8 + var1.getMaxX() + var13;
+				double var26 = (double)var9 + var1.getMinY() + var15 + 1.0D / 64.0D;
+				double var28 = (double)var10 + var1.getMinZ() + var17;
+				double var30 = (double)var10 + var1.getMaxZ() + var17;
 				float var32 = (float)((var2 - var22) / 2.0D / (double)var12 + 0.5D);
 				float var33 = (float)((var2 - var24) / 2.0D / (double)var12 + 0.5D);
 				float var34 = (float)((var6 - var28) / 2.0D / (double)var12 + 0.5D);

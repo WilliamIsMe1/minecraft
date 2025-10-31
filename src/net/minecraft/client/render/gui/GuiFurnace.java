@@ -1,12 +1,12 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.block.TileEntityFurnace;
-import net.minecraft.item.InventoryPlayer;
+import net.minecraft.block.tileentity.TileEntityFurnace;
+import net.minecraft.item.container.inventory.InventoryPlayer;
 import net.minecraft.item.container.ContainerFurnace;
 import org.lwjgl.opengl.GL11;
 
 public class GuiFurnace extends GuiContainer {
-	private net.minecraft.block.TileEntityFurnace furnaceInventory;
+	private TileEntityFurnace furnaceInventory;
 
 	public GuiFurnace(InventoryPlayer var1, TileEntityFurnace var2) {
 		super(new ContainerFurnace(var1, var2));

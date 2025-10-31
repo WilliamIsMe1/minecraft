@@ -1,12 +1,14 @@
 package net.minecraft.item;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.block.BlockCloth;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockSapling;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.entity.EntitySheep;
+import net.minecraft.block.natural.BlockCrops;
+import net.minecraft.block.natural.BlockSapling;
+import net.minecraft.entity.living.EntityLiving;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.entity.living.creature.animal.EntitySheep;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemDye extends Item {
@@ -30,25 +32,25 @@ public class ItemDye extends Item {
 	public boolean onItemUse(ItemStack var1, EntityPlayer var2, World var3, int var4, int var5, int var6, int var7) {
 		if(var1.getItemDamage() == 15) {
 			int var8 = var3.getBlockId(var4, var5, var6);
-			if(var8 == net.minecraft.block.Block.sapling.blockID) {
+			if(var8 == Block.sapling.getBlockID()) {
 				if(!var3.multiplayerWorld) {
-					((BlockSapling) net.minecraft.block.Block.sapling).growTree(var3, var4, var5, var6, var3.rand);
+					((BlockSapling) Block.sapling).growTree(var3, var4, var5, var6, var3.rand);
 					--var1.stackSize;
 				}
 
 				return true;
 			}
 
-			if(var8 == net.minecraft.block.Block.crops.blockID) {
+			if(var8 == Block.crops.getBlockID()) {
 				if(!var3.multiplayerWorld) {
-					((BlockCrops) net.minecraft.block.Block.crops).fertilize(var3, var4, var5, var6);
+					((BlockCrops) Block.crops).fertilize(var3, var4, var5, var6);
 					--var1.stackSize;
 				}
 
 				return true;
 			}
 
-			if(var8 == net.minecraft.block.Block.grass.blockID) {
+			if(var8 == Block.grass.getBlockID()) {
 				if(!var3.multiplayerWorld) {
 					--var1.stackSize;
 
@@ -62,18 +64,18 @@ public class ItemDye extends Item {
 							var10 += itemRand.nextInt(3) - 1;
 							var11 += (itemRand.nextInt(3) - 1) * itemRand.nextInt(3) / 2;
 							var12 += itemRand.nextInt(3) - 1;
-							if(var3.getBlockId(var10, var11 - 1, var12) != net.minecraft.block.Block.grass.blockID || var3.isBlockNormalCube(var10, var11, var12)) {
+							if(var3.getBlockId(var10, var11 - 1, var12) != Block.grass.getBlockID() || var3.isBlockNormalCube(var10, var11, var12)) {
 								continue label53;
 							}
 						}
 
 						if(var3.getBlockId(var10, var11, var12) == 0) {
 							if(itemRand.nextInt(10) != 0) {
-								var3.setBlockAndMetadataWithNotify(var10, var11, var12, net.minecraft.block.Block.tallGrass.blockID, 1);
+								var3.setBlockAndMetadataWithNotify(var10, var11, var12, Block.tallGrass.getBlockID(), 1);
 							} else if(itemRand.nextInt(3) != 0) {
-								var3.setBlockWithNotify(var10, var11, var12, net.minecraft.block.Block.plantYellow.blockID);
+								var3.setBlockWithNotify(var10, var11, var12, Block.plantYellow.getBlockID());
 							} else {
-								var3.setBlockWithNotify(var10, var11, var12, Block.plantRed.blockID);
+								var3.setBlockWithNotify(var10, var11, var12, Block.plantRed.getBlockID());
 							}
 						}
 					}

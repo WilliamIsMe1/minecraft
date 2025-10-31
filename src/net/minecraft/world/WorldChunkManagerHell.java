@@ -1,5 +1,8 @@
 package net.minecraft.world;
 
+import net.minecraft.world.chunk.ChunkCoordIntPair;
+import net.minecraft.world.gen.BiomeGenBase;
+
 import java.util.Arrays;
 
 public class WorldChunkManagerHell extends WorldChunkManager {

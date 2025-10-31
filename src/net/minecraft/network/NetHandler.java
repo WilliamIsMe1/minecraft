@@ -1,5 +1,57 @@
 package net.minecraft.network;
 
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet100OpenWindow;
+import net.minecraft.network.packet.Packet101CloseWindow;
+import net.minecraft.network.packet.Packet102WindowClick;
+import net.minecraft.network.packet.Packet103SetSlot;
+import net.minecraft.network.packet.Packet104WindowItems;
+import net.minecraft.network.packet.Packet105UpdateProgressbar;
+import net.minecraft.network.packet.Packet106Transaction;
+import net.minecraft.network.packet.Packet10Flying;
+import net.minecraft.network.packet.Packet130UpdateSign;
+import net.minecraft.network.packet.Packet131MapData;
+import net.minecraft.network.packet.Packet14BlockDig;
+import net.minecraft.network.packet.Packet15Place;
+import net.minecraft.network.packet.Packet16BlockItemSwitch;
+import net.minecraft.network.packet.Packet17Sleep;
+import net.minecraft.network.packet.Packet18Animation;
+import net.minecraft.network.packet.Packet19EntityAction;
+import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.network.packet.Packet200Statistic;
+import net.minecraft.network.packet.Packet20NamedEntitySpawn;
+import net.minecraft.network.packet.Packet21PickupSpawn;
+import net.minecraft.network.packet.Packet22Collect;
+import net.minecraft.network.packet.Packet23VehicleSpawn;
+import net.minecraft.network.packet.Packet24MobSpawn;
+import net.minecraft.network.packet.Packet255KickDisconnect;
+import net.minecraft.network.packet.Packet25EntityPainting;
+import net.minecraft.network.packet.Packet27Position;
+import net.minecraft.network.packet.Packet28EntityVelocity;
+import net.minecraft.network.packet.Packet29DestroyEntity;
+import net.minecraft.network.packet.Packet2Handshake;
+import net.minecraft.network.packet.Packet30Entity;
+import net.minecraft.network.packet.Packet34EntityTeleport;
+import net.minecraft.network.packet.Packet38EntityStatus;
+import net.minecraft.network.packet.Packet39AttachEntity;
+import net.minecraft.network.packet.Packet3Chat;
+import net.minecraft.network.packet.Packet40EntityMetadata;
+import net.minecraft.network.packet.Packet4UpdateTime;
+import net.minecraft.network.packet.Packet50PreChunk;
+import net.minecraft.network.packet.Packet51MapChunk;
+import net.minecraft.network.packet.Packet52MultiBlockChange;
+import net.minecraft.network.packet.Packet53BlockChange;
+import net.minecraft.network.packet.Packet54PlayNoteBlock;
+import net.minecraft.network.packet.Packet5PlayerInventory;
+import net.minecraft.network.packet.Packet60Explosion;
+import net.minecraft.network.packet.Packet61DoorChange;
+import net.minecraft.network.packet.Packet6SpawnPosition;
+import net.minecraft.network.packet.Packet70Bed;
+import net.minecraft.network.packet.Packet71Weather;
+import net.minecraft.network.packet.Packet7UseEntity;
+import net.minecraft.network.packet.Packet8UpdateHealth;
+import net.minecraft.network.packet.Packet9Respawn;
+
 public abstract class NetHandler {
 	public abstract boolean isServerHandler();
 

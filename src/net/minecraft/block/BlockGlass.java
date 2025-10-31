@@ -1,5 +1,8 @@
 package net.minecraft.block;
 
+import net.minecraft.block.core.BlockBreakable;
+import net.minecraft.block.material.Material;
+
 import java.util.Random;
 
 public class BlockGlass extends BlockBreakable {

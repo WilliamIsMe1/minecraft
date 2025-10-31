@@ -1,10 +1,16 @@
 package net.minecraft.entity;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityClientPlayerMP;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.network.NetClientHandler;
-import net.minecraft.network.Packet102WindowClick;
+import net.minecraft.network.packet.Packet102WindowClick;
+import net.minecraft.network.packet.Packet14BlockDig;
+import net.minecraft.network.packet.Packet15Place;
+import net.minecraft.network.packet.Packet16BlockItemSwitch;
+import net.minecraft.network.packet.Packet7UseEntity;
 import net.minecraft.world.World;
 
 public class PlayerControllerMP extends PlayerController {
@@ -24,14 +30,14 @@ public class PlayerControllerMP extends PlayerController {
 		this.netClientHandler = var2;
 	}
 
-	public void flipPlayer(net.minecraft.entity.EntityPlayer var1) {
+	public void flipPlayer(EntityPlayer var1) {
 		var1.rotationYaw = -180.0F;
 	}
 
 	public boolean sendBlockRemoved(int var1, int var2, int var3, int var4) {
 		int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
 		boolean var6 = super.sendBlockRemoved(var1, var2, var3, var4);
-		net.minecraft.item.ItemStack var7 = this.mc.thePlayer.getCurrentEquippedItem();
+		ItemStack var7 = this.mc.thePlayer.getCurrentEquippedItem();
 		if(var7 != null) {
 			var7.onDestroyBlock(var5, var1, var2, var3, this.mc.thePlayer);
 			if(var7.stackSize == 0) {
@@ -45,13 +51,13 @@ public class PlayerControllerMP extends PlayerController {
 
 	public void clickBlock(int var1, int var2, int var3, int var4) {
 		if(!this.isHittingBlock || var1 != this.currentBlockX || var2 != this.currentBlockY || var3 != this.currentblockZ) {
-			this.netClientHandler.addToSendQueue(new net.minecraft.network.Packet14BlockDig(0, var1, var2, var3, var4));
+			this.netClientHandler.addToSendQueue(new Packet14BlockDig(0, var1, var2, var3, var4));
 			int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
 			if(var5 > 0 && this.curBlockDamageMP == 0.0F) {
-				net.minecraft.block.Block.blocksList[var5].onBlockClicked(this.mc.theWorld, var1, var2, var3, this.mc.thePlayer);
+				Block.blocksList[var5].onBlockClicked(this.mc.theWorld, var1, var2, var3, this.mc.thePlayer);
 			}
 
-			if(var5 > 0 && net.minecraft.block.Block.blocksList[var5].blockStrength(this.mc.thePlayer) >= 1.0F) {
+			if(var5 > 0 && Block.blocksList[var5].blockStrength(this.mc.thePlayer) >= 1.0F) {
 				this.sendBlockRemoved(var1, var2, var3, var4);
 			} else {
 				this.isHittingBlock = true;
@@ -84,16 +90,16 @@ public class PlayerControllerMP extends PlayerController {
 						return;
 					}
 
-					net.minecraft.block.Block var6 = Block.blocksList[var5];
+					Block var6 = Block.blocksList[var5];
 					this.curBlockDamageMP += var6.blockStrength(this.mc.thePlayer);
 					if(this.field_9441_h % 4.0F == 0.0F && var6 != null) {
-						this.mc.sndManager.playSound(var6.stepSound.func_1145_d(), (float)var1 + 0.5F, (float)var2 + 0.5F, (float)var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);
+						this.mc.sndManager.playSound(var6.getStepSound().func_1145_d(), (float)var1 + 0.5F, (float)var2 + 0.5F, (float)var3 + 0.5F, (var6.getStepSound().getVolume() + 1.0F) / 8.0F, var6.getStepSound().getPitch() * 0.5F);
 					}
 
 					++this.field_9441_h;
 					if(this.curBlockDamageMP >= 1.0F) {
 						this.isHittingBlock = false;
-						this.netClientHandler.addToSendQueue(new net.minecraft.network.Packet14BlockDig(2, var1, var2, var3, var4));
+						this.netClientHandler.addToSendQueue(new Packet14BlockDig(2, var1, var2, var3, var4));
 						this.sendBlockRemoved(var1, var2, var3, var4);
 						this.curBlockDamageMP = 0.0F;
 						this.prevBlockDamageMP = 0.0F;
@@ -138,42 +144,42 @@ public class PlayerControllerMP extends PlayerController {
 		int var1 = this.mc.thePlayer.inventory.currentItem;
 		if(var1 != this.currentPlayerItem) {
 			this.currentPlayerItem = var1;
-			this.netClientHandler.addToSendQueue(new net.minecraft.network.Packet16BlockItemSwitch(this.currentPlayerItem));
+			this.netClientHandler.addToSendQueue(new Packet16BlockItemSwitch(this.currentPlayerItem));
 		}
 
 	}
 
-	public boolean sendPlaceBlock(net.minecraft.entity.EntityPlayer var1, net.minecraft.world.World var2, net.minecraft.item.ItemStack var3, int var4, int var5, int var6, int var7) {
+	public boolean sendPlaceBlock(EntityPlayer var1, net.minecraft.world.World var2, ItemStack var3, int var4, int var5, int var6, int var7) {
 		this.syncCurrentPlayItem();
-		this.netClientHandler.addToSendQueue(new net.minecraft.network.Packet15Place(var4, var5, var6, var7, var1.inventory.getCurrentItem()));
+		this.netClientHandler.addToSendQueue(new Packet15Place(var4, var5, var6, var7, var1.inventory.getCurrentItem()));
 		boolean var8 = super.sendPlaceBlock(var1, var2, var3, var4, var5, var6, var7);
 		return var8;
 	}
 
-	public boolean sendUseItem(net.minecraft.entity.EntityPlayer var1, net.minecraft.world.World var2, net.minecraft.item.ItemStack var3) {
+	public boolean sendUseItem(EntityPlayer var1, net.minecraft.world.World var2, ItemStack var3) {
 		this.syncCurrentPlayItem();
-		this.netClientHandler.addToSendQueue(new net.minecraft.network.Packet15Place(-1, -1, -1, 255, var1.inventory.getCurrentItem()));
+		this.netClientHandler.addToSendQueue(new Packet15Place(-1, -1, -1, 255, var1.inventory.getCurrentItem()));
 		boolean var4 = super.sendUseItem(var1, var2, var3);
 		return var4;
 	}
 
-	public net.minecraft.entity.EntityPlayer createPlayer(World var1) {
+	public EntityPlayer createPlayer(World var1) {
 		return new EntityClientPlayerMP(this.mc, var1, this.mc.session, this.netClientHandler);
 	}
 
-	public void attackEntity(net.minecraft.entity.EntityPlayer var1, net.minecraft.entity.Entity var2) {
+	public void attackEntity(EntityPlayer var1, net.minecraft.entity.Entity var2) {
 		this.syncCurrentPlayItem();
-		this.netClientHandler.addToSendQueue(new net.minecraft.network.Packet7UseEntity(var1.entityId, var2.entityId, 1));
+		this.netClientHandler.addToSendQueue(new Packet7UseEntity(var1.entityId, var2.entityId, 1));
 		var1.attackTargetEntityWithCurrentItem(var2);
 	}
 
-	public void interactWithEntity(net.minecraft.entity.EntityPlayer var1, Entity var2) {
+	public void interactWithEntity(EntityPlayer var1, Entity var2) {
 		this.syncCurrentPlayItem();
-		this.netClientHandler.addToSendQueue(new net.minecraft.network.Packet7UseEntity(var1.entityId, var2.entityId, 0));
+		this.netClientHandler.addToSendQueue(new Packet7UseEntity(var1.entityId, var2.entityId, 0));
 		var1.useCurrentItemOnEntity(var2);
 	}
 
-	public net.minecraft.item.ItemStack func_27174_a(int var1, int var2, int var3, boolean var4, net.minecraft.entity.EntityPlayer var5) {
+	public ItemStack func_27174_a(int var1, int var2, int var3, boolean var4, EntityPlayer var5) {
 		short var6 = var5.craftingInventory.func_20111_a(var5.inventory);
 		ItemStack var7 = super.func_27174_a(var1, var2, var3, var4, var5);
 		this.netClientHandler.addToSendQueue(new Packet102WindowClick(var1, var2, var3, var4, var7, var6));

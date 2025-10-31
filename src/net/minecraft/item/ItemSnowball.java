@@ -1,7 +1,9 @@
 package net.minecraft.item;
 
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.entity.EntitySnowball;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.entity.projectile.EntitySnowball;
+import net.minecraft.item.core.Item;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemSnowball extends Item {

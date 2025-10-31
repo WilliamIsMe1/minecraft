@@ -1,10 +1,10 @@
 package net.minecraft.entity;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.core.Block;
 import net.minecraft.core.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.misc.AxisAlignedBB;
-import net.minecraft.world.ChunkPosition;
+import net.minecraft.world.chunk.ChunkPosition;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class Explosion {
 	public double explosionZ;
 	public net.minecraft.entity.Entity exploder;
 	public float explosionSize;
-	public Set<net.minecraft.world.ChunkPosition> destroyedBlockPositions = new HashSet<>();
+	public Set<ChunkPosition> destroyedBlockPositions = new HashSet<>();
 
 	public Explosion(World var1, net.minecraft.entity.Entity var2, double var3, double var5, double var7, float var9) {
 		this.worldObj = var1;
@@ -65,11 +65,11 @@ public class Explosion {
 							int var24 = net.minecraft.core.MathHelper.floor_double(var19);
 							int var25 = this.worldObj.getBlockId(var22, var23, var24);
 							if(var25 > 0) {
-								var14 -= (net.minecraft.block.Block.blocksList[var25].getExplosionResistance(this.exploder) + 0.3F) * var21;
+								var14 -= (Block.blocksList[var25].getExplosionResistance(this.exploder) + 0.3F) * var21;
 							}
 
 							if(var14 > 0.0F) {
-								this.destroyedBlockPositions.add(new net.minecraft.world.ChunkPosition(var22, var23, var24));
+								this.destroyedBlockPositions.add(new ChunkPosition(var22, var23, var24));
 							}
 
 							var15 += var6 * (double)var21;
@@ -115,14 +115,14 @@ public class Explosion {
 		var32.addAll(this.destroyedBlockPositions);
 		if(this.isFlaming) {
 			for(int var34 = var32.size() - 1; var34 >= 0; --var34) {
-				net.minecraft.world.ChunkPosition var35 = (net.minecraft.world.ChunkPosition)var32.get(var34);
+				ChunkPosition var35 = (ChunkPosition)var32.get(var34);
 				int var36 = var35.x;
 				int var37 = var35.y;
 				int var16 = var35.z;
 				int var38 = this.worldObj.getBlockId(var36, var37, var16);
 				int var18 = this.worldObj.getBlockId(var36, var37 - 1, var16);
-				if(var38 == 0 && net.minecraft.block.Block.opaqueCubeLookup[var18] && this.ExplosionRNG.nextInt(3) == 0) {
-					this.worldObj.setBlockWithNotify(var36, var37, var16, net.minecraft.block.Block.fire.blockID);
+				if(var38 == 0 && Block.opaqueCubeLookup[var18] && this.ExplosionRNG.nextInt(3) == 0) {
+					this.worldObj.setBlockWithNotify(var36, var37, var16, Block.fire.getBlockID());
 				}
 			}
 		}
@@ -135,7 +135,7 @@ public class Explosion {
 		var2.addAll(this.destroyedBlockPositions);
 
 		for(int var3 = var2.size() - 1; var3 >= 0; --var3) {
-			net.minecraft.world.ChunkPosition var4 = (ChunkPosition)var2.get(var3);
+			ChunkPosition var4 = (ChunkPosition)var2.get(var3);
 			int var5 = var4.x;
 			int var6 = var4.y;
 			int var7 = var4.z;
@@ -161,7 +161,7 @@ public class Explosion {
 			}
 
 			if(var8 > 0) {
-				net.minecraft.block.Block.blocksList[var8].dropBlockAsItemWithChance(this.worldObj, var5, var6, var7, this.worldObj.getBlockMetadata(var5, var6, var7), 0.3F);
+				Block.blocksList[var8].dropBlockAsItemWithChance(this.worldObj, var5, var6, var7, this.worldObj.getBlockMetadata(var5, var6, var7), 0.3F);
 				this.worldObj.setBlockWithNotify(var5, var6, var7, 0);
 				Block.blocksList[var8].onBlockDestroyedByExplosion(this.worldObj, var5, var6, var7);
 			}

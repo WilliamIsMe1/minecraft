@@ -1,6 +1,6 @@
 package net.minecraft.world;
 
-import net.minecraft.entity.EntityPlayer;
+import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.util.nbt.NBTTagCompound;
 
 import java.util.List;
@@ -74,7 +74,7 @@ public class WorldInfo {
 
 	public NBTTagCompound getNBTTagCompoundWithPlayer(List var1) {
 		NBTTagCompound var2 = new NBTTagCompound();
-		net.minecraft.entity.EntityPlayer var3 = null;
+		EntityPlayer var3 = null;
 		NBTTagCompound var4 = null;
 		if(var1.size() > 0) {
 			var3 = (EntityPlayer)var1.get(0);

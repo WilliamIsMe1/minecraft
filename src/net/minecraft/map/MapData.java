@@ -1,7 +1,7 @@
 package net.minecraft.map;
 
-import net.minecraft.entity.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.living.EntityPlayer;
+import net.minecraft.item.core.ItemStack;
 import net.minecraft.util.nbt.NBTTagCompound;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class MapData extends MapDataBase {
 	public byte[] colors = new byte[16384];
 	public int field_28175_g;
 	public List field_28174_h = new ArrayList();
-	private final Map<net.minecraft.entity.EntityPlayer, MapInfo> field_28172_j = new HashMap<>();
+	private final Map<EntityPlayer, MapInfo> field_28172_j = new HashMap<>();
 	public List field_28173_i = new ArrayList();
 
 	public MapData(String var1) {
