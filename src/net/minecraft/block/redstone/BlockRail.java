@@ -1,7 +1,7 @@
 package net.minecraft.block.redstone;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.core.Vec3D;
 import net.minecraft.misc.AxisAlignedBB;
@@ -40,9 +40,9 @@ public class BlockRail extends Block {
 		return false;
 	}
 
-	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
-		this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-		return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World world, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
+		this.setBlockBoundsBasedOnState(world, var2, var3, var4);
+		return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
 	}
 
 	public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {

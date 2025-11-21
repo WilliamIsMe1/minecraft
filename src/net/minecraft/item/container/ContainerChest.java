@@ -1,6 +1,6 @@
 package net.minecraft.item.container;
 
-import net.minecraft.client.render.gui.Slot;
+import net.minecraft.item.container.inventory.Slot;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.container.inventory.IInventory;
 import net.minecraft.item.core.ItemStack;
@@ -34,18 +34,18 @@ public class ContainerChest extends Container {
 
 	}
 
-	public boolean isUsableByPlayer(EntityPlayer var1) {
+	public boolean canInteractWith(EntityPlayer var1) {
 		return this.field_20125_a.canInteractWith(var1);
 	}
 
 	public ItemStack getStackInSlot(int var1) {
 		ItemStack var2 = null;
-		Slot var3 = (Slot)this.slots.get(var1);
+		Slot var3 = (Slot)this.inventorySlots.get(var1);
 		if(var3 != null && var3.getHasStack()) {
 			ItemStack var4 = var3.getStack();
 			var2 = var4.copy();
 			if(var1 < this.field_27282_b * 9) {
-				this.func_28125_a(var4, this.field_27282_b * 9, this.slots.size(), true);
+				this.func_28125_a(var4, this.field_27282_b * 9, this.inventorySlots.size(), true);
 			} else {
 				this.func_28125_a(var4, 0, this.field_27282_b * 9, false);
 			}

@@ -1,7 +1,7 @@
 package net.minecraft.entity.fx;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityBubbleFX extends EntityFX {

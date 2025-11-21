@@ -1,6 +1,6 @@
 package net.minecraft.world.chunk;
 
-import net.minecraft.world.Empty2;
+import net.minecraft.core.save.Empty2;
 
 import java.io.File;
 import java.io.FilenameFilter;

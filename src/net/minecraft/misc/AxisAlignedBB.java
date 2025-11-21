@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AxisAlignedBB {
-	private static List boundingBoxes = new ArrayList();
+	private static final List<AxisAlignedBB> boundingBoxes = new ArrayList<>();
 	private static int numBoundingBoxesInUse = 0;
 	public double minX;
 	public double minY;
@@ -19,7 +19,7 @@ public class AxisAlignedBB {
 		return new AxisAlignedBB(var0, var2, var4, var6, var8, var10);
 	}
 
-	public static void func_28196_a() {
+	public static void clearPool() {
 		boundingBoxes.clear();
 		numBoundingBoxesInUse = 0;
 	}
@@ -33,7 +33,7 @@ public class AxisAlignedBB {
 			boundingBoxes.add(getBoundingBox(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D));
 		}
 
-		return ((AxisAlignedBB)boundingBoxes.get(numBoundingBoxesInUse++)).setBounds(var0, var2, var4, var6, var8, var10);
+		return boundingBoxes.get(numBoundingBoxesInUse++).setBounds(var0, var2, var4, var6, var8, var10);
 	}
 
 	private AxisAlignedBB(double var1, double var3, double var5, double var7, double var9, double var11) {

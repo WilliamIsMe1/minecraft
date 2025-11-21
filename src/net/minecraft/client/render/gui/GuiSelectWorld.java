@@ -1,8 +1,8 @@
 package net.minecraft.client.render.gui;
 
 import net.minecraft.entity.PlayerControllerSP;
-import net.minecraft.world.ISaveFormat;
-import net.minecraft.core.MathHelper;
+import net.minecraft.core.save.ISaveFormat;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.save.SaveFormatComparator;
 import net.minecraft.core.StringTranslate;
 
@@ -54,7 +54,7 @@ public class GuiSelectWorld extends GuiScreen {
 
 	protected String getSaveName(int var1) {
 		String var2 = ((SaveFormatComparator)this.saveList.get(var1)).getDisplayName();
-		if(var2 == null || MathHelper.stringNullOrLengthZero(var2)) {
+		if(var2 == null || MathHelper.stringEmpty(var2)) {
 			StringTranslate var3 = StringTranslate.getInstance();
 			var2 = var3.translateKey("selectWorld.world") + " " + (var1 + 1);
 		}

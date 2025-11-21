@@ -6,7 +6,6 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.core.BlockContainer;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.render.PistonBlockTextures;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -133,11 +132,11 @@ public class BlockPistonMoving extends BlockContainer {
 			if(var8 == null) {
 				return null;
 			} else {
-				var8.minX -= (double)((float) net.minecraft.client.render.PistonBlockTextures.field_31056_b[var7] * var6);
-				var8.maxX -= (double)((float) net.minecraft.client.render.PistonBlockTextures.field_31056_b[var7] * var6);
-				var8.minY -= (double)((float) net.minecraft.client.render.PistonBlockTextures.field_31059_c[var7] * var6);
-				var8.maxY -= (double)((float) net.minecraft.client.render.PistonBlockTextures.field_31059_c[var7] * var6);
-				var8.minZ -= (double)((float) net.minecraft.client.render.PistonBlockTextures.field_31058_d[var7] * var6);
+				var8.minX -= (double)((float) PistonBlockTextures.field_31056_b[var7] * var6);
+				var8.maxX -= (double)((float) PistonBlockTextures.field_31056_b[var7] * var6);
+				var8.minY -= (double)((float) PistonBlockTextures.field_31059_c[var7] * var6);
+				var8.maxY -= (double)((float) PistonBlockTextures.field_31059_c[var7] * var6);
+				var8.minZ -= (double)((float) PistonBlockTextures.field_31058_d[var7] * var6);
 				var8.maxZ -= (double)((float) PistonBlockTextures.field_31058_d[var7] * var6);
 				return var8;
 			}

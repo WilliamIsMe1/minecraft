@@ -18,6 +18,7 @@ public class ChunkCoordIntPair {
 	}
 
 	public boolean equals(Object var1) {
+		if (var1 instanceof ChunkCoordIntPair) return false;
 		ChunkCoordIntPair var2 = (ChunkCoordIntPair)var1;
 		return var2.chunkXPos == this.chunkXPos && var2.chunkZPos == this.chunkZPos;
 	}

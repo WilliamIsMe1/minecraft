@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 public class ItemPickaxe extends ItemTool {
 	private static Block[] blocksEffectiveAgainst = new Block[]{Block.cobblestone, Block.stairDouble, Block.stairSingle, Block.stone, Block.sandStone, Block.cobblestoneMossy, Block.oreIron, Block.blockSteel, Block.oreCoal, Block.blockGold, Block.oreGold, Block.oreDiamond, Block.blockDiamond, Block.ice, Block.netherrack, Block.oreLapis, Block.blockLapis};
 
-	protected ItemPickaxe(int var1, EnumToolMaterial var2) {
+	public ItemPickaxe(int var1, EnumToolMaterial var2) {
 		super(var1, 2, var2, blocksEffectiveAgainst);
 	}
 

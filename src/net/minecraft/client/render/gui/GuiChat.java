@@ -1,6 +1,6 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.client.ChatAllowedCharacters;
+import net.minecraft.core.ChatAllowedCharacters;
 import org.lwjgl.input.Keyboard;
 
 public class GuiChat extends GuiScreen {

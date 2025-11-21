@@ -8,7 +8,7 @@ import net.minecraft.block.tileentity.TileEntityDispenser;
 import net.minecraft.block.tileentity.TileEntityFurnace;
 import net.minecraft.block.tileentity.TileEntitySign;
 import net.minecraft.core.EnumStatus;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.living.creature.animal.EntityFish;
 import net.minecraft.entity.living.creature.animal.EntityPig;
@@ -108,7 +108,7 @@ public abstract class EntityPlayer extends EntityLiving {
 		}
 
 		super.onUpdate();
-		if(!this.worldObj.multiplayerWorld && this.craftingInventory != null && !this.craftingInventory.isUsableByPlayer(this)) {
+		if(!this.worldObj.multiplayerWorld && this.craftingInventory != null && !this.craftingInventory.canInteractWith(this)) {
 			this.closeScreen();
 			this.craftingInventory = this.inventorySlots;
 		}
@@ -207,7 +207,7 @@ public abstract class EntityPlayer extends EntityLiving {
 		this.inventory.decrementAnimations();
 		this.field_775_e = this.field_774_f;
 		super.onLivingUpdate();
-		float var1 = net.minecraft.core.MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+		float var1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 		float var2 = (float)Math.atan(-this.motionY * (double)0.2F) * 15.0F;
 		if(var1 > 0.1F) {
 			var1 = 0.1F;
@@ -256,8 +256,8 @@ public abstract class EntityPlayer extends EntityLiving {
 
 		this.inventory.dropAllItems();
 		if(var1 != null) {
-			this.motionX = (double)(-net.minecraft.core.MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * (float)Math.PI / 180.0F) * 0.1F);
-			this.motionZ = (double)(-net.minecraft.core.MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * (float)Math.PI / 180.0F) * 0.1F);
+			this.motionX = (double)(-MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * (float)Math.PI / 180.0F) * 0.1F);
+			this.motionZ = (double)(-MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * (float)Math.PI / 180.0F) * 0.1F);
 		} else {
 			this.motionX = this.motionZ = 0.0D;
 		}
@@ -293,14 +293,14 @@ public abstract class EntityPlayer extends EntityLiving {
 			if(var2) {
 				var5 = this.rand.nextFloat() * 0.5F;
 				float var6 = this.rand.nextFloat() * (float)Math.PI * 2.0F;
-				var3.motionX = (double)(-net.minecraft.core.MathHelper.sin(var6) * var5);
-				var3.motionZ = (double)(net.minecraft.core.MathHelper.cos(var6) * var5);
+				var3.motionX = (double)(-MathHelper.sin(var6) * var5);
+				var3.motionZ = (double)(MathHelper.cos(var6) * var5);
 				var3.motionY = (double)0.2F;
 			} else {
 				var4 = 0.3F;
-				var3.motionX = (double)(-net.minecraft.core.MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var4);
-				var3.motionZ = (double)(net.minecraft.core.MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var4);
-				var3.motionY = (double)(-net.minecraft.core.MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI) * var4 + 0.1F);
+				var3.motionX = (double)(-MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var4);
+				var3.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var4);
+				var3.motionY = (double)(-MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI) * var4 + 0.1F);
 				var4 = 0.02F;
 				var5 = this.rand.nextFloat() * (float)Math.PI * 2.0F;
 				var4 *= this.rand.nextFloat();
@@ -343,7 +343,7 @@ public abstract class EntityPlayer extends EntityLiving {
 		this.sleeping = var1.getBoolean("Sleeping");
 		this.sleepTimer = var1.getShort("SleepTimer");
 		if(this.sleeping) {
-			this.bedChunkCoordinates = new ChunkCoordinates(net.minecraft.core.MathHelper.floor_double(this.posX), net.minecraft.core.MathHelper.floor_double(this.posY), net.minecraft.core.MathHelper.floor_double(this.posZ));
+			this.bedChunkCoordinates = new ChunkCoordinates(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ));
 			this.wakeUpPlayer(true, true, false);
 		}
 
@@ -761,12 +761,12 @@ public abstract class EntityPlayer extends EntityLiving {
 		if(this.ridingEntity == null) {
 			int var7;
 			if(this.isInsideOfMaterial(Material.water)) {
-				var7 = Math.round(net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
+				var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
 				if(var7 > 0) {
 					this.addStat(net.minecraft.achievement.stats.StatList.distanceDoveStat, var7);
 				}
 			} else if(this.isInWater()) {
-				var7 = Math.round(net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
+				var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
 				if(var7 > 0) {
 					this.addStat(net.minecraft.achievement.stats.StatList.distanceSwumStat, var7);
 				}
@@ -775,12 +775,12 @@ public abstract class EntityPlayer extends EntityLiving {
 					this.addStat(net.minecraft.achievement.stats.StatList.distanceClimbedStat, (int)Math.round(var3 * 100.0D));
 				}
 			} else if(this.onGround) {
-				var7 = Math.round(net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
+				var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
 				if(var7 > 0) {
 					this.addStat(net.minecraft.achievement.stats.StatList.distanceWalkedStat, var7);
 				}
 			} else {
-				var7 = Math.round(net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
+				var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
 				if(var7 > 25) {
 					this.addStat(net.minecraft.achievement.stats.StatList.distanceFlownStat, var7);
 				}
@@ -791,13 +791,13 @@ public abstract class EntityPlayer extends EntityLiving {
 
 	private void addMountedMovementStat(double var1, double var3, double var5) {
 		if(this.ridingEntity != null) {
-			int var7 = Math.round(net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
+			int var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
 			if(var7 > 0) {
 				if(this.ridingEntity instanceof EntityMinecart) {
 					this.addStat(net.minecraft.achievement.stats.StatList.distanceByMinecartStat, var7);
 					if(this.startMinecartRidingCoordinate == null) {
-						this.startMinecartRidingCoordinate = new ChunkCoordinates(net.minecraft.core.MathHelper.floor_double(this.posX), net.minecraft.core.MathHelper.floor_double(this.posY), net.minecraft.core.MathHelper.floor_double(this.posZ));
-					} else if(this.startMinecartRidingCoordinate.getSqDistanceTo(net.minecraft.core.MathHelper.floor_double(this.posX), net.minecraft.core.MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) >= 1000.0D) {
+						this.startMinecartRidingCoordinate = new ChunkCoordinates(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ));
+					} else if(this.startMinecartRidingCoordinate.getSqDistanceTo(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) >= 1000.0D) {
 						this.addStat(net.minecraft.achievement.AchievementList.onARail, 1);
 					}
 				} else if(this.ridingEntity instanceof EntityBoat) {

@@ -2,6 +2,7 @@ package net.minecraft.client.render.entity.render;
 
 import net.minecraft.block.core.Block;
 import net.minecraft.client.render.Render;
+import net.minecraft.client.render.block.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityTNTPrimed;
 import org.lwjgl.opengl.GL11;

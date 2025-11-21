@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import net.minecraft.block.core.Block;
 import net.minecraft.block.core.BlockContainer;
-import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.block.tileentity.TileEntityChest;

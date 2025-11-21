@@ -1,8 +1,8 @@
 package net.minecraft.item.container;
 
 import net.minecraft.block.tileentity.TileEntityFurnace;
-import net.minecraft.client.render.gui.Slot;
-import net.minecraft.client.render.gui.SlotFurnace;
+import net.minecraft.item.container.inventory.Slot;
+import net.minecraft.item.container.inventory.SlotFurnace;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.recipe.ICrafting;
 import net.minecraft.item.container.inventory.InventoryPlayer;
@@ -36,18 +36,18 @@ public class ContainerFurnace extends Container {
 	public void updateCraftingResults() {
 		super.updateCraftingResults();
 
-		for(int var1 = 0; var1 < this.field_20121_g.size(); ++var1) {
-			ICrafting var2 = (ICrafting)this.field_20121_g.get(var1);
+		for(int var1 = 0; var1 < this.crafters.size(); ++var1) {
+			ICrafting var2 = (ICrafting)this.crafters.get(var1);
 			if(this.cookTime != this.furnace.furnaceCookTime) {
-				var2.func_20158_a(this, 0, this.furnace.furnaceCookTime);
+				var2.updateCraftingInventoryInfo(this, 0, this.furnace.furnaceCookTime);
 			}
 
 			if(this.burnTime != this.furnace.furnaceBurnTime) {
-				var2.func_20158_a(this, 1, this.furnace.furnaceBurnTime);
+				var2.updateCraftingInventoryInfo(this, 1, this.furnace.furnaceBurnTime);
 			}
 
 			if(this.itemBurnTime != this.furnace.currentItemBurnTime) {
-				var2.func_20158_a(this, 2, this.furnace.currentItemBurnTime);
+				var2.updateCraftingInventoryInfo(this, 2, this.furnace.currentItemBurnTime);
 			}
 		}
 
@@ -71,13 +71,13 @@ public class ContainerFurnace extends Container {
 
 	}
 
-	public boolean isUsableByPlayer(EntityPlayer var1) {
+	public boolean canInteractWith(EntityPlayer var1) {
 		return this.furnace.canInteractWith(var1);
 	}
 
 	public ItemStack getStackInSlot(int var1) {
 		ItemStack var2 = null;
-		Slot var3 = (Slot)this.slots.get(var1);
+		Slot var3 = (Slot)this.inventorySlots.get(var1);
 		if(var3 != null && var3.getHasStack()) {
 			ItemStack var4 = var3.getStack();
 			var2 = var4.copy();

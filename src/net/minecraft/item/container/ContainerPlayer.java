@@ -1,8 +1,8 @@
 package net.minecraft.item.container;
 
-import net.minecraft.client.render.gui.Slot;
-import net.minecraft.client.render.gui.SlotArmor;
-import net.minecraft.client.render.gui.SlotCrafting;
+import net.minecraft.item.container.inventory.Slot;
+import net.minecraft.item.container.inventory.SlotArmor;
+import net.minecraft.item.container.inventory.SlotCrafting;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.recipe.CraftingManager;
 import net.minecraft.item.container.inventory.IInventory;
@@ -23,7 +23,6 @@ public class ContainerPlayer extends Container {
 	public ContainerPlayer(InventoryPlayer var1, boolean var2) {
 		this.craftMatrix = new InventoryCrafting(this, 2, 2);
 		this.craftResult = new InventoryCraftResult();
-		this.isSinglePlayer = false;
 		this.isSinglePlayer = var2;
 		this.addSlot(new SlotCrafting(var1.player, this.craftMatrix, this.craftResult, 0, 144, 36));
 
@@ -69,13 +68,13 @@ public class ContainerPlayer extends Container {
 
 	}
 
-	public boolean isUsableByPlayer(EntityPlayer var1) {
+	public boolean canInteractWith(EntityPlayer var1) {
 		return true;
 	}
 
 	public ItemStack getStackInSlot(int var1) {
 		ItemStack var2 = null;
-		Slot var3 = (Slot)this.slots.get(var1);
+		Slot var3 = (Slot)this.inventorySlots.get(var1);
 		if(var3 != null && var3.getHasStack()) {
 			ItemStack var4 = var3.getStack();
 			var2 = var4.copy();

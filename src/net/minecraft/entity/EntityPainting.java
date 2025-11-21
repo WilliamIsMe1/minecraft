@@ -3,7 +3,7 @@ package net.minecraft.entity;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.core.Item;
 import net.minecraft.item.core.ItemStack;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 

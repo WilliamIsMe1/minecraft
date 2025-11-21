@@ -1,8 +1,8 @@
 package net.minecraft.item.container;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.client.render.gui.Slot;
-import net.minecraft.client.render.gui.SlotCrafting;
+import net.minecraft.item.container.inventory.Slot;
+import net.minecraft.item.container.inventory.SlotCrafting;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.recipe.CraftingManager;
 import net.minecraft.item.container.inventory.IInventory;
@@ -65,13 +65,13 @@ public class ContainerWorkbench extends Container {
 		}
 	}
 
-	public boolean isUsableByPlayer(EntityPlayer var1) {
+	public boolean canInteractWith(EntityPlayer var1) {
 		return this.field_20133_c.getBlockId(this.field_20132_h, this.field_20131_i, this.field_20130_j) != Block.workbench.getBlockID() ? false : var1.getDistanceSq((double)this.field_20132_h + 0.5D, (double)this.field_20131_i + 0.5D, (double)this.field_20130_j + 0.5D) <= 64.0D;
 	}
 
 	public ItemStack getStackInSlot(int var1) {
 		ItemStack var2 = null;
-		Slot var3 = (Slot)this.slots.get(var1);
+		Slot var3 = (Slot)this.inventorySlots.get(var1);
 		if(var3 != null && var3.getHasStack()) {
 			ItemStack var4 = var3.getStack();
 			var2 = var4.copy();

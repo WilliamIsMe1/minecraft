@@ -6,9 +6,9 @@ import java.util.List;
 
 import net.minecraft.block.core.Block;
 import net.minecraft.block.tileentity.TileEntity;
-import net.minecraft.client.render.entity.render.RenderBlocks;
-import net.minecraft.client.render.entity.render.RenderItem;
-import net.minecraft.core.MathHelper;
+import net.minecraft.client.render.block.RenderBlocks;
+import net.minecraft.client.render.item.RenderItem;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.chunk.ChunkCache;

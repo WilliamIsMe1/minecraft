@@ -3,6 +3,7 @@ package net.minecraft.client.render.entity.render;
 import net.minecraft.block.core.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.FontRenderer;
+import net.minecraft.client.render.block.RenderBlocks;
 import net.minecraft.client.render.entity.model.ModelBiped;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
@@ -12,7 +13,7 @@ import net.minecraft.entity.living.EntityPlayerSP;
 import net.minecraft.item.core.Item;
 import net.minecraft.item.gear.ItemArmor;
 import net.minecraft.item.core.ItemStack;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class RenderPlayer extends RenderLiving {

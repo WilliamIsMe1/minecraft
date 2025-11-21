@@ -5,9 +5,9 @@ import java.util.Random;
 import net.minecraft.block.core.Block;
 import net.minecraft.achievement.Achievement;
 import net.minecraft.achievement.AchievementList;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.client.render.entity.render.RenderHelper;
-import net.minecraft.client.render.entity.render.RenderItem;
+import net.minecraft.client.render.item.RenderItem;
 import net.minecraft.achievement.stats.StatCollector;
 import net.minecraft.achievement.stats.StatFileWriter;
 import org.lwjgl.input.Mouse;
@@ -48,7 +48,7 @@ public class GuiAchievements extends GuiScreen {
 	protected void actionPerformed(GuiButton var1) {
 		if(var1.id == 1) {
 			this.mc.displayGuiScreen((GuiScreen)null);
-			this.mc.setIngameFocus();
+			this.mc.setInGameFocus();
 		}
 
 		super.actionPerformed(var1);
@@ -57,7 +57,7 @@ public class GuiAchievements extends GuiScreen {
 	protected void keyTyped(char var1, int var2) {
 		if(var2 == this.mc.gameSettings.keyBindInventory.keyCode) {
 			this.mc.displayGuiScreen((GuiScreen)null);
-			this.mc.setIngameFocus();
+			this.mc.setInGameFocus();
 		} else {
 			super.keyTyped(var1, var2);
 		}

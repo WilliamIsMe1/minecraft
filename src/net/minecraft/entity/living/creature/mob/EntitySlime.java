@@ -4,7 +4,7 @@ import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.Item;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 

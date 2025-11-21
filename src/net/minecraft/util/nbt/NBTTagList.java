@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NBTTagList extends NBTBase {
+public class NBTTagList extends net.minecraft.util.nbt.NBTBase {
 	private List tagList = new ArrayList();
 	private byte tagType;
 
 	public void writeTagContents(DataOutput var1) throws IOException {
 		if(this.tagList.size() > 0) {
-			this.tagType = ((NBTBase)this.tagList.get(0)).getType();
+			this.tagType = ((net.minecraft.util.nbt.NBTBase)this.tagList.get(0)).getType();
 		} else {
 			this.tagType = 1;
 		}
@@ -21,7 +21,7 @@ public class NBTTagList extends NBTBase {
 		var1.writeInt(this.tagList.size());
 
 		for(int var2 = 0; var2 < this.tagList.size(); ++var2) {
-			((NBTBase)this.tagList.get(var2)).writeTagContents(var1);
+			((net.minecraft.util.nbt.NBTBase)this.tagList.get(var2)).writeTagContents(var1);
 		}
 
 	}
@@ -32,7 +32,7 @@ public class NBTTagList extends NBTBase {
 		this.tagList = new ArrayList();
 
 		for(int var3 = 0; var3 < var2; ++var3) {
-			NBTBase var4 = NBTBase.createTagOfType(this.tagType);
+			net.minecraft.util.nbt.NBTBase var4 = net.minecraft.util.nbt.NBTBase.createTagOfType(this.tagType);
 			var4.readTagContents(var1);
 			this.tagList.add(var4);
 		}
@@ -44,15 +44,15 @@ public class NBTTagList extends NBTBase {
 	}
 
 	public String toString() {
-		return "" + this.tagList.size() + " entries of type " + NBTBase.getTagName(this.tagType);
+		return "" + this.tagList.size() + " entries of type " + net.minecraft.util.nbt.NBTBase.getTagName(this.tagType);
 	}
 
-	public void setTag(NBTBase var1) {
+	public void setTag(net.minecraft.util.nbt.NBTBase var1) {
 		this.tagType = var1.getType();
 		this.tagList.add(var1);
 	}
 
-	public NBTBase tagAt(int var1) {
+	public net.minecraft.util.nbt.NBTBase tagAt(int var1) {
 		return (NBTBase)this.tagList.get(var1);
 	}
 

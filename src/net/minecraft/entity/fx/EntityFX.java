@@ -1,6 +1,6 @@
 package net.minecraft.entity.fx;
 
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.client.render.Tessellator;

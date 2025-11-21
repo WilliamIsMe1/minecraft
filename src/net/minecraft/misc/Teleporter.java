@@ -1,7 +1,7 @@
 package net.minecraft.misc;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
@@ -23,8 +23,8 @@ public class Teleporter {
 		int var6 = 0;
 		int var7 = 0;
 		int var8 = 0;
-		int var9 = net.minecraft.core.MathHelper.floor_double(var2.posX);
-		int var10 = net.minecraft.core.MathHelper.floor_double(var2.posZ);
+		int var9 = MathHelper.floor_double(var2.posX);
+		int var10 = MathHelper.floor_double(var2.posZ);
 
 		double var18;
 		for(int var11 = var9 - var3; var11 <= var9 + var3; ++var11) {
@@ -83,8 +83,8 @@ public class Teleporter {
 	public boolean func_4108_c(World var1, Entity var2) {
 		byte var3 = 16;
 		double var4 = -1.0D;
-		int var6 = net.minecraft.core.MathHelper.floor_double(var2.posX);
-		int var7 = net.minecraft.core.MathHelper.floor_double(var2.posY);
+		int var6 = MathHelper.floor_double(var2.posX);
+		int var7 = MathHelper.floor_double(var2.posY);
 		int var8 = MathHelper.floor_double(var2.posZ);
 		int var9 = var6;
 		int var10 = var7;

@@ -2,7 +2,7 @@ package net.minecraft.entity.living;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.core.ItemStack;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityOtherPlayerMP extends EntityPlayer {

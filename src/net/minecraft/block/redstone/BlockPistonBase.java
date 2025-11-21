@@ -1,12 +1,11 @@
 package net.minecraft.block.redstone;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.block.tileentity.TileEntityPiston;
-import net.minecraft.client.render.PistonBlockTextures;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.misc.AxisAlignedBB;
@@ -31,7 +30,7 @@ public class BlockPistonBase extends Block {
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
 		int var3 = func_31044_d(var2);
-		return var3 > 5 ? this.getBlockIndexInTexture() : (var1 == var3 ? (!isPowered(var2) && this.getMinX() <= 0.0D && this.getMinY() <= 0.0D && this.getMinZ() <= 0.0D && this.getMaxX() >= 1.0D && this.getMaxY() >= 1.0D && this.getMaxZ() >= 1.0D ? this.getBlockIndexInTexture() : 110) : (var1 == net.minecraft.client.render.PistonBlockTextures.field_31057_a[var3] ? 109 : 108));
+		return var3 > 5 ? this.getBlockIndexInTexture() : (var1 == var3 ? (!isPowered(var2) && this.getMinX() <= 0.0D && this.getMinY() <= 0.0D && this.getMinZ() <= 0.0D && this.getMaxX() >= 1.0D && this.getMaxY() >= 1.0D && this.getMaxZ() >= 1.0D ? this.getBlockIndexInTexture() : 110) : (var1 == PistonBlockTextures.field_31057_a[var3] ? 109 : 108));
 	}
 
 	public int getRenderType() {
@@ -99,7 +98,7 @@ public class BlockPistonBase extends Block {
 				var1.playSoundEffect((double)var2 + 0.5D, (double)var3 + 0.5D, (double)var4 + 0.5D, "tile.piston.out", 0.5F, var1.rand.nextFloat() * 0.25F + 0.6F);
 			}
 		} else if(var5 == 1) {
-			TileEntity var8 = var1.getBlockTileEntity(var2 + net.minecraft.client.render.PistonBlockTextures.field_31056_b[var6], var3 + net.minecraft.client.render.PistonBlockTextures.field_31059_c[var6], var4 + net.minecraft.client.render.PistonBlockTextures.field_31058_d[var6]);
+			TileEntity var8 = var1.getBlockTileEntity(var2 + PistonBlockTextures.field_31056_b[var6], var3 + PistonBlockTextures.field_31059_c[var6], var4 + PistonBlockTextures.field_31058_d[var6]);
 			if(var8 != null && var8 instanceof TileEntityPiston) {
 				((TileEntityPiston)var8).func_31011_l();
 			}
@@ -107,9 +106,9 @@ public class BlockPistonBase extends Block {
 			var1.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.getBlockID(), var6);
 			var1.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.func_31036_a(this.getBlockID(), var6, var6, false, true));
 			if(this.isSticky) {
-				int var9 = var2 + net.minecraft.client.render.PistonBlockTextures.field_31056_b[var6] * 2;
-				int var10 = var3 + net.minecraft.client.render.PistonBlockTextures.field_31059_c[var6] * 2;
-				int var11 = var4 + net.minecraft.client.render.PistonBlockTextures.field_31058_d[var6] * 2;
+				int var9 = var2 + PistonBlockTextures.field_31056_b[var6] * 2;
+				int var10 = var3 + PistonBlockTextures.field_31059_c[var6] * 2;
+				int var11 = var4 + PistonBlockTextures.field_31058_d[var6] * 2;
 				int var12 = var1.getBlockId(var9, var10, var11);
 				int var13 = var1.getBlockMetadata(var9, var10, var11);
 				boolean var14 = false;
@@ -129,22 +128,22 @@ public class BlockPistonBase extends Block {
 				if(var14 || var12 <= 0 || !canPushBlock(var12, var1, var9, var10, var11, false) || Block.blocksList[var12].getMobilityFlag() != 0 && var12 != Block.pistonBase.getBlockID() && var12 != Block.pistonStickyBase.getBlockID()) {
 					if(!var14) {
 						this.field_31048_b = false;
-						var1.setBlockWithNotify(var2 + net.minecraft.client.render.PistonBlockTextures.field_31056_b[var6], var3 + net.minecraft.client.render.PistonBlockTextures.field_31059_c[var6], var4 + net.minecraft.client.render.PistonBlockTextures.field_31058_d[var6], 0);
+						var1.setBlockWithNotify(var2 + PistonBlockTextures.field_31056_b[var6], var3 + PistonBlockTextures.field_31059_c[var6], var4 + PistonBlockTextures.field_31058_d[var6], 0);
 						this.field_31048_b = true;
 					}
 				} else {
 					this.field_31048_b = false;
 					var1.setBlockWithNotify(var9, var10, var11, 0);
 					this.field_31048_b = true;
-					var2 += net.minecraft.client.render.PistonBlockTextures.field_31056_b[var6];
-					var3 += net.minecraft.client.render.PistonBlockTextures.field_31059_c[var6];
-					var4 += net.minecraft.client.render.PistonBlockTextures.field_31058_d[var6];
+					var2 += PistonBlockTextures.field_31056_b[var6];
+					var3 += PistonBlockTextures.field_31059_c[var6];
+					var4 += PistonBlockTextures.field_31058_d[var6];
 					var1.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.getBlockID(), var13);
 					var1.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.func_31036_a(var12, var13, var6, false, false));
 				}
 			} else {
 				this.field_31048_b = false;
-				var1.setBlockWithNotify(var2 + net.minecraft.client.render.PistonBlockTextures.field_31056_b[var6], var3 + net.minecraft.client.render.PistonBlockTextures.field_31059_c[var6], var4 + net.minecraft.client.render.PistonBlockTextures.field_31058_d[var6], 0);
+				var1.setBlockWithNotify(var2 + PistonBlockTextures.field_31056_b[var6], var3 + PistonBlockTextures.field_31059_c[var6], var4 + PistonBlockTextures.field_31058_d[var6], 0);
 				this.field_31048_b = true;
 			}
 
@@ -204,7 +203,7 @@ public class BlockPistonBase extends Block {
 	}
 
 	private static int func_31039_c(net.minecraft.world.World var0, int var1, int var2, int var3, EntityPlayer var4) {
-		if(net.minecraft.core.MathHelper.abs((float)var4.posX - (float)var1) < 2.0F && net.minecraft.core.MathHelper.abs((float)var4.posZ - (float)var3) < 2.0F) {
+		if(MathHelper.abs((float)var4.posX - (float)var1) < 2.0F && MathHelper.abs((float)var4.posZ - (float)var3) < 2.0F) {
 			double var5 = var4.posY + 1.82D - (double)var4.yOffset;
 			if(var5 - (double)var2 > 2.0D) {
 				return 1;
@@ -245,9 +244,9 @@ public class BlockPistonBase extends Block {
 	}
 
 	private static boolean func_31045_h(net.minecraft.world.World var0, int var1, int var2, int var3, int var4) {
-		int var5 = var1 + net.minecraft.client.render.PistonBlockTextures.field_31056_b[var4];
-		int var6 = var2 + net.minecraft.client.render.PistonBlockTextures.field_31059_c[var4];
-		int var7 = var3 + net.minecraft.client.render.PistonBlockTextures.field_31058_d[var4];
+		int var5 = var1 + PistonBlockTextures.field_31056_b[var4];
+		int var6 = var2 + PistonBlockTextures.field_31059_c[var4];
+		int var7 = var3 + PistonBlockTextures.field_31058_d[var4];
 		int var8 = 0;
 
 		while(true) {
@@ -267,9 +266,9 @@ public class BlockPistonBase extends Block {
 							return false;
 						}
 
-						var5 += net.minecraft.client.render.PistonBlockTextures.field_31056_b[var4];
-						var6 += net.minecraft.client.render.PistonBlockTextures.field_31059_c[var4];
-						var7 += net.minecraft.client.render.PistonBlockTextures.field_31058_d[var4];
+						var5 += PistonBlockTextures.field_31056_b[var4];
+						var6 += PistonBlockTextures.field_31059_c[var4];
+						var7 += PistonBlockTextures.field_31058_d[var4];
 						++var8;
 						continue;
 					}
@@ -281,9 +280,9 @@ public class BlockPistonBase extends Block {
 	}
 
 	private boolean func_31047_i(World var1, int var2, int var3, int var4, int var5) {
-		int var6 = var2 + net.minecraft.client.render.PistonBlockTextures.field_31056_b[var5];
-		int var7 = var3 + net.minecraft.client.render.PistonBlockTextures.field_31059_c[var5];
-		int var8 = var4 + net.minecraft.client.render.PistonBlockTextures.field_31058_d[var5];
+		int var6 = var2 + PistonBlockTextures.field_31056_b[var5];
+		int var7 = var3 + PistonBlockTextures.field_31059_c[var5];
+		int var8 = var4 + PistonBlockTextures.field_31058_d[var5];
 		int var9 = 0;
 
 		while(true) {
@@ -304,9 +303,9 @@ public class BlockPistonBase extends Block {
 							return false;
 						}
 
-						var6 += net.minecraft.client.render.PistonBlockTextures.field_31056_b[var5];
-						var7 += net.minecraft.client.render.PistonBlockTextures.field_31059_c[var5];
-						var8 += net.minecraft.client.render.PistonBlockTextures.field_31058_d[var5];
+						var6 += PistonBlockTextures.field_31056_b[var5];
+						var7 += PistonBlockTextures.field_31059_c[var5];
+						var8 += PistonBlockTextures.field_31058_d[var5];
 						++var9;
 						continue;
 					}
@@ -317,8 +316,8 @@ public class BlockPistonBase extends Block {
 			}
 
 			while(var6 != var2 || var7 != var3 || var8 != var4) {
-				var9 = var6 - net.minecraft.client.render.PistonBlockTextures.field_31056_b[var5];
-				var10 = var7 - net.minecraft.client.render.PistonBlockTextures.field_31059_c[var5];
+				var9 = var6 - PistonBlockTextures.field_31056_b[var5];
+				var10 = var7 - PistonBlockTextures.field_31059_c[var5];
 				int var11 = var8 - PistonBlockTextures.field_31058_d[var5];
 				int var12 = var1.getBlockId(var9, var10, var11);
 				int var13 = var1.getBlockMetadata(var9, var10, var11);

@@ -4,7 +4,7 @@ import net.minecraft.client.render.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.creature.animal.EntityChicken;
 import net.minecraft.entity.living.EntityLiving;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class RenderChicken extends RenderLiving {
 	public RenderChicken(ModelBase var1, float var2) {

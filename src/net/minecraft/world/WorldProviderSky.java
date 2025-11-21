@@ -1,7 +1,7 @@
 package net.minecraft.world;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.world.chunk.ChunkProviderSky;
 import net.minecraft.world.chunk.IChunkProvider;

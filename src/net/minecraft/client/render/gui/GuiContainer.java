@@ -2,8 +2,9 @@ package net.minecraft.client.render.gui;
 
 import net.minecraft.client.render.entity.render.RenderHelper;
 import net.minecraft.core.StringTranslate;
-import net.minecraft.client.render.entity.render.RenderItem;
+import net.minecraft.client.render.item.RenderItem;
 import net.minecraft.item.container.inventory.InventoryPlayer;
+import net.minecraft.item.container.inventory.Slot;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.item.container.Container;
 import org.lwjgl.input.Keyboard;
@@ -42,8 +43,8 @@ public abstract class GuiContainer extends GuiScreen {
 
 		int var9;
 		int var10;
-		for(int var7 = 0; var7 < this.inventorySlots.slots.size(); ++var7) {
-			Slot var8 = (Slot)this.inventorySlots.slots.get(var7);
+		for(int var7 = 0; var7 < this.inventorySlots.inventorySlots.size(); ++var7) {
+			Slot var8 = (Slot)this.inventorySlots.inventorySlots.get(var7);
 			this.drawSlotInventory(var8);
 			if(this.getIsMouseOverSlot(var8, var1, var2)) {
 				var6 = var8;
@@ -111,8 +112,8 @@ public abstract class GuiContainer extends GuiScreen {
 	}
 
 	private Slot getSlotAtPosition(int var1, int var2) {
-		for(int var3 = 0; var3 < this.inventorySlots.slots.size(); ++var3) {
-			Slot var4 = (Slot)this.inventorySlots.slots.get(var3);
+		for(int var3 = 0; var3 < this.inventorySlots.inventorySlots.size(); ++var3) {
+			Slot var4 = (Slot)this.inventorySlots.inventorySlots.get(var3);
 			if(this.getIsMouseOverSlot(var4, var1, var2)) {
 				return var4;
 			}

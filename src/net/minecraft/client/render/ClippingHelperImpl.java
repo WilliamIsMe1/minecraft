@@ -2,7 +2,7 @@ package net.minecraft.client.render;
 
 import java.nio.FloatBuffer;
 
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class ClippingHelperImpl extends ClippingHelper {

@@ -4,7 +4,7 @@ import net.minecraft.client.render.ModelBase;
 import net.minecraft.client.render.entity.model.ModelCreeper;
 import net.minecraft.entity.living.creature.mob.EntityCreeper;
 import net.minecraft.entity.living.EntityLiving;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class RenderCreeper extends RenderLiving {

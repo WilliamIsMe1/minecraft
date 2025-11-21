@@ -1,7 +1,7 @@
 package net.minecraft.block.redstone;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.entity.EnumMobType;

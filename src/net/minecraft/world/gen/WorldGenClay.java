@@ -2,7 +2,7 @@ package net.minecraft.world.gen;
 
 import net.minecraft.block.core.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.Random;

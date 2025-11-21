@@ -3,7 +3,7 @@ package net.minecraft.entity.living;
 import net.minecraft.block.core.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.StepSound;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.core.ItemStack;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public abstract class EntityLiving extends Entity {
+public abstract class EntityLiving extends Entity implements ILiving {
 	public int heartsHalvesLife = 20;
 	public float field_9365_p;
 	public float field_9363_r;
@@ -217,7 +217,7 @@ public abstract class EntityLiving extends Entity {
 		this.onLivingUpdate();
 		double var1 = this.posX - this.prevPosX;
 		double var3 = this.posZ - this.prevPosZ;
-		float var5 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var3 * var3);
+		float var5 = MathHelper.sqrt_double(var1 * var1 + var3 * var3);
 		float var6 = this.renderYawOffset;
 		float var7 = 0.0F;
 		this.field_9362_u = this.field_9361_v;
@@ -402,7 +402,7 @@ public abstract class EntityLiving extends Entity {
 	}
 
 	public void knockBack(Entity var1, int var2, double var3, double var5) {
-		float var7 = net.minecraft.core.MathHelper.sqrt_double(var3 * var3 + var5 * var5);
+		float var7 = MathHelper.sqrt_double(var3 * var3 + var5 * var5);
 		float var8 = 0.4F;
 		this.motionX /= 2.0D;
 		this.motionY /= 2.0D;
@@ -454,7 +454,7 @@ public abstract class EntityLiving extends Entity {
 		int var2 = (int)Math.ceil((double)(var1 - 3.0F));
 		if(var2 > 0) {
 			this.attackEntityFrom((Entity)null, var2);
-			int var3 = this.worldObj.getBlockId(net.minecraft.core.MathHelper.floor_double(this.posX), net.minecraft.core.MathHelper.floor_double(this.posY - (double)0.2F - (double)this.yOffset), net.minecraft.core.MathHelper.floor_double(this.posZ));
+			int var3 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY - (double)0.2F - (double)this.yOffset), MathHelper.floor_double(this.posZ));
 			if(var3 > 0) {
 				StepSound var4 = Block.blocksList[var3].getStepSound();
 				this.worldObj.playSoundAtEntity(this, var4.func_1145_d(), var4.getVolume() * 0.5F, var4.getPitch() * (12.0F / 16.0F));
@@ -491,7 +491,7 @@ public abstract class EntityLiving extends Entity {
 			float var8 = 0.91F;
 			if(this.onGround) {
 				var8 = 546.0F * 0.1F * 0.1F * 0.1F;
-				int var4 = this.worldObj.getBlockId(net.minecraft.core.MathHelper.floor_double(this.posX), net.minecraft.core.MathHelper.floor_double(this.boundingBox.minY) - 1, net.minecraft.core.MathHelper.floor_double(this.posZ));
+				int var4 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
 				if(var4 > 0) {
 					var8 = Block.blocksList[var4].getSlipperiness() * 0.91F;
 				}
@@ -502,7 +502,7 @@ public abstract class EntityLiving extends Entity {
 			var8 = 0.91F;
 			if(this.onGround) {
 				var8 = 546.0F * 0.1F * 0.1F * 0.1F;
-				int var5 = this.worldObj.getBlockId(net.minecraft.core.MathHelper.floor_double(this.posX), net.minecraft.core.MathHelper.floor_double(this.boundingBox.minY) - 1, net.minecraft.core.MathHelper.floor_double(this.posZ));
+				int var5 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
 				if(var5 > 0) {
 					var8 = Block.blocksList[var5].getSlipperiness() * 0.91F;
 				}
@@ -550,7 +550,7 @@ public abstract class EntityLiving extends Entity {
 		this.field_705_Q = this.field_704_R;
 		var3 = this.posX - this.prevPosX;
 		double var11 = this.posZ - this.prevPosZ;
-		float var7 = net.minecraft.core.MathHelper.sqrt_double(var3 * var3 + var11 * var11) * 4.0F;
+		float var7 = MathHelper.sqrt_double(var3 * var3 + var11 * var11) * 4.0F;
 		if(var7 > 1.0F) {
 			var7 = 1.0F;
 		}
@@ -560,9 +560,9 @@ public abstract class EntityLiving extends Entity {
 	}
 
 	public boolean isOnLadder() {
-		int var1 = net.minecraft.core.MathHelper.floor_double(this.posX);
-		int var2 = net.minecraft.core.MathHelper.floor_double(this.boundingBox.minY);
-		int var3 = net.minecraft.core.MathHelper.floor_double(this.posZ);
+		int var1 = MathHelper.floor_double(this.posX);
+		int var2 = MathHelper.floor_double(this.boundingBox.minY);
+		int var3 = MathHelper.floor_double(this.posZ);
 		return this.worldObj.getBlockId(var1, var2, var3) == Block.ladder.getBlockID();
 	}
 
@@ -752,7 +752,7 @@ public abstract class EntityLiving extends Entity {
 			var6 = (var1.boundingBox.minY + var1.boundingBox.maxY) / 2.0D - (this.posY + (double)this.getEyeHeight());
 		}
 
-		double var14 = (double) net.minecraft.core.MathHelper.sqrt_double(var4 * var4 + var8 * var8);
+		double var14 = (double) MathHelper.sqrt_double(var4 * var4 + var8 * var8);
 		float var12 = (float)(Math.atan2(var8, var4) * 180.0D / (double)((float)Math.PI)) - 90.0F;
 		float var13 = (float)(-(Math.atan2(var6, var14) * 180.0D / (double)((float)Math.PI)));
 		this.rotationPitch = -this.updateRotation(this.rotationPitch, var13, var3);
@@ -828,17 +828,17 @@ public abstract class EntityLiving extends Entity {
 		float var4;
 		float var5;
 		if(var1 == 1.0F) {
-			var2 = net.minecraft.core.MathHelper.cos(-this.rotationYaw * ((float)Math.PI / 180.0F) - (float)Math.PI);
-			var3 = net.minecraft.core.MathHelper.sin(-this.rotationYaw * ((float)Math.PI / 180.0F) - (float)Math.PI);
-			var4 = -net.minecraft.core.MathHelper.cos(-this.rotationPitch * ((float)Math.PI / 180.0F));
-			var5 = net.minecraft.core.MathHelper.sin(-this.rotationPitch * ((float)Math.PI / 180.0F));
+			var2 = MathHelper.cos(-this.rotationYaw * ((float)Math.PI / 180.0F) - (float)Math.PI);
+			var3 = MathHelper.sin(-this.rotationYaw * ((float)Math.PI / 180.0F) - (float)Math.PI);
+			var4 = -MathHelper.cos(-this.rotationPitch * ((float)Math.PI / 180.0F));
+			var5 = MathHelper.sin(-this.rotationPitch * ((float)Math.PI / 180.0F));
 			return net.minecraft.core.Vec3D.createVector((double)(var3 * var4), (double)var5, (double)(var2 * var4));
 		} else {
 			var2 = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * var1;
 			var3 = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * var1;
-			var4 = net.minecraft.core.MathHelper.cos(-var3 * ((float)Math.PI / 180.0F) - (float)Math.PI);
-			var5 = net.minecraft.core.MathHelper.sin(-var3 * ((float)Math.PI / 180.0F) - (float)Math.PI);
-			float var6 = -net.minecraft.core.MathHelper.cos(-var2 * ((float)Math.PI / 180.0F));
+			var4 = MathHelper.cos(-var3 * ((float)Math.PI / 180.0F) - (float)Math.PI);
+			var5 = MathHelper.sin(-var3 * ((float)Math.PI / 180.0F) - (float)Math.PI);
+			float var6 = -MathHelper.cos(-var2 * ((float)Math.PI / 180.0F));
 			float var7 = MathHelper.sin(-var2 * ((float)Math.PI / 180.0F));
 			return net.minecraft.core.Vec3D.createVector((double)(var5 * var6), (double)var7, (double)(var4 * var6));
 		}

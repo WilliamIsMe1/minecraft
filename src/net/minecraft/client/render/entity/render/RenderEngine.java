@@ -26,18 +26,18 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderEngine {
 	public static boolean useMipmaps = false;
-	private HashMap textureMap = new HashMap();
-	private HashMap field_28151_c = new HashMap();
-	private HashMap textureNameToImageMap = new HashMap();
-	private IntBuffer singleIntBuffer = net.minecraft.client.render.GLAllocation.createDirectIntBuffer(1);
-	private ByteBuffer imageData = net.minecraft.client.render.GLAllocation.createDirectByteBuffer(1048576);
-	private List textureList = new ArrayList();
-	private Map urlToImageDataMap = new HashMap();
-	private net.minecraft.client.GameSettings options;
+	private final HashMap<String, Integer> textureMap = new HashMap<>();
+	private final HashMap<String, int[]> field_28151_c = new HashMap<>();
+	private final HashMap<Integer, BufferedImage> textureNameToImageMap = new HashMap<>();
+	private final IntBuffer singleIntBuffer = net.minecraft.client.render.GLAllocation.createDirectIntBuffer(1);
+	private final ByteBuffer imageData = net.minecraft.client.render.GLAllocation.createDirectByteBuffer(1048576);
+	private final List<TextureFX> textureList = new ArrayList<>();
+	private final Map<String, ThreadDownloadImageData> urlToImageDataMap = new HashMap<>();
+	private final net.minecraft.client.GameSettings options;
 	private boolean clampTexture = false;
 	private boolean blurTexture = false;
-	private TexturePackList texturePack;
-	private BufferedImage missingTextureImage = new BufferedImage(64, 64, 2);
+	private final TexturePackList texturePack;
+	private final BufferedImage missingTextureImage = new BufferedImage(64, 64, 2);
 
 	public RenderEngine(TexturePackList var1, GameSettings var2) {
 		this.texturePack = var1;
@@ -50,26 +50,26 @@ public class RenderEngine {
 		var3.dispose();
 	}
 
-	public int[] func_28149_a(String var1) {
+	public int[] loadPixels(String texture) {
 		net.minecraft.client.render.TexturePackBase var2 = this.texturePack.selectedTexturePack;
-		int[] var3 = (int[])this.field_28151_c.get(var1);
+		int[] var3 = this.field_28151_c.get(texture);
 		if(var3 != null) {
 			return var3;
 		} else {
 			try {
-				Object var6 = null;
-				if(var1.startsWith("##")) {
-					var3 = this.func_28148_b(this.unwrapImageByColumns(this.readTextureImage(var2.getResourceAsStream(var1.substring(2)))));
-				} else if(var1.startsWith("%clamp%")) {
+				// Object var6 = null;
+				if(texture.startsWith("##")) {
+					var3 = this.func_28148_b(this.unwrapImageByColumns(this.readTextureImage(var2.getResourceAsStream(texture.substring(2)))));
+				} else if(texture.startsWith("%clamp%")) {
 					this.clampTexture = true;
-					var3 = this.func_28148_b(this.readTextureImage(var2.getResourceAsStream(var1.substring(7))));
+					var3 = this.func_28148_b(this.readTextureImage(var2.getResourceAsStream(texture.substring(7))));
 					this.clampTexture = false;
-				} else if(var1.startsWith("%blur%")) {
+				} else if(texture.startsWith("%blur%")) {
 					this.blurTexture = true;
-					var3 = this.func_28148_b(this.readTextureImage(var2.getResourceAsStream(var1.substring(6))));
+					var3 = this.func_28148_b(this.readTextureImage(var2.getResourceAsStream(texture.substring(6))));
 					this.blurTexture = false;
 				} else {
-					InputStream var7 = var2.getResourceAsStream(var1);
+					InputStream var7 = var2.getResourceAsStream(texture);
 					if(var7 == null) {
 						var3 = this.func_28148_b(this.missingTextureImage);
 					} else {
@@ -77,12 +77,12 @@ public class RenderEngine {
 					}
 				}
 
-				this.field_28151_c.put(var1, var3);
+				this.field_28151_c.put(texture, var3);
 				return var3;
 			} catch (IOException var5) {
 				var5.printStackTrace();
 				int[] var4 = this.func_28148_b(this.missingTextureImage);
-				this.field_28151_c.put(var1, var4);
+				this.field_28151_c.put(texture, var4);
 				return var4;
 			}
 		}
@@ -105,9 +105,9 @@ public class RenderEngine {
 
 	public int getTexture(String var1) {
 		net.minecraft.client.render.TexturePackBase var2 = this.texturePack.selectedTexturePack;
-		Integer var3 = (Integer)this.textureMap.get(var1);
+		Integer var3 = this.textureMap.get(var1);
 		if(var3 != null) {
-			return var3.intValue();
+			return var3;
 		} else {
 			try {
 				this.singleIntBuffer.clear();
@@ -132,14 +132,14 @@ public class RenderEngine {
 					}
 				}
 
-				this.textureMap.put(var1, Integer.valueOf(var6));
+				this.textureMap.put(var1, var6);
 				return var6;
 			} catch (IOException var5) {
 				var5.printStackTrace();
 				net.minecraft.client.render.GLAllocation.generateTextureNames(this.singleIntBuffer);
 				int var4 = this.singleIntBuffer.get(0);
 				this.setupTexture(this.missingTextureImage, var4);
-				this.textureMap.put(var1, Integer.valueOf(var4));
+				this.textureMap.put(var1, var4);
 				return var4;
 			}
 		}
@@ -163,7 +163,7 @@ public class RenderEngine {
 		GLAllocation.generateTextureNames(this.singleIntBuffer);
 		int var2 = this.singleIntBuffer.get(0);
 		this.setupTexture(var1, var2);
-		this.textureNameToImageMap.put(Integer.valueOf(var2), var1);
+		this.textureNameToImageMap.put(var2, var1);
 		return var2;
 	}
 
@@ -218,7 +218,7 @@ public class RenderEngine {
 				var11 = var14;
 			}
 
-			var6[var7 * 4 + 0] = (byte)var9;
+			var6[var7 * 4] = (byte)var9;
 			var6[var7 * 4 + 1] = (byte)var10;
 			var6[var7 * 4 + 2] = (byte)var11;
 			var6[var7 * 4 + 3] = (byte)var8;
@@ -236,10 +236,10 @@ public class RenderEngine {
 
 				for(var11 = 0; var11 < var9; ++var11) {
 					for(var12 = 0; var12 < var10; ++var12) {
-						var13 = this.imageData.getInt((var11 * 2 + 0 + (var12 * 2 + 0) * var8) * 4);
-						var14 = this.imageData.getInt((var11 * 2 + 1 + (var12 * 2 + 0) * var8) * 4);
+						var13 = this.imageData.getInt((var11 * 2 + (var12 * 2) * var8) * 4);
+						var14 = this.imageData.getInt((var11 * 2 + 1 + (var12 * 2) * var8) * 4);
 						int var15 = this.imageData.getInt((var11 * 2 + 1 + (var12 * 2 + 1) * var8) * 4);
-						int var16 = this.imageData.getInt((var11 * 2 + 0 + (var12 * 2 + 1) * var8) * 4);
+						int var16 = this.imageData.getInt((var11 * 2 + (var12 * 2 + 1) * var8) * 4);
 						int var17 = this.weightedAverageColor(this.weightedAverageColor(var13, var14), this.weightedAverageColor(var15, var16));
 						this.imageData.putInt((var11 + var12 * var9) * 4, var17);
 					}
@@ -290,7 +290,7 @@ public class RenderEngine {
 				var10 = var13;
 			}
 
-			var5[var6 * 4 + 0] = (byte)var8;
+			var5[var6 * 4]     = (byte)var8;
 			var5[var6 * 4 + 1] = (byte)var9;
 			var5[var6 * 4 + 2] = (byte)var10;
 			var5[var6 * 4 + 3] = (byte)var7;
@@ -303,7 +303,7 @@ public class RenderEngine {
 	}
 
 	public void deleteTexture(int var1) {
-		this.textureNameToImageMap.remove(Integer.valueOf(var1));
+		this.textureNameToImageMap.remove(var1);
 		this.singleIntBuffer.clear();
 		this.singleIntBuffer.put(var1);
 		this.singleIntBuffer.flip();

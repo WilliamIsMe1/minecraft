@@ -1,6 +1,6 @@
 package net.minecraft.entity.living.creature.mob;
 
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.entity.living.EntityPlayer;
@@ -188,7 +188,7 @@ public class EntityWolf extends EntityAnimal {
 
 			if(this.timeWolfIsShaking > 0.4F) {
 				float var1 = (float)this.boundingBox.minY;
-				int var2 = (int)(net.minecraft.core.MathHelper.sin((this.timeWolfIsShaking - 0.4F) * (float)Math.PI) * 7.0F);
+				int var2 = (int)(MathHelper.sin((this.timeWolfIsShaking - 0.4F) * (float)Math.PI) * 7.0F);
 
 				for(int var3 = 0; var3 < var2; ++var3) {
 					float var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
@@ -216,7 +216,7 @@ public class EntityWolf extends EntityAnimal {
 			var3 = 1.0F;
 		}
 
-		return net.minecraft.core.MathHelper.sin(var3 * (float)Math.PI) * net.minecraft.core.MathHelper.sin(var3 * (float)Math.PI * 11.0F) * 0.15F * (float)Math.PI;
+		return MathHelper.sin(var3 * (float)Math.PI) * MathHelper.sin(var3 * (float)Math.PI * 11.0F) * 0.15F * (float)Math.PI;
 	}
 
 	public float getInterestedAngle(float var1) {
@@ -234,9 +234,9 @@ public class EntityWolf extends EntityAnimal {
 	private void getPathOrWalkableBlock(net.minecraft.entity.Entity var1, float var2) {
 		PathEntity var3 = this.worldObj.getPathToEntity(this, var1, 16.0F);
 		if(var3 == null && var2 > 12.0F) {
-			int var4 = net.minecraft.core.MathHelper.floor_double(var1.posX) - 2;
-			int var5 = net.minecraft.core.MathHelper.floor_double(var1.posZ) - 2;
-			int var6 = net.minecraft.core.MathHelper.floor_double(var1.boundingBox.minY);
+			int var4 = MathHelper.floor_double(var1.posX) - 2;
+			int var5 = MathHelper.floor_double(var1.posZ) - 2;
+			int var6 = MathHelper.floor_double(var1.boundingBox.minY);
 
 			for(int var7 = 0; var7 <= 4; ++var7) {
 				for(int var8 = 0; var8 <= 4; ++var8) {

@@ -3,7 +3,7 @@ package net.minecraft.client.render.gui;
 import net.minecraft.block.core.Block;
 import net.minecraft.client.render.TileEntityRenderer;
 import net.minecraft.block.tileentity.TileEntitySign;
-import net.minecraft.client.ChatAllowedCharacters;
+import net.minecraft.core.ChatAllowedCharacters;
 import net.minecraft.network.packet.Packet130UpdateSign;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;

@@ -14,7 +14,7 @@ public final class ItemStack {
 	private int itemDamage;
 
 	public ItemStack(Block var1) {
-		this((Block)var1, 1);
+		this(var1, 1);
 	}
 
 	public ItemStack(Block var1, int var2) {
@@ -44,7 +44,7 @@ public final class ItemStack {
 		this.itemDamage = var3;
 	}
 
-	public ItemStack(net.minecraft.util.nbt.NBTTagCompound var1) {
+	public ItemStack(NBTTagCompound var1) {
 		this.stackSize = 0;
 		this.readFromNBT(var1);
 	}

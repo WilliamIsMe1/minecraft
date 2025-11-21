@@ -1,6 +1,6 @@
 package net.minecraft.entity.pathfinding;
 
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class PathPoint {
 	public final int xCoord;

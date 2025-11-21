@@ -2,11 +2,12 @@ package net.minecraft.client.render.entity.render;
 
 import net.minecraft.block.core.Block;
 import net.minecraft.client.render.ModelBase;
+import net.minecraft.client.render.block.RenderBlocks;
 import net.minecraft.client.render.entity.model.ModelMinecart;
 import net.minecraft.client.render.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityMinecart;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.Vec3D;
 import org.lwjgl.opengl.GL11;
 

@@ -95,7 +95,7 @@ public class PlayerController {
 	}
 
 	public ItemStack func_27174_a(int var1, int var2, int var3, boolean var4, EntityPlayer var5) {
-		return var5.craftingInventory.func_27280_a(var2, var3, var4, var5);
+		return var5.craftingInventory.somethingToDoWithDroppingItems(var2, var3, var4, var5);
 	}
 
 	public void func_20086_a(int var1, EntityPlayer var2) {

@@ -1,7 +1,7 @@
 package net.minecraft.entity.living.creature.mob;
 
 import net.minecraft.block.EnumSkyBlock;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.entity.living.creature.EntityCreature;

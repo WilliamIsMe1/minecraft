@@ -1,7 +1,7 @@
 package net.minecraft.map;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -31,13 +31,13 @@ public class MapGenCavesHell extends MapGenBase {
 		int var25 = var23.nextInt(var14 / 2) + var14 / 4;
 
 		for(boolean var26 = var23.nextInt(6) == 0; var13 < var14; ++var13) {
-			double var27 = 1.5D + (double)(net.minecraft.core.MathHelper.sin((float)var13 * (float)Math.PI / (float)var14) * var10 * 1.0F);
+			double var27 = 1.5D + (double)(MathHelper.sin((float)var13 * (float)Math.PI / (float)var14) * var10 * 1.0F);
 			double var29 = var27 * var15;
-			float var31 = net.minecraft.core.MathHelper.cos(var12);
-			float var32 = net.minecraft.core.MathHelper.sin(var12);
-			var4 += (double)(net.minecraft.core.MathHelper.cos(var11) * var31);
+			float var31 = MathHelper.cos(var12);
+			float var32 = MathHelper.sin(var12);
+			var4 += (double)(MathHelper.cos(var11) * var31);
 			var6 += (double)var32;
-			var8 += (double)(net.minecraft.core.MathHelper.sin(var11) * var31);
+			var8 += (double)(MathHelper.sin(var11) * var31);
 			if(var26) {
 				var12 *= 0.92F;
 			} else {
@@ -66,11 +66,11 @@ public class MapGenCavesHell extends MapGenBase {
 				}
 
 				if(var4 >= var17 - 16.0D - var27 * 2.0D && var8 >= var19 - 16.0D - var27 * 2.0D && var4 <= var17 + 16.0D + var27 * 2.0D && var8 <= var19 + 16.0D + var27 * 2.0D) {
-					int var52 = net.minecraft.core.MathHelper.floor_double(var4 - var27) - var1 * 16 - 1;
-					int var34 = net.minecraft.core.MathHelper.floor_double(var4 + var27) - var1 * 16 + 1;
-					int var53 = net.minecraft.core.MathHelper.floor_double(var6 - var29) - 1;
-					int var36 = net.minecraft.core.MathHelper.floor_double(var6 + var29) + 1;
-					int var54 = net.minecraft.core.MathHelper.floor_double(var8 - var27) - var2 * 16 - 1;
+					int var52 = MathHelper.floor_double(var4 - var27) - var1 * 16 - 1;
+					int var34 = MathHelper.floor_double(var4 + var27) - var1 * 16 + 1;
+					int var53 = MathHelper.floor_double(var6 - var29) - 1;
+					int var36 = MathHelper.floor_double(var6 + var29) + 1;
+					int var54 = MathHelper.floor_double(var8 - var27) - var2 * 16 - 1;
 					int var38 = MathHelper.floor_double(var8 + var27) - var2 * 16 + 1;
 					if(var52 < 0) {
 						var52 = 0;

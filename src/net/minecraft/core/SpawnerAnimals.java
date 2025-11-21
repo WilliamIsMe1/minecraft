@@ -12,8 +12,9 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.pathfinding.PathEntity;
 import net.minecraft.entity.pathfinding.PathPoint;
 import net.minecraft.entity.pathfinding.Pathfinder;
-import net.minecraft.world.gen.BiomeGenBase;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.chunk.ChunkCoordIntPair;
+import net.minecraft.world.gen.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkCoordinates;
 import net.minecraft.world.chunk.ChunkPosition;
 import net.minecraft.world.World;
@@ -44,8 +45,8 @@ public final class SpawnerAnimals {
 			int var6;
 			for(var3 = 0; var3 < var0.playerEntities.size(); ++var3) {
 				EntityPlayer var4 = (EntityPlayer)var0.playerEntities.get(var3);
-				int var5 = net.minecraft.core.MathHelper.floor_double(var4.posX / 16.0D);
-				var6 = net.minecraft.core.MathHelper.floor_double(var4.posZ / 16.0D);
+				int var5 = MathHelper.floor_double(var4.posX / 16.0D);
+				var6 = MathHelper.floor_double(var4.posZ / 16.0D);
 				byte var7 = 8;
 
 				for(int var8 = -var7; var8 <= var7; ++var8) {
@@ -206,9 +207,9 @@ public final class SpawnerAnimals {
 			boolean var7 = false;
 
 			for(int var8 = 0; var8 < 20 && !var7; ++var8) {
-				int var9 = net.minecraft.core.MathHelper.floor_double(var5.posX) + var0.rand.nextInt(32) - var0.rand.nextInt(32);
-				int var10 = net.minecraft.core.MathHelper.floor_double(var5.posZ) + var0.rand.nextInt(32) - var0.rand.nextInt(32);
-				int var11 = net.minecraft.core.MathHelper.floor_double(var5.posY) + var0.rand.nextInt(16) - var0.rand.nextInt(16);
+				int var9 = MathHelper.floor_double(var5.posX) + var0.rand.nextInt(32) - var0.rand.nextInt(32);
+				int var10 = MathHelper.floor_double(var5.posZ) + var0.rand.nextInt(32) - var0.rand.nextInt(32);
+				int var11 = MathHelper.floor_double(var5.posY) + var0.rand.nextInt(16) - var0.rand.nextInt(16);
 				if(var11 < 1) {
 					var11 = 1;
 				} else if(var11 > 128) {
@@ -244,7 +245,7 @@ public final class SpawnerAnimals {
 						if(var18 != null && var18.pathLength > 1) {
 							PathPoint var19 = var18.func_22328_c();
 							if(Math.abs((double)var19.xCoord - var5.posX) < 1.5D && Math.abs((double)var19.zCoord - var5.posZ) < 1.5D && Math.abs((double)var19.yCoord - var5.posY) < 1.5D) {
-								ChunkCoordinates var20 = BlockBed.getNearestEmptyChunkCoordinates(var0, net.minecraft.core.MathHelper.floor_double(var5.posX), net.minecraft.core.MathHelper.floor_double(var5.posY), MathHelper.floor_double(var5.posZ), 1);
+								ChunkCoordinates var20 = BlockBed.getNearestEmptyChunkCoordinates(var0, MathHelper.floor_double(var5.posX), MathHelper.floor_double(var5.posY), MathHelper.floor_double(var5.posZ), 1);
 								if(var20 == null) {
 									var20 = new ChunkCoordinates(var9, var13 + 1, var10);
 								}

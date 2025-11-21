@@ -2,7 +2,7 @@ package net.minecraft.network.packet;
 
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.ItemStack;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.network.NetHandler;
 
 import java.io.DataInputStream;

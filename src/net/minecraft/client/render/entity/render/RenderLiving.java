@@ -7,7 +7,7 @@ import net.minecraft.client.render.Render;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.EntityLiving;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

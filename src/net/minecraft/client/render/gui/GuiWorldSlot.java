@@ -1,6 +1,6 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.save.SaveFormatComparator;
 import net.minecraft.client.render.Tessellator;
 
@@ -45,7 +45,7 @@ class GuiWorldSlot extends GuiSlot {
 	protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator var5) {
 		SaveFormatComparator var6 = (SaveFormatComparator)GuiSelectWorld.getSize(this.parentWorldGui).get(var1);
 		String var7 = var6.getDisplayName();
-		if(var7 == null || MathHelper.stringNullOrLengthZero(var7)) {
+		if(var7 == null || MathHelper.stringEmpty(var7)) {
 			var7 = GuiSelectWorld.func_22087_f(this.parentWorldGui) + " " + (var1 + 1);
 		}
 

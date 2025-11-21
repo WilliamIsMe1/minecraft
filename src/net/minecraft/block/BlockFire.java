@@ -141,7 +141,7 @@ public class BlockFire extends Block {
 	}
 
 	private boolean func_263_h(World var1, int var2, int var3, int var4) {
-		return this.canBlockCatchFire(var1, var2 + 1, var3, var4) ? true : (this.canBlockCatchFire(var1, var2 - 1, var3, var4) ? true : (this.canBlockCatchFire(var1, var2, var3 - 1, var4) ? true : (this.canBlockCatchFire(var1, var2, var3 + 1, var4) ? true : (this.canBlockCatchFire(var1, var2, var3, var4 - 1) ? true : this.canBlockCatchFire(var1, var2, var3, var4 + 1)))));
+		return this.canBlockCatchFire(var1, var2 + 1, var3, var4) || (this.canBlockCatchFire(var1, var2 - 1, var3, var4) || (this.canBlockCatchFire(var1, var2, var3 - 1, var4) || (this.canBlockCatchFire(var1, var2, var3 + 1, var4) || (this.canBlockCatchFire(var1, var2, var3, var4 - 1) || this.canBlockCatchFire(var1, var2, var3, var4 + 1)))));
 	}
 
 	private int getChanceOfNeighborsEncouragingFire(World var1, int var2, int var3, int var4) {

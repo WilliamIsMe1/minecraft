@@ -3,7 +3,7 @@ package net.minecraft.network.packet;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.misc.DataWatcher;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.network.NetHandler;
 
 import java.io.DataInputStream;

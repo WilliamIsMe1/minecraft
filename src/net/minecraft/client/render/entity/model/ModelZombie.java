@@ -1,6 +1,6 @@
 package net.minecraft.client.render.entity.model;
 
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class ModelZombie extends ModelBiped {
 	public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6) {

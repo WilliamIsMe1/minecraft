@@ -6,10 +6,11 @@ import net.minecraft.block.EnumSkyBlock;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.tileentity.TileEntity;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.NextTickListEntry;
 import net.minecraft.core.SpawnerAnimals;
 import net.minecraft.core.Vec3D;
+import net.minecraft.core.save.ISaveHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLightningBolt;
 import net.minecraft.entity.living.EntityPlayer;
@@ -56,7 +57,7 @@ public class World implements IBlockAccess {
 	private long field_1019_F;
 	public int skylightSubtracted;
 	protected int field_9437_g;
-	protected final int field_9436_h;
+	protected final int DIST_HASH_MAGIC;
 	protected float prevRainingStrength;
 	protected float rainingStrength;
 	protected float prevThunderingStrength;
@@ -106,7 +107,7 @@ public class World implements IBlockAccess {
 		this.field_1019_F = 16777215L;
 		this.skylightSubtracted = 0;
 		this.field_9437_g = (new Random()).nextInt();
-		this.field_9436_h = 1013904223;
+		this.DIST_HASH_MAGIC = 1013904223;
 		this.field_27168_F = 0;
 		this.field_27172_i = 0;
 		this.editingBlocks = false;
@@ -147,7 +148,7 @@ public class World implements IBlockAccess {
 		this.field_1019_F = 16777215L;
 		this.skylightSubtracted = 0;
 		this.field_9437_g = (new Random()).nextInt();
-		this.field_9436_h = 1013904223;
+		this.DIST_HASH_MAGIC = 1013904223;
 		this.field_27168_F = 0;
 		this.field_27172_i = 0;
 		this.editingBlocks = false;
@@ -193,7 +194,7 @@ public class World implements IBlockAccess {
 		this.field_1019_F = 16777215L;
 		this.skylightSubtracted = 0;
 		this.field_9437_g = (new Random()).nextInt();
-		this.field_9436_h = 1013904223;
+		this.DIST_HASH_MAGIC = 1013904223;
 		this.field_27168_F = 0;
 		this.field_27172_i = 0;
 		this.editingBlocks = false;
@@ -296,8 +297,8 @@ public class World implements IBlockAccess {
 
 			if(this.chunkProvider instanceof ChunkProviderLoadOrGenerate) {
 				ChunkProviderLoadOrGenerate var3 = (ChunkProviderLoadOrGenerate)this.chunkProvider;
-				int var4 = net.minecraft.core.MathHelper.floor_float((float)((int)var1.posX)) >> 4;
-				int var5 = net.minecraft.core.MathHelper.floor_float((float)((int)var1.posZ)) >> 4;
+				int var4 = MathHelper.floor_float((float)((int)var1.posX)) >> 4;
+				int var5 = MathHelper.floor_float((float)((int)var1.posZ)) >> 4;
 				var3.setCurrentChunkOver(var4, var5);
 			}
 
@@ -737,12 +738,12 @@ public class World implements IBlockAccess {
 	public net.minecraft.misc.MovingObjectPosition func_28105_a(net.minecraft.core.Vec3D var1, net.minecraft.core.Vec3D var2, boolean var3, boolean var4) {
 		if(!Double.isNaN(var1.xCoord) && !Double.isNaN(var1.yCoord) && !Double.isNaN(var1.zCoord)) {
 			if(!Double.isNaN(var2.xCoord) && !Double.isNaN(var2.yCoord) && !Double.isNaN(var2.zCoord)) {
-				int var5 = net.minecraft.core.MathHelper.floor_double(var2.xCoord);
-				int var6 = net.minecraft.core.MathHelper.floor_double(var2.yCoord);
-				int var7 = net.minecraft.core.MathHelper.floor_double(var2.zCoord);
-				int var8 = net.minecraft.core.MathHelper.floor_double(var1.xCoord);
-				int var9 = net.minecraft.core.MathHelper.floor_double(var1.yCoord);
-				int var10 = net.minecraft.core.MathHelper.floor_double(var1.zCoord);
+				int var5 = MathHelper.floor_double(var2.xCoord);
+				int var6 = MathHelper.floor_double(var2.yCoord);
+				int var7 = MathHelper.floor_double(var2.zCoord);
+				int var8 = MathHelper.floor_double(var1.xCoord);
+				int var9 = MathHelper.floor_double(var1.yCoord);
+				int var10 = MathHelper.floor_double(var1.zCoord);
 				int var11 = this.getBlockId(var8, var9, var10);
 				int var12 = this.getBlockMetadata(var8, var9, var10);
 				Block var13 = Block.blocksList[var11];
@@ -847,19 +848,19 @@ public class World implements IBlockAccess {
 					}
 
 					net.minecraft.core.Vec3D var34 = net.minecraft.core.Vec3D.createVector(var1.xCoord, var1.yCoord, var1.zCoord);
-					var8 = (int)(var34.xCoord = (double) net.minecraft.core.MathHelper.floor_double(var1.xCoord));
+					var8 = (int)(var34.xCoord = (double) MathHelper.floor_double(var1.xCoord));
 					if(var42 == 5) {
 						--var8;
 						++var34.xCoord;
 					}
 
-					var9 = (int)(var34.yCoord = (double) net.minecraft.core.MathHelper.floor_double(var1.yCoord));
+					var9 = (int)(var34.yCoord = (double) MathHelper.floor_double(var1.yCoord));
 					if(var42 == 1) {
 						--var9;
 						++var34.yCoord;
 					}
 
-					var10 = (int)(var34.zCoord = (double) net.minecraft.core.MathHelper.floor_double(var1.zCoord));
+					var10 = (int)(var34.zCoord = (double) MathHelper.floor_double(var1.zCoord));
 					if(var42 == 3) {
 						--var10;
 						++var34.zCoord;
@@ -919,8 +920,8 @@ public class World implements IBlockAccess {
 	}
 
 	public boolean entityJoinedWorld(net.minecraft.entity.Entity var1) {
-		int var2 = net.minecraft.core.MathHelper.floor_double(var1.posX / 16.0D);
-		int var3 = net.minecraft.core.MathHelper.floor_double(var1.posZ / 16.0D);
+		int var2 = MathHelper.floor_double(var1.posX / 16.0D);
+		int var3 = MathHelper.floor_double(var1.posZ / 16.0D);
 		boolean var4 = false;
 		if(var1 instanceof EntityPlayer) {
 			var4 = true;
@@ -983,12 +984,12 @@ public class World implements IBlockAccess {
 
 	public List getCollidingBoundingBoxes(net.minecraft.entity.Entity var1, net.minecraft.misc.AxisAlignedBB var2) {
 		this.collidingBoundingBoxes.clear();
-		int var3 = net.minecraft.core.MathHelper.floor_double(var2.minX);
-		int var4 = net.minecraft.core.MathHelper.floor_double(var2.maxX + 1.0D);
-		int var5 = net.minecraft.core.MathHelper.floor_double(var2.minY);
-		int var6 = net.minecraft.core.MathHelper.floor_double(var2.maxY + 1.0D);
-		int var7 = net.minecraft.core.MathHelper.floor_double(var2.minZ);
-		int var8 = net.minecraft.core.MathHelper.floor_double(var2.maxZ + 1.0D);
+		int var3 = MathHelper.floor_double(var2.minX);
+		int var4 = MathHelper.floor_double(var2.maxX + 1.0D);
+		int var5 = MathHelper.floor_double(var2.minY);
+		int var6 = MathHelper.floor_double(var2.maxY + 1.0D);
+		int var7 = MathHelper.floor_double(var2.minZ);
+		int var8 = MathHelper.floor_double(var2.maxZ + 1.0D);
 
 		for(int var9 = var3; var9 < var4; ++var9) {
 			for(int var10 = var7; var10 < var8; ++var10) {
@@ -1023,7 +1024,7 @@ public class World implements IBlockAccess {
 
 	public int calculateSkylightSubtracted(float var1) {
 		float var2 = this.getCelestialAngle(var1);
-		float var3 = 1.0F - (net.minecraft.core.MathHelper.cos(var2 * (float)Math.PI * 2.0F) * 2.0F + 0.5F);
+		float var3 = 1.0F - (MathHelper.cos(var2 * (float)Math.PI * 2.0F) * 2.0F + 0.5F);
 		if(var3 < 0.0F) {
 			var3 = 0.0F;
 		}
@@ -1041,7 +1042,7 @@ public class World implements IBlockAccess {
 
 	public net.minecraft.core.Vec3D func_4079_a(net.minecraft.entity.Entity var1, float var2) {
 		float var3 = this.getCelestialAngle(var2);
-		float var4 = net.minecraft.core.MathHelper.cos(var3 * (float)Math.PI * 2.0F) * 2.0F + 0.5F;
+		float var4 = MathHelper.cos(var3 * (float)Math.PI * 2.0F) * 2.0F + 0.5F;
 		if(var4 < 0.0F) {
 			var4 = 0.0F;
 		}
@@ -1050,8 +1051,8 @@ public class World implements IBlockAccess {
 			var4 = 1.0F;
 		}
 
-		int var5 = net.minecraft.core.MathHelper.floor_double(var1.posX);
-		int var6 = net.minecraft.core.MathHelper.floor_double(var1.posZ);
+		int var5 = MathHelper.floor_double(var1.posX);
+		int var6 = MathHelper.floor_double(var1.posZ);
 		float var7 = (float)this.getWorldChunkManager().getTemperature(var5, var6);
 		int var8 = this.getWorldChunkManager().getBiomeGenAt(var5, var6).getSkyColorByTemp(var7);
 		float var9 = (float)(var8 >> 16 & 255) / 255.0F;
@@ -1101,7 +1102,7 @@ public class World implements IBlockAccess {
 
 	public net.minecraft.core.Vec3D func_628_d(float var1) {
 		float var2 = this.getCelestialAngle(var1);
-		float var3 = net.minecraft.core.MathHelper.cos(var2 * (float)Math.PI * 2.0F) * 2.0F + 0.5F;
+		float var3 = MathHelper.cos(var2 * (float)Math.PI * 2.0F) * 2.0F + 0.5F;
 		if(var3 < 0.0F) {
 			var3 = 0.0F;
 		}
@@ -1162,7 +1163,7 @@ public class World implements IBlockAccess {
 
 	public float getStarBrightness(float var1) {
 		float var2 = this.getCelestialAngle(var1);
-		float var3 = 1.0F - (net.minecraft.core.MathHelper.cos(var2 * (float)Math.PI * 2.0F) * 2.0F + 12.0F / 16.0F);
+		float var3 = 1.0F - (MathHelper.cos(var2 * (float)Math.PI * 2.0F) * 2.0F + 12.0F / 16.0F);
 		if(var3 < 0.0F) {
 			var3 = 0.0F;
 		}
@@ -1314,8 +1315,8 @@ public class World implements IBlockAccess {
 	}
 
 	public void updateEntityWithOptionalForce(net.minecraft.entity.Entity var1, boolean var2) {
-		int var3 = net.minecraft.core.MathHelper.floor_double(var1.posX);
-		int var4 = net.minecraft.core.MathHelper.floor_double(var1.posZ);
+		int var3 = MathHelper.floor_double(var1.posX);
+		int var4 = MathHelper.floor_double(var1.posZ);
 		byte var5 = 32;
 		if(!var2 || this.checkChunksExist(var3 - var5, 0, var4 - var5, var3 + var5, 128, var4 + var5)) {
 			var1.lastTickPosX = var1.posX;
@@ -1351,9 +1352,9 @@ public class World implements IBlockAccess {
 				var1.rotationYaw = var1.prevRotationYaw;
 			}
 
-			int var6 = net.minecraft.core.MathHelper.floor_double(var1.posX / 16.0D);
-			int var7 = net.minecraft.core.MathHelper.floor_double(var1.posY / 16.0D);
-			int var8 = net.minecraft.core.MathHelper.floor_double(var1.posZ / 16.0D);
+			int var6 = MathHelper.floor_double(var1.posX / 16.0D);
+			int var7 = MathHelper.floor_double(var1.posY / 16.0D);
+			int var8 = MathHelper.floor_double(var1.posZ / 16.0D);
 			if(!var1.addedToChunk || var1.chunkCoordX != var6 || var1.chunkCoordY != var7 || var1.chunkCoordZ != var8) {
 				if(var1.addedToChunk && this.chunkExists(var1.chunkCoordX, var1.chunkCoordZ)) {
 					this.getChunkFromChunkCoords(var1.chunkCoordX, var1.chunkCoordZ).removeEntityAtIndex(var1, var1.chunkCoordY);
@@ -1393,12 +1394,12 @@ public class World implements IBlockAccess {
 	}
 
 	public boolean getIsAnyLiquid(net.minecraft.misc.AxisAlignedBB var1) {
-		int var2 = net.minecraft.core.MathHelper.floor_double(var1.minX);
-		int var3 = net.minecraft.core.MathHelper.floor_double(var1.maxX + 1.0D);
-		int var4 = net.minecraft.core.MathHelper.floor_double(var1.minY);
-		int var5 = net.minecraft.core.MathHelper.floor_double(var1.maxY + 1.0D);
-		int var6 = net.minecraft.core.MathHelper.floor_double(var1.minZ);
-		int var7 = net.minecraft.core.MathHelper.floor_double(var1.maxZ + 1.0D);
+		int var2 = MathHelper.floor_double(var1.minX);
+		int var3 = MathHelper.floor_double(var1.maxX + 1.0D);
+		int var4 = MathHelper.floor_double(var1.minY);
+		int var5 = MathHelper.floor_double(var1.maxY + 1.0D);
+		int var6 = MathHelper.floor_double(var1.minZ);
+		int var7 = MathHelper.floor_double(var1.maxZ + 1.0D);
 		if(var1.minX < 0.0D) {
 			--var2;
 		}
@@ -1426,12 +1427,12 @@ public class World implements IBlockAccess {
 	}
 
 	public boolean isBoundingBoxBurning(net.minecraft.misc.AxisAlignedBB var1) {
-		int var2 = net.minecraft.core.MathHelper.floor_double(var1.minX);
-		int var3 = net.minecraft.core.MathHelper.floor_double(var1.maxX + 1.0D);
-		int var4 = net.minecraft.core.MathHelper.floor_double(var1.minY);
-		int var5 = net.minecraft.core.MathHelper.floor_double(var1.maxY + 1.0D);
-		int var6 = net.minecraft.core.MathHelper.floor_double(var1.minZ);
-		int var7 = net.minecraft.core.MathHelper.floor_double(var1.maxZ + 1.0D);
+		int var2 = MathHelper.floor_double(var1.minX);
+		int var3 = MathHelper.floor_double(var1.maxX + 1.0D);
+		int var4 = MathHelper.floor_double(var1.minY);
+		int var5 = MathHelper.floor_double(var1.maxY + 1.0D);
+		int var6 = MathHelper.floor_double(var1.minZ);
+		int var7 = MathHelper.floor_double(var1.maxZ + 1.0D);
 		if(this.checkChunksExist(var2, var4, var6, var3, var5, var7)) {
 			for(int var8 = var2; var8 < var3; ++var8) {
 				for(int var9 = var4; var9 < var5; ++var9) {
@@ -1449,12 +1450,12 @@ public class World implements IBlockAccess {
 	}
 
 	public boolean handleMaterialAcceleration(net.minecraft.misc.AxisAlignedBB var1, Material var2, net.minecraft.entity.Entity var3) {
-		int var4 = net.minecraft.core.MathHelper.floor_double(var1.minX);
-		int var5 = net.minecraft.core.MathHelper.floor_double(var1.maxX + 1.0D);
-		int var6 = net.minecraft.core.MathHelper.floor_double(var1.minY);
-		int var7 = net.minecraft.core.MathHelper.floor_double(var1.maxY + 1.0D);
-		int var8 = net.minecraft.core.MathHelper.floor_double(var1.minZ);
-		int var9 = net.minecraft.core.MathHelper.floor_double(var1.maxZ + 1.0D);
+		int var4 = MathHelper.floor_double(var1.minX);
+		int var5 = MathHelper.floor_double(var1.maxX + 1.0D);
+		int var6 = MathHelper.floor_double(var1.minY);
+		int var7 = MathHelper.floor_double(var1.maxY + 1.0D);
+		int var8 = MathHelper.floor_double(var1.minZ);
+		int var9 = MathHelper.floor_double(var1.maxZ + 1.0D);
 		if(!this.checkChunksExist(var4, var6, var8, var5, var7, var9)) {
 			return false;
 		} else {
@@ -1489,12 +1490,12 @@ public class World implements IBlockAccess {
 	}
 
 	public boolean isMaterialInBB(net.minecraft.misc.AxisAlignedBB var1, Material var2) {
-		int var3 = net.minecraft.core.MathHelper.floor_double(var1.minX);
-		int var4 = net.minecraft.core.MathHelper.floor_double(var1.maxX + 1.0D);
-		int var5 = net.minecraft.core.MathHelper.floor_double(var1.minY);
-		int var6 = net.minecraft.core.MathHelper.floor_double(var1.maxY + 1.0D);
-		int var7 = net.minecraft.core.MathHelper.floor_double(var1.minZ);
-		int var8 = net.minecraft.core.MathHelper.floor_double(var1.maxZ + 1.0D);
+		int var3 = MathHelper.floor_double(var1.minX);
+		int var4 = MathHelper.floor_double(var1.maxX + 1.0D);
+		int var5 = MathHelper.floor_double(var1.minY);
+		int var6 = MathHelper.floor_double(var1.maxY + 1.0D);
+		int var7 = MathHelper.floor_double(var1.minZ);
+		int var8 = MathHelper.floor_double(var1.maxZ + 1.0D);
 
 		for(int var9 = var3; var9 < var4; ++var9) {
 			for(int var10 = var5; var10 < var6; ++var10) {
@@ -1511,12 +1512,12 @@ public class World implements IBlockAccess {
 	}
 
 	public boolean isAABBInMaterial(net.minecraft.misc.AxisAlignedBB var1, Material var2) {
-		int var3 = net.minecraft.core.MathHelper.floor_double(var1.minX);
-		int var4 = net.minecraft.core.MathHelper.floor_double(var1.maxX + 1.0D);
-		int var5 = net.minecraft.core.MathHelper.floor_double(var1.minY);
-		int var6 = net.minecraft.core.MathHelper.floor_double(var1.maxY + 1.0D);
-		int var7 = net.minecraft.core.MathHelper.floor_double(var1.minZ);
-		int var8 = net.minecraft.core.MathHelper.floor_double(var1.maxZ + 1.0D);
+		int var3 = MathHelper.floor_double(var1.minX);
+		int var4 = MathHelper.floor_double(var1.maxX + 1.0D);
+		int var5 = MathHelper.floor_double(var1.minY);
+		int var6 = MathHelper.floor_double(var1.maxY + 1.0D);
+		int var7 = MathHelper.floor_double(var1.minZ);
+		int var8 = MathHelper.floor_double(var1.maxZ + 1.0D);
 
 		for(int var9 = var3; var9 < var4; ++var9) {
 			for(int var10 = var5; var10 < var6; ++var10) {
@@ -1894,8 +1895,8 @@ public class World implements IBlockAccess {
 		int var7;
 		for(int var1 = 0; var1 < this.playerEntities.size(); ++var1) {
 			EntityPlayer var2 = (EntityPlayer)this.playerEntities.get(var1);
-			var3 = net.minecraft.core.MathHelper.floor_double(var2.posX / 16.0D);
-			var4 = net.minecraft.core.MathHelper.floor_double(var2.posZ / 16.0D);
+			var3 = MathHelper.floor_double(var2.posX / 16.0D);
+			var4 = MathHelper.floor_double(var2.posZ / 16.0D);
 			byte var5 = 9;
 
 			for(var6 = -var5; var6 <= var5; ++var6) {
@@ -2032,10 +2033,10 @@ public class World implements IBlockAccess {
 
 	public List getEntitiesWithinAABBExcludingEntity(net.minecraft.entity.Entity var1, net.minecraft.misc.AxisAlignedBB var2) {
 		this.field_1012_M.clear();
-		int var3 = net.minecraft.core.MathHelper.floor_double((var2.minX - 2.0D) / 16.0D);
-		int var4 = net.minecraft.core.MathHelper.floor_double((var2.maxX + 2.0D) / 16.0D);
-		int var5 = net.minecraft.core.MathHelper.floor_double((var2.minZ - 2.0D) / 16.0D);
-		int var6 = net.minecraft.core.MathHelper.floor_double((var2.maxZ + 2.0D) / 16.0D);
+		int var3 = MathHelper.floor_double((var2.minX - 2.0D) / 16.0D);
+		int var4 = MathHelper.floor_double((var2.maxX + 2.0D) / 16.0D);
+		int var5 = MathHelper.floor_double((var2.minZ - 2.0D) / 16.0D);
+		int var6 = MathHelper.floor_double((var2.maxZ + 2.0D) / 16.0D);
 
 		for(int var7 = var3; var7 <= var4; ++var7) {
 			for(int var8 = var5; var8 <= var6; ++var8) {
@@ -2049,10 +2050,10 @@ public class World implements IBlockAccess {
 	}
 
 	public List getEntitiesWithinAABB(Class var1, net.minecraft.misc.AxisAlignedBB var2) {
-		int var3 = net.minecraft.core.MathHelper.floor_double((var2.minX - 2.0D) / 16.0D);
-		int var4 = net.minecraft.core.MathHelper.floor_double((var2.maxX + 2.0D) / 16.0D);
-		int var5 = net.minecraft.core.MathHelper.floor_double((var2.minZ - 2.0D) / 16.0D);
-		int var6 = net.minecraft.core.MathHelper.floor_double((var2.maxZ + 2.0D) / 16.0D);
+		int var3 = MathHelper.floor_double((var2.minX - 2.0D) / 16.0D);
+		int var4 = MathHelper.floor_double((var2.maxX + 2.0D) / 16.0D);
+		int var5 = MathHelper.floor_double((var2.minZ - 2.0D) / 16.0D);
+		int var6 = MathHelper.floor_double((var2.maxZ + 2.0D) / 16.0D);
 		ArrayList var7 = new ArrayList();
 
 		for(int var8 = var3; var8 <= var4; ++var8) {
@@ -2134,9 +2135,9 @@ public class World implements IBlockAccess {
 	}
 
 	public PathEntity getPathToEntity(net.minecraft.entity.Entity var1, net.minecraft.entity.Entity var2, float var3) {
-		int var4 = net.minecraft.core.MathHelper.floor_double(var1.posX);
-		int var5 = net.minecraft.core.MathHelper.floor_double(var1.posY);
-		int var6 = net.minecraft.core.MathHelper.floor_double(var1.posZ);
+		int var4 = MathHelper.floor_double(var1.posX);
+		int var5 = MathHelper.floor_double(var1.posY);
+		int var6 = MathHelper.floor_double(var1.posZ);
 		int var7 = (int)(var3 + 16.0F);
 		int var8 = var4 - var7;
 		int var9 = var5 - var7;
@@ -2149,9 +2150,9 @@ public class World implements IBlockAccess {
 	}
 
 	public PathEntity getEntityPathToXYZ(net.minecraft.entity.Entity var1, int var2, int var3, int var4, float var5) {
-		int var6 = net.minecraft.core.MathHelper.floor_double(var1.posX);
-		int var7 = net.minecraft.core.MathHelper.floor_double(var1.posY);
-		int var8 = net.minecraft.core.MathHelper.floor_double(var1.posZ);
+		int var6 = MathHelper.floor_double(var1.posX);
+		int var7 = MathHelper.floor_double(var1.posY);
+		int var8 = MathHelper.floor_double(var1.posZ);
 		int var9 = (int)(var5 + 8.0F);
 		int var10 = var6 - var9;
 		int var11 = var7 - var9;
@@ -2182,7 +2183,7 @@ public class World implements IBlockAccess {
 	}
 
 	public boolean isBlockIndirectlyGettingPowered(int var1, int var2, int var3) {
-		return this.isBlockIndirectlyProvidingPowerTo(var1, var2 - 1, var3, 0) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1, var2 + 1, var3, 1) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1, var2, var3 - 1, 2) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1, var2, var3 + 1, 3) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1 - 1, var2, var3, 4) ? true : this.isBlockIndirectlyProvidingPowerTo(var1 + 1, var2, var3, 5)))));
+		return this.isBlockIndirectlyProvidingPowerTo(var1, var2 - 1, var3, 0) || (this.isBlockIndirectlyProvidingPowerTo(var1, var2 + 1, var3, 1) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1, var2, var3 - 1, 2) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1, var2, var3 + 1, 3) ? true : (this.isBlockIndirectlyProvidingPowerTo(var1 - 1, var2, var3, 4) ? true : this.isBlockIndirectlyProvidingPowerTo(var1 + 1, var2, var3, 5)))));
 	}
 
 	public EntityPlayer getClosestPlayerToEntity(net.minecraft.entity.Entity var1, double var2) {
@@ -2288,7 +2289,7 @@ public class World implements IBlockAccess {
 	}
 
 	public void joinEntityInSurroundings(net.minecraft.entity.Entity var1) {
-		int var2 = net.minecraft.core.MathHelper.floor_double(var1.posX / 16.0D);
+		int var2 = MathHelper.floor_double(var1.posX / 16.0D);
 		int var3 = MathHelper.floor_double(var1.posZ / 16.0D);
 		byte var4 = 2;
 

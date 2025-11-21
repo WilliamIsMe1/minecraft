@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.chunk.ChunkPosition;
@@ -60,9 +60,9 @@ public class Explosion {
 						var19 = this.explosionZ;
 
 						for(float var21 = 0.3F; var14 > 0.0F; var14 -= var21 * (12.0F / 16.0F)) {
-							int var22 = net.minecraft.core.MathHelper.floor_double(var15);
-							int var23 = net.minecraft.core.MathHelper.floor_double(var17);
-							int var24 = net.minecraft.core.MathHelper.floor_double(var19);
+							int var22 = MathHelper.floor_double(var15);
+							int var23 = MathHelper.floor_double(var17);
+							int var24 = MathHelper.floor_double(var19);
 							int var25 = this.worldObj.getBlockId(var22, var23, var24);
 							if(var25 > 0) {
 								var14 -= (Block.blocksList[var25].getExplosionResistance(this.exploder) + 0.3F) * var21;
@@ -82,12 +82,12 @@ public class Explosion {
 		}
 
 		this.explosionSize *= 2.0F;
-		var3 = net.minecraft.core.MathHelper.floor_double(this.explosionX - (double)this.explosionSize - 1.0D);
-		var4 = net.minecraft.core.MathHelper.floor_double(this.explosionX + (double)this.explosionSize + 1.0D);
-		var5 = net.minecraft.core.MathHelper.floor_double(this.explosionY - (double)this.explosionSize - 1.0D);
-		int var29 = net.minecraft.core.MathHelper.floor_double(this.explosionY + (double)this.explosionSize + 1.0D);
-		int var7 = net.minecraft.core.MathHelper.floor_double(this.explosionZ - (double)this.explosionSize - 1.0D);
-		int var30 = net.minecraft.core.MathHelper.floor_double(this.explosionZ + (double)this.explosionSize + 1.0D);
+		var3 = MathHelper.floor_double(this.explosionX - (double)this.explosionSize - 1.0D);
+		var4 = MathHelper.floor_double(this.explosionX + (double)this.explosionSize + 1.0D);
+		var5 = MathHelper.floor_double(this.explosionY - (double)this.explosionSize - 1.0D);
+		int var29 = MathHelper.floor_double(this.explosionY + (double)this.explosionSize + 1.0D);
+		int var7 = MathHelper.floor_double(this.explosionZ - (double)this.explosionSize - 1.0D);
+		int var30 = MathHelper.floor_double(this.explosionZ + (double)this.explosionSize + 1.0D);
 		List<Entity> var9 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, AxisAlignedBB.getBoundingBoxFromPool((double)var3, (double)var5, (double)var7, (double)var4, (double)var29, (double)var30));
 		net.minecraft.core.Vec3D var31 = Vec3D.createVector(this.explosionX, this.explosionY, this.explosionZ);
 
@@ -97,7 +97,7 @@ public class Explosion {
 				var15 = o.posX - this.explosionX;
 				var17 = o.posY - this.explosionY;
 				var19 = o.posZ - this.explosionZ;
-				double var39 = net.minecraft.core.MathHelper.sqrt_double(var15 * var15 + var17 * var17 + var19 * var19);
+				double var39 = MathHelper.sqrt_double(var15 * var15 + var17 * var17 + var19 * var19);
 				var15 /= var39;
 				var17 /= var39;
 				var19 /= var39;

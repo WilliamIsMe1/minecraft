@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.entity.living.EntityLiving;

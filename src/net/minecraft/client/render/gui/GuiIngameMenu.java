@@ -1,6 +1,6 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.achievement.stats.StatCollector;
 import net.minecraft.achievement.stats.StatList;
 import net.minecraft.world.World;
@@ -41,7 +41,7 @@ public class GuiIngameMenu extends GuiScreen {
 
 		if(var1.id == 4) {
 			this.mc.displayGuiScreen((GuiScreen)null);
-			this.mc.setIngameFocus();
+			this.mc.setInGameFocus();
 		}
 
 		if(var1.id == 5) {

@@ -3,7 +3,7 @@ package net.minecraft.item;
 import net.minecraft.block.core.Block;
 import net.minecraft.block.tileentity.TileEntitySign;
 import net.minecraft.entity.living.EntityPlayer;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.item.core.Item;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;

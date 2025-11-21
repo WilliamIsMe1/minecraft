@@ -2,9 +2,10 @@ package net.minecraft.client.render.entity.render;
 
 import net.minecraft.block.core.Block;
 import net.minecraft.client.render.Render;
+import net.minecraft.client.render.block.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFallingSand;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 

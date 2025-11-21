@@ -4,10 +4,9 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.entity.render.RenderPlayer;
-import net.minecraft.client.render.entity.render.RenderBlocks;
+import net.minecraft.client.render.block.RenderBlocks;
 import net.minecraft.client.render.entity.render.RenderHelper;
-import net.minecraft.client.render.entity.render.RenderManager;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.entity.living.EntityPlayerSP;
 import net.minecraft.item.core.Item;
@@ -149,7 +148,7 @@ public class ItemRenderer {
 		RenderHelper.enableStandardItemLighting();
 		GL11.glPopMatrix();
 		ItemStack var5 = this.itemToRender;
-		float var6 = this.mc.theWorld.getLightBrightness(net.minecraft.core.MathHelper.floor_double(var3.posX), net.minecraft.core.MathHelper.floor_double(var3.posY), net.minecraft.core.MathHelper.floor_double(var3.posZ));
+		float var6 = this.mc.theWorld.getLightBrightness(MathHelper.floor_double(var3.posX), MathHelper.floor_double(var3.posY), MathHelper.floor_double(var3.posZ));
 		float var8;
 		float var9;
 		float var10;
@@ -168,9 +167,9 @@ public class ItemRenderer {
 			GL11.glPushMatrix();
 			var14 = 0.8F;
 			var8 = var3.getSwingProgress(var1);
-			var9 = net.minecraft.core.MathHelper.sin(var8 * (float)Math.PI);
-			var10 = net.minecraft.core.MathHelper.sin(net.minecraft.core.MathHelper.sqrt_float(var8) * (float)Math.PI);
-			GL11.glTranslatef(-var10 * 0.4F, net.minecraft.core.MathHelper.sin(net.minecraft.core.MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.2F, -var9 * 0.2F);
+			var9 = MathHelper.sin(var8 * (float)Math.PI);
+			var10 = MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI);
+			GL11.glTranslatef(-var10 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.2F, -var9 * 0.2F);
 			var8 = 1.0F - var4 / 45.0F + 0.1F;
 			if(var8 < 0.0F) {
 				var8 = 0.0F;
@@ -180,7 +179,7 @@ public class ItemRenderer {
 				var8 = 1.0F;
 			}
 
-			var8 = -net.minecraft.core.MathHelper.cos(var8 * (float)Math.PI) * 0.5F + 0.5F;
+			var8 = -MathHelper.cos(var8 * (float)Math.PI) * 0.5F + 0.5F;
 			GL11.glTranslatef(0.0F, 0.0F * var14 - (1.0F - var2) * 1.2F - var8 * 0.5F + 0.04F, -0.9F * var14);
 			GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
 			GL11.glRotatef(var8 * -85.0F, 0.0F, 0.0F, 1.0F);
@@ -204,8 +203,8 @@ public class ItemRenderer {
 			}
 
 			var9 = var3.getSwingProgress(var1);
-			var10 = net.minecraft.core.MathHelper.sin(var9 * var9 * (float)Math.PI);
-			float var18 = net.minecraft.core.MathHelper.sin(net.minecraft.core.MathHelper.sqrt_float(var9) * (float)Math.PI);
+			var10 = MathHelper.sin(var9 * var9 * (float)Math.PI);
+			float var18 = MathHelper.sin(MathHelper.sqrt_float(var9) * (float)Math.PI);
 			GL11.glRotatef(-var10 * 20.0F, 0.0F, 1.0F, 0.0F);
 			GL11.glRotatef(-var18 * 20.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glRotatef(-var18 * 80.0F, 1.0F, 0.0F, 0.0F);
@@ -233,15 +232,15 @@ public class ItemRenderer {
 			GL11.glPushMatrix();
 			var14 = 0.8F;
 			var8 = var3.getSwingProgress(var1);
-			var9 = net.minecraft.core.MathHelper.sin(var8 * (float)Math.PI);
-			var10 = net.minecraft.core.MathHelper.sin(net.minecraft.core.MathHelper.sqrt_float(var8) * (float)Math.PI);
-			GL11.glTranslatef(-var10 * 0.4F, net.minecraft.core.MathHelper.sin(net.minecraft.core.MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.2F, -var9 * 0.2F);
+			var9 = MathHelper.sin(var8 * (float)Math.PI);
+			var10 = MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI);
+			GL11.glTranslatef(-var10 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.2F, -var9 * 0.2F);
 			GL11.glTranslatef(0.7F * var14, -0.65F * var14 - (1.0F - var2) * 0.6F, -0.9F * var14);
 			GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			var8 = var3.getSwingProgress(var1);
-			var9 = net.minecraft.core.MathHelper.sin(var8 * var8 * (float)Math.PI);
-			var10 = net.minecraft.core.MathHelper.sin(net.minecraft.core.MathHelper.sqrt_float(var8) * (float)Math.PI);
+			var9 = MathHelper.sin(var8 * var8 * (float)Math.PI);
+			var10 = MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI);
 			GL11.glRotatef(-var9 * 20.0F, 0.0F, 1.0F, 0.0F);
 			GL11.glRotatef(-var10 * 20.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glRotatef(-var10 * 80.0F, 1.0F, 0.0F, 0.0F);
@@ -257,15 +256,15 @@ public class ItemRenderer {
 			GL11.glPushMatrix();
 			var14 = 0.8F;
 			var8 = var3.getSwingProgress(var1);
-			var9 = net.minecraft.core.MathHelper.sin(var8 * (float)Math.PI);
-			var10 = net.minecraft.core.MathHelper.sin(net.minecraft.core.MathHelper.sqrt_float(var8) * (float)Math.PI);
-			GL11.glTranslatef(-var10 * 0.3F, net.minecraft.core.MathHelper.sin(net.minecraft.core.MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.4F, -var9 * 0.4F);
+			var9 = MathHelper.sin(var8 * (float)Math.PI);
+			var10 = MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI);
+			GL11.glTranslatef(-var10 * 0.3F, MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI * 2.0F) * 0.4F, -var9 * 0.4F);
 			GL11.glTranslatef(0.8F * var14, -(12.0F / 16.0F) * var14 - (1.0F - var2) * 0.6F, -0.9F * var14);
 			GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 			var8 = var3.getSwingProgress(var1);
-			var9 = net.minecraft.core.MathHelper.sin(var8 * var8 * (float)Math.PI);
-			var10 = net.minecraft.core.MathHelper.sin(net.minecraft.core.MathHelper.sqrt_float(var8) * (float)Math.PI);
+			var9 = MathHelper.sin(var8 * var8 * (float)Math.PI);
+			var10 = MathHelper.sin(MathHelper.sqrt_float(var8) * (float)Math.PI);
 			GL11.glRotatef(var10 * 70.0F, 0.0F, 1.0F, 0.0F);
 			GL11.glRotatef(-var9 * 20.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTextureForDownloadableImage(this.mc.thePlayer.skinUrl, this.mc.thePlayer.getEntityTexture()));
@@ -297,9 +296,9 @@ public class ItemRenderer {
 		}
 
 		if(this.mc.thePlayer.isEntityInsideOpaqueBlock()) {
-			var2 = net.minecraft.core.MathHelper.floor_double(this.mc.thePlayer.posX);
-			int var3 = net.minecraft.core.MathHelper.floor_double(this.mc.thePlayer.posY);
-			int var4 = net.minecraft.core.MathHelper.floor_double(this.mc.thePlayer.posZ);
+			var2 = MathHelper.floor_double(this.mc.thePlayer.posX);
+			int var3 = MathHelper.floor_double(this.mc.thePlayer.posY);
+			int var4 = MathHelper.floor_double(this.mc.thePlayer.posZ);
 			int var5 = this.mc.renderEngine.getTexture("/terrain.png");
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, var5);
 			int var6 = this.mc.theWorld.getBlockId(var2, var3, var4);
@@ -310,8 +309,8 @@ public class ItemRenderer {
 					float var8 = ((float)((var7 >> 0) % 2) - 0.5F) * this.mc.thePlayer.width * 0.9F;
 					float var9 = ((float)((var7 >> 1) % 2) - 0.5F) * this.mc.thePlayer.height * 0.2F;
 					float var10 = ((float)((var7 >> 2) % 2) - 0.5F) * this.mc.thePlayer.width * 0.9F;
-					int var11 = net.minecraft.core.MathHelper.floor_float((float)var2 + var8);
-					int var12 = net.minecraft.core.MathHelper.floor_float((float)var3 + var9);
+					int var11 = MathHelper.floor_float((float)var2 + var8);
+					int var12 = MathHelper.floor_float((float)var3 + var9);
 					int var13 = MathHelper.floor_float((float)var4 + var10);
 					if(this.mc.theWorld.isBlockNormalCube(var11, var12, var13)) {
 						var6 = this.mc.theWorld.getBlockId(var11, var12, var13);

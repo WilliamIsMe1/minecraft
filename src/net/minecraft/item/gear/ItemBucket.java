@@ -2,7 +2,7 @@ package net.minecraft.item.gear;
 
 import net.minecraft.block.core.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.living.creature.animal.EntityCow;
 import net.minecraft.entity.living.EntityPlayer;
@@ -29,9 +29,9 @@ public class ItemBucket extends Item {
 		double var9 = var3.prevPosY + (var3.posY - var3.prevPosY) * (double)var4 + 1.62D - (double)var3.yOffset;
 		double var11 = var3.prevPosZ + (var3.posZ - var3.prevPosZ) * (double)var4;
 		net.minecraft.core.Vec3D var13 = net.minecraft.core.Vec3D.createVector(var7, var9, var11);
-		float var14 = net.minecraft.core.MathHelper.cos(-var6 * ((float)Math.PI / 180.0F) - (float)Math.PI);
-		float var15 = net.minecraft.core.MathHelper.sin(-var6 * ((float)Math.PI / 180.0F) - (float)Math.PI);
-		float var16 = -net.minecraft.core.MathHelper.cos(-var5 * ((float)Math.PI / 180.0F));
+		float var14 = MathHelper.cos(-var6 * ((float)Math.PI / 180.0F) - (float)Math.PI);
+		float var15 = MathHelper.sin(-var6 * ((float)Math.PI / 180.0F) - (float)Math.PI);
+		float var16 = -MathHelper.cos(-var5 * ((float)Math.PI / 180.0F));
 		float var17 = MathHelper.sin(-var5 * ((float)Math.PI / 180.0F));
 		float var18 = var15 * var16;
 		float var20 = var14 * var16;

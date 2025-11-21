@@ -1,7 +1,7 @@
 package net.minecraft.client.render.entity.model;
 
 import net.minecraft.client.render.ModelBase;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class ModelBiped extends ModelBase {
 	public ModelRenderer bipedHead;

@@ -58,17 +58,17 @@ public class StatList {
 		field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, 0, Block.blocksList.length);
 		field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, 0, Block.blocksList.length);
 		field_25166_D = true;
-		func_25157_c();
+		findAllCraftableItems();
 	}
 
 	public static void func_25151_b() {
 		field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, Block.blocksList.length, 32000);
 		field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, Block.blocksList.length, 32000);
 		field_25164_E = true;
-		func_25157_c();
+		findAllCraftableItems();
 	}
 
-	public static void func_25157_c() {
+	public static void findAllCraftableItems() {
 		if(field_25166_D && field_25164_E) {
 			HashSet var0 = new HashSet();
 			Iterator var1 = CraftingManager.getInstance().getRecipeList().iterator();

@@ -1,6 +1,7 @@
 package net.minecraft.client.render.entity.render;
 
 import net.minecraft.block.core.Block;
+import net.minecraft.client.render.block.RenderBlocks;
 import net.minecraft.client.render.entity.model.ModelBiped;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.item.core.Item;

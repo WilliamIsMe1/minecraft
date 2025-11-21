@@ -4,7 +4,7 @@ import net.minecraft.block.core.Block;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.nbt.NBTTagCompound;
-import net.minecraft.client.render.PistonBlockTextures;
+import net.minecraft.block.redstone.PistonBlockTextures;
 
 import java.util.ArrayList;
 import java.util.Iterator;

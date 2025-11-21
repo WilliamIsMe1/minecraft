@@ -1,15 +1,13 @@
 package net.minecraft.item.core;
 
+import net.minecraft.achievement.stats.StatCollector;
 import net.minecraft.block.core.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.achievement.stats.StatList;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.item.*;
-import net.minecraft.item.food.ItemCookie;
-import net.minecraft.item.food.ItemFood;
-import net.minecraft.item.food.ItemSeeds;
-import net.minecraft.item.food.ItemSoup;
+import net.minecraft.item.food.*;
 import net.minecraft.item.gear.*;
 import net.minecraft.item.redstone.ItemMinecart;
 import net.minecraft.item.redstone.ItemRecord;
@@ -288,5 +286,9 @@ public class Item {
 
 	static {
 		StatList.func_25151_b();
+	}
+
+	public String getNameLocalizedForStats() {
+		return StatCollector.translateToLocal(this.getItemName() + ".name");
 	}
 }

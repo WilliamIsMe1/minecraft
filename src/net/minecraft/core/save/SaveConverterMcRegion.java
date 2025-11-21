@@ -1,12 +1,10 @@
 package net.minecraft.core.save;
 
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.misc.IProgressUpdate;
 import net.minecraft.world.chunk.ChunkFile;
 import net.minecraft.world.chunk.ChunkFilePattern;
 import net.minecraft.world.chunk.ChunkFolderPattern;
-import net.minecraft.world.Empty2;
-import net.minecraft.world.ISaveHandler;
 import net.minecraft.world.WorldInfo;
 
 import java.io.DataInputStream;
@@ -29,8 +27,8 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 		return "Scaevolus\' McRegion";
 	}
 
-	public List func_22176_b() {
-		ArrayList var1 = new ArrayList();
+	public List<SaveFormatComparator> func_22176_b() {
+		ArrayList<SaveFormatComparator> var1 = new ArrayList<>();
 		File[] var2 = this.field_22180_a.listFiles();
 		File[] var3 = var2;
 		int var4 = var2.length;
@@ -43,7 +41,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 				if(var8 != null) {
 					boolean var9 = var8.getSaveVersion() != 19132;
 					String var10 = var8.getWorldName();
-					if(var10 == null || MathHelper.stringNullOrLengthZero(var10)) {
+					if(var10 == null || MathHelper.stringEmpty(var10)) {
 						var10 = var7;
 					}
 
@@ -59,7 +57,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 		RegionFileCache.func_22192_a();
 	}
 
-	public net.minecraft.world.ISaveHandler getSaveLoader(String var1, boolean var2) {
+	public ISaveHandler getSaveLoader(String var1, boolean var2) {
 		return new SaveOldDir(this.field_22180_a, var1, var2);
 	}
 
@@ -99,7 +97,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 	}
 
 	private void func_22183_a(File var1, ArrayList var2, ArrayList var3) {
-		ChunkFolderPattern var4 = new ChunkFolderPattern((net.minecraft.world.Empty2)null);
+		ChunkFolderPattern var4 = new ChunkFolderPattern((Empty2)null);
 		ChunkFilePattern var5 = new ChunkFilePattern((Empty2)null);
 		File[] var6 = var1.listFiles(var4);
 		File[] var7 = var6;
@@ -127,25 +125,23 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 
 	}
 
-	private void func_22181_a(File var1, ArrayList var2, int var3, int var4, IProgressUpdate var5) {
+	private void func_22181_a(File var1, ArrayList<ChunkFile> var2, int var3, int var4, IProgressUpdate var5) {
 		Collections.sort(var2);
 		byte[] var6 = new byte[4096];
-		Iterator var7 = var2.iterator();
 
-		while(var7.hasNext()) {
-			ChunkFile var8 = (ChunkFile)var7.next();
-			int var9 = var8.func_22323_b();
-			int var10 = var8.func_22321_c();
+		for (ChunkFile c : var2) {
+			int var9 = c.func_22323_b();
+			int var10 = c.func_22321_c();
 			RegionFile var11 = RegionFileCache.func_22193_a(var1, var9, var10);
-			if(!var11.func_22202_c(var9 & 31, var10 & 31)) {
+			if (!var11.func_22202_c(var9 & 31, var10 & 31)) {
 				try {
-					DataInputStream var12 = new DataInputStream(new GZIPInputStream(new FileInputStream(var8.func_22324_a())));
+					DataInputStream var12 = new DataInputStream(new GZIPInputStream(new FileInputStream(c.func_22324_a())));
 					DataOutputStream var13 = var11.getChunkDataOutputStream(var9 & 31, var10 & 31);
 					boolean var14 = false;
 
-					while(true) {
+					while (true) {
 						int var17 = var12.read(var6);
-						if(var17 == -1) {
+						if (var17 == -1) {
 							var13.close();
 							var12.close();
 							break;
@@ -159,7 +155,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 			}
 
 			++var3;
-			int var16 = (int)Math.round(100.0D * (double)var3 / (double)var4);
+			int var16 = (int) Math.round(100.0D * (double) var3 / (double) var4);
 			var5.setLoadingProgress(var16);
 		}
 

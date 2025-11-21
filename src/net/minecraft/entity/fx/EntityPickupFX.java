@@ -1,7 +1,7 @@
 package net.minecraft.entity.fx;
 
-import net.minecraft.core.MathHelper;
-import net.minecraft.client.render.entity.render.RenderManager;
+import net.minecraft.util.MathHelper;
+import net.minecraft.client.render.RenderManager;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;

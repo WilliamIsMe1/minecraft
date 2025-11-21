@@ -5,7 +5,7 @@ import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.item.core.Item;
 import net.minecraft.misc.AxisAlignedBB;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.world.World;
 

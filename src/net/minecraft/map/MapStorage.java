@@ -4,7 +4,7 @@ import net.minecraft.core.CompressedStreamTools;
 import net.minecraft.util.nbt.NBTBase;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.util.nbt.NBTTagShort;
-import net.minecraft.world.ISaveHandler;
+import net.minecraft.core.save.ISaveHandler;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MapStorage {
-	private net.minecraft.world.ISaveHandler field_28191_a;
+	private ISaveHandler field_28191_a;
 	private Map loadedDataMap = new HashMap();
 	private List loadedDataList = new ArrayList();
 	private Map idCounts = new HashMap();
@@ -116,14 +116,14 @@ public class MapStorage {
 			File var1 = this.field_28191_a.func_28113_a("idcounts");
 			if(var1 != null && var1.exists()) {
 				DataInputStream var2 = new DataInputStream(new FileInputStream(var1));
-				net.minecraft.util.nbt.NBTTagCompound var3 = CompressedStreamTools.func_1141_a(var2);
+				NBTTagCompound var3 = CompressedStreamTools.func_1141_a(var2);
 				var2.close();
-				Iterator var4 = var3.func_28110_c().iterator();
+				Iterator var4 = var3.getValues().iterator();
 
 				while(var4.hasNext()) {
-					net.minecraft.util.nbt.NBTBase var5 = (NBTBase)var4.next();
-					if(var5 instanceof net.minecraft.util.nbt.NBTTagShort) {
-						net.minecraft.util.nbt.NBTTagShort var6 = (NBTTagShort)var5;
+					NBTBase var5 = (NBTBase)var4.next();
+					if(var5 instanceof NBTTagShort) {
+						NBTTagShort var6 = (NBTTagShort)var5;
 						String var7 = var6.getKey();
 						short var8 = var6.shortValue;
 						this.idCounts.put(var7, Short.valueOf(var8));

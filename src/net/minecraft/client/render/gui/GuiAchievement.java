@@ -3,7 +3,7 @@ package net.minecraft.client.render.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.achievement.Achievement;
 import net.minecraft.client.render.entity.render.RenderHelper;
-import net.minecraft.client.render.entity.render.RenderItem;
+import net.minecraft.client.render.item.RenderItem;
 import net.minecraft.client.render.ScaledResolution;
 import net.minecraft.achievement.stats.StatCollector;
 import org.lwjgl.opengl.GL11;

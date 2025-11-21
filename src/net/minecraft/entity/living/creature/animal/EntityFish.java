@@ -1,7 +1,7 @@
 package net.minecraft.entity.living.creature.animal;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityItem;
@@ -75,15 +75,15 @@ public class EntityFish extends net.minecraft.entity.Entity {
 		this.angler.fishEntity = this;
 		this.setSize(0.25F, 0.25F);
 		this.setLocationAndAngles(var2.posX, var2.posY + 1.62D - (double)var2.yOffset, var2.posZ, var2.rotationYaw, var2.rotationPitch);
-		this.posX -= (double)(net.minecraft.core.MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+		this.posX -= (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
 		this.posY -= (double)0.1F;
-		this.posZ -= (double)(net.minecraft.core.MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+		this.posZ -= (double)(MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
 		this.setPosition(this.posX, this.posY, this.posZ);
 		this.yOffset = 0.0F;
 		float var3 = 0.4F;
-		this.motionX = (double)(-net.minecraft.core.MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
-		this.motionZ = (double)(net.minecraft.core.MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * net.minecraft.core.MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
-		this.motionY = (double)(-net.minecraft.core.MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
+		this.motionX = (double)(-MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
+		this.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
+		this.motionY = (double)(-MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI) * var3);
 		this.func_4042_a(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
 	}
 
@@ -97,7 +97,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 	}
 
 	public void func_4042_a(double var1, double var3, double var5, float var7, float var8) {
-		float var9 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
+		float var9 = MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
 		var1 /= (double)var9;
 		var3 /= (double)var9;
 		var5 /= (double)var9;
@@ -110,7 +110,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 		this.motionX = var1;
 		this.motionY = var3;
 		this.motionZ = var5;
-		float var10 = net.minecraft.core.MathHelper.sqrt_double(var1 * var1 + var5 * var5);
+		float var10 = MathHelper.sqrt_double(var1 * var1 + var5 * var5);
 		this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(var1, var5) * 180.0D / (double)((float)Math.PI));
 		this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(var3, (double)var10) * 180.0D / (double)((float)Math.PI));
 		this.ticksInGround = 0;
@@ -246,7 +246,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 
 			if(!this.inGround) {
 				this.moveEntity(this.motionX, this.motionY, this.motionZ);
-				float var24 = net.minecraft.core.MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+				float var24 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 				this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / (double)((float)Math.PI));
 
 				for(this.rotationPitch = (float)(Math.atan2(this.motionY, (double)var24) * 180.0D / (double)((float)Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
@@ -288,7 +288,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 						--this.ticksCatchable;
 					} else {
 						short var29 = 500;
-						if(this.worldObj.canBlockBeRainedOn(net.minecraft.core.MathHelper.floor_double(this.posX), net.minecraft.core.MathHelper.floor_double(this.posY) + 1, net.minecraft.core.MathHelper.floor_double(this.posZ))) {
+						if(this.worldObj.canBlockBeRainedOn(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY) + 1, MathHelper.floor_double(this.posZ))) {
 							var29 = 300;
 						}
 
@@ -296,7 +296,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 							this.ticksCatchable = this.rand.nextInt(30) + 10;
 							this.motionY -= (double)0.2F;
 							this.worldObj.playSoundAtEntity(this, "random.splash", 0.25F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
-							float var30 = (float) net.minecraft.core.MathHelper.floor_double(this.boundingBox.minY);
+							float var30 = (float) MathHelper.floor_double(this.boundingBox.minY);
 
 							int var15;
 							float var17;
@@ -363,10 +363,10 @@ public class EntityFish extends net.minecraft.entity.Entity {
 			double var2 = this.angler.posX - this.posX;
 			double var4 = this.angler.posY - this.posY;
 			double var6 = this.angler.posZ - this.posZ;
-			double var8 = (double) net.minecraft.core.MathHelper.sqrt_double(var2 * var2 + var4 * var4 + var6 * var6);
+			double var8 = (double) MathHelper.sqrt_double(var2 * var2 + var4 * var4 + var6 * var6);
 			double var10 = 0.1D;
 			this.bobber.motionX += var2 * var10;
-			this.bobber.motionY += var4 * var10 + (double) net.minecraft.core.MathHelper.sqrt_double(var8) * 0.08D;
+			this.bobber.motionY += var4 * var10 + (double) MathHelper.sqrt_double(var8) * 0.08D;
 			this.bobber.motionZ += var6 * var10;
 			var1 = 3;
 		} else if(this.ticksCatchable > 0) {
@@ -374,7 +374,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 			double var3 = this.angler.posX - this.posX;
 			double var5 = this.angler.posY - this.posY;
 			double var7 = this.angler.posZ - this.posZ;
-			double var9 = (double) net.minecraft.core.MathHelper.sqrt_double(var3 * var3 + var5 * var5 + var7 * var7);
+			double var9 = (double) MathHelper.sqrt_double(var3 * var3 + var5 * var5 + var7 * var7);
 			double var11 = 0.1D;
 			var13.motionX = var3 * var11;
 			var13.motionY = var5 * var11 + (double) MathHelper.sqrt_double(var9) * 0.08D;

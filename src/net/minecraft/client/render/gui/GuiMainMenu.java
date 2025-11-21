@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.StringTranslate;
 import net.minecraft.client.render.Tessellator;
 import org.lwjgl.opengl.GL11;
@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 public class GuiMainMenu extends GuiScreen {
 	private static final Random rand = new Random();
 	private float updateCounter = 0.0F;
-	private String splashText = "missingno";
+	private String splashText = "It appears the splash is broken";
 	private GuiButton multiplayerButton;
 
 	public GuiMainMenu() {

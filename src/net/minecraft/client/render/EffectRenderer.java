@@ -9,7 +9,7 @@ import net.minecraft.client.render.entity.render.RenderEngine;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.fx.EntityDiggingFX;
 import net.minecraft.entity.fx.EntityFX;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 

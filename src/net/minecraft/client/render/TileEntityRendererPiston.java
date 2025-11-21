@@ -5,7 +5,7 @@ import net.minecraft.block.redstone.BlockPistonBase;
 import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.block.tileentity.TileEntityPiston;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.entity.render.RenderBlocks;
+import net.minecraft.client.render.block.RenderBlocks;
 import net.minecraft.client.render.entity.render.RenderHelper;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
@@ -37,10 +37,10 @@ public class TileEntityRendererPiston extends TileEntitySpecialRenderer {
 				Block.pistonExtension.func_31052_a_(((BlockPistonBase)var9).func_31040_i());
 				this.field_31071_b.func_31079_a(Block.pistonExtension, var1.xCoord, var1.yCoord, var1.zCoord, var1.func_31008_a(var8) < 0.5F);
 				Block.pistonExtension.func_31051_a();
-				var10.setTranslationD((double)((float)var2 - (float)var1.xCoord), (double)((float)var4 - (float)var1.yCoord), (double)((float)var6 - (float)var1.zCoord));
+				var10.setTranslationD((float)var2 - (float)var1.xCoord, (double)((float)var4 - (float)var1.yCoord), (double)((float)var6 - (float)var1.zCoord));
 				this.field_31071_b.func_31078_d(var9, var1.xCoord, var1.yCoord, var1.zCoord);
 			} else {
-				this.field_31071_b.func_31075_a(var9, var1.xCoord, var1.yCoord, var1.zCoord);
+				this.field_31071_b.renderBlockWithoutCulling(var9, var1.xCoord, var1.yCoord, var1.zCoord);
 			}
 
 			var10.setTranslationD(0.0D, 0.0D, 0.0D);

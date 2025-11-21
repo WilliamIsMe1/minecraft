@@ -1,6 +1,6 @@
 package net.minecraft.entity.living.creature;
 
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.pathfinding.PathEntity;

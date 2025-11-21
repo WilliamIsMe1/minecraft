@@ -2,7 +2,7 @@ package net.minecraft.entity.fx;
 
 import net.minecraft.block.core.BlockFluid;
 import net.minecraft.block.material.Material;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.world.World;
 

@@ -3,9 +3,9 @@ package net.minecraft.client.render.gui;
 import java.util.Random;
 
 import net.minecraft.entity.PlayerControllerSP;
-import net.minecraft.client.ChatAllowedCharacters;
-import net.minecraft.world.ISaveFormat;
-import net.minecraft.core.MathHelper;
+import net.minecraft.core.ChatAllowedCharacters;
+import net.minecraft.core.save.ISaveFormat;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.StringTranslate;
 import org.lwjgl.input.Keyboard;
 
@@ -48,7 +48,7 @@ public class GuiCreateWorld extends GuiScreen {
 			this.folderName = this.folderName.replace(var4, '_');
 		}
 
-		if(MathHelper.stringNullOrLengthZero(this.folderName)) {
+		if(MathHelper.stringEmpty(this.folderName)) {
 			this.folderName = "World";
 		}
 
@@ -80,7 +80,7 @@ public class GuiCreateWorld extends GuiScreen {
 				this.createClicked = true;
 				long var2 = (new Random()).nextLong();
 				String var4 = this.textboxSeed.getText();
-				if(!MathHelper.stringNullOrLengthZero(var4)) {
+				if(!MathHelper.stringEmpty(var4)) {
 					try {
 						long var5 = Long.parseLong(var4);
 						if(var5 != 0L) {

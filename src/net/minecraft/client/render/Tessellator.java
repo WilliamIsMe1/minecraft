@@ -11,12 +11,12 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GLContext;
 
 public class Tessellator {
-	private static boolean convertQuadsToTriangles = true;
-	private static boolean tryVBO = false;
-	private ByteBuffer byteBuffer;
-	private IntBuffer intBuffer;
-	private FloatBuffer floatBuffer;
-	private int[] rawBuffer;
+	private static final boolean convertQuadsToTriangles = true;
+	private static final boolean tryVBO = false;
+	private final ByteBuffer byteBuffer;
+	private final IntBuffer intBuffer;
+	private final FloatBuffer floatBuffer;
+	private final int[] rawBuffer;
 	private int vertexCount = 0;
 	private double textureU;
 	private double textureV;
@@ -37,8 +37,9 @@ public class Tessellator {
 	private boolean useVBO = false;
 	private IntBuffer vertexBuffers;
 	private int vboIndex = 0;
+	@SuppressWarnings("FieldMayBeFinal")
 	private int vboCount = 10;
-	private int bufferSize;
+	private final int bufferSize;
 
 	private Tessellator(int var1) {
 		this.bufferSize = var1;
@@ -56,7 +57,7 @@ public class Tessellator {
 
 	public void draw() {
 		if(!this.isDrawing) {
-			throw new IllegalStateException("Not tesselating!");
+			throw new IllegalStateException("Not tessellating!");
 		} else {
 			this.isDrawing = false;
 			if(this.vertexCount > 0) {
@@ -241,7 +242,7 @@ public class Tessellator {
 					this.rawBuffer[this.rawBufferIndex + 5] = this.rawBuffer[this.rawBufferIndex - var8 + 5];
 				}
 
-				this.rawBuffer[this.rawBufferIndex + 0] = this.rawBuffer[this.rawBufferIndex - var8 + 0];
+				this.rawBuffer[this.rawBufferIndex] = this.rawBuffer[this.rawBufferIndex - var8];
 				this.rawBuffer[this.rawBufferIndex + 1] = this.rawBuffer[this.rawBufferIndex - var8 + 1];
 				this.rawBuffer[this.rawBufferIndex + 2] = this.rawBuffer[this.rawBufferIndex - var8 + 2];
 				++this.vertexCount;
@@ -262,7 +263,7 @@ public class Tessellator {
 			this.rawBuffer[this.rawBufferIndex + 6] = this.normal;
 		}
 
-		this.rawBuffer[this.rawBufferIndex + 0] = Float.floatToRawIntBits((float)(var1 + this.xOffset));
+		this.rawBuffer[this.rawBufferIndex] = Float.floatToRawIntBits((float)(var1 + this.xOffset));
 		this.rawBuffer[this.rawBufferIndex + 1] = Float.floatToRawIntBits((float)(var3 + this.yOffset));
 		this.rawBuffer[this.rawBufferIndex + 2] = Float.floatToRawIntBits((float)(var5 + this.zOffset));
 		this.rawBufferIndex += 8;
@@ -274,18 +275,18 @@ public class Tessellator {
 
 	}
 
-	public void setColorOpaque_I(int var1) {
-		int var2 = var1 >> 16 & 255;
-		int var3 = var1 >> 8 & 255;
-		int var4 = var1 & 255;
-		this.setColorOpaque(var2, var3, var4);
+	public void setColorOpaque_I(int rgb) {
+		int r = rgb >> 16 & 0b11111111;
+		int g = rgb >> 8  & 0b11111111;
+		int b = rgb       & 0b11111111;
+		this.setColorOpaque(r, g, b);
 	}
 
-	public void setColorRGBA_I(int var1, int var2) {
-		int var3 = var1 >> 16 & 255;
-		int var4 = var1 >> 8 & 255;
-		int var5 = var1 & 255;
-		this.setColorRGBA(var3, var4, var5, var2);
+	public void setColorRGBA_I(int rgb, int a) {
+		int r = rgb >> 16 & 0b11111111;
+		int g = rgb >> 8  & 0b11111111;
+		int b = rgb       & 0b11111111;
+		this.setColorRGBA(r, g, b, a);
 	}
 
 	public void disableColor() {
@@ -294,7 +295,7 @@ public class Tessellator {
 
 	public void setNormal(float var1, float var2, float var3) {
 		if(!this.isDrawing) {
-			System.out.println("But..");
+			System.out.println("But...");
 		}
 
 		this.hasNormals = true;
@@ -304,15 +305,15 @@ public class Tessellator {
 		this.normal = var4 | var5 << 8 | var6 << 16;
 	}
 
-	public void setTranslationD(double var1, double var3, double var5) {
-		this.xOffset = var1;
-		this.yOffset = var3;
-		this.zOffset = var5;
+	public void setTranslationD(double xOffset, double yOffset, double zOffset) {
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
+		this.zOffset = zOffset;
 	}
 
-	public void setTranslationF(float var1, float var2, float var3) {
-		this.xOffset += (double)var1;
-		this.yOffset += (double)var2;
-		this.zOffset += (double)var3;
+	public void setTranslationF(float xOffset, float yOffset, float zOffset) {
+		this.xOffset += xOffset;
+		this.yOffset += yOffset;
+		this.zOffset += zOffset;
 	}
 }

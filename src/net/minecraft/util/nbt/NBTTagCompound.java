@@ -8,15 +8,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class NBTTagCompound extends NBTBase {
+public class NBTTagCompound extends net.minecraft.util.nbt.NBTBase {
 	private Map tagMap = new HashMap();
 
 	public void writeTagContents(DataOutput var1) throws IOException {
 		Iterator var2 = this.tagMap.values().iterator();
 
 		while(var2.hasNext()) {
-			NBTBase var3 = (NBTBase)var2.next();
-			NBTBase.writeTag(var3, var1);
+			net.minecraft.util.nbt.NBTBase var3 = (net.minecraft.util.nbt.NBTBase)var2.next();
+			net.minecraft.util.nbt.NBTBase.writeTag(var3, var1);
 		}
 
 		var1.writeByte(0);
@@ -26,7 +26,7 @@ public class NBTTagCompound extends NBTBase {
 		this.tagMap.clear();
 
 		while(true) {
-			NBTBase var2 = NBTBase.readTag(var1);
+			net.minecraft.util.nbt.NBTBase var2 = net.minecraft.util.nbt.NBTBase.readTag(var1);
 			if(var2.getType() == 0) {
 				return;
 			}
@@ -35,7 +35,7 @@ public class NBTTagCompound extends NBTBase {
 		}
 	}
 
-	public Collection func_28110_c() {
+	public Collection getValues() {
 		return this.tagMap.values();
 	}
 

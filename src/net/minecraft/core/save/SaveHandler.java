@@ -5,7 +5,6 @@ import net.minecraft.core.MinecraftException;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.chunk.ChunkLoader;
 import net.minecraft.world.chunk.IChunkLoader;
-import net.minecraft.world.ISaveHandler;
 import net.minecraft.world.WorldInfo;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldProviderHell;

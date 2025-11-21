@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 public class ItemRecord extends Item {
 	public final String recordName;
 
-	protected ItemRecord(int var1, String var2) {
+	public ItemRecord(int var1, String var2) {
 		super(var1);
 		this.recordName = var2;
 		this.maxStackSize = 1;

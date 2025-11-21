@@ -4,6 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.Entity;
 import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -17,7 +18,7 @@ public abstract class BlockFluid extends Block {
 		this.setTickOnLoad(true);
 	}
 
-	public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
+	public int colorMultiplier(net.minecraft.src.IBlockAccess var1, int var2, int var3, int var4) {
 		return 16777215;
 	}
 
@@ -65,12 +66,12 @@ public abstract class BlockFluid extends Block {
 
 	public boolean getIsBlockSolid(IBlockAccess var1, int var2, int var3, int var4, int var5) {
 		Material var6 = var1.getBlockMaterial(var2, var3, var4);
-		return var6 == this.getBlockMaterial() ? false : (var6 == Material.ice ? false : (var5 == 1 ? true : super.getIsBlockSolid(var1, var2, var3, var4, var5)));
+		return var6 != this.getBlockMaterial() && (var6 != Material.ice && (var5 == 1 ? true : super.getIsBlockSolid(var1, var2, var3, var4, var5)));
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
 		Material var6 = var1.getBlockMaterial(var2, var3, var4);
-		return var6 == this.getBlockMaterial() ? false : (var6 == Material.ice ? false : (var5 == 1 ? true : super.shouldSideBeRendered(var1, var2, var3, var4, var5)));
+		return var6 != this.getBlockMaterial() && (var6 != Material.ice && (var5 == 1 || super.shouldSideBeRendered(var1, var2, var3, var4, var5)));
 	}
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
@@ -182,7 +183,7 @@ public abstract class BlockFluid extends Block {
 		return this.getBlockMaterial() == Material.water ? 5 : (this.getBlockMaterial() == Material.lava ? 30 : 0);
 	}
 
-	public float getBlockBrightness(IBlockAccess var1, int var2, int var3, int var4) {
+	public float getBlockBrightness(net.minecraft.src.IBlockAccess var1, int var2, int var3, int var4) {
 		float var5 = var1.getLightBrightness(var2, var3, var4);
 		float var6 = var1.getLightBrightness(var2, var3 + 1, var4);
 		return var5 > var6 ? var5 : var6;

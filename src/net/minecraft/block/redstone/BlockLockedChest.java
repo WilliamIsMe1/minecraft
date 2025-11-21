@@ -1,7 +1,7 @@
 package net.minecraft.block.redstone;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
@@ -23,7 +23,7 @@ public class BlockLockedChest extends Block {
 			int var7 = var1.getBlockId(var2, var3, var4 + 1);
 			int var8 = var1.getBlockId(var2 - 1, var3, var4);
 			int var9 = var1.getBlockId(var2 + 1, var3, var4);
-			byte var10 = 3;
+			byte var10 = 0;
 			if(Block.opaqueCubeLookup[var6] && !Block.opaqueCubeLookup[var7]) {
 				var10 = 3;
 			}

@@ -34,11 +34,11 @@ public enum EnumArt {
 	public final int offsetX;
 	public final int offsetY;
 
-	EnumArt(String var3, int var4, int var5, int var6, int var7) {
-		this.title = var3;
-		this.sizeX = var4;
-		this.sizeY = var5;
-		this.offsetX = var6;
-		this.offsetY = var7;
+	EnumArt(String title, int sizeX, int sizeY, int offsetX, int offsetY) {
+		this.title = title;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
 	}
 }

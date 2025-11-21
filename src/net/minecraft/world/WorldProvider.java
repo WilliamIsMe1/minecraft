@@ -1,7 +1,7 @@
 package net.minecraft.world;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.Vec3D;
 import net.minecraft.world.chunk.ChunkProviderGenerate;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -104,7 +104,7 @@ public abstract class WorldProvider {
 	}
 
 	public static WorldProvider getProviderForDimension(int var0) {
-		return (WorldProvider)(var0 == -1 ? new WorldProviderHell() : (var0 == 0 ? new WorldProviderSurface() : (var0 == 1 ? new WorldProviderSky() : null)));
+		return var0 == -1 ? new WorldProviderHell() : (var0 == 0 ? new WorldProviderSurface() : (var0 == 1 ? new WorldProviderSky() : null));
 	}
 
 	public float getCloudHeight() {

@@ -130,8 +130,8 @@ public class BlockTorch extends Block {
 		}
 	}
 
-	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
-		int var7 = var1.getBlockMetadata(var2, var3, var4) & 7;
+	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World world, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
+		int var7 = world.getBlockMetadata(var2, var3, var4) & 7;
 		float var8 = 0.15F;
 		if(var7 == 1) {
 			this.setBlockBounds(0.0F, 0.2F, 0.5F - var8, var8 * 2.0F, 0.8F, 0.5F + var8);
@@ -146,7 +146,7 @@ public class BlockTorch extends Block {
 			this.setBlockBounds(0.5F - var8, 0.0F, 0.5F - var8, 0.5F + var8, 0.6F, 0.5F + var8);
 		}
 
-		return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+		return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
 	}
 
 	public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5) {

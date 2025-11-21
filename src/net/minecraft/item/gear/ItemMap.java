@@ -1,7 +1,7 @@
 package net.minecraft.item.gear;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.map.MapData;
@@ -9,7 +9,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.World;
 
 public class ItemMap extends ItemMapBase {
-	protected ItemMap(int var1) {
+	public ItemMap(int var1) {
 		super(var1);
 		this.setMaxStackSize(1);
 	}
@@ -52,8 +52,8 @@ public class ItemMap extends ItemMapBase {
 			int var6 = 1 << var3.scale;
 			int var7 = var3.xCenter;
 			int var8 = var3.yCenter;
-			int var9 = net.minecraft.core.MathHelper.floor_double(var2.posX - (double)var7) / var6 + var4 / 2;
-			int var10 = net.minecraft.core.MathHelper.floor_double(var2.posZ - (double)var8) / var6 + var5 / 2;
+			int var9 = MathHelper.floor_double(var2.posX - (double)var7) / var6 + var4 / 2;
+			int var10 = MathHelper.floor_double(var2.posZ - (double)var8) / var6 + var5 / 2;
 			int var11 = 128 / var6;
 			if(var1.worldProvider.hasNoSky) {
 				var11 /= 2;
@@ -235,7 +235,7 @@ public class ItemMap extends ItemMapBase {
 		String var4 = "map_" + var1.getItemDamage();
 		net.minecraft.map.MapData var5 = new MapData(var4);
 		var2.setItemData(var4, var5);
-		var5.xCenter = net.minecraft.core.MathHelper.floor_double(var3.posX);
+		var5.xCenter = MathHelper.floor_double(var3.posX);
 		var5.yCenter = MathHelper.floor_double(var3.posZ);
 		var5.scale = 3;
 		var5.dimension = (byte)var2.worldProvider.worldType;

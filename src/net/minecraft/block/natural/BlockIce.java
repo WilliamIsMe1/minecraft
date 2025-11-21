@@ -3,7 +3,7 @@ package net.minecraft.block.natural;
 import net.minecraft.block.EnumSkyBlock;
 import net.minecraft.block.core.Block;
 import net.minecraft.block.core.BlockBreakable;
-import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.block.core	.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.world.World;

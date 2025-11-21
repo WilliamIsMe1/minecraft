@@ -3,8 +3,6 @@ package net.minecraft.core.save;
 import net.minecraft.core.CompressedStreamTools;
 import net.minecraft.misc.IProgressUpdate;
 import net.minecraft.util.nbt.NBTTagCompound;
-import net.minecraft.world.ISaveFormat;
-import net.minecraft.world.ISaveHandler;
 import net.minecraft.world.WorldInfo;
 
 import java.io.File;
@@ -28,8 +26,8 @@ public class SaveFormatOld implements ISaveFormat {
 		return "Old Format";
 	}
 
-	public List func_22176_b() {
-		ArrayList var1 = new ArrayList();
+	public List<SaveFormatComparator> func_22176_b() {
+		ArrayList<SaveFormatComparator> var1 = new ArrayList<>();
 
 		for(int var2 = 0; var2 < 5; ++var2) {
 			String var3 = "World" + (var2 + 1);

@@ -1,7 +1,7 @@
 package net.minecraft.item.container;
 
 import net.minecraft.block.tileentity.TileEntityDispenser;
-import net.minecraft.client.render.gui.Slot;
+import net.minecraft.item.container.inventory.Slot;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.container.inventory.IInventory;
 
@@ -31,7 +31,7 @@ public class ContainerDispenser extends Container {
 
 	}
 
-	public boolean isUsableByPlayer(EntityPlayer var1) {
+	public boolean canInteractWith(EntityPlayer var1) {
 		return this.field_21149_a.canInteractWith(var1);
 	}
 }

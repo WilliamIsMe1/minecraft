@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.core.Item;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.render.entity.render.RenderHelper;
-import net.minecraft.client.render.entity.render.RenderItem;
+import net.minecraft.client.render.item.RenderItem;
 import net.minecraft.achievement.stats.StatCollector;
 import net.minecraft.achievement.stats.StatFileWriter;
 import net.minecraft.core.StringTranslate;

@@ -1,6 +1,6 @@
 package net.minecraft.block.redstone;
 
-import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityMinecart;

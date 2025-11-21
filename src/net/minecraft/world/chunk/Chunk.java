@@ -6,7 +6,7 @@ import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.block.EnumSkyBlock;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.misc.NibbleArray;
 import net.minecraft.world.World;
 

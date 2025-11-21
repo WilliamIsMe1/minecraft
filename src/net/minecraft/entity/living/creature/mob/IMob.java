@@ -1,4 +1,6 @@
 package net.minecraft.entity.living.creature.mob;
 
-public interface IMob {
+import net.minecraft.entity.living.ILiving;
+
+public interface IMob extends ILiving {
 }

@@ -1,6 +1,6 @@
 package net.minecraft.client.render.gui;
 
-import net.minecraft.client.ChatAllowedCharacters;
+import net.minecraft.core.ChatAllowedCharacters;
 import net.minecraft.client.render.FontRenderer;
 
 public class GuiTextField extends Gui {

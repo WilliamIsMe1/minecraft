@@ -5,7 +5,6 @@ import java.util.Map;
 
 import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.block.tileentity.TileEntityMobSpawner;
-import net.minecraft.client.render.entity.render.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.world.World;

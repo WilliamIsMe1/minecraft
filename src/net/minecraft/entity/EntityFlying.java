@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.world.World;
 

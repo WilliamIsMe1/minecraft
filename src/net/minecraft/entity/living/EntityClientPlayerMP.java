@@ -1,7 +1,7 @@
 package net.minecraft.entity.living;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.client.Session;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityItem;
@@ -39,7 +39,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 	}
 
 	public void onUpdate() {
-		if(this.worldObj.blockExists(net.minecraft.core.MathHelper.floor_double(this.posX), 64, MathHelper.floor_double(this.posZ))) {
+		if(this.worldObj.blockExists(MathHelper.floor_double(this.posX), 64, MathHelper.floor_double(this.posZ))) {
 			super.onUpdate();
 			this.func_4056_N();
 		}

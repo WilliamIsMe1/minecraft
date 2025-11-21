@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.IntBuffer;
 import javax.imageio.ImageIO;
 
-import net.minecraft.client.ChatAllowedCharacters;
+import net.minecraft.core.ChatAllowedCharacters;
 import net.minecraft.client.GameSettings;
 import net.minecraft.client.render.entity.render.RenderEngine;
 import org.lwjgl.opengl.GL11;
@@ -165,7 +165,7 @@ public class FontRenderer {
 				}
 
 				if(var6 < var1.length()) {
-					var11 = net.minecraft.client.ChatAllowedCharacters.allowedCharacters.indexOf(var1.charAt(var6));
+					var11 = ChatAllowedCharacters.allowedCharacters.indexOf(var1.charAt(var6));
 					if(var11 >= 0) {
 						this.buffer.put(this.fontDisplayLists + var11 + 32);
 					}

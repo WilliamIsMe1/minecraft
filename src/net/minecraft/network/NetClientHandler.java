@@ -19,7 +19,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.gui.GuiConnectFailed;
 import net.minecraft.client.render.gui.GuiDownloadTerrain;
 import net.minecraft.client.render.gui.GuiScreen;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.EntityBoat;
@@ -94,7 +94,7 @@ import net.minecraft.network.packet.Packet71Weather;
 import net.minecraft.network.packet.Packet8UpdateHealth;
 import net.minecraft.network.packet.Packet9Respawn;
 import net.minecraft.world.chunk.ChunkCoordinates;
-import net.minecraft.world.ISaveHandler;
+import net.minecraft.core.save.ISaveHandler;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldClient;
 import net.minecraft.world.chunk.Chunk;
@@ -586,7 +586,7 @@ public class NetClientHandler extends NetHandler {
 			this.mc.thePlayer.craftingInventory.windowId = var1.windowId;
 		} else if(var1.inventoryType == 1) {
 			EntityPlayerSP var5 = this.mc.thePlayer;
-			this.mc.thePlayer.displayWorkbenchGUI(net.minecraft.core.MathHelper.floor_double(var5.posX), net.minecraft.core.MathHelper.floor_double(var5.posY), MathHelper.floor_double(var5.posZ));
+			this.mc.thePlayer.displayWorkbenchGUI(MathHelper.floor_double(var5.posX), MathHelper.floor_double(var5.posY), MathHelper.floor_double(var5.posZ));
 			this.mc.thePlayer.craftingInventory.windowId = var1.windowId;
 		}
 

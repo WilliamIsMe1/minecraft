@@ -1,7 +1,7 @@
 package net.minecraft.entity.living.creature.animal;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.living.creature.EntityCreature;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;

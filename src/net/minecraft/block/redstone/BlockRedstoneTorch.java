@@ -2,7 +2,7 @@ package net.minecraft.block.redstone;
 
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.core.Block;
-import net.minecraft.block.core.IBlockAccess;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;

@@ -1,11 +1,11 @@
 package net.minecraft.entity.pathfinding;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.block.BlockDoor;
+import net.minecraft.block.redstone.BlockDoor;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.core.MCHash;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.entity.Entity;
 
 public class Pathfinder {

@@ -40,12 +40,12 @@ import net.minecraft.client.render.gui.GuiScreen;
 import net.minecraft.client.render.gui.GuiSleepMP;
 import net.minecraft.client.render.gui.GuiUnused;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.ISaveFormat;
-import net.minecraft.world.ISaveHandler;
+import net.minecraft.core.save.ISaveFormat;
+import net.minecraft.core.save.ISaveHandler;
 import net.minecraft.client.render.ItemRenderer;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.client.render.LoadingScreenRenderer;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.core.MinecraftError;
 import net.minecraft.core.MinecraftException;
 import net.minecraft.client.render.entity.model.ModelBiped;
@@ -54,10 +54,10 @@ import net.minecraft.network.NetClientHandler;
 import net.minecraft.client.render.OpenGlCapsChecker;
 import net.minecraft.entity.PlayerController;
 import net.minecraft.entity.PlayerControllerTest;
-import net.minecraft.client.render.entity.render.RenderBlocks;
+import net.minecraft.client.render.block.RenderBlocks;
 import net.minecraft.client.render.entity.render.RenderEngine;
 import net.minecraft.client.render.entity.render.RenderGlobal;
-import net.minecraft.client.render.entity.render.RenderManager;
+import net.minecraft.client.render.RenderManager;
 import net.minecraft.core.save.SaveConverterMcRegion;
 import net.minecraft.sound.SoundManager;
 import net.minecraft.achievement.stats.StatFileWriter;
@@ -75,7 +75,6 @@ import net.minecraft.client.render.fx.TextureWatchFX;
 import net.minecraft.client.render.fx.TextureWaterFX;
 import net.minecraft.client.render.fx.TextureWaterFlowFX;
 import net.minecraft.core.ThreadCheckHasPaid;
-import net.minecraft.network.ThreadDownloadResources;
 import net.minecraft.core.ThreadSleepForever;
 import net.minecraft.core.Timer;
 import net.minecraft.core.UnexpectedThrowable;
@@ -101,7 +100,7 @@ public abstract class Minecraft implements Runnable {
 	public int displayWidth;
 	public int displayHeight;
 	private OpenGlCapsChecker glCapabilities;
-	private Timer timer = new Timer(20.0F);
+	private final Timer timer = new Timer(20.0F);
 	public World theWorld;
 	public RenderGlobal renderGlobal;
 	public EntityPlayerSP thePlayer;
@@ -121,7 +120,8 @@ public abstract class Minecraft implements Runnable {
 	private int ticksRan = 0;
 	private int leftClickCounter = 0;
 	private int tempDisplayWidth;
-	private int tempDisplayHeight;
+	@SuppressWarnings("FieldMayBeFinal")
+	private int tempDisplayHeight; // THIS CANNOT BE MADE FINAL, NO MATTER WHAT INTELLIJ SAYS
 	public GuiAchievement guiAchievement = new GuiAchievement(this);
 	public GuiIngame ingameGUI;
 	public boolean skipRenderWorld = false;
@@ -234,9 +234,9 @@ public abstract class Minecraft implements Runnable {
 		this.texturePackList = new TexturePackList(this, this.mcDataDir);
 		this.renderEngine = new RenderEngine(this.texturePackList, this.gameSettings);
 		this.fontRenderer = new FontRenderer(this.gameSettings, "/font/default.png", this.renderEngine);
-		ColorizerWater.func_28182_a(this.renderEngine.func_28149_a("/misc/watercolor.png"));
-		ColorizerGrass.func_28181_a(this.renderEngine.func_28149_a("/misc/grasscolor.png"));
-		ColorizerFoliage.func_28152_a(this.renderEngine.func_28149_a("/misc/foliagecolor.png"));
+		ColorizerWater.func_28182_a(this.renderEngine.loadPixels("/misc/watercolor.png"));
+		ColorizerGrass.func_28181_a(this.renderEngine.loadPixels("/misc/grasscolor.png"));
+		ColorizerFoliage.func_28152_a(this.renderEngine.loadPixels("/misc/foliagecolor.png"));
 		this.entityRenderer = new EntityRenderer(this);
 		RenderManager.instance.itemRenderer = new ItemRenderer(this);
 		this.statFileWriter = new StatFileWriter(this.session, this.mcDataDir);
@@ -336,9 +336,9 @@ public abstract class Minecraft implements Runnable {
 		float var8 = 0.00390625F;
 		Tessellator var9 = Tessellator.instance;
 		var9.startDrawingQuads();
-		var9.addVertexWithUV((double)(var1 + 0), (double)(var2 + var6), 0.0D, (double)((float)(var3 + 0) * var7), (double)((float)(var4 + var6) * var8));
+		var9.addVertexWithUV(var1, (double)(var2 + var6), 0.0D, (float)(var3) * var7, (float)(var4 + var6) * var8);
 		var9.addVertexWithUV((double)(var1 + var5), (double)(var2 + var6), 0.0D, (double)((float)(var3 + var5) * var7), (double)((float)(var4 + var6) * var8));
-		var9.addVertexWithUV((double)(var1 + var5), (double)(var2 + 0), 0.0D, (double)((float)(var3 + var5) * var7), (double)((float)(var4 + 0) * var8));
+		var9.addVertexWithUV(var1 + var5, (double)(var2 + 0), 0.0D, (double)((float)(var3 + var5) * var7), (double)((float)(var4 + 0) * var8));
 		var9.addVertexWithUV((double)(var1 + 0), (double)(var2 + 0), 0.0D, (double)((float)(var3 + 0) * var7), (double)((float)(var4 + 0) * var8));
 		var9.draw();
 	}
@@ -413,14 +413,14 @@ public abstract class Minecraft implements Runnable {
 
 			this.currentScreen = (GuiScreen)var1;
 			if(var1 != null) {
-				this.setIngameNotInFocus();
+				this.setInGameNotInFocus();
 				ScaledResolution var2 = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
 				int var3 = var2.getScaledWidth();
 				int var4 = var2.getScaledHeight();
 				((GuiScreen)var1).setWorldAndResolution(this, var3, var4);
 				this.skipRenderWorld = false;
 			} else {
-				this.setIngameFocus();
+				this.setInGameFocus();
 			}
 
 		}
@@ -478,6 +478,7 @@ public abstract class Minecraft implements Runnable {
 		System.gc();
 	}
 
+	@Override
 	public void run() {
 		this.running = true;
 
@@ -607,7 +608,7 @@ public abstract class Minecraft implements Runnable {
 					System.gc();
 				}
 			}
-		} catch (MinecraftError var20) {
+		} catch (MinecraftError ignored) {
 		} catch (Throwable var21) {
 			this.func_28002_e();
 			var21.printStackTrace();
@@ -627,7 +628,7 @@ public abstract class Minecraft implements Runnable {
 
 		try {
 			System.gc();
-			AxisAlignedBB.func_28196_a();
+			AxisAlignedBB.clearPool();
 			Vec3D.func_28215_a();
 		} catch (Throwable var3) {
 		}
@@ -732,7 +733,7 @@ public abstract class Minecraft implements Runnable {
 		this.running = false;
 	}
 
-	public void setIngameFocus() {
+	public void setInGameFocus() {
 		if(Display.isActive()) {
 			if(!this.inGameHasFocus) {
 				this.inGameHasFocus = true;
@@ -744,7 +745,7 @@ public abstract class Minecraft implements Runnable {
 		}
 	}
 
-	public void setIngameNotInFocus() {
+	public void setInGameNotInFocus() {
 		if(this.inGameHasFocus) {
 			if(this.thePlayer != null) {
 				this.thePlayer.resetPlayerKeyState();
@@ -1055,7 +1056,7 @@ public abstract class Minecraft implements Runnable {
 												}
 											}
 
-											for(int var6 = 0; var6 < 9; ++var6) {
+											for(int var6 = 0; var6 < 9; ++var6) { // Handle number keys
 												if(Keyboard.getEventKey() == Keyboard.KEY_1 + var6) {
 													this.thePlayer.inventory.currentItem = var6;
 												}
@@ -1090,7 +1091,7 @@ public abstract class Minecraft implements Runnable {
 
 						if(this.currentScreen == null) {
 							if(!this.inGameHasFocus && Mouse.getEventButtonState()) {
-								this.setIngameFocus();
+								this.setInGameFocus();
 							} else {
 								if(Mouse.getEventButton() == 0 && Mouse.getEventButtonState()) {
 									this.clickMouse(0);
@@ -1106,7 +1107,7 @@ public abstract class Minecraft implements Runnable {
 									this.clickMiddleMouseButton();
 								}
 							}
-						} else if(this.currentScreen != null) {
+						} else {
 							this.currentScreen.handleMouseInput();
 						}
 					}
@@ -1215,8 +1216,6 @@ public abstract class Minecraft implements Runnable {
 			if(this.thePlayer.isEntityAlive()) {
 				this.theWorld.updateEntityWithOptionalForce(this.thePlayer, false);
 			}
-
-			var7 = null;
 			var7 = new World(this.theWorld, WorldProvider.getProviderForDimension(-1));
 			this.changeWorld(var7, "Entering the Nether", this.thePlayer);
 		} else {
@@ -1226,8 +1225,6 @@ public abstract class Minecraft implements Runnable {
 			if(this.thePlayer.isEntityAlive()) {
 				this.theWorld.updateEntityWithOptionalForce(this.thePlayer, false);
 			}
-
-			var7 = null;
 			var7 = new World(this.theWorld, WorldProvider.getProviderForDimension(0));
 			this.changeWorld(var7, "Leaving the Nether", this.thePlayer);
 		}
@@ -1351,7 +1348,9 @@ public abstract class Minecraft implements Runnable {
 				this.loadingScreen.setLoadingProgress(var3++ * 100 / var4);
 				this.theWorld.getBlockId(var6.x + var10, 64, var6.z + var8);
 
-				while(this.theWorld.updatingLighting()) {
+				boolean lightingIsSuccessful = true;
+				while(lightingIsSuccessful) {
+					lightingIsSuccessful = this.theWorld.updatingLighting();
 				}
 			}
 		}

@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.Item;
 import net.minecraft.misc.AxisAlignedBB;
-import net.minecraft.core.MathHelper;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
