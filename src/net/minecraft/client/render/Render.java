@@ -37,7 +37,7 @@ public abstract class Render {
 
 	private void renderEntityOnFire(net.minecraft.entity.Entity var1, double var2, double var4, double var6, float var8) {
 		GL11.glDisable(GL11.GL_LIGHTING);
-		int var9 = Block.fire.getBlockIndexInTexture();
+		int var9 = Block.fire.blockIndexInTexture;
 		int var10 = (var9 & 15) << 4;
 		int var11 = var9 & 240;
 		float var12 = (float)var10 / 256.0F;
@@ -150,11 +150,11 @@ public abstract class Render {
 				}
 
 				var19.setColorRGBA_F(1.0F, 1.0F, 1.0F, (float)var20);
-				double var22 = (double)var8 + var1.getMinX() + var13;
-				double var24 = (double)var8 + var1.getMaxX() + var13;
-				double var26 = (double)var9 + var1.getMinY() + var15 + 1.0D / 64.0D;
-				double var28 = (double)var10 + var1.getMinZ() + var17;
-				double var30 = (double)var10 + var1.getMaxZ() + var17;
+				double var22 = (double)var8 + var1.minX + var13;
+				double var24 = (double)var8 + var1.maxX + var13;
+				double var26 = (double)var9 + var1.minY + var15 + 1.0D / 64.0D;
+				double var28 = (double)var10 + var1.minZ + var17;
+				double var30 = (double)var10 + var1.maxZ + var17;
 				float var32 = (float)((var2 - var22) / 2.0D / (double)var12 + 0.5D);
 				float var33 = (float)((var2 - var24) / 2.0D / (double)var12 + 0.5D);
 				float var34 = (float)((var6 - var28) / 2.0D / (double)var12 + 0.5D);

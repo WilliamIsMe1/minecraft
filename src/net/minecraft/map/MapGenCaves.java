@@ -105,7 +105,7 @@ public class MapGenCaves extends MapGenBase {
 							for(int var42 = var36 + 1; !var56 && var42 >= var54 - 1; --var42) {
 								var43 = (var40 * 16 + var41) * 128 + var42;
 								if(var42 >= 0 && var42 < 128) {
-									if(var3[var43] == Block.waterMoving.getBlockID() || var3[var43] == Block.waterStill.getBlockID()) {
+									if(var3[var43] == Block.waterMoving.blockID || var3[var43] == Block.waterStill.blockID) {
 										var56 = true;
 									}
 
@@ -130,17 +130,19 @@ public class MapGenCaves extends MapGenBase {
 										double var49 = ((double)var48 + 0.5D - var6) / var29;
 										if(var49 > -0.7D && var57 * var57 + var49 * var49 + var44 * var44 < 1.0D) {
 											byte var51 = var3[var46];
-											if(var51 == Block.grass.getBlockID()) {
+											if(var51 == Block.grass.blockID) {
 												var47 = true;
 											}
 
-											if(var51 == Block.stone.getBlockID() || var51 == Block.dirt.getBlockID() || var51 == Block.grass.getBlockID()) {
+											if(var51 == Block.stone.blockID || var51 == Block.dirt.blockID || var51 == Block.grass.blockID) {
 												if(var48 < 10) {
-													var3[var46] = (byte) Block.lavaMoving.getBlockID();
+													var3[var46] = (byte) Block.lavaMoving.blockID;
 												} else {
 													var3[var46] = 0;
-													if(var47 && var3[var46 - 1] == Block.dirt.getBlockID()) {
-														var3[var46 - 1] = (byte) Block.grass.getBlockID();
+													if(var47) {
+														if (var3[var46 - 1] == Block.dirt.blockID) {
+															var3[var46 - 1] = (byte) Block.grass.blockID;
+														}
 													}
 												}
 											}

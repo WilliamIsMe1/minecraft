@@ -31,13 +31,13 @@ public class EntitySheep extends EntityAnimal {
 
 	protected void dropFewItems() {
 		if(!this.getSheared()) {
-			this.entityDropItem(new ItemStack(Block.cloth.getBlockID(), 1, this.getFleeceColor()), 0.0F);
+			this.entityDropItem(new ItemStack(Block.cloth.blockID, 1, this.getFleeceColor()), 0.0F);
 		}
 
 	}
 
 	protected int getDropItemId() {
-		return Block.cloth.getBlockID();
+		return Block.cloth.blockID;
 	}
 
 	public boolean interact(EntityPlayer var1) {
@@ -48,7 +48,7 @@ public class EntitySheep extends EntityAnimal {
 				int var3 = 2 + this.rand.nextInt(3);
 
 				for(int var4 = 0; var4 < var3; ++var4) {
-					EntityItem var5 = this.entityDropItem(new ItemStack(Block.cloth.getBlockID(), 1, this.getFleeceColor()), 1.0F);
+					EntityItem var5 = this.entityDropItem(new ItemStack(Block.cloth.blockID, 1, this.getFleeceColor()), 1.0F);
 					var5.motionY += (double)(this.rand.nextFloat() * 0.05F);
 					var5.motionX += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
 					var5.motionZ += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);

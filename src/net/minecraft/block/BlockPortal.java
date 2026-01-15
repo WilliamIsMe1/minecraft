@@ -22,7 +22,7 @@ public class BlockPortal extends BlockBreakable {
 	public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
 		float var5;
 		float var6;
-		if(var1.getBlockId(var2 - 1, var3, var4) != this.getBlockID() && var1.getBlockId(var2 + 1, var3, var4) != this.getBlockID()) {
+		if(var1.getBlockId(var2 - 1, var3, var4) != blockID && var1.getBlockId(var2 + 1, var3, var4) != blockID) {
 			var5 = 2.0F / 16.0F;
 			var6 = 0.5F;
 			this.setBlockBounds(0.5F - var5, 0.0F, 0.5F - var6, 0.5F + var5, 1.0F, 0.5F + var6);
@@ -45,11 +45,11 @@ public class BlockPortal extends BlockBreakable {
 	public boolean tryToCreatePortal(World var1, int var2, int var3, int var4) {
 		byte var5 = 0;
 		byte var6 = 0;
-		if(var1.getBlockId(var2 - 1, var3, var4) == Block.obsidian.getBlockID() || var1.getBlockId(var2 + 1, var3, var4) == Block.obsidian.getBlockID()) {
+		if(var1.getBlockId(var2 - 1, var3, var4) == Block.obsidian.blockID || var1.getBlockId(var2 + 1, var3, var4) == Block.obsidian.blockID) {
 			var5 = 1;
 		}
 
-		if(var1.getBlockId(var2, var3, var4 - 1) == Block.obsidian.getBlockID() || var1.getBlockId(var2, var3, var4 + 1) == Block.obsidian.getBlockID()) {
+		if(var1.getBlockId(var2, var3, var4 - 1) == Block.obsidian.blockID || var1.getBlockId(var2, var3, var4 + 1) == Block.obsidian.blockID) {
 			var6 = 1;
 		}
 
@@ -69,11 +69,15 @@ public class BlockPortal extends BlockBreakable {
 					if(var7 != -1 && var7 != 2 || var8 != -1 && var8 != 3) {
 						int var10 = var1.getBlockId(var2 + var5 * var7, var3 + var8, var4 + var6 * var7);
 						if(var9) {
-							if(var10 != Block.obsidian.getBlockID()) {
+							if(var10 != Block.obsidian.blockID) {
 								return false;
 							}
-						} else if(var10 != 0 && var10 != Block.fire.getBlockID()) {
-							return false;
+						} else {
+							if(var10 != 0) {
+								if (var10 != Block.fire.blockID) {
+									return false;
+								}
+							}
 						}
 					}
 				}
@@ -83,7 +87,7 @@ public class BlockPortal extends BlockBreakable {
 
 			for(var7 = 0; var7 < 2; ++var7) {
 				for(var8 = 0; var8 < 3; ++var8) {
-					var1.setBlockWithNotify(var2 + var5 * var7, var3 + var8, var4 + var6 * var7, Block.portal.getBlockID());
+					var1.setBlockWithNotify(var2 + var5 * var7, var3 + var8, var4 + var6 * var7, Block.portal.blockID);
 				}
 			}
 
@@ -95,29 +99,33 @@ public class BlockPortal extends BlockBreakable {
 	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
 		byte var6 = 0;
 		byte var7 = 1;
-		if(var1.getBlockId(var2 - 1, var3, var4) == this.getBlockID() || var1.getBlockId(var2 + 1, var3, var4) == this.getBlockID()) {
+		if(var1.getBlockId(var2 - 1, var3, var4) == blockID || var1.getBlockId(var2 + 1, var3, var4) == blockID) {
 			var6 = 1;
 			var7 = 0;
 		}
 
 		int var8;
-		for(var8 = var3; var1.getBlockId(var2, var8 - 1, var4) == this.getBlockID(); --var8) {
+		for(var8 = var3; var1.getBlockId(var2, var8 - 1, var4) == blockID; --var8) {
 		}
 
-		if(var1.getBlockId(var2, var8 - 1, var4) != Block.obsidian.getBlockID()) {
+		if(var1.getBlockId(var2, var8 - 1, var4) != Block.obsidian.blockID) {
 			var1.setBlockWithNotify(var2, var3, var4, 0);
 		} else {
 			int var9;
-			for(var9 = 1; var9 < 4 && var1.getBlockId(var2, var8 + var9, var4) == this.getBlockID(); ++var9) {
+			for(var9 = 1; var9 < 4 && var1.getBlockId(var2, var8 + var9, var4) == blockID; ++var9) {
 			}
 
-			if(var9 == 3 && var1.getBlockId(var2, var8 + var9, var4) == Block.obsidian.getBlockID()) {
-				boolean var10 = var1.getBlockId(var2 - 1, var3, var4) == this.getBlockID() || var1.getBlockId(var2 + 1, var3, var4) == this.getBlockID();
-				boolean var11 = var1.getBlockId(var2, var3, var4 - 1) == this.getBlockID() || var1.getBlockId(var2, var3, var4 + 1) == this.getBlockID();
+			if(var9 == 3 && var1.getBlockId(var2, var8 + var9, var4) == Block.obsidian.blockID) {
+				boolean var10 = var1.getBlockId(var2 - 1, var3, var4) == blockID || var1.getBlockId(var2 + 1, var3, var4) == blockID;
+				boolean var11 = var1.getBlockId(var2, var3, var4 - 1) == blockID || var1.getBlockId(var2, var3, var4 + 1) == blockID;
 				if(var10 && var11) {
 					var1.setBlockWithNotify(var2, var3, var4, 0);
-				} else if((var1.getBlockId(var2 + var6, var3, var4 + var7) != Block.obsidian.getBlockID() || var1.getBlockId(var2 - var6, var3, var4 - var7) != this.getBlockID()) && (var1.getBlockId(var2 - var6, var3, var4 - var7) != Block.obsidian.getBlockID() || var1.getBlockId(var2 + var6, var3, var4 + var7) != this.getBlockID())) {
-					var1.setBlockWithNotify(var2, var3, var4, 0);
+				} else {
+					if((var1.getBlockId(var2 + var6, var3, var4 + var7) != Block.obsidian.blockID || var1.getBlockId(var2 - var6, var3, var4 - var7) != blockID)) {
+						if (var1.getBlockId(var2 - var6, var3, var4 - var7) != Block.obsidian.blockID || var1.getBlockId(var2 + var6, var3, var4 + var7) != blockID) {
+							var1.setBlockWithNotify(var2, var3, var4, 0);
+						}
+					}
 				}
 			} else {
 				var1.setBlockWithNotify(var2, var3, var4, 0);
@@ -126,13 +134,13 @@ public class BlockPortal extends BlockBreakable {
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-		if(var1.getBlockId(var2, var3, var4) == this.getBlockID()) {
+		if(var1.getBlockId(var2, var3, var4) == blockID) {
 			return false;
 		} else {
-			boolean var6 = var1.getBlockId(var2 - 1, var3, var4) == this.getBlockID() && var1.getBlockId(var2 - 2, var3, var4) != this.getBlockID();
-			boolean var7 = var1.getBlockId(var2 + 1, var3, var4) == this.getBlockID() && var1.getBlockId(var2 + 2, var3, var4) != this.getBlockID();
-			boolean var8 = var1.getBlockId(var2, var3, var4 - 1) == this.getBlockID() && var1.getBlockId(var2, var3, var4 - 2) != this.getBlockID();
-			boolean var9 = var1.getBlockId(var2, var3, var4 + 1) == this.getBlockID() && var1.getBlockId(var2, var3, var4 + 2) != this.getBlockID();
+			boolean var6 = var1.getBlockId(var2 - 1, var3, var4) == blockID && var1.getBlockId(var2 - 2, var3, var4) != blockID;
+			boolean var7 = var1.getBlockId(var2 + 1, var3, var4) == blockID && var1.getBlockId(var2 + 2, var3, var4) != blockID;
+			boolean var8 = var1.getBlockId(var2, var3, var4 - 1) == blockID && var1.getBlockId(var2, var3, var4 - 2) != blockID;
+			boolean var9 = var1.getBlockId(var2, var3, var4 + 1) == blockID && var1.getBlockId(var2, var3, var4 + 2) != blockID;
 			boolean var10 = var6 || var7;
 			boolean var11 = var8 || var9;
 			return var10 && var5 == 4 ? true : (var10 && var5 == 5 ? true : (var11 && var5 == 2 ? true : var11 && var5 == 3));
@@ -170,7 +178,7 @@ public class BlockPortal extends BlockBreakable {
 			var13 = ((double)var5.nextFloat() - 0.5D) * 0.5D;
 			var15 = ((double)var5.nextFloat() - 0.5D) * 0.5D;
 			var17 = ((double)var5.nextFloat() - 0.5D) * 0.5D;
-			if(var1.getBlockId(var2 - 1, var3, var4) != this.getBlockID() && var1.getBlockId(var2 + 1, var3, var4) != this.getBlockID()) {
+			if(var1.getBlockId(var2 - 1, var3, var4) != blockID && var1.getBlockId(var2 + 1, var3, var4) != blockID) {
 				var7 = (double)var2 + 0.5D + 0.25D * (double)var19;
 				var13 = (double)(var5.nextFloat() * 2.0F * (float)var19);
 			} else {

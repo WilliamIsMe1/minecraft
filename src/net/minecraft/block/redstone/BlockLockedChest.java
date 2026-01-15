@@ -10,14 +10,14 @@ import java.util.Random;
 public class BlockLockedChest extends Block {
 	public BlockLockedChest(int var1) {
 		super(var1, Material.wood);
-		this.setBlockIndexInTexture(26);
+		this.blockIndexInTexture = 26;
 	}
 
 	public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
 		if(var5 == 1) {
-			return this.getBlockIndexInTexture() - 1;
+			return blockIndexInTexture - 1;
 		} else if(var5 == 0) {
-			return this.getBlockIndexInTexture() - 1;
+			return blockIndexInTexture - 1;
 		} else {
 			int var6 = var1.getBlockId(var2, var3, var4 - 1);
 			int var7 = var1.getBlockId(var2, var3, var4 + 1);
@@ -40,12 +40,28 @@ public class BlockLockedChest extends Block {
 				var10 = 4;
 			}
 
-			return var5 == var10 ? this.getBlockIndexInTexture() + 1 : this.getBlockIndexInTexture();
+			if (var5 == var10) {
+				return blockIndexInTexture + 1;
+			} else {
+				return blockIndexInTexture;
+			}
 		}
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.getBlockIndexInTexture() - 1 : (var1 == 0 ? this.getBlockIndexInTexture() - 1 : (var1 == 3 ? this.getBlockIndexInTexture() + 1 : this.getBlockIndexInTexture()));
+		if (var1 == 1) {
+			return blockIndexInTexture - 1;
+		} else {
+			if (var1 == 0) {
+				return (blockIndexInTexture - 1);
+			} else {
+				if (var1 == 3) {
+					return ((blockIndexInTexture + 1));
+				} else {
+					return blockIndexInTexture;
+				}
+			}
+		}
 	}
 
 	public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {

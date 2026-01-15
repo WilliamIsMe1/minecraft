@@ -14,7 +14,7 @@ public class BlockWeb extends Block {
 		super(var1, var2, Material.field_31068_A);
 	}
 
-	public void onEntityCollidedWithBlock(net.minecraft.world.World var1, int var2, int var3, int var4, Entity var5) {
+	public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
 		var5.isInWeb = true;
 	}
 

@@ -23,7 +23,7 @@ public class BlockDispenser extends BlockContainer {
 
 	public BlockDispenser(int var1) {
 		super(var1, Material.rock);
-		this.setBlockIndexInTexture(45);
+		this.blockIndexInTexture = 45;
 	}
 
 	public int tickRate() {
@@ -31,7 +31,7 @@ public class BlockDispenser extends BlockContainer {
 	}
 
 	public int idDropped(int var1, Random var2) {
-		return Block.dispenser.getBlockID();
+		return Block.dispenser.blockID;
 	}
 
 	public void onBlockAdded(net.minecraft.world.World var1, int var2, int var3, int var4) {
@@ -68,17 +68,33 @@ public class BlockDispenser extends BlockContainer {
 
 	public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
 		if(var5 == 1) {
-			return this.getBlockIndexInTexture() + 17;
+			return blockIndexInTexture + 17;
 		} else if(var5 == 0) {
-			return this.getBlockIndexInTexture() + 17;
+			return blockIndexInTexture + 17;
 		} else {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
-			return var5 != var6 ? this.getBlockIndexInTexture() : this.getBlockIndexInTexture() + 1;
+			if (var5 != var6) {
+				return blockIndexInTexture;
+			} else {
+				return blockIndexInTexture + 1;
+			}
 		}
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.getBlockIndexInTexture() + 17 : (var1 == 0 ? this.getBlockIndexInTexture() + 17 : (var1 == 3 ? this.getBlockIndexInTexture() + 1 : this.getBlockIndexInTexture()));
+		if (var1 == 1) {
+			return blockIndexInTexture + 17;
+		} else {
+			if (var1 == 0) {
+				return (blockIndexInTexture + 17);
+			} else {
+				if (var1 == 3) {
+					return ((blockIndexInTexture + 1));
+				} else {
+					return blockIndexInTexture;
+				}
+			}
+		}
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
@@ -151,7 +167,7 @@ public class BlockDispenser extends BlockContainer {
 		if(var5 > 0 && Block.blocksList[var5].canProvidePower()) {
 			boolean var6 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
 			if(var6) {
-				var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), this.tickRate());
+				var1.scheduleBlockUpdate(var2, var3, var4, blockID, this.tickRate());
 			}
 		}
 

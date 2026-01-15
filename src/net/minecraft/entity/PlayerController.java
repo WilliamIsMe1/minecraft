@@ -26,7 +26,7 @@ public class PlayerController {
 	public boolean sendBlockRemoved(int var1, int var2, int var3, int var4) {
 		World var5 = this.mc.theWorld;
 		Block var6 = Block.blocksList[var5.getBlockId(var1, var2, var3)];
-		var5.func_28106_e(2001, var1, var2, var3, var6.getBlockID() + var5.getBlockMetadata(var1, var2, var3) * 256);
+		var5.func_28106_e(2001, var1, var2, var3, var6.blockID + var5.getBlockMetadata(var1, var2, var3) * 256);
 		int var7 = var5.getBlockMetadata(var1, var2, var3);
 		boolean var8 = var5.setBlockWithNotify(var1, var2, var3, 0);
 		if(var6 != null && var8) {

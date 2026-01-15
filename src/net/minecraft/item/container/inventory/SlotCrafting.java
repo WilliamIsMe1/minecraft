@@ -22,22 +22,24 @@ public class SlotCrafting extends Slot {
 
 	public void onPickupFromSlot(ItemStack var1) {
 		var1.onCrafting(this.thePlayer.worldObj, this.thePlayer);
-		if(var1.itemID == Block.workbench.getBlockID()) {
+		if(var1.itemID == Block.workbench.blockID) {
 			this.thePlayer.addStat(net.minecraft.achievement.AchievementList.buildWorkBench, 1);
 		} else if(var1.itemID == Item.pickaxeWood.shiftedIndex) {
 			this.thePlayer.addStat(net.minecraft.achievement.AchievementList.buildPickaxe, 1);
-		} else if(var1.itemID == Block.stoneOvenIdle.getBlockID()) {
-			this.thePlayer.addStat(net.minecraft.achievement.AchievementList.buildFurnace, 1);
-		} else if(var1.itemID == Item.hoeWood.shiftedIndex) {
-			this.thePlayer.addStat(net.minecraft.achievement.AchievementList.buildHoe, 1);
-		} else if(var1.itemID == Item.bread.shiftedIndex) {
-			this.thePlayer.addStat(net.minecraft.achievement.AchievementList.makeBread, 1);
-		} else if(var1.itemID == Item.cake.shiftedIndex) {
-			this.thePlayer.addStat(net.minecraft.achievement.AchievementList.bakeCake, 1);
-		} else if(var1.itemID == Item.pickaxeStone.shiftedIndex) {
-			this.thePlayer.addStat(net.minecraft.achievement.AchievementList.buildBetterPickaxe, 1);
-		} else if(var1.itemID == Item.swordWood.shiftedIndex) {
-			this.thePlayer.addStat(AchievementList.buildSword, 1);
+		} else {
+			if(var1.itemID == Block.stoneOvenIdle.blockID) {
+				this.thePlayer.addStat(AchievementList.buildFurnace, 1);
+			} else if(var1.itemID == Item.hoeWood.shiftedIndex) {
+				this.thePlayer.addStat(AchievementList.buildHoe, 1);
+			} else if(var1.itemID == Item.bread.shiftedIndex) {
+				this.thePlayer.addStat(AchievementList.makeBread, 1);
+			} else if(var1.itemID == Item.cake.shiftedIndex) {
+				this.thePlayer.addStat(AchievementList.bakeCake, 1);
+			} else if(var1.itemID == Item.pickaxeStone.shiftedIndex) {
+				this.thePlayer.addStat(AchievementList.buildBetterPickaxe, 1);
+			} else if(var1.itemID == Item.swordWood.shiftedIndex) {
+				this.thePlayer.addStat(AchievementList.buildSword, 1);
+			}
 		}
 
 		for(int var2 = 0; var2 < this.craftMatrix.getSizeInventory(); ++var2) {

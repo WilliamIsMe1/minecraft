@@ -11,7 +11,7 @@ public class TextureLavaFlowFX extends TextureFX {
 	int field_1139_k = 0;
 
 	public TextureLavaFlowFX() {
-		super(Block.lavaMoving.getBlockIndexInTexture() + 1);
+		super(Block.lavaMoving.blockIndexInTexture + 1);
 		this.tileSize = 2;
 	}
 

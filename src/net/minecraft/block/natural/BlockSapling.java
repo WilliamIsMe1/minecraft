@@ -1,5 +1,6 @@
 package net.minecraft.block.natural;
 
+import net.minecraft.world.World;
 import net.minecraft.world.gen.WorldGenTrees;
 import net.minecraft.world.gen.WorldGenBigTree;
 import net.minecraft.world.gen.WorldGenForest;
@@ -15,7 +16,7 @@ public class BlockSapling extends BlockFlower {
 		this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, var3 * 2.0F, 0.5F + var3);
 	}
 
-	public void updateTick(net.minecraft.world.World var1, int var2, int var3, int var4, Random var5) {
+	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
 		if(!var1.multiplayerWorld) {
 			super.updateTick(var1, var2, var3, var4, var5);
 			if(var1.getBlockLightValue(var2, var3 + 1, var4) >= 9 && var5.nextInt(30) == 0) {
@@ -35,10 +36,10 @@ public class BlockSapling extends BlockFlower {
 		return var2 == 1 ? 63 : (var2 == 2 ? 79 : super.getBlockTextureFromSideAndMetadata(var1, var2));
 	}
 
-	public void growTree(net.minecraft.world.World var1, int var2, int var3, int var4, Random var5) {
+	public void growTree(World var1, int var2, int var3, int var4, Random var5) {
 		int var6 = var1.getBlockMetadata(var2, var3, var4) & 3;
 		var1.setBlock(var2, var3, var4, 0);
-		Object var7 = null;
+		WorldGenerator var7 = null;
 		if(var6 == 1) {
 			var7 = new WorldGenTaiga2();
 		} else if(var6 == 2) {
@@ -50,8 +51,8 @@ public class BlockSapling extends BlockFlower {
 			}
 		}
 
-		if(!((WorldGenerator)var7).generate(var1, var5, var2, var3, var4)) {
-			var1.setBlockAndMetadata(var2, var3, var4, this.getBlockID(), var6);
+		if(!var7.generate(var1, var5, var2, var3, var4)) {
+			var1.setBlockAndMetadata(var2, var3, var4, blockID, var6);
 		}
 
 	}

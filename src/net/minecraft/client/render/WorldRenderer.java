@@ -47,7 +47,7 @@ public class WorldRenderer {
 	public int glOcclusionQuery;
 	public boolean isChunkLit;
 	private boolean isInitialized = false;
-	public List tileEntityRenderers = new ArrayList();
+	public List<TileEntity> tileEntityRenderers = new ArrayList<>();
 	private List tileEntities;
 
 	public WorldRenderer(World var1, List var2, int var3, int var4, int var5, int var6, int var7) {
@@ -104,8 +104,7 @@ public class WorldRenderer {
 			}
 
 			Chunk.isLit = false;
-			HashSet var21 = new HashSet();
-			var21.addAll(this.tileEntityRenderers);
+			HashSet<TileEntity> var21 = new HashSet<>(this.tileEntityRenderers);
 			this.tileEntityRenderers.clear();
 			byte var8 = 1;
 			ChunkCache var9 = new ChunkCache(this.worldObj, var1 - var8, var2 - var8, var3 - var8, var4 + var8, var5 + var8, var6 + var8);

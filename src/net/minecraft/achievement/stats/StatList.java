@@ -11,16 +11,15 @@ import net.minecraft.item.core.ItemStack;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class StatList {
-	protected static Map field_25169_C = new HashMap();
-	public static List field_25188_a = new ArrayList();
-	public static List field_25187_b = new ArrayList();
-	public static List field_25186_c = new ArrayList();
-	public static List field_25185_d = new ArrayList();
+	protected static Map<Integer, StatBase> field_25169_C = new HashMap<>();
+	public static List<StatBase> field_25188_a = new ArrayList<>();
+	public static List<StatBase> field_25187_b = new ArrayList<>();
+	public static List<StatCrafting> field_25186_c = new ArrayList<>();
+	public static List<StatCrafting> field_25185_d = new ArrayList<>();
 	public static StatBase startGameStat = (new StatBasic(1000, StatCollector.translateToLocal("stat.startGame"))).func_27082_h().registerStat();
 	public static StatBase createWorldStat = (new StatBasic(1001, StatCollector.translateToLocal("stat.createWorld"))).func_27082_h().registerStat();
 	public static StatBase loadWorldStat = (new StatBasic(1002, StatCollector.translateToLocal("stat.loadWorld"))).func_27082_h().registerStat();
@@ -45,58 +44,52 @@ public class StatList {
 	public static StatBase playerKillsStat = (new StatBasic(2024, StatCollector.translateToLocal("stat.playerKills"))).registerStat();
 	public static StatBase fishCaughtStat = (new StatBasic(2025, StatCollector.translateToLocal("stat.fishCaught"))).registerStat();
 	public static StatBase[] mineBlockStatArray = func_25153_a("stat.mineBlock", 16777216);
-	public static StatBase[] field_25158_z;
-	public static StatBase[] field_25172_A;
-	public static StatBase[] field_25170_B;
+	public static StatBase[] craftItemStatArray;
+	public static StatBase[] useItemStatArray;
+	public static StatBase[] breakItemStatArray;
 	private static boolean field_25166_D;
 	private static boolean field_25164_E;
 
-	public static void func_27360_a() {
+	public static void initializeStaticMembers() {
 	}
 
 	public static void func_25154_a() {
-		field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, 0, Block.blocksList.length);
-		field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, 0, Block.blocksList.length);
+		useItemStatArray = func_25155_a(useItemStatArray, "stat.useItem", 16908288, 0, Block.blocksList.length);
+		breakItemStatArray = func_25149_b(breakItemStatArray, "stat.breakItem", 16973824, 0, Block.blocksList.length);
 		field_25166_D = true;
 		findAllCraftableItems();
 	}
 
 	public static void func_25151_b() {
-		field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, Block.blocksList.length, 32000);
-		field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, Block.blocksList.length, 32000);
+		useItemStatArray = func_25155_a(useItemStatArray, "stat.useItem", 16908288, Block.blocksList.length, 32000);
+		breakItemStatArray = func_25149_b(breakItemStatArray, "stat.breakItem", 16973824, Block.blocksList.length, 32000);
 		field_25164_E = true;
 		findAllCraftableItems();
 	}
 
 	public static void findAllCraftableItems() {
 		if(field_25166_D && field_25164_E) {
-			HashSet var0 = new HashSet();
-			Iterator var1 = CraftingManager.getInstance().getRecipeList().iterator();
+			HashSet<Integer> var0 = new HashSet<>();
 
-			while(var1.hasNext()) {
-				IRecipe var2 = (IRecipe)var1.next();
-				var0.add(Integer.valueOf(var2.getRecipeOutput().itemID));
+			for (IRecipe var2 : CraftingManager.getInstance().getRecipeList()) {
+				var0.add(var2.getRecipeOutput().itemID);
 			}
 
-			var1 = FurnaceRecipes.smelting().getSmeltingList().values().iterator();
-
-			while(var1.hasNext()) {
-				ItemStack var4 = (ItemStack)var1.next();
-				var0.add(Integer.valueOf(var4.itemID));
+			for (Object o : FurnaceRecipes.smelting().getSmeltingList().values()) {
+				ItemStack var4 = (ItemStack) o;
+				var0.add(var4.itemID);
 			}
 
-			field_25158_z = new StatBase[32000];
-			var1 = var0.iterator();
+			craftItemStatArray = new StatBase[32000];
 
-			while(var1.hasNext()) {
-				Integer var5 = (Integer)var1.next();
-				if(Item.itemsList[var5.intValue()] != null) {
-					String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", new Object[]{Item.itemsList[var5.intValue()].getStatName()});
-					field_25158_z[var5.intValue()] = (new StatCrafting(16842752 + var5.intValue(), var3, var5.intValue())).registerStat();
+			for (Integer o : var0) {
+				if (Item.itemsList[o] != null) {
+					String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", new Object[]{Item.itemsList[o].getStatName()});
+					craftItemStatArray[o] = (new StatCrafting(16842752 + o, var3, o)).registerStat();
 				}
 			}
 
-			replaceAllSimilarBlocks(field_25158_z);
+			replaceAllSimilarBlocks(craftItemStatArray);
 		}
 	}
 
@@ -122,7 +115,7 @@ public class StatList {
 
 		for(int var5 = var3; var5 < var4; ++var5) {
 			if(Item.itemsList[var5] != null) {
-				String var6 = StatCollector.translateToLocalFormatted(var1, new Object[]{Item.itemsList[var5].getStatName()});
+				String var6 = StatCollector.translateToLocalFormatted(var1, Item.itemsList[var5].getStatName());
 				var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).registerStat();
 				if(var5 >= Block.blocksList.length) {
 					field_25186_c.add((StatCrafting)var0[var5]);
@@ -151,17 +144,17 @@ public class StatList {
 	}
 
 	private static void replaceAllSimilarBlocks(StatBase[] var0) {
-		replaceSimilarBlocks(var0, Block.waterStill.getBlockID(), Block.waterMoving.getBlockID());
-		replaceSimilarBlocks(var0, Block.lavaStill.getBlockID(), Block.lavaStill.getBlockID());
-		replaceSimilarBlocks(var0, Block.pumpkinLantern.getBlockID(), Block.pumpkin.getBlockID());
-		replaceSimilarBlocks(var0, Block.stoneOvenActive.getBlockID(), Block.stoneOvenIdle.getBlockID());
-		replaceSimilarBlocks(var0, Block.oreRedstoneGlowing.getBlockID(), Block.oreRedstone.getBlockID());
-		replaceSimilarBlocks(var0, Block.redstoneRepeaterActive.getBlockID(), Block.redstoneRepeaterIdle.getBlockID());
-		replaceSimilarBlocks(var0, Block.torchRedstoneActive.getBlockID(), Block.torchRedstoneIdle.getBlockID());
-		replaceSimilarBlocks(var0, Block.mushroomRed.getBlockID(), Block.mushroomBrown.getBlockID());
-		replaceSimilarBlocks(var0, Block.stairDouble.getBlockID(), Block.stairSingle.getBlockID());
-		replaceSimilarBlocks(var0, Block.grass.getBlockID(), Block.dirt.getBlockID());
-		replaceSimilarBlocks(var0, Block.tilledField.getBlockID(), Block.dirt.getBlockID());
+		replaceSimilarBlocks(var0, Block.waterStill.blockID, Block.waterMoving.blockID);
+		replaceSimilarBlocks(var0, Block.lavaStill.blockID, Block.lavaStill.blockID);
+		replaceSimilarBlocks(var0, Block.pumpkinLantern.blockID, Block.pumpkin.blockID);
+		replaceSimilarBlocks(var0, Block.stoneOvenActive.blockID, Block.stoneOvenIdle.blockID);
+		replaceSimilarBlocks(var0, Block.oreRedstoneGlowing.blockID, Block.oreRedstone.blockID);
+		replaceSimilarBlocks(var0, Block.redstoneRepeaterActive.blockID, Block.redstoneRepeaterIdle.blockID);
+		replaceSimilarBlocks(var0, Block.torchRedstoneActive.blockID, Block.torchRedstoneIdle.blockID);
+		replaceSimilarBlocks(var0, Block.mushroomRed.blockID, Block.mushroomBrown.blockID);
+		replaceSimilarBlocks(var0, Block.stairDouble.blockID, Block.stairSingle.blockID);
+		replaceSimilarBlocks(var0, Block.grass.blockID, Block.dirt.blockID);
+		replaceSimilarBlocks(var0, Block.tilledField.blockID, Block.dirt.blockID);
 	}
 
 	private static void replaceSimilarBlocks(StatBase[] var0, int var1, int var2) {
@@ -176,11 +169,11 @@ public class StatList {
 	}
 
 	public static StatBase func_27361_a(int var0) {
-		return (StatBase)field_25169_C.get(Integer.valueOf(var0));
+		return (StatBase)field_25169_C.get(var0);
 	}
 
 	static {
-		AchievementList.func_27374_a();
+		AchievementList.initializeStaticMembers();
 		field_25166_D = false;
 		field_25164_E = false;
 	}

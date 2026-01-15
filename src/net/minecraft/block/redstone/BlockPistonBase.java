@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 
 public class BlockPistonBase extends Block {
-	private boolean isSticky;
+	private final boolean isSticky;
 	private boolean field_31048_b;
 
 	public BlockPistonBase(int var1, int var2, boolean var3) {
@@ -30,7 +30,19 @@ public class BlockPistonBase extends Block {
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
 		int var3 = func_31044_d(var2);
-		return var3 > 5 ? this.getBlockIndexInTexture() : (var1 == var3 ? (!isPowered(var2) && this.getMinX() <= 0.0D && this.getMinY() <= 0.0D && this.getMinZ() <= 0.0D && this.getMaxX() >= 1.0D && this.getMaxY() >= 1.0D && this.getMaxZ() >= 1.0D ? this.getBlockIndexInTexture() : 110) : (var1 == PistonBlockTextures.field_31057_a[var3] ? 109 : 108));
+		if (var3 > 5) {
+			return blockIndexInTexture;
+		} else {
+			if (var1 == var3) {
+				if (!isPowered(var2) && this.minX <= 0.0D && this.minY <= 0.0D && this.minZ <= 0.0D && this.maxX >= 1.0D && this.maxY >= 1.0D && this.maxZ >= 1.0D) {
+					return blockIndexInTexture;
+				} else {
+					return ((110));
+				}
+			} else {
+				return ((var1 == PistonBlockTextures.field_31057_a[var3] ? 109 : 108));
+			}
+		}
 	}
 
 	public int getRenderType() {
@@ -41,11 +53,11 @@ public class BlockPistonBase extends Block {
 		return false;
 	}
 
-	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
+	public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
 		return false;
 	}
 
-	public void onBlockPlacedBy(net.minecraft.world.World var1, int var2, int var3, int var4, EntityLiving var5) {
+	public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
 		int var6 = func_31039_c(var1, var2, var3, var4, (EntityPlayer)var5);
 		var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
 		if(!var1.multiplayerWorld) {
@@ -54,21 +66,21 @@ public class BlockPistonBase extends Block {
 
 	}
 
-	public void onNeighborBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
+	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
 		if(!var1.multiplayerWorld && !this.field_31048_b) {
 			this.func_31043_h(var1, var2, var3, var4);
 		}
 
 	}
 
-	public void onBlockAdded(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public void onBlockAdded(World var1, int var2, int var3, int var4) {
 		if(!var1.multiplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
 			this.func_31043_h(var1, var2, var3, var4);
 		}
 
 	}
 
-	private void func_31043_h(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	private void func_31043_h(World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockMetadata(var2, var3, var4);
 		int var6 = func_31044_d(var5);
 		boolean var7 = this.func_31041_f(var1, var2, var3, var4, var6);
@@ -86,11 +98,11 @@ public class BlockPistonBase extends Block {
 		}
 	}
 
-	private boolean func_31041_f(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
-		return var5 != 0 && var1.isBlockIndirectlyProvidingPowerTo(var2, var3 - 1, var4, 0) ? true : (var5 != 1 && var1.isBlockIndirectlyProvidingPowerTo(var2, var3 + 1, var4, 1) ? true : (var5 != 2 && var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 - 1, 2) ? true : (var5 != 3 && var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 + 1, 3) ? true : (var5 != 5 && var1.isBlockIndirectlyProvidingPowerTo(var2 + 1, var3, var4, 5) ? true : (var5 != 4 && var1.isBlockIndirectlyProvidingPowerTo(var2 - 1, var3, var4, 4) ? true : (var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4, 0) ? true : (var1.isBlockIndirectlyProvidingPowerTo(var2, var3 + 2, var4, 1) ? true : (var1.isBlockIndirectlyProvidingPowerTo(var2, var3 + 1, var4 - 1, 2) ? true : (var1.isBlockIndirectlyProvidingPowerTo(var2, var3 + 1, var4 + 1, 3) ? true : (var1.isBlockIndirectlyProvidingPowerTo(var2 - 1, var3 + 1, var4, 4) ? true : var1.isBlockIndirectlyProvidingPowerTo(var2 + 1, var3 + 1, var4, 5)))))))))));
+	private boolean func_31041_f(World var1, int var2, int var3, int var4, int var5) {
+		return var5 != 0 && var1.isBlockIndirectlyProvidingPowerTo(var2, var3 - 1, var4, 0) || (var5 != 1 && var1.isBlockIndirectlyProvidingPowerTo(var2, var3 + 1, var4, 1) || (var5 != 2 && var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 - 1, 2) || (var5 != 3 && var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 + 1, 3) || (var5 != 5 && var1.isBlockIndirectlyProvidingPowerTo(var2 + 1, var3, var4, 5) || (var5 != 4 && var1.isBlockIndirectlyProvidingPowerTo(var2 - 1, var3, var4, 4) || (var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4, 0) || (var1.isBlockIndirectlyProvidingPowerTo(var2, var3 + 2, var4, 1) || (var1.isBlockIndirectlyProvidingPowerTo(var2, var3 + 1, var4 - 1, 2) || (var1.isBlockIndirectlyProvidingPowerTo(var2, var3 + 1, var4 + 1, 3) || (var1.isBlockIndirectlyProvidingPowerTo(var2 - 1, var3 + 1, var4, 4) || var1.isBlockIndirectlyProvidingPowerTo(var2 + 1, var3 + 1, var4, 5)))))))))));
 	}
 
-	public void playBlock(net.minecraft.world.World var1, int var2, int var3, int var4, int var5, int var6) {
+	public void playBlock(World var1, int var2, int var3, int var4, int var5, int var6) {
 		this.field_31048_b = true;
 		if(var5 == 0) {
 			if(this.func_31047_i(var1, var2, var3, var4, var6)) {
@@ -103,8 +115,8 @@ public class BlockPistonBase extends Block {
 				((TileEntityPiston)var8).func_31011_l();
 			}
 
-			var1.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.getBlockID(), var6);
-			var1.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.func_31036_a(this.getBlockID(), var6, var6, false, true));
+			var1.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.blockID, var6);
+			var1.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.func_31036_a(blockID, var6, var6, false, true));
 			if(this.isSticky) {
 				int var9 = var2 + PistonBlockTextures.field_31056_b[var6] * 2;
 				int var10 = var3 + PistonBlockTextures.field_31059_c[var6] * 2;
@@ -112,7 +124,7 @@ public class BlockPistonBase extends Block {
 				int var12 = var1.getBlockId(var9, var10, var11);
 				int var13 = var1.getBlockMetadata(var9, var10, var11);
 				boolean var14 = false;
-				if(var12 == Block.pistonMoving.getBlockID()) {
+				if(var12 == Block.pistonMoving.blockID) {
 					TileEntity var15 = var1.getBlockTileEntity(var9, var10, var11);
 					if(var15 != null && var15 instanceof TileEntityPiston) {
 						TileEntityPiston var16 = (TileEntityPiston)var15;
@@ -125,7 +137,7 @@ public class BlockPistonBase extends Block {
 					}
 				}
 
-				if(var14 || var12 <= 0 || !canPushBlock(var12, var1, var9, var10, var11, false) || Block.blocksList[var12].getMobilityFlag() != 0 && var12 != Block.pistonBase.getBlockID() && var12 != Block.pistonStickyBase.getBlockID()) {
+				if(var14 || var12 <= 0 || !canPushBlock(var12, var1, var9, var10, var11, false) || Block.blocksList[var12].getMobilityFlag() != 0 && var12 != Block.pistonBase.blockID && var12 != Block.pistonStickyBase.blockID) {
 					if(!var14) {
 						this.field_31048_b = false;
 						var1.setBlockWithNotify(var2 + PistonBlockTextures.field_31056_b[var6], var3 + PistonBlockTextures.field_31059_c[var6], var4 + PistonBlockTextures.field_31058_d[var6], 0);
@@ -138,7 +150,7 @@ public class BlockPistonBase extends Block {
 					var2 += PistonBlockTextures.field_31056_b[var6];
 					var3 += PistonBlockTextures.field_31059_c[var6];
 					var4 += PistonBlockTextures.field_31058_d[var6];
-					var1.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.getBlockID(), var13);
+					var1.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.blockID, var13);
 					var1.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.func_31036_a(var12, var13, var6, false, false));
 				}
 			} else {
@@ -185,7 +197,7 @@ public class BlockPistonBase extends Block {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 
-	public void getCollidingBoundingBoxes(net.minecraft.world.World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList var6) {
+	public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList var6) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
 	}
@@ -202,7 +214,7 @@ public class BlockPistonBase extends Block {
 		return (var0 & 8) != 0;
 	}
 
-	private static int func_31039_c(net.minecraft.world.World var0, int var1, int var2, int var3, EntityPlayer var4) {
+	private static int func_31039_c(World var0, int var1, int var2, int var3, EntityPlayer var4) {
 		if(MathHelper.abs((float)var4.posX - (float)var1) < 2.0F && MathHelper.abs((float)var4.posZ - (float)var3) < 2.0F) {
 			double var5 = var4.posY + 1.82D - (double)var4.yOffset;
 			if(var5 - (double)var2 > 2.0D) {
@@ -218,12 +230,12 @@ public class BlockPistonBase extends Block {
 		return var7 == 0 ? 2 : (var7 == 1 ? 5 : (var7 == 2 ? 3 : (var7 == 3 ? 4 : 0)));
 	}
 
-	private static boolean canPushBlock(int var0, net.minecraft.world.World var1, int var2, int var3, int var4, boolean var5) {
-		if(var0 == Block.obsidian.getBlockID()) {
+	private static boolean canPushBlock(int var0, World var1, int var2, int var3, int var4, boolean var5) {
+		if(var0 == Block.obsidian.blockID) {
 			return false;
 		} else {
-			if(var0 != Block.pistonBase.getBlockID() && var0 != Block.pistonStickyBase.getBlockID()) {
-				if(Block.blocksList[var0].getHardness() == -1.0F) {
+			if(var0 != Block.pistonBase.blockID && var0 != Block.pistonStickyBase.blockID) {
+				if(Block.blocksList[var0].blockHardness - -1.0f < 0.1f) {
 					return false;
 				}
 
@@ -243,7 +255,7 @@ public class BlockPistonBase extends Block {
 		}
 	}
 
-	private static boolean func_31045_h(net.minecraft.world.World var0, int var1, int var2, int var3, int var4) {
+	private static boolean func_31045_h(World var0, int var1, int var2, int var3, int var4) {
 		int var5 = var1 + PistonBlockTextures.field_31056_b[var4];
 		int var6 = var2 + PistonBlockTextures.field_31059_c[var4];
 		int var7 = var3 + PistonBlockTextures.field_31058_d[var4];
@@ -321,11 +333,11 @@ public class BlockPistonBase extends Block {
 				int var11 = var8 - PistonBlockTextures.field_31058_d[var5];
 				int var12 = var1.getBlockId(var9, var10, var11);
 				int var13 = var1.getBlockMetadata(var9, var10, var11);
-				if(var12 == this.getBlockID() && var9 == var2 && var10 == var3 && var11 == var4) {
-					var1.setBlockAndMetadata(var6, var7, var8, Block.pistonMoving.getBlockID(), var5 | (this.isSticky ? 8 : 0));
-					var1.setBlockTileEntity(var6, var7, var8, BlockPistonMoving.func_31036_a(Block.pistonExtension.getBlockID(), var5 | (this.isSticky ? 8 : 0), var5, true, false));
+				if(var12 == blockID && var9 == var2 && var10 == var3 && var11 == var4) {
+					var1.setBlockAndMetadata(var6, var7, var8, Block.pistonMoving.blockID, var5 | (this.isSticky ? 8 : 0));
+					var1.setBlockTileEntity(var6, var7, var8, BlockPistonMoving.func_31036_a(Block.pistonExtension.blockID, var5 | (this.isSticky ? 8 : 0), var5, true, false));
 				} else {
-					var1.setBlockAndMetadata(var6, var7, var8, Block.pistonMoving.getBlockID(), var13);
+					var1.setBlockAndMetadata(var6, var7, var8, Block.pistonMoving.blockID, var13);
 					var1.setBlockTileEntity(var6, var7, var8, BlockPistonMoving.func_31036_a(var12, var13, var5, true, false));
 				}
 

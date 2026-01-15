@@ -12,22 +12,26 @@ public class BlockOre extends Block {
 	}
 
 	public int idDropped(int var1, Random var2) {
-		if (this.getBlockID() == Block.oreCoal.getBlockID()) {
+		if (blockID == Block.oreCoal.blockID) {
 			return Item.coal.shiftedIndex;
-		} else if (this.getBlockID() == Block.oreDiamond.getBlockID()) {
-			return Item.diamond.shiftedIndex;
-		} else if (this.getBlockID() == Block.oreLapis.getBlockID()) {
-			return Item.dyePowder.shiftedIndex;
 		} else {
-			return this.getBlockID();
+			if (blockID == Block.oreDiamond.blockID) {
+				return Item.diamond.shiftedIndex;
+			} else {
+				if (blockID == Block.oreLapis.blockID) {
+					return Item.dyePowder.shiftedIndex;
+				} else {
+					return blockID;
+				}
+			}
 		}
 	}
 
 	public int quantityDropped(Random var1) {
-		return this.getBlockID() == Block.oreLapis.getBlockID() ? 4 + var1.nextInt(5) : 1;
+		return blockID == Block.oreLapis.blockID ? 4 + var1.nextInt(5) : 1;
 	}
 
 	protected int damageDropped(int var1) {
-		return this.getBlockID() == Block.oreLapis.getBlockID() ? 4 : 0;
+		return blockID == Block.oreLapis.blockID ? 4 : 0;
 	}
 }

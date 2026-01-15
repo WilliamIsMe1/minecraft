@@ -187,7 +187,23 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 			return 0;
 		} else {
 			int var2 = var1.getItem().shiftedIndex;
-			return var2 < 256 && Block.blocksList[var2].getBlockMaterial() == Material.wood ? 300 : (var2 == Item.stick.shiftedIndex ? 100 : (var2 == Item.coal.shiftedIndex ? 1600 : (var2 == Item.bucketLava.shiftedIndex ? 20000 : (var2 == Block.sapling.getBlockID() ? 100 : 0))));
+			if (var2 < 256 && Block.blocksList[var2].blockMaterial == Material.wood) {
+				return 300;
+			} else {
+				if (var2 == Item.stick.shiftedIndex) {
+					return (100);
+				} else {
+					if (var2 == Item.coal.shiftedIndex) {
+						return ((1600));
+					} else {
+						if (var2 == Item.bucketLava.shiftedIndex) {
+							return (((20000)));
+						} else {
+							return ((((var2 == Block.sapling.blockID ? 100 : 0))));
+						}
+					}
+				}
+			}
 		}
 	}
 

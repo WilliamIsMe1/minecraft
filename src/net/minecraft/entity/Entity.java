@@ -11,6 +11,9 @@ import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.misc.DataWatcher;
+import net.minecraft.util.nbt.NBTTagCompound;
+import net.minecraft.util.nbt.NBTTagDouble;
+import net.minecraft.util.nbt.NBTTagFloat;
 import net.minecraft.util.nbt.NBTTagList;
 import net.minecraft.world.World;
 
@@ -24,7 +27,7 @@ public abstract class Entity {
 	public boolean preventEntitySpawning = false;
 	public Entity riddenByEntity;
 	public Entity ridingEntity;
-	public net.minecraft.world.World worldObj;
+	public World worldObj;
 	public double prevPosX;
 	public double prevPosY;
 	public double prevPosZ;
@@ -38,7 +41,7 @@ public abstract class Entity {
 	public float rotationPitch;
 	public float prevRotationYaw;
 	public float prevRotationPitch;
-	public final net.minecraft.misc.AxisAlignedBB boundingBox = net.minecraft.misc.AxisAlignedBB.getBoundingBox(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+	public final AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 	public boolean onGround = false;
 	public boolean isCollidedHorizontally;
 	public boolean isCollidedVertically;
@@ -73,7 +76,7 @@ public abstract class Entity {
 	public String skinUrl;
 	public String cloakUrl;
 	protected boolean isImmuneToFire = false;
-	protected net.minecraft.misc.DataWatcher dataWatcher = new net.minecraft.misc.DataWatcher();
+	protected DataWatcher dataWatcher = new DataWatcher();
 	public float entityBrightness = 0.0F;
 	private double entityRiderPitchDelta;
 	private double entityRiderYawDelta;
@@ -86,10 +89,10 @@ public abstract class Entity {
 	public int serverPosZ;
 	public boolean ignoreFrustumCheck;
 
-	public Entity(net.minecraft.world.World var1) {
+	public Entity(World var1) {
 		this.worldObj = var1;
 		this.setPosition(0.0D, 0.0D, 0.0D);
-		this.dataWatcher.addObject(0, Byte.valueOf((byte)0));
+		this.dataWatcher.addObject(0, (byte) 0);
 		this.entityInit();
 	}
 
@@ -100,7 +103,7 @@ public abstract class Entity {
 	}
 
 	public boolean equals(Object var1) {
-		return var1 instanceof Entity ? ((Entity)var1).entityId == this.entityId : false;
+		return var1 instanceof Entity e && e.entityId == this.entityId;
 	}
 
 	public int hashCode() {
@@ -111,7 +114,7 @@ public abstract class Entity {
 		if(this.worldObj != null) {
 			while(this.posY > 0.0D) {
 				this.setPosition(this.posX, this.posY, this.posZ);
-				if(this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0) {
+				if(this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()) {
 					break;
 				}
 
@@ -195,13 +198,13 @@ public abstract class Entity {
 				for(var3 = 0; (float)var3 < 1.0F + this.width * 20.0F; ++var3) {
 					var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
 					var5 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-					this.worldObj.spawnParticle("bubble", this.posX + (double)var4, (double)(var2 + 1.0F), this.posZ + (double)var5, this.motionX, this.motionY - (double)(this.rand.nextFloat() * 0.2F), this.motionZ);
+					this.worldObj.spawnParticle("bubble", this.posX + (double)var4, var2 + 1.0F, this.posZ + (double)var5, this.motionX, this.motionY - (double)(this.rand.nextFloat() * 0.2F), this.motionZ);
 				}
 
 				for(var3 = 0; (float)var3 < 1.0F + this.width * 20.0F; ++var3) {
 					var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
 					var5 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-					this.worldObj.spawnParticle("splash", this.posX + (double)var4, (double)(var2 + 1.0F), this.posZ + (double)var5, this.motionX, this.motionY, this.motionZ);
+					this.worldObj.spawnParticle("splash", this.posX + (double)var4, var2 + 1.0F, this.posZ + (double)var5, this.motionX, this.motionY, this.motionZ);
 				}
 			}
 
@@ -222,7 +225,7 @@ public abstract class Entity {
 				}
 			} else {
 				if(this.fire % 20 == 0) {
-					this.attackEntityFrom((Entity)null, 1);
+					this.attackEntityFrom(null, 1);
 				}
 
 				--this.fire;
@@ -247,7 +250,7 @@ public abstract class Entity {
 
 	protected void setOnFireFromLava() {
 		if(!this.isImmuneToFire) {
-			this.attackEntityFrom((Entity)null, 4);
+			this.attackEntityFrom(null, 4);
 			this.fire = 600;
 		}
 
@@ -258,9 +261,9 @@ public abstract class Entity {
 	}
 
 	public boolean isOffsetPositionInLiquid(double var1, double var3, double var5) {
-		net.minecraft.misc.AxisAlignedBB var7 = this.boundingBox.getOffsetBoundingBox(var1, var3, var5);
+		AxisAlignedBB var7 = this.boundingBox.getOffsetBoundingBox(var1, var3, var5);
 		List var8 = this.worldObj.getCollidingBoundingBoxes(this, var7);
-		return var8.size() > 0 ? false : !this.worldObj.getIsAnyLiquid(var7);
+		return var8.size() <= 0 && !this.worldObj.getIsAnyLiquid(var7);
 	}
 
 	public void moveEntity(double var1, double var3, double var5) {
@@ -276,7 +279,7 @@ public abstract class Entity {
 			if(this.isInWeb) {
 				this.isInWeb = false;
 				var1 *= 0.25D;
-				var3 *= (double)0.05F;
+				var3 *= 0.05F;
 				var5 *= 0.25D;
 				this.motionX = 0.0D;
 				this.motionY = 0.0D;
@@ -286,7 +289,7 @@ public abstract class Entity {
 			double var11 = var1;
 			double var13 = var3;
 			double var15 = var5;
-			net.minecraft.misc.AxisAlignedBB var17 = this.boundingBox.copy();
+			AxisAlignedBB var17 = this.boundingBox.copy();
 			boolean var18 = this.onGround && this.isSneaking();
 			if(var18) {
 				double var19;
@@ -314,7 +317,7 @@ public abstract class Entity {
 			List var35 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(var1, var3, var5));
 
 			for(int var20 = 0; var20 < var35.size(); ++var20) {
-				var3 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var20)).calculateYOffset(this.boundingBox, var3);
+				var3 = ((AxisAlignedBB)var35.get(var20)).calculateYOffset(this.boundingBox, var3);
 			}
 
 			this.boundingBox.offset(0.0D, var3, 0.0D);
@@ -328,7 +331,7 @@ public abstract class Entity {
 
 			int var21;
 			for(var21 = 0; var21 < var35.size(); ++var21) {
-				var1 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var21)).calculateXOffset(this.boundingBox, var1);
+				var1 = ((AxisAlignedBB)var35.get(var21)).calculateXOffset(this.boundingBox, var1);
 			}
 
 			this.boundingBox.offset(var1, 0.0D, 0.0D);
@@ -339,7 +342,7 @@ public abstract class Entity {
 			}
 
 			for(var21 = 0; var21 < var35.size(); ++var21) {
-				var5 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var21)).calculateZOffset(this.boundingBox, var5);
+				var5 = ((AxisAlignedBB)var35.get(var21)).calculateZOffset(this.boundingBox, var5);
 			}
 
 			this.boundingBox.offset(0.0D, 0.0D, var5);
@@ -357,14 +360,14 @@ public abstract class Entity {
 				var23 = var3;
 				double var25 = var5;
 				var1 = var11;
-				var3 = (double)this.stepHeight;
+				var3 = this.stepHeight;
 				var5 = var15;
-				net.minecraft.misc.AxisAlignedBB var27 = this.boundingBox.copy();
+				AxisAlignedBB var27 = this.boundingBox.copy();
 				this.boundingBox.setBB(var17);
 				var35 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(var11, var3, var15));
 
 				for(var28 = 0; var28 < var35.size(); ++var28) {
-					var3 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
+					var3 = ((AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
 				}
 
 				this.boundingBox.offset(0.0D, var3, 0.0D);
@@ -375,7 +378,7 @@ public abstract class Entity {
 				}
 
 				for(var28 = 0; var28 < var35.size(); ++var28) {
-					var1 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateXOffset(this.boundingBox, var1);
+					var1 = ((AxisAlignedBB)var35.get(var28)).calculateXOffset(this.boundingBox, var1);
 				}
 
 				this.boundingBox.offset(var1, 0.0D, 0.0D);
@@ -386,7 +389,7 @@ public abstract class Entity {
 				}
 
 				for(var28 = 0; var28 < var35.size(); ++var28) {
-					var5 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateZOffset(this.boundingBox, var5);
+					var5 = ((AxisAlignedBB)var35.get(var28)).calculateZOffset(this.boundingBox, var5);
 				}
 
 				this.boundingBox.offset(0.0D, 0.0D, var5);
@@ -401,10 +404,10 @@ public abstract class Entity {
 					var3 = var5;
 					var1 = var5;
 				} else {
-					var3 = (double)(-this.stepHeight);
+					var3 = -this.stepHeight;
 
 					for(var28 = 0; var28 < var35.size(); ++var28) {
-						var3 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
+						var3 = ((AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
 					}
 
 					this.boundingBox.offset(0.0D, var3, 0.0D);
@@ -454,18 +457,20 @@ public abstract class Entity {
 				var26 = MathHelper.floor_double(this.posY - (double)0.2F - (double)this.yOffset);
 				var39 = MathHelper.floor_double(this.posZ);
 				var28 = this.worldObj.getBlockId(var38, var26, var39);
-				if(this.worldObj.getBlockId(var38, var26 - 1, var39) == Block.fence.getBlockID()) {
+				if(this.worldObj.getBlockId(var38, var26 - 1, var39) == Block.fence.blockID) {
 					var28 = this.worldObj.getBlockId(var38, var26 - 1, var39);
 				}
 
 				if(this.distanceWalkedModified > (float)this.nextStepDistance && var28 > 0) {
 					++this.nextStepDistance;
-					StepSound var29 = Block.blocksList[var28].getStepSound();
-					if(this.worldObj.getBlockId(var38, var26 + 1, var39) == Block.snow.getBlockID()) {
-						var29 = Block.snow.getStepSound();
+					StepSound var29 = Block.blocksList[var28].stepSound;
+					if(this.worldObj.getBlockId(var38, var26 + 1, var39) == Block.snow.blockID) {
+						var29 = Block.snow.stepSound;
 						this.worldObj.playSoundAtEntity(this, var29.func_1145_d(), var29.getVolume() * 0.15F, var29.getPitch());
-					} else if(!Block.blocksList[var28].getBlockMaterial().getIsLiquid()) {
-						this.worldObj.playSoundAtEntity(this, var29.func_1145_d(), var29.getVolume() * 0.15F, var29.getPitch());
+					} else {
+						if(!Block.blocksList[var28].blockMaterial.isLiquid()) {
+							this.worldObj.playSoundAtEntity(this, var29.func_1145_d(), var29.getVolume() * 0.15F, var29.getPitch());
+						}
 					}
 
 					Block.blocksList[var28].onEntityWalking(this.worldObj, var38, var26, var39, this);
@@ -528,13 +533,13 @@ public abstract class Entity {
 
 	}
 
-	public net.minecraft.misc.AxisAlignedBB getBoundingBox() {
+	public AxisAlignedBB getBoundingBox() {
 		return null;
 	}
 
 	protected void dealFireDamage(int var1) {
 		if(!this.isImmuneToFire) {
-			this.attackEntityFrom((Entity)null, var1);
+			this.attackEntityFrom(null, var1);
 		}
 
 	}
@@ -555,7 +560,7 @@ public abstract class Entity {
 	}
 
 	public boolean handleWaterMovement() {
-		return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, (double)-0.4F, 0.0D).func_28195_e(0.001D, 0.001D, 0.001D), Material.water, this);
+		return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, -0.4F, 0.0D).func_28195_e(0.001D, 0.001D, 0.001D), Material.water, this);
 	}
 
 	public boolean isInsideOfMaterial(Material var1) {
@@ -564,7 +569,7 @@ public abstract class Entity {
 		int var5 = MathHelper.floor_float((float) MathHelper.floor_double(var2));
 		int var6 = MathHelper.floor_double(this.posZ);
 		int var7 = this.worldObj.getBlockId(var4, var5, var6);
-		if(var7 != 0 && Block.blocksList[var7].getBlockMaterial() == var1) {
+		if(var7 != 0 && Block.blocksList[var7].blockMaterial == var1) {
 			float var8 = BlockFluid.getPercentAir(this.worldObj.getBlockMetadata(var4, var5, var6)) - 1.0F / 9.0F;
 			float var9 = (float)(var5 + 1) - var8;
 			return var2 < (double)var9;
@@ -578,7 +583,7 @@ public abstract class Entity {
 	}
 
 	public boolean handleLavaMovement() {
-		return this.worldObj.isMaterialInBB(this.boundingBox.expand((double)-0.1F, (double)-0.4F, (double)-0.1F), Material.lava);
+		return this.worldObj.isMaterialInBB(this.boundingBox.expand(-0.1F, -0.4F, -0.1F), Material.lava);
 	}
 
 	public void moveFlying(float var1, float var2, float var3) {
@@ -593,8 +598,8 @@ public abstract class Entity {
 			var2 *= var4;
 			float var5 = MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F);
 			float var6 = MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F);
-			this.motionX += (double)(var1 * var6 - var2 * var5);
-			this.motionZ += (double)(var2 * var6 + var1 * var5);
+			this.motionX += var1 * var6 - var2 * var5;
+			this.motionZ += var2 * var6 + var1 * var5;
 		}
 	}
 
@@ -626,7 +631,7 @@ public abstract class Entity {
 		this.prevRotationYaw = this.rotationYaw = var7;
 		this.prevRotationPitch = this.rotationPitch = var8;
 		this.ySize = 0.0F;
-		double var9 = (double)(this.prevRotationYaw - var7);
+		double var9 = this.prevRotationYaw - var7;
 		if(var9 < -180.0D) {
 			this.prevRotationYaw += 360.0F;
 		}
@@ -666,7 +671,7 @@ public abstract class Entity {
 		double var7 = this.posX - var1;
 		double var9 = this.posY - var3;
 		double var11 = this.posZ - var5;
-		return (double) MathHelper.sqrt_double(var7 * var7 + var9 * var9 + var11 * var11);
+		return MathHelper.sqrt_double(var7 * var7 + var9 * var9 + var11 * var11);
 	}
 
 	public double getDistanceSqToEntity(Entity var1) {
@@ -685,7 +690,7 @@ public abstract class Entity {
 			double var4 = var1.posZ - this.posZ;
 			double var6 = MathHelper.abs_max(var2, var4);
 			if(var6 >= (double)0.01F) {
-				var6 = (double) MathHelper.sqrt_double(var6);
+				var6 = MathHelper.sqrt_double(var6);
 				var2 /= var6;
 				var4 /= var6;
 				double var8 = 1.0D / var6;
@@ -695,10 +700,10 @@ public abstract class Entity {
 
 				var2 *= var8;
 				var4 *= var8;
-				var2 *= (double)0.05F;
-				var4 *= (double)0.05F;
-				var2 *= (double)(1.0F - this.entityCollisionReduction);
-				var4 *= (double)(1.0F - this.entityCollisionReduction);
+				var2 *= 0.05F;
+				var4 *= 0.05F;
+				var2 *= 1.0F - this.entityCollisionReduction;
+				var4 *= 1.0F - this.entityCollisionReduction;
 				this.addVelocity(-var2, 0.0D, -var4);
 				var1.addVelocity(var2, 0.0D, var4);
 			}
@@ -732,7 +737,7 @@ public abstract class Entity {
 	public void addToPlayerScore(Entity var1, int var2) {
 	}
 
-	public boolean isInRangeToRenderVec3D(net.minecraft.core.Vec3D var1) {
+	public boolean isInRangeToRenderVec3D(Vec3D var1) {
 		double var2 = this.posX - var1.xCoord;
 		double var4 = this.posY - var1.yCoord;
 		double var6 = this.posZ - var1.zCoord;
@@ -750,7 +755,7 @@ public abstract class Entity {
 		return null;
 	}
 
-	public boolean addEntityID(net.minecraft.util.nbt.NBTTagCompound var1) {
+	public boolean addEntityID(NBTTagCompound var1) {
 		String var2 = this.getEntityString();
 		if(!this.isDead && var2 != null) {
 			var1.setString("id", var2);
@@ -761,10 +766,10 @@ public abstract class Entity {
 		}
 	}
 
-	public void writeToNBT(net.minecraft.util.nbt.NBTTagCompound var1) {
-		var1.setTag("Pos", this.newDoubleNBTList(new double[]{this.posX, this.posY + (double)this.ySize, this.posZ}));
-		var1.setTag("Motion", this.newDoubleNBTList(new double[]{this.motionX, this.motionY, this.motionZ}));
-		var1.setTag("Rotation", this.newFloatNBTList(new float[]{this.rotationYaw, this.rotationPitch}));
+	public void writeToNBT(NBTTagCompound var1) {
+		var1.setTag("Pos", this.newDoubleNBTList(this.posX, this.posY + (double)this.ySize, this.posZ));
+		var1.setTag("Motion", this.newDoubleNBTList(this.motionX, this.motionY, this.motionZ));
+		var1.setTag("Rotation", this.newFloatNBTList(this.rotationYaw, this.rotationPitch));
 		var1.setFloat("FallDistance", this.fallDistance);
 		var1.setShort("Fire", (short)this.fire);
 		var1.setShort("Air", (short)this.air);
@@ -772,13 +777,13 @@ public abstract class Entity {
 		this.writeEntityToNBT(var1);
 	}
 
-	public void readFromNBT(net.minecraft.util.nbt.NBTTagCompound var1) {
-		net.minecraft.util.nbt.NBTTagList var2 = var1.getTagList("Pos");
-		net.minecraft.util.nbt.NBTTagList var3 = var1.getTagList("Motion");
-		net.minecraft.util.nbt.NBTTagList var4 = var1.getTagList("Rotation");
-		this.motionX = ((net.minecraft.util.nbt.NBTTagDouble)var3.tagAt(0)).doubleValue;
-		this.motionY = ((net.minecraft.util.nbt.NBTTagDouble)var3.tagAt(1)).doubleValue;
-		this.motionZ = ((net.minecraft.util.nbt.NBTTagDouble)var3.tagAt(2)).doubleValue;
+	public void readFromNBT(NBTTagCompound var1) {
+		NBTTagList var2 = var1.getTagList("Pos");
+		NBTTagList var3 = var1.getTagList("Motion");
+		NBTTagList var4 = var1.getTagList("Rotation");
+		this.motionX = ((NBTTagDouble)var3.tagAt(0)).doubleValue;
+		this.motionY = ((NBTTagDouble)var3.tagAt(1)).doubleValue;
+		this.motionZ = ((NBTTagDouble)var3.tagAt(2)).doubleValue;
 		if(Math.abs(this.motionX) > 10.0D) {
 			this.motionX = 0.0D;
 		}
@@ -791,11 +796,11 @@ public abstract class Entity {
 			this.motionZ = 0.0D;
 		}
 
-		this.prevPosX = this.lastTickPosX = this.posX = ((net.minecraft.util.nbt.NBTTagDouble)var2.tagAt(0)).doubleValue;
-		this.prevPosY = this.lastTickPosY = this.posY = ((net.minecraft.util.nbt.NBTTagDouble)var2.tagAt(1)).doubleValue;
-		this.prevPosZ = this.lastTickPosZ = this.posZ = ((net.minecraft.util.nbt.NBTTagDouble)var2.tagAt(2)).doubleValue;
-		this.prevRotationYaw = this.rotationYaw = ((net.minecraft.util.nbt.NBTTagFloat)var4.tagAt(0)).floatValue;
-		this.prevRotationPitch = this.rotationPitch = ((net.minecraft.util.nbt.NBTTagFloat)var4.tagAt(1)).floatValue;
+		this.prevPosX = this.lastTickPosX = this.posX = ((NBTTagDouble)var2.tagAt(0)).doubleValue;
+		this.prevPosY = this.lastTickPosY = this.posY = ((NBTTagDouble)var2.tagAt(1)).doubleValue;
+		this.prevPosZ = this.lastTickPosZ = this.posZ = ((NBTTagDouble)var2.tagAt(2)).doubleValue;
+		this.prevRotationYaw = this.rotationYaw = ((NBTTagFloat)var4.tagAt(0)).floatValue;
+		this.prevRotationPitch = this.rotationPitch = ((NBTTagFloat)var4.tagAt(1)).floatValue;
 		this.fallDistance = var1.getFloat("FallDistance");
 		this.fire = var1.getShort("Fire");
 		this.air = var1.getShort("Air");
@@ -809,31 +814,31 @@ public abstract class Entity {
 		return EntityList.getEntityString(this);
 	}
 
-	protected abstract void readEntityFromNBT(net.minecraft.util.nbt.NBTTagCompound var1);
+	protected abstract void readEntityFromNBT(NBTTagCompound var1);
 
-	protected abstract void writeEntityToNBT(net.minecraft.util.nbt.NBTTagCompound var1);
+	protected abstract void writeEntityToNBT(NBTTagCompound var1);
 
-	protected net.minecraft.util.nbt.NBTTagList newDoubleNBTList(double... var1) {
-		net.minecraft.util.nbt.NBTTagList var2 = new net.minecraft.util.nbt.NBTTagList();
+	protected NBTTagList newDoubleNBTList(double... var1) {
+		NBTTagList var2 = new NBTTagList();
 		double[] var3 = var1;
 		int var4 = var1.length;
 
 		for(int var5 = 0; var5 < var4; ++var5) {
 			double var6 = var3[var5];
-			var2.setTag(new net.minecraft.util.nbt.NBTTagDouble(var6));
+			var2.setTag(new NBTTagDouble(var6));
 		}
 
 		return var2;
 	}
 
-	protected net.minecraft.util.nbt.NBTTagList newFloatNBTList(float... var1) {
-		net.minecraft.util.nbt.NBTTagList var2 = new NBTTagList();
+	protected NBTTagList newFloatNBTList(float... var1) {
+		NBTTagList var2 = new NBTTagList();
 		float[] var3 = var1;
 		int var4 = var1.length;
 
 		for(int var5 = 0; var5 < var4; ++var5) {
 			float var6 = var3[var5];
-			var2.setTag(new net.minecraft.util.nbt.NBTTagFloat(var6));
+			var2.setTag(new NBTTagFloat(var6));
 		}
 
 		return var2;
@@ -882,7 +887,7 @@ public abstract class Entity {
 		return false;
 	}
 
-	public net.minecraft.misc.AxisAlignedBB getCollisionBox(Entity var1) {
+	public AxisAlignedBB getCollisionBox(Entity var1) {
 		return null;
 	}
 
@@ -896,9 +901,9 @@ public abstract class Entity {
 			this.onUpdate();
 			if(this.ridingEntity != null) {
 				this.ridingEntity.updateRiderPosition();
-				this.entityRiderYawDelta += (double)(this.ridingEntity.rotationYaw - this.ridingEntity.prevRotationYaw);
+				this.entityRiderYawDelta += this.ridingEntity.rotationYaw - this.ridingEntity.prevRotationYaw;
 
-				for(this.entityRiderPitchDelta += (double)(this.ridingEntity.rotationPitch - this.ridingEntity.prevRotationPitch); this.entityRiderYawDelta >= 180.0D; this.entityRiderYawDelta -= 360.0D) {
+				for(this.entityRiderPitchDelta += this.ridingEntity.rotationPitch - this.ridingEntity.prevRotationPitch; this.entityRiderYawDelta >= 180.0D; this.entityRiderYawDelta -= 360.0D) {
 				}
 
 				while(this.entityRiderYawDelta < -180.0D) {
@@ -917,19 +922,19 @@ public abstract class Entity {
 				double var3 = this.entityRiderPitchDelta * 0.5D;
 				float var5 = 10.0F;
 				if(var1 > (double)var5) {
-					var1 = (double)var5;
+					var1 = var5;
 				}
 
 				if(var1 < (double)(-var5)) {
-					var1 = (double)(-var5);
+					var1 = -var5;
 				}
 
 				if(var3 > (double)var5) {
-					var3 = (double)var5;
+					var3 = var5;
 				}
 
 				if(var3 < (double)(-var5)) {
-					var3 = (double)(-var5);
+					var3 = -var5;
 				}
 
 				this.entityRiderYawDelta -= var1;
@@ -945,7 +950,7 @@ public abstract class Entity {
 	}
 
 	public double getYOffset() {
-		return (double)this.yOffset;
+		return this.yOffset;
 	}
 
 	public double getMountedYOffset() {
@@ -988,7 +993,7 @@ public abstract class Entity {
 			double var11 = 0.0D;
 
 			for(int var13 = 0; var13 < var10.size(); ++var13) {
-				net.minecraft.misc.AxisAlignedBB var14 = (AxisAlignedBB)var10.get(var13);
+				AxisAlignedBB var14 = (AxisAlignedBB)var10.get(var13);
 				if(var14.maxY > var11) {
 					var11 = var14.maxY;
 				}
@@ -1048,9 +1053,9 @@ public abstract class Entity {
 	protected void setEntityFlag(int var1, boolean var2) {
 		byte var3 = this.dataWatcher.getWatchableObjectByte(0);
 		if(var2) {
-			this.dataWatcher.updateObject(0, Byte.valueOf((byte)(var3 | 1 << var1)));
+			this.dataWatcher.updateObject(0, (byte) (var3 | 1 << var1));
 		} else {
-			this.dataWatcher.updateObject(0, Byte.valueOf((byte)(var3 & ~(1 << var1))));
+			this.dataWatcher.updateObject(0, (byte) (var3 & ~(1 << var1)));
 		}
 
 	}
@@ -1115,27 +1120,27 @@ public abstract class Entity {
 
 			float var25 = this.rand.nextFloat() * 0.2F + 0.1F;
 			if(var22 == 0) {
-				this.motionX = (double)(-var25);
+				this.motionX = -var25;
 			}
 
 			if(var22 == 1) {
-				this.motionX = (double)var25;
+				this.motionX = var25;
 			}
 
 			if(var22 == 2) {
-				this.motionY = (double)(-var25);
+				this.motionY = -var25;
 			}
 
 			if(var22 == 3) {
-				this.motionY = (double)var25;
+				this.motionY = var25;
 			}
 
 			if(var22 == 4) {
-				this.motionZ = (double)(-var25);
+				this.motionZ = -var25;
 			}
 
 			if(var22 == 5) {
-				this.motionZ = (double)var25;
+				this.motionZ = var25;
 			}
 		}
 

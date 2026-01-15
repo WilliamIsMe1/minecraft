@@ -22,7 +22,7 @@ public class BlockMushroom extends BlockFlower {
 				int var10000 = var2 + (var5.nextInt(3) - 1);
 				var10000 = var4 + (var5.nextInt(3) - 1);
 				if(var1.isAirBlock(var6, var7, var8) && this.canBlockStay(var1, var6, var7, var8)) {
-					var1.setBlockWithNotify(var6, var7, var8, this.getBlockID());
+					var1.setBlockWithNotify(var6, var7, var8, blockID);
 				}
 			}
 		}
@@ -34,6 +34,6 @@ public class BlockMushroom extends BlockFlower {
 	}
 
 	public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-		return var3 >= 0 && var3 < 128 ? var1.getFullBlockLightValue(var2, var3, var4) < 13 && this.canThisPlantGrowOnThisBlockID(var1.getBlockId(var2, var3 - 1, var4)) : false;
+		return var3 >= 0 && var3 < 128 && var1.getFullBlockLightValue(var2, var3, var4) < 13 && this.canThisPlantGrowOnThisBlockID(var1.getBlockId(var2, var3 - 1, var4));
 	}
 }

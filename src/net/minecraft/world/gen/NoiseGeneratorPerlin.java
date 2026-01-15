@@ -73,7 +73,7 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
 		return var3 + var1 * (var5 - var3);
 	}
 
-	public final double func_4110_a(int var1, double var2, double var4) {
+	public final double hash(int var1, double var2, double var4) {
 		int var6 = var1 & 15;
 		double var7 = (double)(1 - ((var6 & 8) >> 3)) * var2;
 		double var9 = var6 < 4 ? 0.0D : (var6 != 12 && var6 != 14 ? var4 : var2);
@@ -87,7 +87,7 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
 		return ((var8 & 1) == 0 ? var9 : -var9) + ((var8 & 2) == 0 ? var11 : -var11);
 	}
 
-	public double func_801_a(double var1, double var3) {
+	public double generateFlatNoise(double var1, double var3) {
 		return this.generateNoise(var1, var3, 0.0D);
 	}
 
@@ -138,7 +138,7 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
 					int var66 = this.permutations[var19] + var41;
 					int var67 = this.permutations[var34 + 1] + 0;
 					var22 = this.permutations[var67] + var41;
-					var70 = this.lerp(var35, this.func_4110_a(this.permutations[var66], var31, var38), this.grad(this.permutations[var22], var31 - 1.0D, 0.0D, var38));
+					var70 = this.lerp(var35, this.hash(this.permutations[var66], var31, var38), this.grad(this.permutations[var22], var31 - 1.0D, 0.0D, var38));
 					var73 = this.lerp(var35, this.grad(this.permutations[var66 + 1], var31, 0.0D, var38 - 1.0D), this.grad(this.permutations[var22 + 1], var31 - 1.0D, 0.0D, var38 - 1.0D));
 					double var79 = this.lerp(var42, var70, var73);
 					var10001 = var75++;

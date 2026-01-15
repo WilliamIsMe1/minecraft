@@ -53,8 +53,8 @@ public class ItemDoor extends Item {
 
 				int var12 = (var3.isBlockNormalCube(var4 - var10, var5, var6 - var11) ? 1 : 0) + (var3.isBlockNormalCube(var4 - var10, var5 + 1, var6 - var11) ? 1 : 0);
 				int var13 = (var3.isBlockNormalCube(var4 + var10, var5, var6 + var11) ? 1 : 0) + (var3.isBlockNormalCube(var4 + var10, var5 + 1, var6 + var11) ? 1 : 0);
-				boolean var14 = var3.getBlockId(var4 - var10, var5, var6 - var11) == var8.getBlockID() || var3.getBlockId(var4 - var10, var5 + 1, var6 - var11) == var8.getBlockID();
-				boolean var15 = var3.getBlockId(var4 + var10, var5, var6 + var11) == var8.getBlockID() || var3.getBlockId(var4 + var10, var5 + 1, var6 + var11) == var8.getBlockID();
+				boolean var14 = var3.getBlockId(var4 - var10, var5, var6 - var11) == var8.blockID || var3.getBlockId(var4 - var10, var5 + 1, var6 - var11) == var8.blockID;
+				boolean var15 = var3.getBlockId(var4 + var10, var5, var6 + var11) == var8.blockID || var3.getBlockId(var4 + var10, var5 + 1, var6 + var11) == var8.blockID;
 				boolean var16 = false;
 				if(var14 && !var15) {
 					var16 = true;
@@ -68,11 +68,11 @@ public class ItemDoor extends Item {
 				}
 
 				var3.editingBlocks = true;
-				var3.setBlockAndMetadataWithNotify(var4, var5, var6, var8.getBlockID(), var9);
-				var3.setBlockAndMetadataWithNotify(var4, var5 + 1, var6, var8.getBlockID(), var9 + 8);
+				var3.setBlockAndMetadataWithNotify(var4, var5, var6, var8.blockID, var9);
+				var3.setBlockAndMetadataWithNotify(var4, var5 + 1, var6, var8.blockID, var9 + 8);
 				var3.editingBlocks = false;
-				var3.notifyBlocksOfNeighborChange(var4, var5, var6, var8.getBlockID());
-				var3.notifyBlocksOfNeighborChange(var4, var5 + 1, var6, var8.getBlockID());
+				var3.notifyBlocksOfNeighborChange(var4, var5, var6, var8.blockID);
+				var3.notifyBlocksOfNeighborChange(var4, var5 + 1, var6, var8.blockID);
 				--var1.stackSize;
 				return true;
 			}

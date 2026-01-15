@@ -11,7 +11,11 @@ public class BlockBookshelf extends Block {
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 <= 1 ? 4 : this.getBlockIndexInTexture();
+		if (var1 <= 1) {
+			return 4;
+		} else {
+			return blockIndexInTexture;
+		}
 	}
 
 	public int quantityDropped(Random var1) {

@@ -195,11 +195,11 @@ public class NetClientHandler extends NetHandler {
 		}
 
 		if(var1.type == 70) {
-			var8 = new net.minecraft.entity.EntityFallingSand(this.worldClient, var2, var4, var6, Block.sand.getBlockID());
+			var8 = new net.minecraft.entity.EntityFallingSand(this.worldClient, var2, var4, var6, Block.sand.blockID);
 		}
 
 		if(var1.type == 71) {
-			var8 = new EntityFallingSand(this.worldClient, var2, var4, var6, Block.gravel.getBlockID());
+			var8 = new EntityFallingSand(this.worldClient, var2, var4, var6, Block.gravel.blockID);
 		}
 
 		if(var8 != null) {

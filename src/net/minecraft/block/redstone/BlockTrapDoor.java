@@ -12,9 +12,9 @@ import net.minecraft.world.World;
 public class BlockTrapDoor extends Block {
 	public BlockTrapDoor(int var1, Material var2) {
 		super(var1, var2);
-		this.setBlockIndexInTexture(84);
+		this.blockIndexInTexture = 84;
 		if(var2 == Material.iron) {
-			this.setBlockIndexInTexture(this.getBlockIndexInTexture() + 1);
+			this.blockIndexInTexture = blockIndexInTexture + 1;
 		}
 
 		float var3 = 0.5F;
@@ -81,7 +81,7 @@ public class BlockTrapDoor extends Block {
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
-		if(this.getBlockMaterial() == Material.iron) {
+		if(blockMaterial == Material.iron) {
 			return true;
 		} else {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);

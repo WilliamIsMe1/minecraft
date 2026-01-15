@@ -125,18 +125,18 @@ key.fog=Toggle Fog
 key.sneak=Sneak
 key.playerlist=List players
 
-texturePack.openFolder=Open texture pack folder
-texturePack.title=Select Texture Pack
-texturePack.folderInfo=(Place texture pack files here)
+texturePack.openFolder=Open Resource Pack Folder
+texturePack.title=Select Resource Pack
+texturePack.folderInfo=(Place Resource Pack files here)
 
 tile.stone.name=Stone
 tile.stone.desc=
 tile.grass.name=Grass
 tile.grass.desc=
 tile.dirt.name=Dirt
-tile.dirt.desc=
-tile.stonebrick.name=Cobblestone
-tile.stonebrick.desc=
+tile.dirt.desc=This dirt is dirty
+tile.cobblestone.name=Cobblestone
+tile.cobblestone.desc=
 tile.wood.name=Wooden Planks
 tile.wood.desc=
 tile.sapling.name=Sapling

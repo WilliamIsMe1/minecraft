@@ -2,7 +2,7 @@ package net.minecraft.world.gen;
 
 import net.minecraft.entity.living.creature.mob.EntityGhast;
 import net.minecraft.entity.living.creature.mob.EntityPigZombie;
-import net.minecraft.core.SpawnListEntry;
+import net.minecraft.entity.SpawnListEntry;
 
 public class BiomeGenHell extends BiomeGenBase {
 	public BiomeGenHell() {

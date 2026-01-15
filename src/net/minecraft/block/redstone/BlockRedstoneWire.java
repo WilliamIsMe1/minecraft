@@ -3,7 +3,7 @@ package net.minecraft.block.redstone;
 import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.render.entity.model.ModelBed;
+import net.minecraft.client.render.block.model.ModelBed;
 import net.minecraft.item.core.Item;
 import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.chunk.ChunkPosition;
@@ -24,7 +24,7 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-		return this.getBlockIndexInTexture();
+		return blockIndexInTexture;
 	}
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
@@ -58,7 +58,7 @@ public class BlockRedstoneWire extends Block {
 
 		for(int var6 = 0; var6 < var5.size(); ++var6) {
 			ChunkPosition var7 = (ChunkPosition)var5.get(var6);
-			var1.notifyBlocksOfNeighborChange(var7.x, var7.y, var7.z, this.getBlockID());
+			var1.notifyBlocksOfNeighborChange(var7.x, var7.y, var7.z, blockID);
 		}
 
 	}
@@ -180,14 +180,14 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	private void notifyWireNeighborsOfNeighborChange(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		if(var1.getBlockId(var2, var3, var4) == this.getBlockID()) {
-			var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.getBlockID());
+		if(var1.getBlockId(var2, var3, var4) == blockID) {
+			var1.notifyBlocksOfNeighborChange(var2, var3, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, blockID);
 		}
 	}
 
@@ -195,8 +195,8 @@ public class BlockRedstoneWire extends Block {
 		super.onBlockAdded(var1, var2, var3, var4);
 		if(!var1.multiplayerWorld) {
 			this.updateAndPropagateCurrentStrength(var1, var2, var3, var4);
-			var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
+			var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
 			this.notifyWireNeighborsOfNeighborChange(var1, var2 - 1, var3, var4);
 			this.notifyWireNeighborsOfNeighborChange(var1, var2 + 1, var3, var4);
 			this.notifyWireNeighborsOfNeighborChange(var1, var2, var3, var4 - 1);
@@ -231,8 +231,8 @@ public class BlockRedstoneWire extends Block {
 	public void onBlockRemoval(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		super.onBlockRemoval(var1, var2, var3, var4);
 		if(!var1.multiplayerWorld) {
-			var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
+			var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
 			this.updateAndPropagateCurrentStrength(var1, var2, var3, var4);
 			this.notifyWireNeighborsOfNeighborChange(var1, var2 - 1, var3, var4);
 			this.notifyWireNeighborsOfNeighborChange(var1, var2 + 1, var3, var4);
@@ -266,7 +266,7 @@ public class BlockRedstoneWire extends Block {
 	}
 
 	private int getMaxCurrentStrength(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
-		if(var1.getBlockId(var2, var3, var4) != this.getBlockID()) {
+		if(var1.getBlockId(var2, var3, var4) != blockID) {
 			return var5;
 		} else {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
@@ -364,17 +364,19 @@ public class BlockRedstoneWire extends Block {
 
 	public static boolean isPowerProviderOrWire(IBlockAccess var0, int var1, int var2, int var3, int var4) {
 		int var5 = var0.getBlockId(var1, var2, var3);
-		if(var5 == Block.redstoneWire.getBlockID()) {
+		if(var5 == Block.redstoneWire.blockID) {
 			return true;
 		} else if(var5 == 0) {
 			return false;
 		} else if(Block.blocksList[var5].canProvidePower()) {
 			return true;
-		} else if(var5 != Block.redstoneRepeaterIdle.getBlockID() && var5 != Block.redstoneRepeaterActive.getBlockID()) {
-			return false;
 		} else {
-			int var6 = var0.getBlockMetadata(var1, var2, var3);
-			return var4 == ModelBed.field_22279_b[var6 & 3];
+			if(var5 != Block.redstoneRepeaterIdle.blockID && var5 != Block.redstoneRepeaterActive.blockID) {
+				return false;
+			} else {
+				int var6 = var0.getBlockMetadata(var1, var2, var3);
+				return var4 == ModelBed.field_22279_b[var6 & 3];
+			}
 		}
 	}
 }

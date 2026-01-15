@@ -12,7 +12,7 @@ import net.minecraft.entity.living.creature.mob.EntitySpider;
 import net.minecraft.entity.living.creature.animal.EntitySquid;
 import net.minecraft.entity.living.creature.mob.EntityZombie;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.core.SpawnListEntry;
+import net.minecraft.entity.SpawnListEntry;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -35,8 +35,18 @@ public class BiomeGenBase {
 	public static final BiomeGenBase sky = (new BiomeGenSky()).setColor(8421631).setBiomeName("Sky").setDisableRain();
 	public String biomeName;
 	public int color;
-	public byte topBlock = (byte) Block.grass.getBlockID();
-	public byte fillerBlock = (byte) Block.dirt.getBlockID();
+	public byte topBlock;
+
+	{
+		topBlock = (byte) Block.grass.blockID;
+	}
+
+	public byte fillerBlock;
+
+	{
+		fillerBlock = (byte) Block.dirt.blockID;
+	}
+
 	public int field_6502_q = 5169201;
 	protected List<SpawnListEntry> spawnableMonsterList = new ArrayList<>();
 	protected List<SpawnListEntry> spawnableCreatureList = new ArrayList<>();
@@ -70,8 +80,8 @@ public class BiomeGenBase {
 			}
 		}
 
-		desert.topBlock = desert.fillerBlock = (byte) Block.sand.getBlockID();
-		iceDesert.topBlock = iceDesert.fillerBlock = (byte) Block.sand.getBlockID();
+		desert.topBlock = desert.fillerBlock = (byte) Block.sand.blockID;
+		iceDesert.topBlock = iceDesert.fillerBlock = (byte) Block.sand.blockID;
 	}
 
 	public WorldGenerator getRandomWorldGenForTrees(Random var1) {

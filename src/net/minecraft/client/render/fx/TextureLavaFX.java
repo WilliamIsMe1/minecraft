@@ -10,7 +10,7 @@ public class TextureLavaFX extends TextureFX {
 	protected float[] field_1144_j = new float[256];
 
 	public TextureLavaFX() {
-		super(Block.lavaMoving.getBlockIndexInTexture());
+		super(Block.lavaMoving.blockIndexInTexture);
 	}
 
 	public void onTick() {

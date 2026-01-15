@@ -11,6 +11,6 @@ public class BlockStone extends Block {
 	}
 
 	public int idDropped(int var1, Random var2) {
-		return Block.cobblestone.getBlockID();
+		return Block.cobblestone.blockID;
 	}
 }

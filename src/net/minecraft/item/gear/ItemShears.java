@@ -13,7 +13,7 @@ public class ItemShears extends Item {
 	}
 
 	public boolean onBlockDestroyed(ItemStack var1, int var2, int var3, int var4, int var5, EntityLiving var6) {
-		if(var2 == Block.leaves.getBlockID() || var2 == Block.web.getBlockID()) {
+		if(var2 == Block.leaves.blockID || var2 == Block.web.blockID) {
 			var1.damageItem(1, var6);
 		}
 
@@ -21,10 +21,14 @@ public class ItemShears extends Item {
 	}
 
 	public boolean canHarvestBlock(Block var1) {
-		return var1.getBlockID() == Block.web.getBlockID();
+		return var1.blockID == Block.web.blockID;
 	}
 
 	public float getStrVsBlock(ItemStack var1, Block var2) {
-		return var2.getBlockID() != Block.web.getBlockID() && var2.getBlockID() != Block.leaves.getBlockID() ? (var2.getBlockID() == Block.cloth.getBlockID() ? 5.0F : super.getStrVsBlock(var1, var2)) : 15.0F;
+		if (var2.blockID != Block.web.blockID && var2.blockID != Block.leaves.blockID) {
+			return (var2.blockID == Block.cloth.blockID ? 5.0F : super.getStrVsBlock(var1, var2));
+		} else {
+			return 15.0F;
+		}
 	}
 }

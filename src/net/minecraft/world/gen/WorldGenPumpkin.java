@@ -11,8 +11,10 @@ public class WorldGenPumpkin extends WorldGenerator {
 			int var7 = var3 + var2.nextInt(8) - var2.nextInt(8);
 			int var8 = var4 + var2.nextInt(4) - var2.nextInt(4);
 			int var9 = var5 + var2.nextInt(8) - var2.nextInt(8);
-			if(var1.isAirBlock(var7, var8, var9) && var1.getBlockId(var7, var8 - 1, var9) == Block.grass.getBlockID() && Block.pumpkin.canPlaceBlockAt(var1, var7, var8, var9)) {
-				var1.setBlockAndMetadata(var7, var8, var9, Block.pumpkin.getBlockID(), var2.nextInt(4));
+			if(var1.isAirBlock(var7, var8, var9)) {
+				if (var1.getBlockId(var7, var8 - 1, var9) == Block.grass.blockID && Block.pumpkin.canPlaceBlockAt(var1, var7, var8, var9)) {
+					var1.setBlockAndMetadata(var7, var8, var9, Block.pumpkin.blockID, var2.nextInt(4));
+				}
 			}
 		}
 

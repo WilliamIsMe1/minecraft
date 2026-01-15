@@ -23,11 +23,11 @@ public class SorterStatsBlock implements Comparator {
 			var5 = StatList.mineBlockStatArray[var3];
 			var6 = StatList.mineBlockStatArray[var4];
 		} else if(this.field_27298_b.field_27271_e == 0) {
-			var5 = StatList.field_25158_z[var3];
-			var6 = StatList.field_25158_z[var4];
+			var5 = StatList.craftItemStatArray[var3];
+			var6 = StatList.craftItemStatArray[var4];
 		} else if(this.field_27298_b.field_27271_e == 1) {
-			var5 = StatList.field_25172_A[var3];
-			var6 = StatList.field_25172_A[var4];
+			var5 = StatList.useItemStatArray[var3];
+			var6 = StatList.useItemStatArray[var4];
 		}
 
 		if(var5 != null || var6 != null) {

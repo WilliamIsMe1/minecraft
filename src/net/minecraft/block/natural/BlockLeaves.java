@@ -4,6 +4,7 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.render.ColorizerFoliage;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.achievement.stats.StatList;
@@ -23,15 +24,15 @@ public class BlockLeaves extends BlockLeavesBase {
 	}
 
 	public int getRenderColor(int var1) {
-		return (var1 & 1) == 1 ? net.minecraft.client.render.ColorizerFoliage.getFoliageColorPine() : ((var1 & 2) == 2 ? net.minecraft.client.render.ColorizerFoliage.getFoliageColorBirch() : net.minecraft.client.render.ColorizerFoliage.func_31073_c());
+		return (var1 & 1) == 1 ? ColorizerFoliage.getFoliageColorPine() : ((var1 & 2) == 2 ? ColorizerFoliage.getFoliageColorBirch() : ColorizerFoliage.func_31073_c());
 	}
 
 	public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockMetadata(var2, var3, var4);
 		if((var5 & 1) == 1) {
-			return net.minecraft.client.render.ColorizerFoliage.getFoliageColorPine();
+			return ColorizerFoliage.getFoliageColorPine();
 		} else if((var5 & 2) == 2) {
-			return net.minecraft.client.render.ColorizerFoliage.getFoliageColorBirch();
+			return ColorizerFoliage.getFoliageColorBirch();
 		} else {
 			var1.getWorldChunkManager().func_4069_a(var2, var4, 1, 1);
 			double var6 = var1.getWorldChunkManager().temperature[0];
@@ -40,7 +41,7 @@ public class BlockLeaves extends BlockLeavesBase {
 		}
 	}
 
-	public void onBlockRemoval(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public void onBlockRemoval(World var1, int var2, int var3, int var4) {
 		byte var5 = 1;
 		int var6 = var5 + 1;
 		if(var1.checkChunksExist(var2 - var6, var3 - var6, var4 - var6, var2 + var6, var3 + var6, var4 + var6)) {
@@ -48,7 +49,7 @@ public class BlockLeaves extends BlockLeavesBase {
 				for(int var8 = -var5; var8 <= var5; ++var8) {
 					for(int var9 = -var5; var9 <= var5; ++var9) {
 						int var10 = var1.getBlockId(var2 + var7, var3 + var8, var4 + var9);
-						if(var10 == Block.leaves.getBlockID()) {
+						if(var10 == Block.leaves.blockID) {
 							int var11 = var1.getBlockMetadata(var2 + var7, var3 + var8, var4 + var9);
 							var1.setBlockMetadata(var2 + var7, var3 + var8, var4 + var9, var11 | 8);
 						}
@@ -59,7 +60,7 @@ public class BlockLeaves extends BlockLeavesBase {
 
 	}
 
-	public void updateTick(net.minecraft.world.World var1, int var2, int var3, int var4, Random var5) {
+	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
 		if(!var1.multiplayerWorld) {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
 			if((var6 & 8) != 0) {
@@ -131,12 +132,14 @@ public class BlockLeaves extends BlockLeavesBase {
 						for(var13 = -var7; var13 <= var7; ++var13) {
 							for(var14 = -var7; var14 <= var7; ++var14) {
 								var15 = var1.getBlockId(var2 + var12, var3 + var13, var4 + var14);
-								if(var15 == Block.wood.getBlockID()) {
+								if(var15 == Block.wood.blockID) {
 									this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = 0;
-								} else if(var15 == Block.leaves.getBlockID()) {
-									this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -2;
 								} else {
-									this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -1;
+									if(var15 == Block.leaves.blockID) {
+										this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -2;
+									} else {
+										this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -1;
+									}
 								}
 							}
 						}
@@ -156,7 +159,7 @@ public class BlockLeaves extends BlockLeavesBase {
 		}
 	}
 
-	private void removeLeaves(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	private void removeLeaves(World var1, int var2, int var3, int var4) {
 		this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
 		var1.setBlockWithNotify(var2, var3, var4, 0);
 	}
@@ -166,13 +169,13 @@ public class BlockLeaves extends BlockLeavesBase {
 	}
 
 	public int idDropped(int var1, Random var2) {
-		return Block.sapling.getBlockID();
+		return Block.sapling.blockID;
 	}
 
-	public void harvestBlock(net.minecraft.world.World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
+	public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
 		if(!var1.multiplayerWorld && var2.getCurrentEquippedItem() != null && var2.getCurrentEquippedItem().itemID == Item.shears.shiftedIndex) {
-			var2.addStat(StatList.mineBlockStatArray[this.getBlockID()], 1);
-			this.dropBlockAsItem_do(var1, var3, var4, var5, new ItemStack(Block.leaves.getBlockID(), 1, var6 & 3));
+			var2.addStat(StatList.mineBlockStatArray[blockID], 1);
+			this.dropBlockAsItem_do(var1, var3, var4, var5, new ItemStack(Block.leaves.blockID, 1, var6 & 3));
 		} else {
 			super.harvestBlock(var1, var2, var3, var4, var5, var6);
 		}
@@ -188,15 +191,19 @@ public class BlockLeaves extends BlockLeavesBase {
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-		return (var2 & 3) == 1 ? this.getBlockIndexInTexture() + 80 : this.getBlockIndexInTexture();
+		if ((var2 & 3) == 1) {
+			return blockIndexInTexture + 80;
+		} else {
+			return blockIndexInTexture;
+		}
 	}
 
 	public void setGraphicsLevel(boolean var1) {
 		this.graphicsLevel = var1;
-		this.setBlockIndexInTexture(this.baseIndexInPNG + (var1 ? 0 : 1));
+		this.blockIndexInTexture = this.baseIndexInPNG + (var1 ? 0 : 1);
 	}
 
-	public void onEntityWalking(World var1, int var2, int var3, int var4, net.minecraft.entity.Entity var5) {
+	public void onEntityWalking(World var1, int var2, int var3, int var4, Entity var5) {
 		super.onEntityWalking(var1, var2, var3, var4, var5);
 	}
 }

@@ -29,8 +29,10 @@ public class WorldGenTaiga2 extends WorldGenerator {
 					for(int var14 = var5 - var21; var14 <= var5 + var21 && var10; ++var14) {
 						if(var11 >= 0 && var11 < 128) {
 							var15 = var1.getBlockId(var13, var11, var14);
-							if(var15 != 0 && var15 != Block.leaves.getBlockID()) {
-								var10 = false;
+							if(var15 != 0) {
+								if (var15 != Block.leaves.blockID) {
+									var10 = false;
+								}
 							}
 						} else {
 							var10 = false;
@@ -43,8 +45,8 @@ public class WorldGenTaiga2 extends WorldGenerator {
 				return false;
 			} else {
 				var11 = var1.getBlockId(var3, var4 - 1, var5);
-				if((var11 == Block.grass.getBlockID() || var11 == Block.dirt.getBlockID()) && var4 < 128 - var6 - 1) {
-					var1.setBlock(var3, var4 - 1, var5, Block.dirt.getBlockID());
+				if((var11 == Block.grass.blockID || var11 == Block.dirt.blockID) && var4 < 128 - var6 - 1) {
+					var1.setBlock(var3, var4 - 1, var5, Block.dirt.blockID);
 					var21 = var2.nextInt(2);
 					var13 = 1;
 					byte var22 = 0;
@@ -60,7 +62,7 @@ public class WorldGenTaiga2 extends WorldGenerator {
 							for(int var19 = var5 - var21; var19 <= var5 + var21; ++var19) {
 								int var20 = var19 - var5;
 								if((Math.abs(var18) != var21 || Math.abs(var20) != var21 || var21 <= 0) && !Block.opaqueCubeLookup[var1.getBlockId(var17, var16, var19)]) {
-									var1.setBlockAndMetadata(var17, var16, var19, Block.leaves.getBlockID(), 1);
+									var1.setBlockAndMetadata(var17, var16, var19, Block.leaves.blockID, 1);
 								}
 							}
 						}
@@ -81,8 +83,8 @@ public class WorldGenTaiga2 extends WorldGenerator {
 
 					for(var16 = 0; var16 < var6 - var15; ++var16) {
 						var17 = var1.getBlockId(var3, var4 + var16, var5);
-						if(var17 == 0 || var17 == Block.leaves.getBlockID()) {
-							var1.setBlockAndMetadata(var3, var4 + var16, var5, Block.wood.getBlockID(), 1);
+						if(var17 == 0 || var17 == Block.leaves.blockID) {
+							var1.setBlockAndMetadata(var3, var4 + var16, var5, Block.wood.blockID, 1);
 						}
 					}
 

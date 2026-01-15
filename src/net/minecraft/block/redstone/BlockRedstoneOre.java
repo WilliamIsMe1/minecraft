@@ -41,15 +41,15 @@ public class BlockRedstoneOre extends Block {
 
 	private void func_320_h(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		this.func_319_i(var1, var2, var3, var4);
-		if(this.getBlockID() == Block.oreRedstone.getBlockID()) {
-			var1.setBlockWithNotify(var2, var3, var4, Block.oreRedstoneGlowing.getBlockID());
+		if(blockID == Block.oreRedstone.blockID) {
+			var1.setBlockWithNotify(var2, var3, var4, Block.oreRedstoneGlowing.blockID);
 		}
 
 	}
 
 	public void updateTick(net.minecraft.world.World var1, int var2, int var3, int var4, Random var5) {
-		if(this.getBlockID() == Block.oreRedstoneGlowing.getBlockID()) {
-			var1.setBlockWithNotify(var2, var3, var4, Block.oreRedstone.getBlockID());
+		if(blockID == Block.oreRedstoneGlowing.blockID) {
+			var1.setBlockWithNotify(var2, var3, var4, Block.oreRedstone.blockID);
 		}
 
 	}

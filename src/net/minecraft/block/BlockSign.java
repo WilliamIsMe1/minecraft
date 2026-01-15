@@ -17,7 +17,7 @@ public class BlockSign extends BlockContainer {
 	public BlockSign(int var1, Class var2, boolean var3) {
 		super(var1, Material.wood);
 		this.isFreestanding = var3;
-		this.setBlockIndexInTexture(4);
+		this.blockIndexInTexture = 4;
 		this.signEntityClass = var2;
 		float var4 = 0.25F;
 		float var5 = 1.0F;

@@ -46,11 +46,31 @@ public class BlockCake extends Block {
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-		return var1 == 1 ? this.getBlockIndexInTexture() : (var1 == 0 ? this.getBlockIndexInTexture() + 3 : (var2 > 0 && var1 == 4 ? this.getBlockIndexInTexture() + 2 : this.getBlockIndexInTexture() + 1));
+		if (var1 == 1) {
+			return blockIndexInTexture;
+		} else {
+			if (var1 == 0) {
+				return (blockIndexInTexture + 3);
+			} else {
+				if (var2 > 0 && var1 == 4) {
+					return ((blockIndexInTexture + 2));
+				} else {
+					return ((blockIndexInTexture + 1));
+				}
+			}
+		}
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.getBlockIndexInTexture() : (var1 == 0 ? this.getBlockIndexInTexture() + 3 : this.getBlockIndexInTexture() + 1);
+		if (var1 == 1) {
+			return blockIndexInTexture;
+		} else {
+			if (var1 == 0) {
+				return (blockIndexInTexture + 3);
+			} else {
+				return (blockIndexInTexture + 1);
+			}
+		}
 	}
 
 	public boolean renderAsNormalBlock() {

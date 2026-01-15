@@ -10,13 +10,13 @@ public class BlockFlowing extends BlockFluid {
 	boolean[] isOptimalFlowDirection = new boolean[4];
 	int[] flowCost = new int[4];
 
-	public BlockFlowing(int var1, Material var2) {
-		super(var1, var2);
+	public BlockFlowing(int id, Material material) {
+		super(id, material);
 	}
 
-	private void func_30003_j(World var1, int var2, int var3, int var4) {
+	private void todoRenameLater(World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockMetadata(var2, var3, var4);
-		var1.setBlockAndMetadata(var2, var3, var4, this.getBlockID() + 1, var5);
+		var1.setBlockAndMetadata(var2, var3, var4, blockID + 1, var5);
 		var1.markBlocksDirty(var2, var3, var4, var2, var3, var4);
 		var1.markBlockNeedsUpdate(var2, var3, var4);
 	}
@@ -24,7 +24,7 @@ public class BlockFlowing extends BlockFluid {
 	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
 		int var6 = this.getFlowDecay(var1, var2, var3, var4);
 		byte var7 = 1;
-		if(this.getBlockMaterial() == Material.lava && !var1.worldProvider.isHellWorld) {
+		if(blockMaterial == Material.lava && !var1.worldProvider.isHellWorld) {
 			var7 = 2;
 		}
 
@@ -51,15 +51,19 @@ public class BlockFlowing extends BlockFluid {
 				}
 			}
 
-			if(this.numAdjacentSources >= 2 && this.getBlockMaterial() == Material.water) {
-				if(var1.getBlockMaterial(var2, var3 - 1, var4).isSolid()) {
-					var10 = 0;
-				} else if(var1.getBlockMaterial(var2, var3 - 1, var4) == this.getBlockMaterial() && var1.getBlockMetadata(var2, var3, var4) == 0) {
-					var10 = 0;
+			if(this.numAdjacentSources >= 2) {
+				if (blockMaterial == Material.water) {
+					if (var1.getBlockMaterial(var2, var3 - 1, var4).isSolid()) {
+						var10 = 0;
+					} else {
+						if (var1.getBlockMaterial(var2, var3 - 1, var4) == blockMaterial && var1.getBlockMetadata(var2, var3, var4) == 0) {
+							var10 = 0;
+						}
+					}
 				}
 			}
 
-			if(this.getBlockMaterial() == Material.lava && var6 < 8 && var10 < 8 && var10 > var6 && var5.nextInt(4) != 0) {
+			if(blockMaterial == Material.lava && var10 < 8 && var10 > var6 && var5.nextInt(4) != 0) {
 				var10 = var6;
 				var8 = false;
 			}
@@ -70,21 +74,21 @@ public class BlockFlowing extends BlockFluid {
 					var1.setBlockWithNotify(var2, var3, var4, 0);
 				} else {
 					var1.setBlockMetadataWithNotify(var2, var3, var4, var10);
-					var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), this.tickRate());
-					var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.getBlockID());
+					var1.scheduleBlockUpdate(var2, var3, var4, blockID, this.tickRate());
+					var1.notifyBlocksOfNeighborChange(var2, var3, var4, blockID);
 				}
 			} else if(var8) {
-				this.func_30003_j(var1, var2, var3, var4);
+				this.todoRenameLater(var1, var2, var3, var4);
 			}
 		} else {
-			this.func_30003_j(var1, var2, var3, var4);
+			this.todoRenameLater(var1, var2, var3, var4);
 		}
 
-		if(this.liquidCanDisplaceBlock(var1, var2, var3 - 1, var4)) {
+		if(this.canLiquidDisplaceBlock(var1, var2, var3 - 1, var4)) {
 			if(var6 >= 8) {
-				var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, this.getBlockID(), var6);
+				var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, blockID, var6);
 			} else {
-				var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, this.getBlockID(), var6 + 8);
+				var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, blockID, var6 + 8);
 			}
 		} else if(var6 >= 0 && (var6 == 0 || this.blockBlocksFlow(var1, var2, var3 - 1, var4))) {
 			boolean[] var13 = this.getOptimalFlowDirections(var1, var2, var3, var4);
@@ -117,17 +121,17 @@ public class BlockFlowing extends BlockFluid {
 	}
 
 	private void flowIntoBlock(World var1, int var2, int var3, int var4, int var5) {
-		if(this.liquidCanDisplaceBlock(var1, var2, var3, var4)) {
+		if(this.canLiquidDisplaceBlock(var1, var2, var3, var4)) {
 			int var6 = var1.getBlockId(var2, var3, var4);
 			if(var6 > 0) {
-				if(this.getBlockMaterial() == Material.lava) {
+				if(blockMaterial == Material.lava) {
 					this.triggerLavaMixEffects(var1, var2, var3, var4);
 				} else {
 					Block.blocksList[var6].dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
 				}
 			}
 
-			var1.setBlockAndMetadataWithNotify(var2, var3, var4, this.getBlockID(), var5);
+			var1.setBlockAndMetadataWithNotify(var2, var3, var4, blockID, var5);
 		}
 
 	}
@@ -155,15 +159,17 @@ public class BlockFlowing extends BlockFluid {
 					++var11;
 				}
 
-				if(!this.blockBlocksFlow(var1, var9, var3, var11) && (var1.getBlockMaterial(var9, var3, var11) != this.getBlockMaterial() || var1.getBlockMetadata(var9, var3, var11) != 0)) {
-					if(!this.blockBlocksFlow(var1, var9, var3 - 1, var11)) {
-						return var5;
-					}
+				if(!this.blockBlocksFlow(var1, var9, var3, var11)) {
+					if (var1.getBlockMaterial(var9, var3, var11) != blockMaterial || var1.getBlockMetadata(var9, var3, var11) != 0) {
+						if (!this.blockBlocksFlow(var1, var9, var3 - 1, var11)) {
+							return var5;
+						}
 
-					if(var5 < 4) {
-						int var12 = this.calculateFlowCost(var1, var9, var3, var11, var5 + 1, var8);
-						if(var12 < var7) {
-							var7 = var12;
+						if (var5 < 4) {
+							int var12 = this.calculateFlowCost(var1, var9, var3, var11, var5 + 1, var8);
+							if (var12 < var7) {
+								var7 = var12;
+							}
 						}
 					}
 				}
@@ -196,11 +202,13 @@ public class BlockFlowing extends BlockFluid {
 				++var8;
 			}
 
-			if(!this.blockBlocksFlow(var1, var6, var3, var8) && (var1.getBlockMaterial(var6, var3, var8) != this.getBlockMaterial() || var1.getBlockMetadata(var6, var3, var8) != 0)) {
-				if(!this.blockBlocksFlow(var1, var6, var3 - 1, var8)) {
-					this.flowCost[var5] = 0;
-				} else {
-					this.flowCost[var5] = this.calculateFlowCost(var1, var6, var3, var8, 1, var5);
+			if(!this.blockBlocksFlow(var1, var6, var3, var8)) {
+				if (var1.getBlockMaterial(var6, var3, var8) != blockMaterial || var1.getBlockMetadata(var6, var3, var8) != 0) {
+					if (!this.blockBlocksFlow(var1, var6, var3 - 1, var8)) {
+						this.flowCost[var5] = 0;
+					} else {
+						this.flowCost[var5] = this.calculateFlowCost(var1, var6, var3, var8, 1, var5);
+					}
 				}
 			}
 		}
@@ -222,11 +230,11 @@ public class BlockFlowing extends BlockFluid {
 
 	private boolean blockBlocksFlow(World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockId(var2, var3, var4);
-		if(var5 != Block.doorWood.getBlockID() && var5 != Block.doorSteel.getBlockID() && var5 != Block.signPost.getBlockID() && var5 != Block.ladder.getBlockID() && var5 != Block.reed.getBlockID()) {
+		if(var5 != Block.doorWood.blockID && var5 != Block.doorSteel.blockID && var5 != Block.signPost.blockID && var5 != Block.ladder.blockID && var5 != Block.reed.blockID) {
 			if(var5 == 0) {
 				return false;
 			} else {
-				Material var6 = Block.blocksList[var5].getBlockMaterial();
+				Material var6 = Block.blocksList[var5].blockMaterial;
 				return var6.getIsSolid();
 			}
 		} else {
@@ -251,15 +259,15 @@ public class BlockFlowing extends BlockFluid {
 		}
 	}
 
-	private boolean liquidCanDisplaceBlock(World var1, int var2, int var3, int var4) {
+	private boolean canLiquidDisplaceBlock(World var1, int var2, int var3, int var4) {
 		Material var5 = var1.getBlockMaterial(var2, var3, var4);
-		return var5 == this.getBlockMaterial() ? false : (var5 == Material.lava ? false : !this.blockBlocksFlow(var1, var2, var3, var4));
+		return var5 != blockMaterial && (var5 != Material.lava && !this.blockBlocksFlow(var1, var2, var3, var4));
 	}
 
 	public void onBlockAdded(World var1, int var2, int var3, int var4) {
 		super.onBlockAdded(var1, var2, var3, var4);
-		if(var1.getBlockId(var2, var3, var4) == this.getBlockID()) {
-			var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), this.tickRate());
+		if(var1.getBlockId(var2, var3, var4) == blockID) {
+			var1.scheduleBlockUpdate(var2, var3, var4, blockID, this.tickRate());
 		}
 
 	}

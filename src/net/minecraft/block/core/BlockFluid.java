@@ -4,7 +4,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.Entity;
 import net.minecraft.misc.AxisAlignedBB;
-import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -18,7 +17,7 @@ public abstract class BlockFluid extends Block {
 		this.setTickOnLoad(true);
 	}
 
-	public int colorMultiplier(net.minecraft.src.IBlockAccess var1, int var2, int var3, int var4) {
+	public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
 		return 16777215;
 	}
 
@@ -27,20 +26,31 @@ public abstract class BlockFluid extends Block {
 			var0 = 0;
 		}
 
-		float var1 = (float)(var0 + 1) / 9.0F;
-		return var1;
+		return (float)(var0 + 1) / 9.0F;
+	}
+
+	public static float setFluidHeight(int var0) {
+		if(var0 >= 8) {
+			var0 = 0;
+		}
+
+		return (float)(var0 + 1) / 9.0F;
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 != 0 && var1 != 1 ? this.getBlockIndexInTexture() + 1 : this.getBlockIndexInTexture();
+		if (var1 != 0 && var1 != 1) {
+			return blockIndexInTexture + 1;
+		} else {
+			return blockIndexInTexture;
+		}
 	}
 
-	protected int getFlowDecay(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		return var1.getBlockMaterial(var2, var3, var4) != this.getBlockMaterial() ? -1 : var1.getBlockMetadata(var2, var3, var4);
+	protected int getFlowDecay(World var1, int var2, int var3, int var4) {
+		return var1.getBlockMaterial(var2, var3, var4) != blockMaterial ? -1 : var1.getBlockMetadata(var2, var3, var4);
 	}
 
 	protected int getEffectiveFlowDecay(IBlockAccess var1, int var2, int var3, int var4) {
-		if(var1.getBlockMaterial(var2, var3, var4) != this.getBlockMaterial()) {
+		if(var1.getBlockMaterial(var2, var3, var4) != blockMaterial) {
 			return -1;
 		} else {
 			int var5 = var1.getBlockMetadata(var2, var3, var4);
@@ -66,15 +76,15 @@ public abstract class BlockFluid extends Block {
 
 	public boolean getIsBlockSolid(IBlockAccess var1, int var2, int var3, int var4, int var5) {
 		Material var6 = var1.getBlockMaterial(var2, var3, var4);
-		return var6 != this.getBlockMaterial() && (var6 != Material.ice && (var5 == 1 ? true : super.getIsBlockSolid(var1, var2, var3, var4, var5)));
+		return var6 != blockMaterial && (var6 != Material.ice && (var5 == 1 || super.getIsBlockSolid(var1, var2, var3, var4, var5)));
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
 		Material var6 = var1.getBlockMaterial(var2, var3, var4);
-		return var6 != this.getBlockMaterial() && (var6 != Material.ice && (var5 == 1 || super.shouldSideBeRendered(var1, var2, var3, var4, var5)));
+		return var6 != blockMaterial && (var6 != Material.ice && (var5 == 1 || super.shouldSideBeRendered(var1, var2, var3, var4, var5)));
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
 		return null;
 	}
 
@@ -90,8 +100,8 @@ public abstract class BlockFluid extends Block {
 		return 0;
 	}
 
-	private net.minecraft.core.Vec3D getFlowVector(IBlockAccess var1, int var2, int var3, int var4) {
-		net.minecraft.core.Vec3D var5 = net.minecraft.core.Vec3D.createVector(0.0D, 0.0D, 0.0D);
+	private Vec3D getFlowVector(IBlockAccess var1, int var2, int var3, int var4) {
+		Vec3D var5 = Vec3D.createVector(0.0D, 0.0D, 0.0D);
 		int var6 = this.getEffectiveFlowDecay(var1, var2, var3, var4);
 
 		for(int var7 = 0; var7 < 4; ++var7) {
@@ -120,20 +130,17 @@ public abstract class BlockFluid extends Block {
 					var11 = this.getEffectiveFlowDecay(var1, var8, var3 - 1, var10);
 					if(var11 >= 0) {
 						var12 = var11 - (var6 - 8);
-						var5 = var5.addVector((double)((var8 - var2) * var12), (double)((var3 - var3) * var12), (double)((var10 - var4) * var12));
+						var5 = var5.addVector((var8 - var2) * var12, 0, (var10 - var4) * var12);
 					}
 				}
-			} else if(var11 >= 0) {
+			} else {
 				var12 = var11 - var6;
-				var5 = var5.addVector((double)((var8 - var2) * var12), (double)((var3 - var3) * var12), (double)((var10 - var4) * var12));
+				var5 = var5.addVector((var8 - var2) * var12, 0, (var10 - var4) * var12);
 			}
 		}
 
 		if(var1.getBlockMetadata(var2, var3, var4) >= 8) {
-			boolean var13 = false;
-			if(var13 || this.getIsBlockSolid(var1, var2, var3, var4 - 1, 2)) {
-				var13 = true;
-			}
+			boolean var13 = this.getIsBlockSolid(var1, var2, var3, var4 - 1, 2);
 
 			if(var13 || this.getIsBlockSolid(var1, var2, var3, var4 + 1, 3)) {
 				var13 = true;
@@ -172,43 +179,47 @@ public abstract class BlockFluid extends Block {
 		return var5;
 	}
 
-	public void velocityToAddToEntity(net.minecraft.world.World var1, int var2, int var3, int var4, Entity var5, net.minecraft.core.Vec3D var6) {
-		net.minecraft.core.Vec3D var7 = this.getFlowVector(var1, var2, var3, var4);
+	public void velocityToAddToEntity(World var1, int var2, int var3, int var4, Entity var5, Vec3D var6) {
+		Vec3D var7 = this.getFlowVector(var1, var2, var3, var4);
 		var6.xCoord += var7.xCoord;
 		var6.yCoord += var7.yCoord;
 		var6.zCoord += var7.zCoord;
 	}
 
 	public int tickRate() {
-		return this.getBlockMaterial() == Material.water ? 5 : (this.getBlockMaterial() == Material.lava ? 30 : 0);
+		if (blockMaterial == Material.water) {
+			return 5;
+		} else {
+			return (blockMaterial == Material.lava ? 30 : 0);
+		}
 	}
 
-	public float getBlockBrightness(net.minecraft.src.IBlockAccess var1, int var2, int var3, int var4) {
+	public float getBlockBrightness(IBlockAccess var1, int var2, int var3, int var4) {
 		float var5 = var1.getLightBrightness(var2, var3, var4);
 		float var6 = var1.getLightBrightness(var2, var3 + 1, var4);
-		return var5 > var6 ? var5 : var6;
+		return Math.max(var5, var6);
 	}
 
-	public void updateTick(net.minecraft.world.World var1, int var2, int var3, int var4, Random var5) {
+	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
 		super.updateTick(var1, var2, var3, var4, var5);
 	}
 
 	public int getRenderBlockPass() {
-		return this.getBlockMaterial() == Material.water ? 1 : 0;
+		return blockMaterial == Material.water ? 1 : 0;
 	}
 
-	public void randomDisplayTick(net.minecraft.world.World var1, int var2, int var3, int var4, Random var5) {
-		if(this.getBlockMaterial() == Material.water && var5.nextInt(64) == 0) {
+	public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5) {
+		if(blockMaterial == Material.water && var5.nextInt(64) == 0) {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
 			if(var6 > 0 && var6 < 8) {
-				var1.playSoundEffect((double)((float)var2 + 0.5F), (double)((float)var3 + 0.5F), (double)((float)var4 + 0.5F), "liquid.water", var5.nextFloat() * 0.25F + 12.0F / 16.0F, var5.nextFloat() * 1.0F + 0.5F);
+				var1.playSoundEffect((float)var2 + 0.5F, (float)var3 + 0.5F, (float)var4 + 0.5F, "liquid.water", var5.nextFloat() * 0.25F + 12.0F / 16.0F, var5.nextFloat() + 0.5F);
 			}
 		}
 
-		if(this.getBlockMaterial() == Material.lava && var1.getBlockMaterial(var2, var3 + 1, var4) == Material.air && !var1.isBlockOpaqueCube(var2, var3 + 1, var4) && var5.nextInt(100) == 0) {
-			double var12 = (double)((float)var2 + var5.nextFloat());
-			double var8 = (double)var3 + this.getMaxY();
-			double var10 = (double)((float)var4 + var5.nextFloat());
+		if(blockMaterial == Material.lava && var1.getBlockMaterial(var2, var3 + 1, var4) == Material.air && !var1.isBlockOpaqueCube(var2, var3 + 1, var4) && var5.nextInt(100) == 0) {
+			double var12 = (float)var2 + var5.nextFloat();
+			double var8 = (double)var3 + this.maxY;
+			double var10 = (float)var4 + var5.nextFloat();
 			var1.spawnParticle("lava", var12, var8, var10, 0.0D, 0.0D, 0.0D);
 		}
 
@@ -224,24 +235,23 @@ public abstract class BlockFluid extends Block {
 			var5 = ((BlockFluid)Block.lavaMoving).getFlowVector(var0, var1, var2, var3);
 		}
 
+		assert var5 != null;
 		return var5.xCoord == 0.0D && var5.zCoord == 0.0D ? -1000.0D : Math.atan2(var5.zCoord, var5.xCoord) - Math.PI * 0.5D;
 	}
 
-	public void onBlockAdded(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public void onBlockAdded(World var1, int var2, int var3, int var4) {
 		this.checkForHarden(var1, var2, var3, var4);
 	}
 
-	public void onNeighborBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
+	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
 		this.checkForHarden(var1, var2, var3, var4);
 	}
 
-	private void checkForHarden(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		if(var1.getBlockId(var2, var3, var4) == this.getBlockID()) {
-			if(this.getBlockMaterial() == Material.lava) {
-				boolean var5 = false;
-				if(var5 || var1.getBlockMaterial(var2, var3, var4 - 1) == Material.water) {
-					var5 = true;
-				}
+	private void checkForHarden(World var1, int var2, int var3, int var4) {
+		if(var1.getBlockId(var2, var3, var4) == blockID) {
+			if(blockMaterial == Material.lava) {
+				boolean var5 = var1.getBlockMaterial(var2, var3, var4 - 1) == Material.water;
+
 
 				if(var5 || var1.getBlockMaterial(var2, var3, var4 + 1) == Material.water) {
 					var5 = true;
@@ -262,9 +272,9 @@ public abstract class BlockFluid extends Block {
 				if(var5) {
 					int var6 = var1.getBlockMetadata(var2, var3, var4);
 					if(var6 == 0) {
-						var1.setBlockWithNotify(var2, var3, var4, Block.obsidian.getBlockID());
+						var1.setBlockWithNotify(var2, var3, var4, Block.obsidian.blockID);
 					} else if(var6 <= 4) {
-						var1.setBlockWithNotify(var2, var3, var4, Block.cobblestone.getBlockID());
+						var1.setBlockWithNotify(var2, var3, var4, Block.cobblestone.blockID);
 					}
 
 					this.triggerLavaMixEffects(var1, var2, var3, var4);
@@ -275,7 +285,7 @@ public abstract class BlockFluid extends Block {
 	}
 
 	protected void triggerLavaMixEffects(World var1, int var2, int var3, int var4) {
-		var1.playSoundEffect((double)((float)var2 + 0.5F), (double)((float)var3 + 0.5F), (double)((float)var4 + 0.5F), "random.fizz", 0.5F, 2.6F + (var1.rand.nextFloat() - var1.rand.nextFloat()) * 0.8F);
+		var1.playSoundEffect((float)var2 + 0.5F, (float)var3 + 0.5F, (float)var4 + 0.5F, "random.fizz", 0.5F, 2.6F + (var1.rand.nextFloat() - var1.rand.nextFloat()) * 0.8F);
 
 		for(int var5 = 0; var5 < 8; ++var5) {
 			var1.spawnParticle("largesmoke", (double)var2 + Math.random(), (double)var3 + 1.2D, (double)var4 + Math.random(), 0.0D, 0.0D, 0.0D);

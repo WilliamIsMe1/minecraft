@@ -10,7 +10,7 @@ public class BlockCloth extends Block {
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
 		if(var2 == 0) {
-			return this.getBlockIndexInTexture();
+			return blockIndexInTexture;
 		} else {
 			var2 = ~(var2 & 15);
 			return 113 + ((var2 & 8) >> 3) + (var2 & 7) * 16;

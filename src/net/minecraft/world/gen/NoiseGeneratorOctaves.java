@@ -21,7 +21,7 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
 		double var7 = 1.0D;
 
 		for(int var9 = 0; var9 < this.field_1191_b; ++var9) {
-			var5 += this.generatorCollection[var9].func_801_a(var1 * var7, var3 * var7) / var7;
+			var5 += this.generatorCollection[var9].generateFlatNoise(var1 * var7, var3 * var7) / var7;
 			var7 /= 2.0D;
 		}
 

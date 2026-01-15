@@ -15,11 +15,13 @@ public class BlockRail extends Block {
 
 	public static final boolean isRailBlockAt(net.minecraft.world.World var0, int var1, int var2, int var3) {
 		int var4 = var0.getBlockId(var1, var2, var3);
-		return var4 == Block.rail.getBlockID() || var4 == Block.railPowered.getBlockID() || var4 == Block.railDetector.getBlockID();
+		if (var4 == Block.rail.blockID || var4 == Block.railPowered.blockID) return true;
+		return var4 == Block.railDetector.blockID;
 	}
 
 	public static final boolean isRailBlock(int var0) {
-		return var0 == Block.rail.getBlockID() || var0 == Block.railPowered.getBlockID() || var0 == Block.railDetector.getBlockID();
+		if (var0 == Block.rail.blockID || var0 == Block.railPowered.blockID) return true;
+		return var0 == Block.railDetector.blockID;
 	}
 
 	public BlockRail(int var1, int var2, boolean var3) {
@@ -57,14 +59,14 @@ public class BlockRail extends Block {
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
 		if(this.isPowered) {
-			if(this.getBlockID() == Block.railPowered.getBlockID() && (var2 & 8) == 0) {
-				return this.getBlockIndexInTexture() - 16;
+			if(blockID == Block.railPowered.blockID && (var2 & 8) == 0) {
+				return blockIndexInTexture - 16;
 			}
 		} else if(var2 >= 6) {
-			return this.getBlockIndexInTexture() - 16;
+			return blockIndexInTexture - 16;
 		}
 
-		return this.getBlockIndexInTexture();
+		return blockIndexInTexture;
 	}
 
 	public boolean renderAsNormalBlock() {
@@ -122,26 +124,28 @@ public class BlockRail extends Block {
 			if(var8) {
 				this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
 				var1.setBlockWithNotify(var2, var3, var4, 0);
-			} else if(this.getBlockID() == Block.railPowered.getBlockID()) {
-				boolean var9 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
-				var9 = var9 || this.func_27044_a(var1, var2, var3, var4, var6, true, 0) || this.func_27044_a(var1, var2, var3, var4, var6, false, 0);
-				boolean var10 = false;
-				if(var9 && (var6 & 8) == 0) {
-					var1.setBlockMetadataWithNotify(var2, var3, var4, var7 | 8);
-					var10 = true;
-				} else if(!var9 && (var6 & 8) != 0) {
-					var1.setBlockMetadataWithNotify(var2, var3, var4, var7);
-					var10 = true;
-				}
-
-				if(var10) {
-					var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
-					if(var7 == 2 || var7 == 3 || var7 == 4 || var7 == 5) {
-						var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.getBlockID());
+			} else {
+				if(blockID == Block.railPowered.blockID) {
+					boolean var9 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
+					var9 = var9 || this.func_27044_a(var1, var2, var3, var4, var6, true, 0) || this.func_27044_a(var1, var2, var3, var4, var6, false, 0);
+					boolean var10 = false;
+					if(var9 && (var6 & 8) == 0) {
+						var1.setBlockMetadataWithNotify(var2, var3, var4, var7 | 8);
+						var10 = true;
+					} else if(!var9 && (var6 & 8) != 0) {
+						var1.setBlockMetadataWithNotify(var2, var3, var4, var7);
+						var10 = true;
 					}
+	
+					if(var10) {
+						var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
+						if(var7 == 2 || var7 == 3 || var7 == 4 || var7 == 5) {
+							var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, blockID);
+						}
+					}
+				} else if(var5 > 0 && Block.blocksList[var5].canProvidePower() && !this.isPowered && RailLogic.getNAdjacentTracks(new RailLogic(this, var1, var2, var3, var4)) == 3) {
+					this.func_4031_h(var1, var2, var3, var4, false);
 				}
-			} else if(var5 > 0 && Block.blocksList[var5].canProvidePower() && !this.isPowered && RailLogic.getNAdjacentTracks(new RailLogic(this, var1, var2, var3, var4)) == 3) {
-				this.func_4031_h(var1, var2, var3, var4, false);
 			}
 
 		}
@@ -225,7 +229,7 @@ public class BlockRail extends Block {
 
 	private boolean func_27043_a(World var1, int var2, int var3, int var4, boolean var5, int var6, int var7) {
 		int var8 = var1.getBlockId(var2, var3, var4);
-		if(var8 == Block.railPowered.getBlockID()) {
+		if(var8 == Block.railPowered.blockID) {
 			int var9 = var1.getBlockMetadata(var2, var3, var4);
 			int var10 = var9 & 7;
 			if(var7 == 1 && (var10 == 0 || var10 == 4 || var10 == 5)) {

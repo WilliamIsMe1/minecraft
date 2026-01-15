@@ -42,7 +42,7 @@ public class ItemBoat extends Item {
 				int var26 = var24.blockY;
 				int var27 = var24.blockZ;
 				if(!var2.multiplayerWorld) {
-					if(var2.getBlockId(var25, var26, var27) == Block.snow.getBlockID()) {
+					if(var2.getBlockId(var25, var26, var27) == Block.snow.blockID) {
 						--var26;
 					}
 

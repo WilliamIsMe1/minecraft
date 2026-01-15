@@ -8,7 +8,12 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class WorldGenClay extends WorldGenerator {
-	private int clayBlockId = Block.blockClay.getBlockID();
+	private int clayBlockId;
+
+	{
+		clayBlockId = Block.blockClay.blockID;
+	}
+
 	private int numberOfBlocks;
 
 	public WorldGenClay(int var1) {
@@ -49,7 +54,7 @@ public class WorldGenClay extends WorldGenerator {
 							double var45 = ((double)var40 + 0.5D - var24) / (var28 / 2.0D);
 							if(var41 * var41 + var43 * var43 + var45 * var45 < 1.0D) {
 								int var47 = var1.getBlockId(var38, var39, var40);
-								if(var47 == Block.sand.getBlockID()) {
+								if(var47 == Block.sand.blockID) {
 									var1.setBlock(var38, var39, var40, this.clayBlockId);
 								}
 							}

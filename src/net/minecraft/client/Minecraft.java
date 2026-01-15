@@ -156,7 +156,7 @@ public abstract class Minecraft implements Runnable {
 
 	@SuppressWarnings("deprecated")
 	public Minecraft(Component var1, Canvas var2, MinecraftApplet var3, int var4, int var5, boolean var6) {
-		StatList.func_27360_a();
+		StatList.initializeStaticMembers();
 		this.tempDisplayHeight = var5;
 		this.fullscreen = var6;
 		this.mcApplet = var3;
@@ -234,7 +234,7 @@ public abstract class Minecraft implements Runnable {
 		this.texturePackList = new TexturePackList(this, this.mcDataDir);
 		this.renderEngine = new RenderEngine(this.texturePackList, this.gameSettings);
 		this.fontRenderer = new FontRenderer(this.gameSettings, "/font/default.png", this.renderEngine);
-		ColorizerWater.func_28182_a(this.renderEngine.loadPixels("/misc/watercolor.png"));
+		ColorizerWater.setBuffer(this.renderEngine.loadPixels("/misc/watercolor.png"));
 		ColorizerGrass.func_28181_a(this.renderEngine.loadPixels("/misc/grasscolor.png"));
 		ColorizerFoliage.func_28152_a(this.renderEngine.loadPixels("/misc/foliagecolor.png"));
 		this.entityRenderer = new EntityRenderer(this);
@@ -283,7 +283,7 @@ public abstract class Minecraft implements Runnable {
 		try {
 			this.downloadResourcesThread = new ThreadDownloadResources(this.mcDataDir, this);
 			this.downloadResourcesThread.start();
-		} catch (Exception var3) {
+		} catch (Exception ignored) {
 		}
 
 		this.checkGLError("Post startup");
@@ -449,19 +449,19 @@ public abstract class Minecraft implements Runnable {
 				if(this.downloadResourcesThread != null) {
 					this.downloadResourcesThread.closeMinecraft();
 				}
-			} catch (Exception var9) {
+			} catch (Exception ignored) {
 			}
 
 			System.out.println("Stopping!");
 
 			try {
-				this.changeWorld1((World)null);
-			} catch (Throwable var8) {
+				this.changeWorld1(null);
+			} catch (Throwable ignored) {
 			}
 
 			try {
 				GLAllocation.deleteTexturesAndDisplayLists();
-			} catch (Throwable var7) {
+			} catch (Throwable ignored) {
 			}
 
 			this.sndManager.closeMinecraft();
@@ -525,7 +525,7 @@ public abstract class Minecraft implements Runnable {
 							this.runTick();
 						} catch (MinecraftException var16) {
 							this.theWorld = null;
-							this.changeWorld1((World)null);
+							this.changeWorld1(null);
 							this.displayGuiScreen(new GuiConflictWarning());
 						}
 					}
@@ -600,7 +600,7 @@ public abstract class Minecraft implements Runnable {
 					}
 				} catch (MinecraftException var18) {
 					this.theWorld = null;
-					this.changeWorld1((World)null);
+					this.changeWorld1(null);
 					this.displayGuiScreen(new GuiConflictWarning());
 				} catch (OutOfMemoryError var19) {
 					this.func_28002_e();
@@ -906,16 +906,16 @@ public abstract class Minecraft implements Runnable {
 	private void clickMiddleMouseButton() {
 		if(this.objectMouseOver != null) {
 			int var1 = this.theWorld.getBlockId(this.objectMouseOver.blockX, this.objectMouseOver.blockY, this.objectMouseOver.blockZ);
-			if(var1 == Block.grass.getBlockID()) {
-				var1 = Block.dirt.getBlockID();
+			if(var1 == Block.grass.blockID) {
+				var1 = Block.dirt.blockID;
 			}
 
-			if(var1 == Block.stairDouble.getBlockID()) {
-				var1 = Block.stairSingle.getBlockID();
+			if(var1 == Block.stairDouble.blockID) {
+				var1 = Block.stairSingle.blockID;
 			}
 
-			if(var1 == Block.bedrock.getBlockID()) {
-				var1 = Block.stone.getBlockID();
+			if(var1 == Block.bedrock.blockID) {
+				var1 = Block.stone.blockID;
 			}
 
 			this.thePlayer.inventory.setCurrentItem(var1, this.playerController instanceof PlayerControllerTest);

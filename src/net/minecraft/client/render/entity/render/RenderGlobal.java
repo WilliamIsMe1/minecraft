@@ -1442,7 +1442,7 @@ public class RenderGlobal implements IWorldAccess {
 			var16 = var6 & 255;
 			if(var16 > 0) {
 				Block var17 = Block.blocksList[var16];
-				this.mc.sndManager.playSound(var17.getStepSound().stepSoundDir(), (float)var3 + 0.5F, (float)var4 + 0.5F, (float)var5 + 0.5F, (var17.getStepSound().getVolume() + 1.0F) / 2.0F, var17.getStepSound().getPitch() * 0.8F);
+				this.mc.sndManager.playSound(var17.stepSound.stepSoundDir(), (float)var3 + 0.5F, (float)var4 + 0.5F, (float)var5 + 0.5F, (var17.stepSound.getVolume() + 1.0F) / 2.0F, var17.stepSound.getPitch() * 0.8F);
 			}
 
 			this.mc.effectRenderer.addBlockDestroyEffects(var3, var4, var5, var6 & 255, var6 >> 8 & 255);

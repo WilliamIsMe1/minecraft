@@ -16,7 +16,7 @@ public class WorldGenCactus extends WorldGenerator {
 
 				for(int var11 = 0; var11 < var10; ++var11) {
 					if(Block.cactus.canBlockStay(var1, var7, var8 + var11, var9)) {
-						var1.setBlock(var7, var8 + var11, var9, Block.cactus.getBlockID());
+						var1.setBlock(var7, var8 + var11, var9, Block.cactus.blockID);
 					}
 				}
 			}

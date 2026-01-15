@@ -13,7 +13,7 @@ public class BlockSoulSand extends Block {
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
 		float var5 = 2.0F / 16.0F;
-		return AxisAlignedBB.getBoundingBoxFromPool((double)var2, (double)var3, (double)var4, (double)(var2 + 1), (double)((float)(var3 + 1) - var5), (double)(var4 + 1));
+		return AxisAlignedBB.getBoundingBoxFromPool(var2, var3, var4, var2 + 1, (float)(var3 + 1) - var5, var4 + 1);
 	}
 
 	public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {

@@ -9,6 +9,14 @@ public class BlockSandStone extends Block {
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.getBlockIndexInTexture() - 16 : (var1 == 0 ? this.getBlockIndexInTexture() + 16 : this.getBlockIndexInTexture());
+		if (var1 == 1) {
+			return blockIndexInTexture - 16;
+		} else {
+			if (var1 == 0) {
+				return (blockIndexInTexture + 16);
+			} else {
+				return blockIndexInTexture;
+			}
+		}
 	}
 }

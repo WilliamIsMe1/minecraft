@@ -48,7 +48,7 @@ public class EntityRainFX extends EntityFX {
 		}
 
 		Material var1 = this.worldObj.getBlockMaterial(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ));
-		if(var1.getIsLiquid() || var1.isSolid()) {
+		if(var1.isLiquid() || var1.isSolid()) {
 			double var2 = (double)((float)(MathHelper.floor_double(this.posY) + 1) - BlockFluid.getPercentAir(this.worldObj.getBlockMetadata(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ))));
 			if(this.posY < var2) {
 				this.setEntityDead();

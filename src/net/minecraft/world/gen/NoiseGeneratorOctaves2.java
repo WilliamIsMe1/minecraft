@@ -3,15 +3,15 @@ package net.minecraft.world.gen;
 import java.util.Random;
 
 public class NoiseGeneratorOctaves2 extends NoiseGenerator {
-	private NoiseGenerator2[] field_4234_a;
-	private int field_4233_b;
+	private NoiseGenerator2[] field_4308_a;
+	private int field_4307_b;
 
 	public NoiseGeneratorOctaves2(Random var1, int var2) {
-		this.field_4233_b = var2;
-		this.field_4234_a = new NoiseGenerator2[var2];
+		this.field_4307_b = var2;
+		this.field_4308_a = new NoiseGenerator2[var2];
 
 		for(int var3 = 0; var3 < var2; ++var3) {
-			this.field_4234_a[var3] = new NoiseGenerator2(var1);
+			this.field_4308_a[var3] = new NoiseGenerator2(var1);
 		}
 
 	}
@@ -34,8 +34,8 @@ public class NoiseGeneratorOctaves2 extends NoiseGenerator {
 		double var21 = 1.0D;
 		double var18 = 1.0D;
 
-		for(int var20 = 0; var20 < this.field_4233_b; ++var20) {
-			this.field_4234_a[var20].func_4157_a(var1, var2, var4, var6, var7, var8 * var18, var10 * var18, 0.55D / var21);
+		for(int var20 = 0; var20 < this.field_4307_b; ++var20) {
+			this.field_4308_a[var20].func_4157_a(var1, var2, var4, var6, var7, var8 * var18, var10 * var18, 0.55D / var21);
 			var18 *= var12;
 			var21 *= var14;
 		}

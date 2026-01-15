@@ -8,7 +8,7 @@ import net.minecraft.item.core.ItemStack;
 public class RecipesDyes {
 	public void addRecipes(CraftingManager var1) {
 		for(int var2 = 0; var2 < 16; ++var2) {
-			var1.addShapelessRecipe(new ItemStack(Block.cloth, 1, BlockCloth.func_21035_d(var2)), new Object[]{new ItemStack(Item.dyePowder, 1, var2), new ItemStack(Item.itemsList[Block.cloth.getBlockID()], 1, 0)});
+			var1.addShapelessRecipe(new ItemStack(Block.cloth, 1, BlockCloth.func_21035_d(var2)), new Object[]{new ItemStack(Item.dyePowder, 1, var2), new ItemStack(Item.itemsList[Block.cloth.blockID], 1, 0)});
 		}
 
 		var1.addShapelessRecipe(new ItemStack(Item.dyePowder, 2, 11), new Object[]{Block.plantYellow});

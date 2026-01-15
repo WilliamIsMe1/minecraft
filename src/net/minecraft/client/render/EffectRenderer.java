@@ -141,31 +141,31 @@ public class EffectRenderer {
 		if(var5 != 0) {
 			Block var6 = Block.blocksList[var5];
 			float var7 = 0.1F;
-			double var8 = (double)var1 + this.rand.nextDouble() * (var6.getMaxX() - var6.getMinX() - (double)(var7 * 2.0F)) + (double)var7 + var6.getMinX();
-			double var10 = (double)var2 + this.rand.nextDouble() * (var6.getMaxY() - var6.getMinY() - (double)(var7 * 2.0F)) + (double)var7 + var6.getMinY();
-			double var12 = (double)var3 + this.rand.nextDouble() * (var6.getMaxZ() - var6.getMinZ() - (double)(var7 * 2.0F)) + (double)var7 + var6.getMinZ();
+			double var8 = (double)var1 + this.rand.nextDouble() * (var6.maxX - var6.minX - (double)(var7 * 2.0F)) + (double)var7 + var6.minX;
+			double var10 = (double)var2 + this.rand.nextDouble() * (var6.maxY - var6.minY - (double)(var7 * 2.0F)) + (double)var7 + var6.minY;
+			double var12 = (double)var3 + this.rand.nextDouble() * (var6.maxZ - var6.minZ - (double)(var7 * 2.0F)) + (double)var7 + var6.minZ;
 			if(var4 == 0) {
-				var10 = (double)var2 + var6.getMinY() - (double)var7;
+				var10 = (double)var2 + var6.minY - (double)var7;
 			}
 
 			if(var4 == 1) {
-				var10 = (double)var2 + var6.getMaxY() + (double)var7;
+				var10 = (double)var2 + var6.maxY + (double)var7;
 			}
 
 			if(var4 == 2) {
-				var12 = (double)var3 + var6.getMinZ() - (double)var7;
+				var12 = (double)var3 + var6.minZ - (double)var7;
 			}
 
 			if(var4 == 3) {
-				var12 = (double)var3 + var6.getMaxZ() + (double)var7;
+				var12 = (double)var3 + var6.maxZ + (double)var7;
 			}
 
 			if(var4 == 4) {
-				var8 = (double)var1 + var6.getMinX() - (double)var7;
+				var8 = (double)var1 + var6.minX - (double)var7;
 			}
 
 			if(var4 == 5) {
-				var8 = (double)var1 + var6.getMaxX() + (double)var7;
+				var8 = (double)var1 + var6.maxX + (double)var7;
 			}
 
 			this.addEffect((new EntityDiggingFX(this.worldObj, var8, var10, var12, 0.0D, 0.0D, 0.0D, var6, var4, this.worldObj.getBlockMetadata(var1, var2, var3))).func_4041_a(var1, var2, var3).func_407_b(0.2F).func_405_d(0.6F));

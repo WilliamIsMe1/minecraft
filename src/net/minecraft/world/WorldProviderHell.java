@@ -35,7 +35,7 @@ public class WorldProviderHell extends WorldProvider {
 
 	public boolean canCoordinateBeSpawn(int var1, int var2) {
 		int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
-		return var3 == Block.bedrock.getBlockID() ? false : (var3 == 0 ? false : Block.opaqueCubeLookup[var3]);
+		return var3 == Block.bedrock.blockID ? false : (var3 == 0 ? false : Block.opaqueCubeLookup[var3]);
 	}
 
 	public float calculateCelestialAngle(long var1, float var3) {

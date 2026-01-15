@@ -11,7 +11,7 @@ import java.util.Random;
 public class BlockGrass extends Block {
 	public BlockGrass(int var1) {
 		super(var1, Material.grassMaterial);
-		this.setBlockIndexInTexture(3);
+		this.blockIndexInTexture = 3;
 		this.setTickOnLoad(true);
 	}
 
@@ -40,14 +40,14 @@ public class BlockGrass extends Block {
 					return;
 				}
 
-				var1.setBlockWithNotify(var2, var3, var4, Block.dirt.getBlockID());
+				var1.setBlockWithNotify(var2, var3, var4, Block.dirt.blockID);
 			} else if(var1.getBlockLightValue(var2, var3 + 1, var4) >= 9) {
 				int var6 = var2 + var5.nextInt(3) - 1;
 				int var7 = var3 + var5.nextInt(5) - 3;
 				int var8 = var4 + var5.nextInt(3) - 1;
 				int var9 = var1.getBlockId(var6, var7 + 1, var8);
-				if(var1.getBlockId(var6, var7, var8) == Block.dirt.getBlockID() && var1.getBlockLightValue(var6, var7 + 1, var8) >= 4 && Block.lightOpacity[var9] <= 2) {
-					var1.setBlockWithNotify(var6, var7, var8, Block.grass.getBlockID());
+				if(var1.getBlockId(var6, var7, var8) == Block.dirt.blockID && var1.getBlockLightValue(var6, var7 + 1, var8) >= 4 && Block.lightOpacity[var9] <= 2) {
+					var1.setBlockWithNotify(var6, var7, var8, Block.grass.blockID);
 				}
 			}
 

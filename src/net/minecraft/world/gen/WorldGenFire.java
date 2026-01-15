@@ -11,8 +11,10 @@ public class WorldGenFire extends WorldGenerator {
 			int var7 = var3 + var2.nextInt(8) - var2.nextInt(8);
 			int var8 = var4 + var2.nextInt(4) - var2.nextInt(4);
 			int var9 = var5 + var2.nextInt(8) - var2.nextInt(8);
-			if(var1.isAirBlock(var7, var8, var9) && var1.getBlockId(var7, var8 - 1, var9) == Block.netherrack.getBlockID()) {
-				var1.setBlockWithNotify(var7, var8, var9, Block.fire.getBlockID());
+			if(var1.isAirBlock(var7, var8, var9)) {
+				if (var1.getBlockId(var7, var8 - 1, var9) == Block.netherrack.blockID) {
+					var1.setBlockWithNotify(var7, var8, var9, Block.fire.blockID);
+				}
 			}
 		}
 

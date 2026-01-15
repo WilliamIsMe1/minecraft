@@ -16,7 +16,15 @@ public class BlockTNT extends Block {
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 0 ? this.getBlockIndexInTexture() + 2 : (var1 == 1 ? this.getBlockIndexInTexture() + 1 : this.getBlockIndexInTexture());
+		if (var1 == 0) {
+			return blockIndexInTexture + 2;
+		} else {
+			if (var1 == 1) {
+				return (blockIndexInTexture + 1);
+			} else {
+				return blockIndexInTexture;
+			}
+		}
 	}
 
 	public void onBlockAdded(net.minecraft.world.World var1, int var2, int var3, int var4) {
@@ -49,7 +57,7 @@ public class BlockTNT extends Block {
 	public void onBlockDestroyedByPlayer(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
 		if(!var1.multiplayerWorld) {
 			if((var5 & 1) == 0) {
-				this.dropBlockAsItem_do(var1, var2, var3, var4, new ItemStack(Block.tnt.getBlockID(), 1, 0));
+				this.dropBlockAsItem_do(var1, var2, var3, var4, new ItemStack(Block.tnt.blockID, 1, 0));
 			} else {
 				net.minecraft.entity.EntityTNTPrimed var6 = new EntityTNTPrimed(var1, (double)((float)var2 + 0.5F), (double)((float)var3 + 0.5F), (double)((float)var4 + 0.5F));
 				var1.entityJoinedWorld(var6);

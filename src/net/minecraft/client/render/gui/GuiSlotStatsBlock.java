@@ -21,9 +21,9 @@ public class GuiSlotStatsBlock extends GuiSlotStats {
 			int var5 = var3.func_25072_b();
 			if (GuiStats.func_27142_c(var1).writeStat(var3) > 0) {
 				var4 = true;
-			} else if (StatList.field_25172_A[var5] != null && GuiStats.func_27142_c(var1).writeStat(StatList.field_25172_A[var5]) > 0) {
+			} else if (StatList.useItemStatArray[var5] != null && GuiStats.func_27142_c(var1).writeStat(StatList.useItemStatArray[var5]) > 0) {
 				var4 = true;
-			} else if (StatList.field_25158_z[var5] != null && GuiStats.func_27142_c(var1).writeStat(StatList.field_25158_z[var5]) > 0) {
+			} else if (StatList.craftItemStatArray[var5] != null && GuiStats.func_27142_c(var1).writeStat(StatList.craftItemStatArray[var5]) > 0) {
 				var4 = true;
 			}
 
@@ -61,8 +61,8 @@ public class GuiSlotStatsBlock extends GuiSlotStats {
 		StatCrafting var6 = this.func_27264_b(var1);
 		int var7 = var6.func_25072_b();
 		GuiStats.func_27148_a(this.field_27274_a, var2 + 40, var3, var7);
-		this.func_27265_a((StatCrafting)StatList.field_25158_z[var7], var2 + 115, var3, var1 % 2 == 0);
-		this.func_27265_a((StatCrafting)StatList.field_25172_A[var7], var2 + 165, var3, var1 % 2 == 0);
+		this.func_27265_a((StatCrafting)StatList.craftItemStatArray[var7], var2 + 115, var3, var1 % 2 == 0);
+		this.func_27265_a((StatCrafting)StatList.useItemStatArray[var7], var2 + 165, var3, var1 % 2 == 0);
 		this.func_27265_a(var6, var2 + 215, var3, var1 % 2 == 0);
 	}
 

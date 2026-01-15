@@ -21,9 +21,9 @@ public class BlockSnow extends Block {
 		this.setTickOnLoad(true);
 	}
 
-	public net.minecraft.misc.AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockMetadata(var2, var3, var4) & 7;
-		return var5 >= 3 ? AxisAlignedBB.getBoundingBoxFromPool((double)var2 + this.getMinX(), (double)var3 + this.getMinY(), (double)var4 + this.getMinZ(), (double)var2 + this.getMaxX(), (double)((float)var3 + 0.5F), (double)var4 + this.getMaxZ()) : null;
+		return var5 >= 3 ? AxisAlignedBB.getBoundingBoxFromPool((double)var2 + this.minX, (double)var3 + this.minY, (double)var4 + this.minZ, (double)var2 + this.maxX, (float)var3 + 0.5F, (double)var4 + this.maxZ) : null;
 	}
 
 	public boolean isOpaqueCube() {
@@ -40,16 +40,16 @@ public class BlockSnow extends Block {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, var6, 1.0F);
 	}
 
-	public boolean canPlaceBlockAt(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockId(var2, var3 - 1, var4);
-		return var5 != 0 && Block.blocksList[var5].isOpaqueCube() ? var1.getBlockMaterial(var2, var3 - 1, var4).getIsSolid() : false;
+		return var5 != 0 && Block.blocksList[var5].isOpaqueCube() && var1.getBlockMaterial(var2, var3 - 1, var4).getIsSolid();
 	}
 
-	public void onNeighborBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
+	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
 		this.func_314_h(var1, var2, var3, var4);
 	}
 
-	private boolean func_314_h(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	private boolean func_314_h(World var1, int var2, int var3, int var4) {
 		if(!this.canPlaceBlockAt(var1, var2, var3, var4)) {
 			this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
 			var1.setBlockWithNotify(var2, var3, var4, 0);
@@ -59,17 +59,17 @@ public class BlockSnow extends Block {
 		}
 	}
 
-	public void harvestBlock(net.minecraft.world.World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
+	public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
 		int var7 = Item.snowball.shiftedIndex;
 		float var8 = 0.7F;
 		double var9 = (double)(var1.rand.nextFloat() * var8) + (double)(1.0F - var8) * 0.5D;
 		double var11 = (double)(var1.rand.nextFloat() * var8) + (double)(1.0F - var8) * 0.5D;
 		double var13 = (double)(var1.rand.nextFloat() * var8) + (double)(1.0F - var8) * 0.5D;
-		net.minecraft.entity.EntityItem var15 = new EntityItem(var1, (double)var3 + var9, (double)var4 + var11, (double)var5 + var13, new ItemStack(var7, 1, 0));
+		EntityItem var15 = new EntityItem(var1, (double)var3 + var9, (double)var4 + var11, (double)var5 + var13, new ItemStack(var7, 1, 0));
 		var15.delayBeforeCanPickup = 10;
 		var1.entityJoinedWorld(var15);
 		var1.setBlockWithNotify(var3, var4, var5, 0);
-		var2.addStat(StatList.mineBlockStatArray[this.getBlockID()], 1);
+		var2.addStat(StatList.mineBlockStatArray[blockID], 1);
 	}
 
 	public int idDropped(int var1, Random var2) {
@@ -89,6 +89,6 @@ public class BlockSnow extends Block {
 	}
 
 	public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-		return var5 == 1 ? true : super.shouldSideBeRendered(var1, var2, var3, var4, var5);
+		return var5 == 1 || super.shouldSideBeRendered(var1, var2, var3, var4, var5);
 	}
 }

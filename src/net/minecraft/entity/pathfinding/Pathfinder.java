@@ -18,25 +18,24 @@ public class Pathfinder {
 		this.worldMap = var1;
 	}
 
-	public PathEntity createEntityPathTo(net.minecraft.entity.Entity var1, net.minecraft.entity.Entity var2, float var3) {
+	public PathEntity createEntityPathTo(Entity var1, Entity var2, float var3) {
 		return this.createEntityPathTo(var1, var2.posX, var2.boundingBox.minY, var2.posZ, var3);
 	}
 
-	public PathEntity createEntityPathTo(net.minecraft.entity.Entity var1, int var2, int var3, int var4, float var5) {
-		return this.createEntityPathTo(var1, (double)((float)var2 + 0.5F), (double)((float)var3 + 0.5F), (double)((float)var4 + 0.5F), var5);
+	public PathEntity createEntityPathTo(Entity var1, int var2, int var3, int var4, float var5) {
+		return this.createEntityPathTo(var1, (float)var2 + 0.5F, (float)var3 + 0.5F, (float)var4 + 0.5F, var5);
 	}
 
-	private PathEntity createEntityPathTo(net.minecraft.entity.Entity var1, double var2, double var4, double var6, float var8) {
+	private PathEntity createEntityPathTo(Entity var1, double var2, double var4, double var6, float var8) {
 		this.path.clearPath();
 		this.pointMap.clearMap();
 		PathPoint var9 = this.openPoint(MathHelper.floor_double(var1.boundingBox.minX), MathHelper.floor_double(var1.boundingBox.minY), MathHelper.floor_double(var1.boundingBox.minZ));
 		PathPoint var10 = this.openPoint(MathHelper.floor_double(var2 - (double)(var1.width / 2.0F)), MathHelper.floor_double(var4), MathHelper.floor_double(var6 - (double)(var1.width / 2.0F)));
 		PathPoint var11 = new PathPoint(MathHelper.floor_float(var1.width + 1.0F), MathHelper.floor_float(var1.height + 1.0F), MathHelper.floor_float(var1.width + 1.0F));
-		PathEntity var12 = this.addToPath(var1, var9, var10, var11, var8);
-		return var12;
+		return this.addToPath(var1, var9, var10, var11, var8);
 	}
 
-	private PathEntity addToPath(net.minecraft.entity.Entity var1, PathPoint var2, PathPoint var3, PathPoint var4, float var5) {
+	private PathEntity addToPath(Entity var1, PathPoint var2, PathPoint var3, PathPoint var4, float var5) {
 		var2.totalPathDistance = 0.0F;
 		var2.distanceToNext = var2.distanceTo(var3);
 		var2.distanceToTarget = var2.distanceToNext;
@@ -81,7 +80,7 @@ public class Pathfinder {
 		}
 	}
 
-	private int findPathOptions(net.minecraft.entity.Entity var1, PathPoint var2, PathPoint var3, PathPoint var4, float var5) {
+	private int findPathOptions(Entity var1, PathPoint var2, PathPoint var3, PathPoint var4, float var5) {
 		int var6 = 0;
 		byte var7 = 0;
 		if(this.getVerticalOffset(var1, var2.xCoord, var2.yCoord + 1, var2.zCoord, var3) == 1) {
@@ -111,7 +110,7 @@ public class Pathfinder {
 		return var6;
 	}
 
-	private PathPoint getSafePoint(net.minecraft.entity.Entity var1, int var2, int var3, int var4, PathPoint var5, int var6) {
+	private PathPoint getSafePoint(Entity var1, int var2, int var3, int var4, PathPoint var5, int var6) {
 		PathPoint var7 = null;
 		if(this.getVerticalOffset(var1, var2, var3, var4, var5) == 1) {
 			var7 = this.openPoint(var2, var3, var4);
@@ -168,8 +167,8 @@ public class Pathfinder {
 				for(int var8 = var4; var8 < var4 + var5.zCoord; ++var8) {
 					int var9 = this.worldMap.getBlockId(var6, var7, var8);
 					if(var9 > 0) {
-						if(var9 != Block.doorSteel.getBlockID() && var9 != Block.doorWood.getBlockID()) {
-							Material var11 = Block.blocksList[var9].getBlockMaterial();
+						if(var9 != Block.doorSteel.blockID && var9 != Block.doorWood.blockID) {
+							Material var11 = Block.blocksList[var9].blockMaterial;
 							if(var11.getIsSolid()) {
 								return 0;
 							}

@@ -13,8 +13,8 @@ public class StatBase {
 	public String statGuid;
 	private final IStatType field_26902_a;
 	private static NumberFormat field_26903_b = NumberFormat.getIntegerInstance(Locale.US);
-	public static IStatType field_27087_i = new StatTypeSimple();
 	private static DecimalFormat field_26904_c = new DecimalFormat("########0.00");
+	public static IStatType field_27087_i = new StatTypeSimple();
 	public static IStatType field_27086_j = new StatTypeTime();
 	public static IStatType field_27085_k = new StatTypeDistance();
 
@@ -35,11 +35,11 @@ public class StatBase {
 	}
 
 	public StatBase registerStat() {
-		if(StatList.field_25169_C.containsKey(Integer.valueOf(this.statId))) {
-			throw new RuntimeException("Duplicate stat id: \"" + ((StatBase)StatList.field_25169_C.get(Integer.valueOf(this.statId))).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
+		if(StatList.field_25169_C.containsKey(this.statId)) {
+			throw new RuntimeException("Duplicate stat id: \"" + ((StatBase)StatList.field_25169_C.get(this.statId)).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
 		} else {
 			StatList.field_25188_a.add(this);
-			StatList.field_25169_C.put(Integer.valueOf(this.statId), this);
+			StatList.field_25169_C.put(this.statId, this);
 			this.statGuid = AchievementMap.getGuid(this.statId);
 			return this;
 		}

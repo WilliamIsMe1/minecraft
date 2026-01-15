@@ -18,7 +18,7 @@ public class WorldGenDeadBush extends WorldGenerator {
 
 		while(true) {
 			int var11 = var1.getBlockId(var3, var4, var5);
-			if(var11 != 0 && var11 != Block.leaves.getBlockID() || var4 <= 0) {
+			if(var11 != 0 && var11 != Block.leaves.blockID || var4 <= 0) {
 				for(int var7 = 0; var7 < 4; ++var7) {
 					int var8 = var3 + var2.nextInt(8) - var2.nextInt(8);
 					int var9 = var4 + var2.nextInt(4) - var2.nextInt(4);

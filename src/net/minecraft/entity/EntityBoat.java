@@ -82,7 +82,7 @@ public class EntityBoat extends net.minecraft.entity.Entity {
 
 				int var3;
 				for(var3 = 0; var3 < 3; ++var3) {
-					this.dropItemWithOffset(Block.planks.getBlockID(), 1, 0.0F);
+					this.dropItemWithOffset(Block.planks.blockID, 1, 0.0F);
 				}
 
 				for(var3 = 0; var3 < 2; ++var3) {
@@ -258,7 +258,7 @@ public class EntityBoat extends net.minecraft.entity.Entity {
 
 					int var22;
 					for(var22 = 0; var22 < 3; ++var22) {
-						this.dropItemWithOffset(Block.planks.getBlockID(), 1, 0.0F);
+						this.dropItemWithOffset(Block.planks.blockID, 1, 0.0F);
 					}
 
 					for(var22 = 0; var22 < 2; ++var22) {
@@ -312,7 +312,7 @@ public class EntityBoat extends net.minecraft.entity.Entity {
 				int var25 = MathHelper.floor_double(this.posX + ((double)(var24 % 2) - 0.5D) * 0.8D);
 				int var26 = MathHelper.floor_double(this.posY);
 				int var20 = MathHelper.floor_double(this.posZ + ((double)(var24 / 2) - 0.5D) * 0.8D);
-				if(this.worldObj.getBlockId(var25, var26, var20) == Block.snow.getBlockID()) {
+				if(this.worldObj.getBlockId(var25, var26, var20) == Block.snow.blockID) {
 					this.worldObj.setBlockWithNotify(var25, var26, var20, 0);
 				}
 			}

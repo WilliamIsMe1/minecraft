@@ -98,22 +98,22 @@ public class BlockPressurePlate extends Block {
 
 		if(var6 && !var5) {
 			var1.setBlockMetadataWithNotify(var2, var3, var4, 1);
-			var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
+			var1.notifyBlocksOfNeighborChange(var2, var3, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
 			var1.markBlocksDirty(var2, var3, var4, var2, var3, var4);
 			var1.playSoundEffect((double)var2 + 0.5D, (double)var3 + 0.1D, (double)var4 + 0.5D, "random.click", 0.3F, 0.6F);
 		}
 
 		if(!var6 && var5) {
 			var1.setBlockMetadataWithNotify(var2, var3, var4, 0);
-			var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
+			var1.notifyBlocksOfNeighborChange(var2, var3, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
 			var1.markBlocksDirty(var2, var3, var4, var2, var3, var4);
 			var1.playSoundEffect((double)var2 + 0.5D, (double)var3 + 0.1D, (double)var4 + 0.5D, "random.click", 0.3F, 0.5F);
 		}
 
 		if(var6) {
-			var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), this.tickRate());
+			var1.scheduleBlockUpdate(var2, var3, var4, blockID, this.tickRate());
 		}
 
 	}
@@ -121,8 +121,8 @@ public class BlockPressurePlate extends Block {
 	public void onBlockRemoval(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockMetadata(var2, var3, var4);
 		if(var5 > 0) {
-			var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
+			var1.notifyBlocksOfNeighborChange(var2, var3, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
 		}
 
 		super.onBlockRemoval(var1, var2, var3, var4);

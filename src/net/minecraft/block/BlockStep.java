@@ -42,16 +42,16 @@ public class BlockStep extends Block {
 		int var6 = var1.getBlockMetadata(var2, var3, var4);
 		int var7 = var1.getBlockMetadata(var2, var3 - 1, var4);
 		if(var6 == var7) {
-			if(var5 == stairSingle.getBlockID()) {
+			if(var5 == stairSingle.blockID) {
 				var1.setBlockWithNotify(var2, var3, var4, 0);
-				var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, Block.stairDouble.getBlockID(), var6);
+				var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, Block.stairDouble.blockID, var6);
 			}
 
 		}
 	}
 
 	public int idDropped(int var1, Random var2) {
-		return Block.stairSingle.getBlockID();
+		return Block.stairSingle.blockID;
 	}
 
 	public int quantityDropped(Random var1) {
@@ -71,6 +71,18 @@ public class BlockStep extends Block {
 			super.shouldSideBeRendered(var1, var2, var3, var4, var5);
 		}
 
-		return var5 == 1 ? true : (!super.shouldSideBeRendered(var1, var2, var3, var4, var5) ? false : (var5 == 0 ? true : var1.getBlockId(var2, var3, var4) != this.getBlockID()));
+		if (var5 == 1) {
+			return true;
+		} else {
+			if (!super.shouldSideBeRendered(var1, var2, var3, var4, var5)) {
+				return (false);
+			} else {
+				if (var5 == 0) {
+					return ((true));
+				} else {
+					return ((var1.getBlockId(var2, var3, var4) != blockID));
+				}
+			}
+		}
 	}
 }

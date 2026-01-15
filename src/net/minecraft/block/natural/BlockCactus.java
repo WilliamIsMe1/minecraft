@@ -9,6 +9,8 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockCactus extends Block {
+	public static final int CACTUS_RENDER_TYPE = 13;
+
 	public BlockCactus(int var1, int var2) {
 		super(var1, var2, Material.cactus);
 		this.setTickOnLoad(true);
@@ -17,13 +19,12 @@ public class BlockCactus extends Block {
 	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
 		if(var1.isAirBlock(var2, var3 + 1, var4)) {
 			int var6;
-			for(var6 = 1; var1.getBlockId(var2, var3 - var6, var4) == this.getBlockID(); ++var6) {
-			}
+			for(var6 = 1; var1.getBlockId(var2, var3 - var6, var4) == blockID; ++var6) {}
 
 			if(var6 < 3) {
 				int var7 = var1.getBlockMetadata(var2, var3, var4);
 				if(var7 == 15) {
-					var1.setBlockWithNotify(var2, var3 + 1, var4, this.getBlockID());
+					var1.setBlockWithNotify(var2, var3 + 1, var4, blockID);
 					var1.setBlockMetadataWithNotify(var2, var3, var4, 0);
 				} else {
 					var1.setBlockMetadataWithNotify(var2, var3, var4, var7 + 1);
@@ -35,16 +36,24 @@ public class BlockCactus extends Block {
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
 		float var5 = 1.0F / 16.0F;
-		return AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var5), (double)var3, (double)((float)var4 + var5), (double)((float)(var2 + 1) - var5), (double)((float)(var3 + 1) - var5), (double)((float)(var4 + 1) - var5));
+		return AxisAlignedBB.getBoundingBoxFromPool((float)var2 + var5, var3, (float)var4 + var5, (float)(var2 + 1) - var5, (float)(var3 + 1) - var5, (float)(var4 + 1) - var5);
 	}
 
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
 		float var5 = 1.0F / 16.0F;
-		return AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var5), (double)var3, (double)((float)var4 + var5), (double)((float)(var2 + 1) - var5), (double)(var3 + 1), (double)((float)(var4 + 1) - var5));
+		return AxisAlignedBB.getBoundingBoxFromPool((float)var2 + var5, var3, (float)var4 + var5, (float)(var2 + 1) - var5, var3 + 1, (float)(var4 + 1) - var5);
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.getBlockIndexInTexture() - 1 : (var1 == 0 ? this.getBlockIndexInTexture() + 1 : this.getBlockIndexInTexture());
+		if (var1 == 1) {
+			return blockIndexInTexture - 1;
+		} else {
+			if (var1 == 0) {
+				return (blockIndexInTexture + 1);
+			} else {
+				return blockIndexInTexture;
+			}
+		}
 	}
 
 	public boolean renderAsNormalBlock() {
@@ -56,11 +65,11 @@ public class BlockCactus extends Block {
 	}
 
 	public int getRenderType() {
-		return 13;
+		return  CACTUS_RENDER_TYPE;
 	}
 
 	public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-		return !super.canPlaceBlockAt(var1, var2, var3, var4) ? false : this.canBlockStay(var1, var2, var3, var4);
+		return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canBlockStay(var1, var2, var3, var4);
 	}
 
 	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
@@ -82,11 +91,11 @@ public class BlockCactus extends Block {
 			return false;
 		} else {
 			int var5 = var1.getBlockId(var2, var3 - 1, var4);
-			return var5 == Block.cactus.getBlockID() || var5 == Block.sand.getBlockID();
+			return var5 == Block.sand.blockID || var5 == Block.cactus.blockID;
 		}
 	}
 
 	public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-		var5.attackEntityFrom((Entity)null, 1);
+		var5.attackEntityFrom(null, 1);
 	}
 }

@@ -3,7 +3,7 @@ package net.minecraft.block;
 import net.minecraft.block.core.Block;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.render.entity.model.ModelBed;
+import net.minecraft.client.render.block.model.ModelBed;
 import net.minecraft.core.EnumStatus;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.Item;
@@ -30,7 +30,7 @@ public class BlockBed extends Block {
 				int var7 = getDirectionFromMetadata(var6);
 				var2 += headBlockToFootBlockMap[var7][0];
 				var4 += headBlockToFootBlockMap[var7][1];
-				if(var1.getBlockId(var2, var3, var4) != this.getBlockID()) {
+				if(var1.getBlockId(var2, var3, var4) != blockID) {
 					return true;
 				}
 
@@ -45,7 +45,7 @@ public class BlockBed extends Block {
 				int var13 = getDirectionFromMetadata(var6);
 				var2 += headBlockToFootBlockMap[var13][0];
 				var4 += headBlockToFootBlockMap[var13][1];
-				if(var1.getBlockId(var2, var3, var4) == this.getBlockID()) {
+				if(var1.getBlockId(var2, var3, var4) == blockID) {
 					var1.setBlockWithNotify(var2, var3, var4, 0);
 					var16 = (var16 + (double)var2 + 0.5D) / 2.0D;
 					var17 = (var17 + (double)var3 + 0.5D) / 2.0D;
@@ -94,11 +94,31 @@ public class BlockBed extends Block {
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
 		if(var1 == 0) {
-			return Block.planks.getBlockIndexInTexture();
+			return Block.planks.blockIndexInTexture;
 		} else {
 			int var3 = getDirectionFromMetadata(var2);
 			int var4 = ModelBed.bedDirection[var3][var1];
-			return isBlockFootOfBed(var2) ? (var4 == 2 ? this.getBlockIndexInTexture() + 2 + 16 : (var4 != 5 && var4 != 4 ? this.getBlockIndexInTexture() + 1 : this.getBlockIndexInTexture() + 1 + 16)) : (var4 == 3 ? this.getBlockIndexInTexture() - 1 + 16 : (var4 != 5 && var4 != 4 ? this.getBlockIndexInTexture() : this.getBlockIndexInTexture() + 16));
+			if (isBlockFootOfBed(var2)) {
+				if (var4 == 2) {
+					return (blockIndexInTexture + 2 + 16);
+				} else {
+					if (var4 != 5 && var4 != 4) {
+						return ((blockIndexInTexture + 1));
+					} else {
+						return ((blockIndexInTexture + 1 + 16));
+					}
+				}
+			} else {
+				if (var4 == 3) {
+					return (blockIndexInTexture - 1 + 16);
+				} else {
+					if (var4 != 5 && var4 != 4) {
+						return blockIndexInTexture;
+					} else {
+						return ((blockIndexInTexture + 16));
+					}
+				}
+			}
 		}
 	}
 
@@ -122,13 +142,15 @@ public class BlockBed extends Block {
 		int var6 = var1.getBlockMetadata(var2, var3, var4);
 		int var7 = getDirectionFromMetadata(var6);
 		if(isBlockFootOfBed(var6)) {
-			if(var1.getBlockId(var2 - headBlockToFootBlockMap[var7][0], var3, var4 - headBlockToFootBlockMap[var7][1]) != this.getBlockID()) {
+			if(var1.getBlockId(var2 - headBlockToFootBlockMap[var7][0], var3, var4 - headBlockToFootBlockMap[var7][1]) != blockID) {
 				var1.setBlockWithNotify(var2, var3, var4, 0);
 			}
-		} else if(var1.getBlockId(var2 + headBlockToFootBlockMap[var7][0], var3, var4 + headBlockToFootBlockMap[var7][1]) != this.getBlockID()) {
-			var1.setBlockWithNotify(var2, var3, var4, 0);
-			if(!var1.multiplayerWorld) {
-				this.dropBlockAsItem(var1, var2, var3, var4, var6);
+		} else {
+			if(var1.getBlockId(var2 + headBlockToFootBlockMap[var7][0], var3, var4 + headBlockToFootBlockMap[var7][1]) != blockID) {
+				var1.setBlockWithNotify(var2, var3, var4, 0);
+				if(!var1.multiplayerWorld) {
+					this.dropBlockAsItem(var1, var2, var3, var4, var6);
+				}
 			}
 		}
 

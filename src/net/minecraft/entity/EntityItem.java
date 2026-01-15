@@ -67,7 +67,7 @@ public class EntityItem extends net.minecraft.entity.Entity {
 			var1 = 0.1F * 0.1F * 58.8F;
 			int var2 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
 			if(var2 > 0) {
-				var1 = Block.blocksList[var2].getSlipperiness() * 0.98F;
+				var1 = Block.blocksList[var2].slipperiness * 0.98F;
 			}
 		}
 
@@ -121,7 +121,7 @@ public class EntityItem extends net.minecraft.entity.Entity {
 		if(!this.worldObj.multiplayerWorld) {
 			int var2 = this.item.stackSize;
 			if(this.delayBeforeCanPickup == 0 && var1.inventory.addItemStackToInventory(this.item)) {
-				if(this.item.itemID == Block.wood.getBlockID()) {
+				if(this.item.itemID == Block.wood.blockID) {
 					var1.triggerAchievement(AchievementList.mineWood);
 				}
 

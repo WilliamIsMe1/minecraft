@@ -58,7 +58,12 @@ public class Item {
 	public static Item hoeSteel = (new ItemHoe(36, EnumToolMaterial.IRON)).setIconCoord(2, 8).setItemName("hoeIron");
 	public static Item hoeDiamond = (new ItemHoe(37, EnumToolMaterial.DIAMOND)).setIconCoord(3, 8).setItemName("hoeDiamond");
 	public static Item hoeGold = (new ItemHoe(38, EnumToolMaterial.GOLD)).setIconCoord(4, 8).setItemName("hoeGold");
-	public static Item seeds = (new ItemSeeds(39, Block.crops.getBlockID())).setIconCoord(9, 0).setItemName("seeds");
+	public static Item seeds;
+
+	static {
+		seeds = (new ItemSeeds(39, Block.crops.blockID)).setIconCoord(9, 0).setItemName("seeds");
+	}
+
 	public static Item wheat = (new Item(40)).setIconCoord(9, 1).setItemName("wheat");
 	public static Item bread = (new ItemFood(41, 5, false)).setIconCoord(9, 2).setItemName("bread");
 	public static Item helmetLeather = (new ItemArmor(42, 0, 0, 0)).setIconCoord(0, 0).setItemName("helmetCloth");
@@ -89,8 +94,18 @@ public class Item {
 	public static Item sign = (new ItemSign(67)).setIconCoord(10, 2).setItemName("sign");
 	public static Item doorWood = (new ItemDoor(68, Material.wood)).setIconCoord(11, 2).setItemName("doorWood");
 	public static Item bucketEmpty = (new ItemBucket(69, 0)).setIconCoord(10, 4).setItemName("bucket");
-	public static Item bucketWater = (new ItemBucket(70, Block.waterMoving.getBlockID())).setIconCoord(11, 4).setItemName("bucketWater").setContainerItem(bucketEmpty);
-	public static Item bucketLava = (new ItemBucket(71, Block.lavaMoving.getBlockID())).setIconCoord(12, 4).setItemName("bucketLava").setContainerItem(bucketEmpty);
+	public static Item bucketWater;
+
+	static {
+		bucketWater = (new ItemBucket(70, Block.waterMoving.blockID)).setIconCoord(11, 4).setItemName("bucketWater").setContainerItem(bucketEmpty);
+	}
+
+	public static Item bucketLava;
+
+	static {
+		bucketLava = (new ItemBucket(71, Block.lavaMoving.blockID)).setIconCoord(12, 4).setItemName("bucketLava").setContainerItem(bucketEmpty);
+	}
+
 	public static Item minecartEmpty = (new ItemMinecart(72, 0)).setIconCoord(7, 8).setItemName("minecart");
 	public static Item saddle = (new ItemSaddle(73)).setIconCoord(8, 6).setItemName("saddle");
 	public static Item doorSteel = (new ItemDoor(74, Material.iron)).setIconCoord(12, 2).setItemName("doorIron");

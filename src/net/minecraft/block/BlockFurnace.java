@@ -23,11 +23,11 @@ public class BlockFurnace extends BlockContainer {
 	public BlockFurnace(int var1, boolean var2) {
 		super(var1, Material.rock);
 		this.isActive = var2;
-		this.setBlockIndexInTexture(45);
+		this.blockIndexInTexture = 45;
 	}
 
 	public int idDropped(int var1, Random var2) {
-		return Block.stoneOvenIdle.getBlockID();
+		return Block.stoneOvenIdle.blockID;
 	}
 
 	public void onBlockAdded(net.minecraft.world.World var1, int var2, int var3, int var4) {
@@ -64,12 +64,20 @@ public class BlockFurnace extends BlockContainer {
 
 	public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
 		if(var5 == 1) {
-			return this.getBlockIndexInTexture() + 17;
+			return blockIndexInTexture + 17;
 		} else if(var5 == 0) {
-			return this.getBlockIndexInTexture() + 17;
+			return blockIndexInTexture + 17;
 		} else {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
-			return var5 != var6 ? this.getBlockIndexInTexture() : (this.isActive ? this.getBlockIndexInTexture() + 16 : this.getBlockIndexInTexture() - 1);
+			if (var5 != var6) {
+				return blockIndexInTexture;
+			} else {
+				if (this.isActive) {
+					return (blockIndexInTexture + 16);
+				} else {
+					return (blockIndexInTexture - 1);
+				}
+			}
 		}
 	}
 
@@ -99,7 +107,19 @@ public class BlockFurnace extends BlockContainer {
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.getBlockIndexInTexture() + 17 : (var1 == 0 ? this.getBlockIndexInTexture() + 17 : (var1 == 3 ? this.getBlockIndexInTexture() - 1 : this.getBlockIndexInTexture()));
+		if (var1 == 1) {
+			return blockIndexInTexture + 17;
+		} else {
+			if (var1 == 0) {
+				return (blockIndexInTexture + 17);
+			} else {
+				if (var1 == 3) {
+					return ((blockIndexInTexture - 1));
+				} else {
+					return blockIndexInTexture;
+				}
+			}
+		}
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
@@ -117,9 +137,9 @@ public class BlockFurnace extends BlockContainer {
 		TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
 		keepFurnaceInventory = true;
 		if(var0) {
-			var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenActive.getBlockID());
+			var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenActive.blockID);
 		} else {
-			var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenIdle.getBlockID());
+			var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenIdle.blockID);
 		}
 
 		keepFurnaceInventory = false;

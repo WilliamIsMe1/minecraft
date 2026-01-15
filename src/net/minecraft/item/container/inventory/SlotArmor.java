@@ -20,6 +20,10 @@ public class SlotArmor extends Slot {
 	}
 
 	public boolean isItemValid(ItemStack var1) {
-		return var1.getItem() instanceof ItemArmor ? ((ItemArmor)var1.getItem()).armorType == this.armorType : (var1.getItem().shiftedIndex == Block.pumpkin.getBlockID() ? this.armorType == 0 : false);
+		if (var1.getItem() instanceof ItemArmor) {
+			return ((ItemArmor)var1.getItem()).armorType == this.armorType;
+		} else {
+			return (var1.getItem().shiftedIndex == Block.pumpkin.blockID ? this.armorType == 0 : false);
+		}
 	}
 }

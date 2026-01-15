@@ -11,7 +11,7 @@ public class AchievementList {
 	public static int minDisplayRow;
 	public static int maxDisplayColumn;
 	public static int maxDisplayRow;
-	public static List achievementList = new ArrayList();
+	public static List<Achievement> achievementList = new ArrayList<>();
 	public static Achievement openInventory = (new Achievement(0, "openInventory", 0, 0, Item.book, (Achievement)null)).func_27089_a().registerAchievement();
 	public static Achievement mineWood = (new Achievement(1, "mineWood", 2, 1, Block.wood, openInventory)).registerAchievement();
 	public static Achievement buildWorkBench = (new Achievement(2, "buildWorkBench", 4, -1, Block.workbench, mineWood)).registerAchievement();
@@ -29,7 +29,7 @@ public class AchievementList {
 	public static Achievement killCow = (new Achievement(14, "killCow", 7, -3, Item.leather, buildSword)).registerAchievement();
 	public static Achievement flyPig = (new Achievement(15, "flyPig", 8, -4, Item.saddle, killCow)).setSpecial().registerAchievement();
 
-	public static void func_27374_a() {
+	public static void initializeStaticMembers() {
 	}
 
 	static {

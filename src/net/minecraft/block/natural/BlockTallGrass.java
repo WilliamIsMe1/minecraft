@@ -14,7 +14,19 @@ public class BlockTallGrass extends BlockFlower {
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-		return var2 == 1 ? this.getBlockIndexInTexture() : (var2 == 2 ? this.getBlockIndexInTexture() + 16 + 1 : (var2 == 0 ? this.getBlockIndexInTexture() + 16 : this.getBlockIndexInTexture()));
+		if (var2 == 1) {
+			return blockIndexInTexture;
+		} else {
+			if (var2 == 2) {
+				return (blockIndexInTexture + 16 + 1);
+			} else {
+				if (var2 == 0) {
+					return ((blockIndexInTexture + 16));
+				} else {
+					return blockIndexInTexture;
+				}
+			}
+		}
 	}
 
 	public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
@@ -22,7 +34,7 @@ public class BlockTallGrass extends BlockFlower {
 		if(var5 == 0) {
 			return 16777215;
 		} else {
-			long var6 = (long)(var2 * 3129871 + var4 * 6129781 + var3);
+			long var6 = var2 * 3129871L + var4 * 6129781L + var3;
 			var6 = var6 * var6 * 42317861L + var6 * 11L;
 			var2 = (int)((long)var2 + (var6 >> 14 & 31L));
 			var3 = (int)((long)var3 + (var6 >> 19 & 31L));

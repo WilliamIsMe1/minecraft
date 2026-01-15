@@ -12,11 +12,11 @@ public class BlockDeadBush extends BlockFlower {
 	}
 
 	protected boolean canThisPlantGrowOnThisBlockID(int var1) {
-		return var1 == Block.sand.getBlockID();
+		return var1 == Block.sand.blockID;
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-		return this.getBlockIndexInTexture();
+		return blockIndexInTexture;
 	}
 
 	public int idDropped(int var1, Random var2) {

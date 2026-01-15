@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 public class BlockSponge extends Block {
 	public BlockSponge(int var1) {
 		super(var1, Material.sponge);
-		this.setBlockIndexInTexture(48);
+		this.blockIndexInTexture = 48;
 	}
 
 	public void onBlockAdded(World var1, int var2, int var3, int var4) {

@@ -1,6 +1,7 @@
 package net.minecraft.item.container.inventory;
 
 import net.minecraft.block.core.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.item.gear.ItemArmor;
@@ -274,7 +275,7 @@ public class InventoryPlayer implements IInventory {
 	}
 
 	public boolean canHarvestBlock(Block var1) {
-		if(var1.getBlockMaterial().getIsHarvestable()) {
+		if(var1.blockMaterial.getIsHarvestable()) {
 			return true;
 		} else {
 			ItemStack var2 = this.getStackInSlot(this.currentItem);

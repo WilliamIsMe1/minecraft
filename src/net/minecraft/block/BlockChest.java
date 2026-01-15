@@ -20,14 +20,14 @@ public class BlockChest extends BlockContainer {
 
 	public BlockChest(int var1) {
 		super(var1, Material.wood);
-		this.setBlockIndexInTexture(26);
+		this.blockIndexInTexture = 26;
 	}
 
 	public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
 		if(var5 == 1) {
-			return this.getBlockIndexInTexture() - 1;
+			return blockIndexInTexture - 1;
 		} else if(var5 == 0) {
-			return this.getBlockIndexInTexture() - 1;
+			return blockIndexInTexture - 1;
 		} else {
 			int var6 = var1.getBlockId(var2, var3, var4 - 1);
 			int var7 = var1.getBlockId(var2, var3, var4 + 1);
@@ -37,8 +37,8 @@ public class BlockChest extends BlockContainer {
 			int var11;
 			int var12;
 			byte var13;
-			if(var6 != this.getBlockID() && var7 != this.getBlockID()) {
-				if(var8 != this.getBlockID() && var9 != this.getBlockID()) {
+			if(var6 != blockID && var7 != blockID) {
+				if(var8 != blockID && var9 != blockID) {
 					byte var14 = 3;
 					if(Block.opaqueCubeLookup[var6] && !Block.opaqueCubeLookup[var7]) {
 						var14 = 3;
@@ -56,15 +56,19 @@ public class BlockChest extends BlockContainer {
 						var14 = 4;
 					}
 
-					return var5 == var14 ? this.getBlockIndexInTexture() + 1 : this.getBlockIndexInTexture();
+					if (var5 == var14) {
+						return blockIndexInTexture + 1;
+					} else {
+						return blockIndexInTexture;
+					}
 				} else if(var5 != 4 && var5 != 5) {
 					var10 = 0;
-					if(var8 == this.getBlockID()) {
+					if(var8 == blockID) {
 						var10 = -1;
 					}
 
-					var11 = var1.getBlockId(var8 == this.getBlockID() ? var2 - 1 : var2 + 1, var3, var4 - 1);
-					var12 = var1.getBlockId(var8 == this.getBlockID() ? var2 - 1 : var2 + 1, var3, var4 + 1);
+					var11 = var1.getBlockId(var8 == blockID ? var2 - 1 : var2 + 1, var3, var4 - 1);
+					var12 = var1.getBlockId(var8 == blockID ? var2 - 1 : var2 + 1, var3, var4 + 1);
 					if(var5 == 3) {
 						var10 = -1 - var10;
 					}
@@ -78,18 +82,18 @@ public class BlockChest extends BlockContainer {
 						var13 = 2;
 					}
 
-					return (var5 == var13 ? this.getBlockIndexInTexture() + 16 : this.getBlockIndexInTexture() + 32) + var10;
+					return (var5 == var13 ? blockIndexInTexture + 16 : blockIndexInTexture + 32) + var10;
 				} else {
-					return this.getBlockIndexInTexture();
+					return blockIndexInTexture;
 				}
 			} else if(var5 != 2 && var5 != 3) {
 				var10 = 0;
-				if(var6 == this.getBlockID()) {
+				if(var6 == blockID) {
 					var10 = -1;
 				}
 
-				var11 = var1.getBlockId(var2 - 1, var3, var6 == this.getBlockID() ? var4 - 1 : var4 + 1);
-				var12 = var1.getBlockId(var2 + 1, var3, var6 == this.getBlockID() ? var4 - 1 : var4 + 1);
+				var11 = var1.getBlockId(var2 - 1, var3, var6 == blockID ? var4 - 1 : var4 + 1);
+				var12 = var1.getBlockId(var2 + 1, var3, var6 == blockID ? var4 - 1 : var4 + 1);
 				if(var5 == 4) {
 					var10 = -1 - var10;
 				}
@@ -103,32 +107,44 @@ public class BlockChest extends BlockContainer {
 					var13 = 4;
 				}
 
-				return (var5 == var13 ? this.getBlockIndexInTexture() + 16 : this.getBlockIndexInTexture() + 32) + var10;
+				return (var5 == var13 ? blockIndexInTexture + 16 : blockIndexInTexture + 32) + var10;
 			} else {
-				return this.getBlockIndexInTexture();
+				return blockIndexInTexture;
 			}
 		}
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.getBlockIndexInTexture() - 1 : (var1 == 0 ? this.getBlockIndexInTexture() - 1 : (var1 == 3 ? this.getBlockIndexInTexture() + 1 : this.getBlockIndexInTexture()));
+		if (var1 == 1) {
+			return blockIndexInTexture - 1;
+		} else {
+			if (var1 == 0) {
+				return (blockIndexInTexture - 1);
+			} else {
+				if (var1 == 3) {
+					return ((blockIndexInTexture + 1));
+				} else {
+					return blockIndexInTexture;
+				}
+			}
+		}
 	}
 
 	public boolean canPlaceBlockAt(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		int var5 = 0;
-		if(var1.getBlockId(var2 - 1, var3, var4) == this.getBlockID()) {
+		if(var1.getBlockId(var2 - 1, var3, var4) == blockID) {
 			++var5;
 		}
 
-		if(var1.getBlockId(var2 + 1, var3, var4) == this.getBlockID()) {
+		if(var1.getBlockId(var2 + 1, var3, var4) == blockID) {
 			++var5;
 		}
 
-		if(var1.getBlockId(var2, var3, var4 - 1) == this.getBlockID()) {
+		if(var1.getBlockId(var2, var3, var4 - 1) == blockID) {
 			++var5;
 		}
 
-		if(var1.getBlockId(var2, var3, var4 + 1) == this.getBlockID()) {
+		if(var1.getBlockId(var2, var3, var4 + 1) == blockID) {
 			++var5;
 		}
 
@@ -136,7 +152,23 @@ public class BlockChest extends BlockContainer {
 	}
 
 	private boolean isThereANeighborChest(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		return var1.getBlockId(var2, var3, var4) != this.getBlockID() ? false : (var1.getBlockId(var2 - 1, var3, var4) == this.getBlockID() ? true : (var1.getBlockId(var2 + 1, var3, var4) == this.getBlockID() ? true : (var1.getBlockId(var2, var3, var4 - 1) == this.getBlockID() ? true : var1.getBlockId(var2, var3, var4 + 1) == this.getBlockID())));
+		if (var1.getBlockId(var2, var3, var4) != blockID) {
+			return false;
+		} else {
+			if (var1.getBlockId(var2 - 1, var3, var4) == blockID) {
+				return (true);
+			} else {
+				if (var1.getBlockId(var2 + 1, var3, var4) == blockID) {
+					return ((true));
+				} else {
+					if (var1.getBlockId(var2, var3, var4 - 1) == blockID) {
+						return (((true)));
+					} else {
+						return (((var1.getBlockId(var2, var3, var4 + 1) == blockID)));
+					}
+				}
+			}
+		}
 	}
 
 	public void onBlockRemoval(net.minecraft.world.World var1, int var2, int var3, int var4) {
@@ -173,36 +205,44 @@ public class BlockChest extends BlockContainer {
 		Object var6 = (TileEntityChest)var1.getBlockTileEntity(var2, var3, var4);
 		if(var1.isBlockNormalCube(var2, var3 + 1, var4)) {
 			return true;
-		} else if(var1.getBlockId(var2 - 1, var3, var4) == this.getBlockID() && var1.isBlockNormalCube(var2 - 1, var3 + 1, var4)) {
-			return true;
-		} else if(var1.getBlockId(var2 + 1, var3, var4) == this.getBlockID() && var1.isBlockNormalCube(var2 + 1, var3 + 1, var4)) {
-			return true;
-		} else if(var1.getBlockId(var2, var3, var4 - 1) == this.getBlockID() && var1.isBlockNormalCube(var2, var3 + 1, var4 - 1)) {
-			return true;
-		} else if(var1.getBlockId(var2, var3, var4 + 1) == this.getBlockID() && var1.isBlockNormalCube(var2, var3 + 1, var4 + 1)) {
-			return true;
 		} else {
-			if(var1.getBlockId(var2 - 1, var3, var4) == this.getBlockID()) {
-				var6 = new InventoryLargeChest("Large chest", (TileEntityChest)var1.getBlockTileEntity(var2 - 1, var3, var4), (IInventory)var6);
-			}
-
-			if(var1.getBlockId(var2 + 1, var3, var4) == this.getBlockID()) {
-				var6 = new InventoryLargeChest("Large chest", (IInventory)var6, (TileEntityChest)var1.getBlockTileEntity(var2 + 1, var3, var4));
-			}
-
-			if(var1.getBlockId(var2, var3, var4 - 1) == this.getBlockID()) {
-				var6 = new InventoryLargeChest("Large chest", (TileEntityChest)var1.getBlockTileEntity(var2, var3, var4 - 1), (IInventory)var6);
-			}
-
-			if(var1.getBlockId(var2, var3, var4 + 1) == this.getBlockID()) {
-				var6 = new InventoryLargeChest("Large chest", (IInventory)var6, (TileEntityChest)var1.getBlockTileEntity(var2, var3, var4 + 1));
-			}
-
-			if(var1.multiplayerWorld) {
+			if(var1.getBlockId(var2 - 1, var3, var4) == blockID && var1.isBlockNormalCube(var2 - 1, var3 + 1, var4)) {
 				return true;
 			} else {
-				var5.displayGUIChest((IInventory)var6);
-				return true;
+				if (var1.getBlockId(var2 + 1, var3, var4) == blockID && var1.isBlockNormalCube(var2 + 1, var3 + 1, var4)) {
+					return true;
+				} else {
+					if (var1.getBlockId(var2, var3, var4 - 1) == blockID && var1.isBlockNormalCube(var2, var3 + 1, var4 - 1)) {
+						return true;
+					} else {
+						if (var1.getBlockId(var2, var3, var4 + 1) == blockID && var1.isBlockNormalCube(var2, var3 + 1, var4 + 1)) {
+							return true;
+						} else {
+							if (var1.getBlockId(var2 - 1, var3, var4) == blockID) {
+								var6 = new InventoryLargeChest("Large chest", (TileEntityChest) var1.getBlockTileEntity(var2 - 1, var3, var4), (IInventory) var6);
+							}
+
+							if (var1.getBlockId(var2 + 1, var3, var4) == blockID) {
+								var6 = new InventoryLargeChest("Large chest", (IInventory) var6, (TileEntityChest) var1.getBlockTileEntity(var2 + 1, var3, var4));
+							}
+
+							if (var1.getBlockId(var2, var3, var4 - 1) == blockID) {
+								var6 = new InventoryLargeChest("Large chest", (TileEntityChest) var1.getBlockTileEntity(var2, var3, var4 - 1), (IInventory) var6);
+							}
+
+							if (var1.getBlockId(var2, var3, var4 + 1) == blockID) {
+								var6 = new InventoryLargeChest("Large chest", (IInventory) var6, (TileEntityChest) var1.getBlockTileEntity(var2, var3, var4 + 1));
+							}
+
+							if (var1.multiplayerWorld) {
+								return true;
+							} else {
+								var5.displayGUIChest((IInventory) var6);
+								return true;
+							}
+						}
+					}
+				}
 			}
 		}
 	}

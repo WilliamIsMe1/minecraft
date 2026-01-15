@@ -20,14 +20,14 @@ public class SorterStatsItem implements Comparator {
 		StatBase var5 = null;
 		StatBase var6 = null;
 		if(this.field_27372_b.field_27271_e == 0) {
-			var5 = StatList.field_25170_B[var3];
-			var6 = StatList.field_25170_B[var4];
+			var5 = StatList.breakItemStatArray[var3];
+			var6 = StatList.breakItemStatArray[var4];
 		} else if(this.field_27372_b.field_27271_e == 1) {
-			var5 = StatList.field_25158_z[var3];
-			var6 = StatList.field_25158_z[var4];
+			var5 = StatList.craftItemStatArray[var3];
+			var6 = StatList.craftItemStatArray[var4];
 		} else if(this.field_27372_b.field_27271_e == 2) {
-			var5 = StatList.field_25172_A[var3];
-			var6 = StatList.field_25172_A[var4];
+			var5 = StatList.useItemStatArray[var3];
+			var6 = StatList.useItemStatArray[var4];
 		}
 
 		if(var5 != null || var6 != null) {

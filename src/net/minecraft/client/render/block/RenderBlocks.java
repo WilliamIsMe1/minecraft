@@ -12,7 +12,7 @@ import net.minecraft.block.redstone.BlockRedstoneWire;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.entity.model.ModelBed;
+import net.minecraft.client.render.block.model.ModelBed;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.EntityRenderer;
 import net.minecraft.util.MathHelper;
@@ -139,11 +139,11 @@ public class RenderBlocks {
 		double var31 = ((double)(var27 + 16) - 0.01D) / 256.0D;
 		double var33 = (float)var28 / 256.0F;
 		double var35 = ((double)(var28 + 16) - 0.01D) / 256.0D;
-		double var37 = (double)var2 + var1.getMinX();
-		double var39 = (double)var2 + var1.getMaxX();
-		double var41 = (double)var3 + var1.getMinY() + 0.1875D;
-		double var43 = (double)var4 + var1.getMinZ();
-		double var45 = (double)var4 + var1.getMaxZ();
+		double var37 = (double)var2 + var1.minX;
+		double var39 = (double)var2 + var1.maxX;
+		double var41 = (double)var3 + var1.minY + 0.1875D;
+		double var43 = (double)var4 + var1.minZ;
+		double var45 = (double)var4 + var1.maxZ;
 		var5.addVertexWithUV(var37, var41, var45, var29, var35);
 		var5.addVertexWithUV(var37, var41, var43, var29, var33);
 		var5.addVertexWithUV(var39, var41, var43, var31, var33);
@@ -186,11 +186,11 @@ public class RenderBlocks {
 			var52 = var34;
 		}
 
-		double var54 = (double)var2 + var1.getMinX();
-		double var56 = (double)var2 + var1.getMaxX();
-		double var58 = (double)var3 + var1.getMaxY();
-		double var60 = (double)var4 + var1.getMinZ();
-		double var62 = (double)var4 + var1.getMaxZ();
+		double var54 = (double)var2 + var1.minX;
+		double var56 = (double)var2 + var1.maxX;
+		double var58 = (double)var3 + var1.maxY;
+		double var60 = (double)var4 + var1.minZ;
+		double var62 = (double)var4 + var1.maxZ;
 		var5.addVertexWithUV(var56, var58, var62, var46, var50);
 		var5.addVertexWithUV(var56, var58, var60, var38, var42);
 		var5.addVertexWithUV(var54, var58, var60, var40, var44);
@@ -218,7 +218,7 @@ public class RenderBlocks {
 		float var66;
 		if(var26 != 2 && (this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2, var3, var4 - 1, 2))) {
 			var66 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4 - 1);
-			if(var1.getMinZ() > 0.0D) {
+			if(var1.minZ > 0.0D) {
 				var66 = var25;
 			}
 
@@ -229,7 +229,7 @@ public class RenderBlocks {
 
 		if(var26 != 3 && (this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2, var3, var4 + 1, 3))) {
 			var66 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4 + 1);
-			if(var1.getMaxZ() < 1.0D) {
+			if(var1.maxZ < 1.0D) {
 				var66 = var25;
 			}
 
@@ -240,7 +240,7 @@ public class RenderBlocks {
 
 		if(var26 != 4 && (this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2 - 1, var3, var4, 4))) {
 			var66 = var1.getBlockBrightness(this.ctx.blockAccess, var2 - 1, var3, var4);
-			if(var1.getMinX() > 0.0D) {
+			if(var1.minX > 0.0D) {
 				var66 = var25;
 			}
 
@@ -251,7 +251,7 @@ public class RenderBlocks {
 
 		if(var26 != 5 && (this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2 + 1, var3, var4, 5))) {
 			var66 = var1.getBlockBrightness(this.ctx.blockAccess, var2 + 1, var3, var4);
-			if(var1.getMaxX() < 1.0D) {
+			if(var1.maxX < 1.0D) {
 				var66 = var25;
 			}
 
@@ -268,7 +268,7 @@ public class RenderBlocks {
 		int var5 = this.ctx.blockAccess.getBlockMetadata(var2, var3, var4);
 		Tessellator var6 = Tessellator.instance;
 		float var7 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4);
-		if(Block.lightValue[var1.getBlockID()] > 0) {
+		if(Block.lightValue[var1.blockID] > 0) {
 			var7 = 1.0F;
 		}
 
@@ -298,7 +298,7 @@ public class RenderBlocks {
 		this.renderStandardBlock(var1, var2, var3, var4);
 		Tessellator var8 = Tessellator.instance;
 		float var9 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4);
-		if(Block.lightValue[var1.getBlockID()] > 0) {
+		if(Block.lightValue[var1.blockID] > 0) {
 			var9 = (var9 + 1.0F) * 0.5F;
 		}
 
@@ -640,7 +640,7 @@ public class RenderBlocks {
 		Tessellator var8 = Tessellator.instance;
 		boolean var9 = this.overrideBlockTexture >= 0;
 		if(!var9) {
-			this.overrideBlockTexture = Block.cobblestone.getBlockIndexInTexture();
+			this.overrideBlockTexture = Block.cobblestone.blockIndexInTexture;
 		}
 
 		float var10 = 0.25F;
@@ -666,7 +666,7 @@ public class RenderBlocks {
 		}
 
 		float var13 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4);
-		if(Block.lightValue[var1.getBlockID()] > 0) {
+		if(Block.lightValue[var1.blockID] > 0) {
 			var13 = 1.0F;
 		}
 
@@ -1129,56 +1129,64 @@ public class RenderBlocks {
 			var17 = ((float)(var13 + 16) + 15.99F) / 256.0F;
 			var19 = (float)var14 / 256.0F;
 			var21 = ((float)var14 + 15.99F) / 256.0F;
-			if(this.ctx.blockAccess.isBlockNormalCube(var2 - 1, var3, var4) && this.ctx.blockAccess.getBlockId(var2 - 1, var3 + 1, var4) == Block.redstoneWire.getBlockID()) {
-				var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
-				var5.addVertexWithUV((float)var2 + 0.015625F, (float)(var3 + 1) + 7.0F / 320.0F, var4 + 1, var17, var19);
-				var5.addVertexWithUV((float)var2 + 0.015625F, var3, var4 + 1, var15, var19);
-				var5.addVertexWithUV((float)var2 + 0.015625F, var3, var4, var15, var21);
-				var5.addVertexWithUV((float)var2 + 0.015625F, (float)(var3 + 1) + 7.0F / 320.0F, var4, var17, var21);
-				var5.setColorOpaque_F(var8, var8, var8);
-				var5.addVertexWithUV((float)var2 + 0.015625F, (float)(var3 + 1) + 7.0F / 320.0F, var4 + 1, var17, var19 + 1.0D / 16.0D);
-				var5.addVertexWithUV((float)var2 + 0.015625F, var3, var4 + 1, var15, var19 + 1.0D / 16.0D);
-				var5.addVertexWithUV((float)var2 + 0.015625F, var3, var4, var15, var21 + 1.0D / 16.0D);
-				var5.addVertexWithUV((float)var2 + 0.015625F, (float)(var3 + 1) + 7.0F / 320.0F, var4, var17, var21 + 1.0D / 16.0D);
+			if(this.ctx.blockAccess.isBlockNormalCube(var2 - 1, var3, var4)) {
+				if (this.ctx.blockAccess.getBlockId(var2 - 1, var3 + 1, var4) == Block.redstoneWire.blockID) {
+					var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
+					var5.addVertexWithUV((float) var2 + 0.015625F, (float) (var3 + 1) + 7.0F / 320.0F, var4 + 1, var17, var19);
+					var5.addVertexWithUV((float) var2 + 0.015625F, var3, var4 + 1, var15, var19);
+					var5.addVertexWithUV((float) var2 + 0.015625F, var3, var4, var15, var21);
+					var5.addVertexWithUV((float) var2 + 0.015625F, (float) (var3 + 1) + 7.0F / 320.0F, var4, var17, var21);
+					var5.setColorOpaque_F(var8, var8, var8);
+					var5.addVertexWithUV((float) var2 + 0.015625F, (float) (var3 + 1) + 7.0F / 320.0F, var4 + 1, var17, var19 + 1.0D / 16.0D);
+					var5.addVertexWithUV((float) var2 + 0.015625F, var3, var4 + 1, var15, var19 + 1.0D / 16.0D);
+					var5.addVertexWithUV((float) var2 + 0.015625F, var3, var4, var15, var21 + 1.0D / 16.0D);
+					var5.addVertexWithUV((float) var2 + 0.015625F, (float) (var3 + 1) + 7.0F / 320.0F, var4, var17, var21 + 1.0D / 16.0D);
+				}
 			}
 
-			if(this.ctx.blockAccess.isBlockNormalCube(var2 + 1, var3, var4) && this.ctx.blockAccess.getBlockId(var2 + 1, var3 + 1, var4) == Block.redstoneWire.getBlockID()) {
-				var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
-				var5.addVertexWithUV((float)(var2 + 1) - 0.015625F, var3, var4 + 1, var15, var21);
-				var5.addVertexWithUV((float)(var2 + 1) - 0.015625F, (float)(var3 + 1) + 7.0F / 320.0F, var4 + 1, var17, var21);
-				var5.addVertexWithUV((float)(var2 + 1) - 0.015625F, (float)(var3 + 1) + 7.0F / 320.0F, var4, var17, var19);
-				var5.addVertexWithUV((float)(var2 + 1) - 0.015625F, var3, var4, var15, var19);
-				var5.setColorOpaque_F(var8, var8, var8);
-				var5.addVertexWithUV((float)(var2 + 1) - 0.015625F, var3, var4 + 1, var15, var21 + 1.0D / 16.0D);
-				var5.addVertexWithUV((float)(var2 + 1) - 0.015625F, (float)(var3 + 1) + 7.0F / 320.0F, var4 + 1, var17, var21 + 1.0D / 16.0D);
-				var5.addVertexWithUV((float)(var2 + 1) - 0.015625F, (float)(var3 + 1) + 7.0F / 320.0F, var4, var17, var19 + 1.0D / 16.0D);
-				var5.addVertexWithUV((float)(var2 + 1) - 0.015625F, var3, var4, var15, var19 + 1.0D / 16.0D);
+			if(this.ctx.blockAccess.isBlockNormalCube(var2 + 1, var3, var4)) {
+				if (this.ctx.blockAccess.getBlockId(var2 + 1, var3 + 1, var4) == Block.redstoneWire.blockID) {
+					var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
+					var5.addVertexWithUV((float) (var2 + 1) - 0.015625F, var3, var4 + 1, var15, var21);
+					var5.addVertexWithUV((float) (var2 + 1) - 0.015625F, (float) (var3 + 1) + 7.0F / 320.0F, var4 + 1, var17, var21);
+					var5.addVertexWithUV((float) (var2 + 1) - 0.015625F, (float) (var3 + 1) + 7.0F / 320.0F, var4, var17, var19);
+					var5.addVertexWithUV((float) (var2 + 1) - 0.015625F, var3, var4, var15, var19);
+					var5.setColorOpaque_F(var8, var8, var8);
+					var5.addVertexWithUV((float) (var2 + 1) - 0.015625F, var3, var4 + 1, var15, var21 + 1.0D / 16.0D);
+					var5.addVertexWithUV((float) (var2 + 1) - 0.015625F, (float) (var3 + 1) + 7.0F / 320.0F, var4 + 1, var17, var21 + 1.0D / 16.0D);
+					var5.addVertexWithUV((float) (var2 + 1) - 0.015625F, (float) (var3 + 1) + 7.0F / 320.0F, var4, var17, var19 + 1.0D / 16.0D);
+					var5.addVertexWithUV((float) (var2 + 1) - 0.015625F, var3, var4, var15, var19 + 1.0D / 16.0D);
+				}
 			}
 
-			if(this.ctx.blockAccess.isBlockNormalCube(var2, var3, var4 - 1) && this.ctx.blockAccess.getBlockId(var2, var3 + 1, var4 - 1) == Block.redstoneWire.getBlockID()) {
-				var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
-				var5.addVertexWithUV(var2 + 1, var3, (float)var4 + 0.015625F, var15, var21);
-				var5.addVertexWithUV(var2 + 1, (float)(var3 + 1) + 7.0F / 320.0F, (float)var4 + 0.015625F, var17, var21);
-				var5.addVertexWithUV(var2, (float)(var3 + 1) + 7.0F / 320.0F, (float)var4 + 0.015625F, var17, var19);
-				var5.addVertexWithUV(var2, var3, (float)var4 + 0.015625F, var15, var19);
-				var5.setColorOpaque_F(var8, var8, var8);
-				var5.addVertexWithUV(var2 + 1, var3, (float)var4 + 0.015625F, var15, var21 + 1.0D / 16.0D);
-				var5.addVertexWithUV(var2 + 1, (float)(var3 + 1) + 7.0F / 320.0F, (float)var4 + 0.015625F, var17, var21 + 1.0D / 16.0D);
-				var5.addVertexWithUV(var2, (float)(var3 + 1) + 7.0F / 320.0F, (float)var4 + 0.015625F, var17, var19 + 1.0D / 16.0D);
-				var5.addVertexWithUV(var2, var3, (float)var4 + 0.015625F, var15, var19 + 1.0D / 16.0D);
+			if(this.ctx.blockAccess.isBlockNormalCube(var2, var3, var4 - 1)) {
+				if (this.ctx.blockAccess.getBlockId(var2, var3 + 1, var4 - 1) == Block.redstoneWire.blockID) {
+					var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
+					var5.addVertexWithUV(var2 + 1, var3, (float) var4 + 0.015625F, var15, var21);
+					var5.addVertexWithUV(var2 + 1, (float) (var3 + 1) + 7.0F / 320.0F, (float) var4 + 0.015625F, var17, var21);
+					var5.addVertexWithUV(var2, (float) (var3 + 1) + 7.0F / 320.0F, (float) var4 + 0.015625F, var17, var19);
+					var5.addVertexWithUV(var2, var3, (float) var4 + 0.015625F, var15, var19);
+					var5.setColorOpaque_F(var8, var8, var8);
+					var5.addVertexWithUV(var2 + 1, var3, (float) var4 + 0.015625F, var15, var21 + 1.0D / 16.0D);
+					var5.addVertexWithUV(var2 + 1, (float) (var3 + 1) + 7.0F / 320.0F, (float) var4 + 0.015625F, var17, var21 + 1.0D / 16.0D);
+					var5.addVertexWithUV(var2, (float) (var3 + 1) + 7.0F / 320.0F, (float) var4 + 0.015625F, var17, var19 + 1.0D / 16.0D);
+					var5.addVertexWithUV(var2, var3, (float) var4 + 0.015625F, var15, var19 + 1.0D / 16.0D);
+				}
 			}
 
-			if(this.ctx.blockAccess.isBlockNormalCube(var2, var3, var4 + 1) && this.ctx.blockAccess.getBlockId(var2, var3 + 1, var4 + 1) == Block.redstoneWire.getBlockID()) {
-				var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
-				var5.addVertexWithUV(var2 + 1, (float)(var3 + 1) + 7.0F / 320.0F, (float)(var4 + 1) - 0.015625F, var17, var19);
-				var5.addVertexWithUV(var2 + 1, var3, (float)(var4 + 1) - 0.015625F, var15, var19);
-				var5.addVertexWithUV(var2, var3, (float)(var4 + 1) - 0.015625F, var15, var21);
-				var5.addVertexWithUV(var2, (float)(var3 + 1) + 7.0F / 320.0F, (float)(var4 + 1) - 0.015625F, var17, var21);
-				var5.setColorOpaque_F(var8, var8, var8);
-				var5.addVertexWithUV(var2 + 1, (float)(var3 + 1) + 7.0F / 320.0F, (float)(var4 + 1) - 0.015625F, var17, var19 + 1.0D / 16.0D);
-				var5.addVertexWithUV(var2 + 1, var3, (float)(var4 + 1) - 0.015625F, var15, var19 + 1.0D / 16.0D);
-				var5.addVertexWithUV(var2, var3, (float)(var4 + 1) - 0.015625F, var15, var21 + 1.0D / 16.0D);
-				var5.addVertexWithUV(var2, (float)(var3 + 1) + 7.0F / 320.0F, (float)(var4 + 1) - 0.015625F, var17, var21 + 1.0D / 16.0D);
+			if(this.ctx.blockAccess.isBlockNormalCube(var2, var3, var4 + 1)) {
+				if (this.ctx.blockAccess.getBlockId(var2, var3 + 1, var4 + 1) == Block.redstoneWire.blockID) {
+					var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
+					var5.addVertexWithUV(var2 + 1, (float) (var3 + 1) + 7.0F / 320.0F, (float) (var4 + 1) - 0.015625F, var17, var19);
+					var5.addVertexWithUV(var2 + 1, var3, (float) (var4 + 1) - 0.015625F, var15, var19);
+					var5.addVertexWithUV(var2, var3, (float) (var4 + 1) - 0.015625F, var15, var21);
+					var5.addVertexWithUV(var2, (float) (var3 + 1) + 7.0F / 320.0F, (float) (var4 + 1) - 0.015625F, var17, var21);
+					var5.setColorOpaque_F(var8, var8, var8);
+					var5.addVertexWithUV(var2 + 1, (float) (var3 + 1) + 7.0F / 320.0F, (float) (var4 + 1) - 0.015625F, var17, var19 + 1.0D / 16.0D);
+					var5.addVertexWithUV(var2 + 1, var3, (float) (var4 + 1) - 0.015625F, var15, var19 + 1.0D / 16.0D);
+					var5.addVertexWithUV(var2, var3, (float) (var4 + 1) - 0.015625F, var15, var21 + 1.0D / 16.0D);
+					var5.addVertexWithUV(var2, (float) (var3 + 1) + 7.0F / 320.0F, (float) (var4 + 1) - 0.015625F, var17, var21 + 1.0D / 16.0D);
+				}
 			}
 		}
 
@@ -1515,7 +1523,7 @@ public class RenderBlocks {
 			float var17 = 0.6F;
 			double var18 = 0.0D;
 			double var20 = 1.0D;
-			Material var22 = var1.getBlockMaterial();
+			Material var22 = var1.blockMaterial;
 			int var23 = this.ctx.blockAccess.getBlockMetadata(var2, var3, var4);
 			float var24 = this.func_1224_a(var2, var3, var4, var22);
 			float var25 = this.func_1224_a(var2, var3, var4 + 1, var22);
@@ -1639,8 +1647,8 @@ public class RenderBlocks {
 				}
 			}
 
-			var1.setMinY(var18);
-			var1.setMaxY(var20);
+			var1.minY = var18;
+			var1.maxY = var20;
 			return var13;
 		}
 	}
@@ -1779,7 +1787,7 @@ public class RenderBlocks {
 		this.field_22339_T = Block.canBlockGrass[this.ctx.blockAccess.getBlockId(var2, var3 + 1, var4 - 1)];
 		this.field_22355_ae = Block.canBlockGrass[this.ctx.blockAccess.getBlockId(var2, var3 - 1, var4 + 1)];
 		this.field_22361_ab = Block.canBlockGrass[this.ctx.blockAccess.getBlockId(var2, var3 - 1, var4 - 1)];
-		if(var1.getBlockIndexInTexture() == 3) {
+		if(var1.blockIndexInTexture == 3) {
 			var18 = false;
 			var17 = var18;
 			var16 = var18;
@@ -2283,8 +2291,10 @@ public class RenderBlocks {
 
 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2, var3 + 1, var4, 1)) {
 			var27 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3 + 1, var4);
-			if(var1.getMaxY() != 1.0D && !var1.getBlockMaterial().getIsLiquid()) {
-				var27 = var26;
+			if(var1.maxY != 1.0D) {
+				if (!var1.blockMaterial.isLiquid()) {
+					var27 = var26;
+				}
 			}
 
 			var8.setColorOpaque_F(var14 * var27, var15 * var27, var16 * var27);
@@ -2295,7 +2305,7 @@ public class RenderBlocks {
 		int var28;
 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2, var3, var4 - 1, 2)) {
 			var27 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4 - 1);
-			if(var1.getMinZ() > 0.0D) {
+			if(var1.minZ > 0.0D) {
 				var27 = var26;
 			}
 
@@ -2312,7 +2322,7 @@ public class RenderBlocks {
 
 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2, var3, var4 + 1, 3)) {
 			var27 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4 + 1);
-			if(var1.getMaxZ() < 1.0D) {
+			if(var1.maxZ < 1.0D) {
 				var27 = var26;
 			}
 
@@ -2329,7 +2339,7 @@ public class RenderBlocks {
 
 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2 - 1, var3, var4, 4)) {
 			var27 = var1.getBlockBrightness(this.ctx.blockAccess, var2 - 1, var3, var4);
-			if(var1.getMinX() > 0.0D) {
+			if(var1.minX > 0.0D) {
 				var27 = var26;
 			}
 
@@ -2346,7 +2356,7 @@ public class RenderBlocks {
 
 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2 + 1, var3, var4, 5)) {
 			var27 = var1.getBlockBrightness(this.ctx.blockAccess, var2 + 1, var3, var4);
-			if(var1.getMaxX() < 1.0D) {
+			if(var1.maxX < 1.0D) {
 				var27 = var26;
 			}
 
@@ -2412,8 +2422,10 @@ public class RenderBlocks {
 
 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2, var3 + 1, var4, 1)) {
 			var28 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3 + 1, var4);
-			if(var1.getMaxY() != 1.0D && !var1.getBlockMaterial().getIsLiquid()) {
-				var28 = var27;
+			if(var1.maxY != 1.0D) {
+				if (!var1.blockMaterial.isLiquid()) {
+					var28 = var27;
+				}
 			}
 
 			var8.setColorOpaque_F(var15 * var28, var19 * var28, var23 * var28);
@@ -2423,7 +2435,7 @@ public class RenderBlocks {
 
 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2, var3, var4 - 1, 2)) {
 			var28 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4 - 1);
-			if(var1.getMinZ() > 0.0D) {
+			if(var1.minZ > 0.0D) {
 				var28 = var27;
 			}
 
@@ -2436,7 +2448,7 @@ public class RenderBlocks {
 
 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2, var3, var4 + 1, 3)) {
 			var28 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4 + 1);
-			if(var1.getMaxZ() < 1.0D) {
+			if(var1.maxZ < 1.0D) {
 				var28 = var27;
 			}
 
@@ -2449,7 +2461,7 @@ public class RenderBlocks {
 
 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2 - 1, var3, var4, 4)) {
 			var28 = var1.getBlockBrightness(this.ctx.blockAccess, var2 - 1, var3, var4);
-			if(var1.getMinX() > 0.0D) {
+			if(var1.minX > 0.0D) {
 				var28 = var27;
 			}
 
@@ -2462,7 +2474,7 @@ public class RenderBlocks {
 
 		if(this.renderAllFaces || var1.shouldSideBeRendered(this.ctx.blockAccess, var2 + 1, var3, var4, 5)) {
 			var28 = var1.getBlockBrightness(this.ctx.blockAccess, var2 + 1, var3, var4);
-			if(var1.getMaxX() < 1.0D) {
+			if(var1.maxX < 1.0D) {
 				var28 = var27;
 			}
 
@@ -2485,18 +2497,18 @@ public class RenderBlocks {
 		var5 = true;
 		boolean var8 = false;
 		boolean var9 = false;
-		if(this.ctx.blockAccess.getBlockId(var2 - 1, var3, var4) == var1.getBlockID() || this.ctx.blockAccess.getBlockId(var2 + 1, var3, var4) == var1.getBlockID()) {
+		if(this.ctx.blockAccess.getBlockId(var2 - 1, var3, var4) == var1.blockID || this.ctx.blockAccess.getBlockId(var2 + 1, var3, var4) == var1.blockID) {
 			var8 = true;
 		}
 
-		if(this.ctx.blockAccess.getBlockId(var2, var3, var4 - 1) == var1.getBlockID() || this.ctx.blockAccess.getBlockId(var2, var3, var4 + 1) == var1.getBlockID()) {
+		if(this.ctx.blockAccess.getBlockId(var2, var3, var4 - 1) == var1.blockID || this.ctx.blockAccess.getBlockId(var2, var3, var4 + 1) == var1.blockID) {
 			var9 = true;
 		}
 
-		boolean var10 = this.ctx.blockAccess.getBlockId(var2 - 1, var3, var4) == var1.getBlockID();
-		boolean var11 = this.ctx.blockAccess.getBlockId(var2 + 1, var3, var4) == var1.getBlockID();
-		boolean var12 = this.ctx.blockAccess.getBlockId(var2, var3, var4 - 1) == var1.getBlockID();
-		boolean var13 = this.ctx.blockAccess.getBlockId(var2, var3, var4 + 1) == var1.getBlockID();
+		boolean var10 = this.ctx.blockAccess.getBlockId(var2 - 1, var3, var4) == var1.blockID;
+		boolean var11 = this.ctx.blockAccess.getBlockId(var2 + 1, var3, var4) == var1.blockID;
+		boolean var12 = this.ctx.blockAccess.getBlockId(var2, var3, var4 - 1) == var1.blockID;
+		boolean var13 = this.ctx.blockAccess.getBlockId(var2, var3, var4 + 1) == var1.blockID;
 		if(!var8 && !var9) {
 			var8 = true;
 		}
@@ -2582,11 +2594,11 @@ public class RenderBlocks {
 		float var11 = 0.6F;
 		float var12 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4);
 		float var13 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3 - 1, var4);
-		if(var6.getMinY() > 0.0D) {
+		if(var6.minY > 0.0D) {
 			var13 = var12;
 		}
 
-		if(Block.lightValue[var1.getBlockID()] > 0) {
+		if(Block.lightValue[var1.blockID] > 0) {
 			var13 = 1.0F;
 		}
 
@@ -2594,11 +2606,11 @@ public class RenderBlocks {
 		this.renderBottomFace(var1, var2, var3, var4, var1.getBlockTexture(this.ctx.blockAccess, var2, var3, var4, 0));
 		var7 = true;
 		var13 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3 + 1, var4);
-		if(var6.getMaxY() < 1.0D) {
+		if(var6.maxY < 1.0D) {
 			var13 = var12;
 		}
 
-		if(Block.lightValue[var1.getBlockID()] > 0) {
+		if(Block.lightValue[var1.blockID] > 0) {
 			var13 = 1.0F;
 		}
 
@@ -2606,11 +2618,11 @@ public class RenderBlocks {
 		this.renderTopFace(var1, var2, var3, var4, var1.getBlockTexture(this.ctx.blockAccess, var2, var3, var4, 1));
 		var7 = true;
 		var13 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4 - 1);
-		if(var6.getMinZ() > 0.0D) {
+		if(var6.minZ > 0.0D) {
 			var13 = var12;
 		}
 
-		if(Block.lightValue[var1.getBlockID()] > 0) {
+		if(Block.lightValue[var1.blockID] > 0) {
 			var13 = 1.0F;
 		}
 
@@ -2625,11 +2637,11 @@ public class RenderBlocks {
 		var7 = true;
 		this.flipTexture = false;
 		var13 = var1.getBlockBrightness(this.ctx.blockAccess, var2, var3, var4 + 1);
-		if(var6.getMaxZ() < 1.0D) {
+		if(var6.maxZ < 1.0D) {
 			var13 = var12;
 		}
 
-		if(Block.lightValue[var1.getBlockID()] > 0) {
+		if(Block.lightValue[var1.blockID] > 0) {
 			var13 = 1.0F;
 		}
 
@@ -2644,11 +2656,11 @@ public class RenderBlocks {
 		var7 = true;
 		this.flipTexture = false;
 		var13 = var1.getBlockBrightness(this.ctx.blockAccess, var2 - 1, var3, var4);
-		if(var6.getMinX() > 0.0D) {
+		if(var6.minX > 0.0D) {
 			var13 = var12;
 		}
 
-		if(Block.lightValue[var1.getBlockID()] > 0) {
+		if(Block.lightValue[var1.blockID] > 0) {
 			var13 = 1.0F;
 		}
 
@@ -2663,11 +2675,11 @@ public class RenderBlocks {
 		var7 = true;
 		this.flipTexture = false;
 		var13 = var1.getBlockBrightness(this.ctx.blockAccess, var2 + 1, var3, var4);
-		if(var6.getMaxX() < 1.0D) {
+		if(var6.maxX < 1.0D) {
 			var13 = var12;
 		}
 
-		if(Block.lightValue[var1.getBlockID()] > 0) {
+		if(Block.lightValue[var1.blockID] > 0) {
 			var13 = 1.0F;
 		}
 
@@ -2692,16 +2704,16 @@ public class RenderBlocks {
 
 		int var10 = (var8 & 15) << 4;
 		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.getMinX() * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.getMaxX() * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)var11 + var1.getMinZ() * 16.0D) / 256.0D;
-		double var18 = ((double)var11 + var1.getMaxZ() * 16.0D - 0.01D) / 256.0D;
-		if(var1.getMinX() < 0.0D || var1.getMaxX() > 1.0D) {
+		double var12 = ((double)var10 + var1.minX * 16.0D) / 256.0D;
+		double var14 = ((double)var10 + var1.maxX * 16.0D - 0.01D) / 256.0D;
+		double var16 = ((double)var11 + var1.minZ * 16.0D) / 256.0D;
+		double var18 = ((double)var11 + var1.maxZ * 16.0D - 0.01D) / 256.0D;
+		if(var1.minX < 0.0D || var1.maxX > 1.0D) {
 			var12 = ((float)var10 + 0.0F) / 256.0F;
 			var14 = ((float)var10 + 15.99F) / 256.0F;
 		}
 
-		if(var1.getMinZ() < 0.0D || var1.getMaxZ() > 1.0D) {
+		if(var1.minZ < 0.0D || var1.maxZ > 1.0D) {
 			var16 = ((float)var11 + 0.0F) / 256.0F;
 			var18 = ((float)var11 + 15.99F) / 256.0F;
 		}
@@ -2711,10 +2723,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31082_l == 2) {
-			var12 = ((double)var10 + var1.getMinZ() * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.getMaxX() * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.getMaxZ() * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.getMinX() * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minZ * 16.0D) / 256.0D;
+			var16 = ((double)(var11 + 16) - var1.maxX * 16.0D) / 256.0D;
+			var14 = ((double)var10 + var1.maxZ * 16.0D) / 256.0D;
+			var18 = ((double)(var11 + 16) - var1.minX * 16.0D) / 256.0D;
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -2722,10 +2734,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31082_l == 1) {
-			var12 = ((double)(var10 + 16) - var1.getMaxZ() * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.getMinX() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMinZ() * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.getMaxX() * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxZ * 16.0D) / 256.0D;
+			var16 = ((double)var11 + var1.minX * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.minZ * 16.0D) / 256.0D;
+			var18 = ((double)var11 + var1.maxX * 16.0D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -2733,21 +2745,21 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31082_l == 3) {
-			var12 = ((double)(var10 + 16) - var1.getMinX() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMaxX() * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.getMinZ() * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.getMaxZ() * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / 256.0D;
+			var16 = ((double)(var11 + 16) - var1.minZ * 16.0D) / 256.0D;
+			var18 = ((double)(var11 + 16) - var1.maxZ * 16.0D - 0.01D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
 			var26 = var18;
 		}
 
-		double var28 = var2 + var1.getMinX();
-		double var30 = var2 + var1.getMaxX();
-		double var32 = var4 + var1.getMinY();
-		double var34 = var6 + var1.getMinZ();
-		double var36 = var6 + var1.getMaxZ();
+		double var28 = var2 + var1.minX;
+		double var30 = var2 + var1.maxX;
+		double var32 = var4 + var1.minY;
+		double var34 = var6 + var1.minZ;
+		double var36 = var6 + var1.maxZ;
 		if(this.enableAO) {
 			var9.setColorOpaque_F(this.ctx.colorRedTopLeft, this.ctx.colorGreenTopLeft, this.ctx.colorBlueTopLeft);
 			var9.addVertexWithUV(var28, var32, var36, var22, var26);
@@ -2774,16 +2786,16 @@ public class RenderBlocks {
 
 		int var10 = (var8 & 15) << 4;
 		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.getMinX() * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.getMaxX() * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)var11 + var1.getMinZ() * 16.0D) / 256.0D;
-		double var18 = ((double)var11 + var1.getMaxZ() * 16.0D - 0.01D) / 256.0D;
-		if(var1.getMinX() < 0.0D || var1.getMaxX() > 1.0D) {
+		double var12 = ((double)var10 + var1.minX * 16.0D) / 256.0D;
+		double var14 = ((double)var10 + var1.maxX * 16.0D - 0.01D) / 256.0D;
+		double var16 = ((double)var11 + var1.minZ * 16.0D) / 256.0D;
+		double var18 = ((double)var11 + var1.maxZ * 16.0D - 0.01D) / 256.0D;
+		if(var1.minX < 0.0D || var1.maxX > 1.0D) {
 			var12 = ((float)var10 + 0.0F) / 256.0F;
 			var14 = ((float)var10 + 15.99F) / 256.0F;
 		}
 
-		if(var1.getMinZ() < 0.0D || var1.getMaxZ() > 1.0D) {
+		if(var1.minZ < 0.0D || var1.maxZ > 1.0D) {
 			var16 = ((float)var11 + 0.0F) / 256.0F;
 			var18 = ((float)var11 + 15.99F) / 256.0F;
 		}
@@ -2793,10 +2805,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31083_k == 1) {
-			var12 = ((double)var10 + var1.getMinZ() * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.getMaxX() * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.getMaxZ() * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.getMinX() * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minZ * 16.0D) / 256.0D;
+			var16 = ((double)(var11 + 16) - var1.maxX * 16.0D) / 256.0D;
+			var14 = ((double)var10 + var1.maxZ * 16.0D) / 256.0D;
+			var18 = ((double)(var11 + 16) - var1.minX * 16.0D) / 256.0D;
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -2804,10 +2816,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31083_k == 2) {
-			var12 = ((double)(var10 + 16) - var1.getMaxZ() * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.getMinX() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMinZ() * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.getMaxX() * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxZ * 16.0D) / 256.0D;
+			var16 = ((double)var11 + var1.minX * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.minZ * 16.0D) / 256.0D;
+			var18 = ((double)var11 + var1.maxX * 16.0D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -2815,21 +2827,21 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31083_k == 3) {
-			var12 = ((double)(var10 + 16) - var1.getMinX() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMaxX() * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.getMinZ() * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.getMaxZ() * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / 256.0D;
+			var16 = ((double)(var11 + 16) - var1.minZ * 16.0D) / 256.0D;
+			var18 = ((double)(var11 + 16) - var1.maxZ * 16.0D - 0.01D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
 			var26 = var18;
 		}
 
-		double var28 = var2 + var1.getMinX();
-		double var30 = var2 + var1.getMaxX();
-		double var32 = var4 + var1.getMaxY();
-		double var34 = var6 + var1.getMinZ();
-		double var36 = var6 + var1.getMaxZ();
+		double var28 = var2 + var1.minX;
+		double var30 = var2 + var1.maxX;
+		double var32 = var4 + var1.maxY;
+		double var34 = var6 + var1.minZ;
+		double var36 = var6 + var1.maxZ;
 		if(this.enableAO) {
 			var9.setColorOpaque_F(this.ctx.colorRedTopLeft, this.ctx.colorGreenTopLeft, this.ctx.colorBlueTopLeft);
 			var9.addVertexWithUV(var30, var32, var36, var14, var18);
@@ -2856,10 +2868,10 @@ public class RenderBlocks {
 
 		int var10 = (var8 & 15) << 4;
 		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.getMinX() * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.getMaxX() * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)(var11 + 16) - var1.getMaxY() * 16.0D) / 256.0D;
-		double var18 = ((double)(var11 + 16) - var1.getMinY() * 16.0D - 0.01D) / 256.0D;
+		double var12 = ((double)var10 + var1.minX * 16.0D) / 256.0D;
+		double var14 = ((double)var10 + var1.maxX * 16.0D - 0.01D) / 256.0D;
+		double var16 = ((double)(var11 + 16) - var1.maxY * 16.0D) / 256.0D;
+		double var18 = ((double)(var11 + 16) - var1.minY * 16.0D - 0.01D) / 256.0D;
 		double var20;
 		if(this.flipTexture) {
 			var20 = var12;
@@ -2867,12 +2879,12 @@ public class RenderBlocks {
 			var14 = var20;
 		}
 
-		if(var1.getMinX() < 0.0D || var1.getMaxX() > 1.0D) {
+		if(var1.minX < 0.0D || var1.maxX > 1.0D) {
 			var12 = ((float)var10 + 0.0F) / 256.0F;
 			var14 = ((float)var10 + 15.99F) / 256.0F;
 		}
 
-		if(var1.getMinY() < 0.0D || var1.getMaxY() > 1.0D) {
+		if(var1.minY < 0.0D || var1.maxY > 1.0D) {
 			var16 = ((float)var11 + 0.0F) / 256.0F;
 			var18 = ((float)var11 + 15.99F) / 256.0F;
 		}
@@ -2882,10 +2894,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31087_g == 2) {
-			var12 = ((double)var10 + var1.getMinY() * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.getMinX() * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.getMaxY() * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.getMaxX() * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minY * 16.0D) / 256.0D;
+			var16 = ((double)(var11 + 16) - var1.minX * 16.0D) / 256.0D;
+			var14 = ((double)var10 + var1.maxY * 16.0D) / 256.0D;
+			var18 = ((double)(var11 + 16) - var1.maxX * 16.0D) / 256.0D;
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -2893,10 +2905,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31087_g == 1) {
-			var12 = ((double)(var10 + 16) - var1.getMaxY() * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.getMaxX() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMinY() * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.getMinX() * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / 256.0D;
+			var16 = ((double)var11 + var1.maxX * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / 256.0D;
+			var18 = ((double)var11 + var1.minX * 16.0D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -2904,21 +2916,21 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31087_g == 3) {
-			var12 = ((double)(var10 + 16) - var1.getMinX() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMaxX() * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)var11 + var1.getMaxY() * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.getMinY() * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / 256.0D;
+			var16 = ((double)var11 + var1.maxY * 16.0D) / 256.0D;
+			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
 			var26 = var18;
 		}
 
-		double var28 = var2 + var1.getMinX();
-		double var30 = var2 + var1.getMaxX();
-		double var32 = var4 + var1.getMinY();
-		double var34 = var4 + var1.getMaxY();
-		double var36 = var6 + var1.getMinZ();
+		double var28 = var2 + var1.minX;
+		double var30 = var2 + var1.maxX;
+		double var32 = var4 + var1.minY;
+		double var34 = var4 + var1.maxY;
+		double var36 = var6 + var1.minZ;
 		if(this.enableAO) {
 			var9.setColorOpaque_F(this.ctx.colorRedTopLeft, this.ctx.colorGreenTopLeft, this.ctx.colorBlueTopLeft);
 			var9.addVertexWithUV(var28, var34, var36, var20, var24);
@@ -2945,10 +2957,10 @@ public class RenderBlocks {
 
 		int var10 = (var8 & 15) << 4;
 		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.getMinX() * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.getMaxX() * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)(var11 + 16) - var1.getMaxY() * 16.0D) / 256.0D;
-		double var18 = ((double)(var11 + 16) - var1.getMinY() * 16.0D - 0.01D) / 256.0D;
+		double var12 = ((double)var10 + var1.minX * 16.0D) / 256.0D;
+		double var14 = ((double)var10 + var1.maxX * 16.0D - 0.01D) / 256.0D;
+		double var16 = ((double)(var11 + 16) - var1.maxY * 16.0D) / 256.0D;
+		double var18 = ((double)(var11 + 16) - var1.minY * 16.0D - 0.01D) / 256.0D;
 		double var20;
 		if(this.flipTexture) {
 			var20 = var12;
@@ -2956,12 +2968,12 @@ public class RenderBlocks {
 			var14 = var20;
 		}
 
-		if(var1.getMinX() < 0.0D || var1.getMaxX() > 1.0D) {
+		if(var1.minX < 0.0D || var1.maxX > 1.0D) {
 			var12 = ((float)var10 + 0.0F) / 256.0F;
 			var14 = ((float)var10 + 15.99F) / 256.0F;
 		}
 
-		if(var1.getMinY() < 0.0D || var1.getMaxY() > 1.0D) {
+		if(var1.minY < 0.0D || var1.maxY > 1.0D) {
 			var16 = ((float)var11 + 0.0F) / 256.0F;
 			var18 = ((float)var11 + 15.99F) / 256.0F;
 		}
@@ -2971,10 +2983,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31086_h == 1) {
-			var12 = ((double)var10 + var1.getMinY() * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.getMinX() * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.getMaxY() * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.getMaxX() * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minY * 16.0D) / 256.0D;
+			var18 = ((double)(var11 + 16) - var1.minX * 16.0D) / 256.0D;
+			var14 = ((double)var10 + var1.maxY * 16.0D) / 256.0D;
+			var16 = ((double)(var11 + 16) - var1.maxX * 16.0D) / 256.0D;
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -2982,10 +2994,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31086_h == 2) {
-			var12 = ((double)(var10 + 16) - var1.getMaxY() * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.getMinX() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMinY() * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.getMaxX() * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / 256.0D;
+			var16 = ((double)var11 + var1.minX * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / 256.0D;
+			var18 = ((double)var11 + var1.maxX * 16.0D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -2993,21 +3005,21 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31086_h == 3) {
-			var12 = ((double)(var10 + 16) - var1.getMinX() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMaxX() * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)var11 + var1.getMaxY() * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.getMinY() * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minX * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.maxX * 16.0D - 0.01D) / 256.0D;
+			var16 = ((double)var11 + var1.maxY * 16.0D) / 256.0D;
+			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
 			var26 = var18;
 		}
 
-		double var28 = var2 + var1.getMinX();
-		double var30 = var2 + var1.getMaxX();
-		double var32 = var4 + var1.getMinY();
-		double var34 = var4 + var1.getMaxY();
-		double var36 = var6 + var1.getMaxZ();
+		double var28 = var2 + var1.minX;
+		double var30 = var2 + var1.maxX;
+		double var32 = var4 + var1.minY;
+		double var34 = var4 + var1.maxY;
+		double var36 = var6 + var1.maxZ;
 		if(this.enableAO) {
 			var9.setColorOpaque_F(this.ctx.colorRedTopLeft, this.ctx.colorGreenTopLeft, this.ctx.colorBlueTopLeft);
 			var9.addVertexWithUV(var28, var34, var36, var12, var16);
@@ -3034,10 +3046,10 @@ public class RenderBlocks {
 
 		int var10 = (var8 & 15) << 4;
 		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.getMinZ() * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.getMaxZ() * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)(var11 + 16) - var1.getMaxY() * 16.0D) / 256.0D;
-		double var18 = ((double)(var11 + 16) - var1.getMinY() * 16.0D - 0.01D) / 256.0D;
+		double var12 = ((double)var10 + var1.minZ * 16.0D) / 256.0D;
+		double var14 = ((double)var10 + var1.maxZ * 16.0D - 0.01D) / 256.0D;
+		double var16 = ((double)(var11 + 16) - var1.maxY * 16.0D) / 256.0D;
+		double var18 = ((double)(var11 + 16) - var1.minY * 16.0D - 0.01D) / 256.0D;
 		double var20;
 		if(this.flipTexture) {
 			var20 = var12;
@@ -3045,12 +3057,12 @@ public class RenderBlocks {
 			var14 = var20;
 		}
 
-		if(var1.getMinZ() < 0.0D || var1.getMaxZ() > 1.0D) {
+		if(var1.minZ < 0.0D || var1.maxZ > 1.0D) {
 			var12 = ((float)var10 + 0.0F) / 256.0F;
 			var14 = ((float)var10 + 15.99F) / 256.0F;
 		}
 
-		if(var1.getMinY() < 0.0D || var1.getMaxY() > 1.0D) {
+		if(var1.minY < 0.0D || var1.maxY > 1.0D) {
 			var16 = ((float)var11 + 0.0F) / 256.0F;
 			var18 = ((float)var11 + 15.99F) / 256.0F;
 		}
@@ -3060,10 +3072,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31084_j == 1) {
-			var12 = ((double)var10 + var1.getMinY() * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.getMaxZ() * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.getMaxY() * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.getMinZ() * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minY * 16.0D) / 256.0D;
+			var16 = ((double)(var11 + 16) - var1.maxZ * 16.0D) / 256.0D;
+			var14 = ((double)var10 + var1.maxY * 16.0D) / 256.0D;
+			var18 = ((double)(var11 + 16) - var1.minZ * 16.0D) / 256.0D;
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -3071,10 +3083,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31084_j == 2) {
-			var12 = ((double)(var10 + 16) - var1.getMaxY() * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.getMinZ() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMinY() * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.getMaxZ() * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / 256.0D;
+			var16 = ((double)var11 + var1.minZ * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / 256.0D;
+			var18 = ((double)var11 + var1.maxZ * 16.0D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -3082,21 +3094,21 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31084_j == 3) {
-			var12 = ((double)(var10 + 16) - var1.getMinZ() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMaxZ() * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)var11 + var1.getMaxY() * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.getMinY() * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minZ * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.maxZ * 16.0D - 0.01D) / 256.0D;
+			var16 = ((double)var11 + var1.maxY * 16.0D) / 256.0D;
+			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
 			var26 = var18;
 		}
 
-		double var28 = var2 + var1.getMinX();
-		double var30 = var4 + var1.getMinY();
-		double var32 = var4 + var1.getMaxY();
-		double var34 = var6 + var1.getMinZ();
-		double var36 = var6 + var1.getMaxZ();
+		double var28 = var2 + var1.minX;
+		double var30 = var4 + var1.minY;
+		double var32 = var4 + var1.maxY;
+		double var34 = var6 + var1.minZ;
+		double var36 = var6 + var1.maxZ;
 		if(this.enableAO) {
 			var9.setColorOpaque_F(this.ctx.colorRedTopLeft, this.ctx.colorGreenTopLeft, this.ctx.colorBlueTopLeft);
 			var9.addVertexWithUV(var28, var32, var36, var20, var24);
@@ -3123,10 +3135,10 @@ public class RenderBlocks {
 
 		int var10 = (var8 & 15) << 4;
 		int var11 = var8 & 240;
-		double var12 = ((double)var10 + var1.getMinZ() * 16.0D) / 256.0D;
-		double var14 = ((double)var10 + var1.getMaxZ() * 16.0D - 0.01D) / 256.0D;
-		double var16 = ((double)(var11 + 16) - var1.getMaxY() * 16.0D) / 256.0D;
-		double var18 = ((double)(var11 + 16) - var1.getMinY() * 16.0D - 0.01D) / 256.0D;
+		double var12 = ((double)var10 + var1.minZ * 16.0D) / 256.0D;
+		double var14 = ((double)var10 + var1.maxZ * 16.0D - 0.01D) / 256.0D;
+		double var16 = ((double)(var11 + 16) - var1.maxY * 16.0D) / 256.0D;
+		double var18 = ((double)(var11 + 16) - var1.minY * 16.0D - 0.01D) / 256.0D;
 		double var20;
 		if(this.flipTexture) {
 			var20 = var12;
@@ -3134,12 +3146,12 @@ public class RenderBlocks {
 			var14 = var20;
 		}
 
-		if(var1.getMinZ() < 0.0D || var1.getMaxZ() > 1.0D) {
+		if(var1.minZ < 0.0D || var1.maxZ > 1.0D) {
 			var12 = ((float)var10 + 0.0F) / 256.0F;
 			var14 = ((float)var10 + 15.99F) / 256.0F;
 		}
 
-		if(var1.getMinY() < 0.0D || var1.getMaxY() > 1.0D) {
+		if(var1.minY < 0.0D || var1.maxY > 1.0D) {
 			var16 = ((float)var11 + 0.0F) / 256.0F;
 			var18 = ((float)var11 + 15.99F) / 256.0F;
 		}
@@ -3149,10 +3161,10 @@ public class RenderBlocks {
 		double var24 = var16;
 		double var26 = var18;
 		if(this.field_31085_i == 2) {
-			var12 = ((double)var10 + var1.getMinY() * 16.0D) / 256.0D;
-			var16 = ((double)(var11 + 16) - var1.getMinZ() * 16.0D) / 256.0D;
-			var14 = ((double)var10 + var1.getMaxY() * 16.0D) / 256.0D;
-			var18 = ((double)(var11 + 16) - var1.getMaxZ() * 16.0D) / 256.0D;
+			var12 = ((double)var10 + var1.minY * 16.0D) / 256.0D;
+			var16 = ((double)(var11 + 16) - var1.minZ * 16.0D) / 256.0D;
+			var14 = ((double)var10 + var1.maxY * 16.0D) / 256.0D;
+			var18 = ((double)(var11 + 16) - var1.maxZ * 16.0D) / 256.0D;
 			var24 = var16;
 			var26 = var18;
 			var20 = var12;
@@ -3160,10 +3172,10 @@ public class RenderBlocks {
 			var16 = var18;
 			var18 = var24;
 		} else if(this.field_31085_i == 1) {
-			var12 = ((double)(var10 + 16) - var1.getMaxY() * 16.0D) / 256.0D;
-			var16 = ((double)var11 + var1.getMaxZ() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMinY() * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.getMinZ() * 16.0D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.maxY * 16.0D) / 256.0D;
+			var16 = ((double)var11 + var1.maxZ * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.minY * 16.0D) / 256.0D;
+			var18 = ((double)var11 + var1.minZ * 16.0D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var12 = var14;
@@ -3171,21 +3183,21 @@ public class RenderBlocks {
 			var24 = var18;
 			var26 = var16;
 		} else if(this.field_31085_i == 3) {
-			var12 = ((double)(var10 + 16) - var1.getMinZ() * 16.0D) / 256.0D;
-			var14 = ((double)(var10 + 16) - var1.getMaxZ() * 16.0D - 0.01D) / 256.0D;
-			var16 = ((double)var11 + var1.getMaxY() * 16.0D) / 256.0D;
-			var18 = ((double)var11 + var1.getMinY() * 16.0D - 0.01D) / 256.0D;
+			var12 = ((double)(var10 + 16) - var1.minZ * 16.0D) / 256.0D;
+			var14 = ((double)(var10 + 16) - var1.maxZ * 16.0D - 0.01D) / 256.0D;
+			var16 = ((double)var11 + var1.maxY * 16.0D) / 256.0D;
+			var18 = ((double)var11 + var1.minY * 16.0D - 0.01D) / 256.0D;
 			var20 = var14;
 			var22 = var12;
 			var24 = var16;
 			var26 = var18;
 		}
 
-		double var28 = var2 + var1.getMaxX();
-		double var30 = var4 + var1.getMinY();
-		double var32 = var4 + var1.getMaxY();
-		double var34 = var6 + var1.getMinZ();
-		double var36 = var6 + var1.getMaxZ();
+		double var28 = var2 + var1.maxX;
+		double var30 = var4 + var1.minY;
+		double var32 = var4 + var1.maxY;
+		double var34 = var6 + var1.minZ;
+		double var36 = var6 + var1.maxZ;
 		if(this.enableAO) {
 			var9.setColorOpaque_F(this.ctx.colorRedTopLeft, this.ctx.colorGreenTopLeft, this.ctx.colorBlueTopLeft);
 			var9.addVertexWithUV(var28, var30, var36, var22, var26);

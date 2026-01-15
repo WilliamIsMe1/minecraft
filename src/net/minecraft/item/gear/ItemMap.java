@@ -91,9 +91,9 @@ public class ItemMap extends ItemMapBase {
 								var33 = var21 + var22 * 231871;
 								var33 = var33 * var33 * 31287121 + var33 * 11;
 								if((var33 >> 20 & 1) == 0) {
-									var26[Block.dirt.getBlockID()] += 10;
+									var26[Block.dirt.blockID] += 10;
 								} else {
-									var26[Block.stone.getBlockID()] += 10;
+									var26[Block.stone.blockID] += 10;
 								}
 
 								var31 = 100.0D;
@@ -111,8 +111,12 @@ public class ItemMap extends ItemMapBase {
 												var36 = var27.getBlockID(var33 + var28, var35 - 1, var34 + var29);
 												if(var36 == 0) {
 													var37 = false;
-												} else if(var35 > 0 && var36 > 0 && Block.blocksList[var36].getBlockMaterial().materialMapColor == net.minecraft.map.MapColor.airColor) {
-													var37 = false;
+												} else {
+													if(var35 > 0 && var36 > 0) {
+														if (Block.blocksList[var36].blockMaterial.materialMapColor == net.minecraft.map.MapColor.airColor) {
+															var37 = false;
+														}
+													}
 												}
 
 												if(!var37) {
@@ -121,7 +125,7 @@ public class ItemMap extends ItemMapBase {
 												}
 
 												if(var37) {
-													if(var36 == 0 || !Block.blocksList[var36].getBlockMaterial().getIsLiquid()) {
+													if(var36 == 0 || !Block.blocksList[var36].blockMaterial.isLiquid()) {
 														break;
 													}
 
@@ -131,7 +135,7 @@ public class ItemMap extends ItemMapBase {
 													while(true) {
 														int var43 = var27.getBlockID(var33 + var28, var38--, var34 + var29);
 														++var30;
-														if(var38 <= 0 || var43 == 0 || !Block.blocksList[var43].getBlockMaterial().getIsLiquid()) {
+														if(var38 <= 0 || var43 == 0 || !Block.blocksList[var43].blockMaterial.isLiquid()) {
 															break label164;
 														}
 													}
@@ -171,7 +175,7 @@ public class ItemMap extends ItemMapBase {
 
 							var38 = 0;
 							if(var34 > 0) {
-								net.minecraft.map.MapColor var44 = Block.blocksList[var34].getBlockMaterial().materialMapColor;
+								net.minecraft.map.MapColor var44 = Block.blocksList[var34].blockMaterial.materialMapColor;
 								if(var44 == net.minecraft.map.MapColor.waterColor) {
 									var41 = (double)var30 * 0.1D + (double)(var12 + var17 & 1) * 0.2D;
 									var42 = 1;

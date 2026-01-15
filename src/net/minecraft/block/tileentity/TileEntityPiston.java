@@ -101,7 +101,7 @@ public class TileEntityPiston extends TileEntity {
 			this.field_31020_l = this.field_31022_k = 1.0F;
 			this.worldObj.removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
 			this.func_31005_i();
-			if(this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.pistonMoving.getBlockID()) {
+			if(this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.pistonMoving.blockID) {
 				this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
 			}
 		}
@@ -114,7 +114,7 @@ public class TileEntityPiston extends TileEntity {
 			this.func_31010_a(1.0F, 0.25F);
 			this.worldObj.removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
 			this.func_31005_i();
-			if(this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.pistonMoving.getBlockID()) {
+			if(this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.pistonMoving.blockID) {
 				this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
 			}
 

@@ -14,7 +14,7 @@ public class BlockNote extends BlockContainer {
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return this.getBlockIndexInTexture();
+		return blockIndexInTexture;
 	}
 
 	public void onNeighborBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {

@@ -1,4 +1,4 @@
-package net.minecraft.core;
+package net.minecraft.entity;
 
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.material.Material;
@@ -8,7 +8,6 @@ import net.minecraft.entity.living.creature.animal.EntitySheep;
 import net.minecraft.entity.living.creature.mob.EntitySkeleton;
 import net.minecraft.entity.living.creature.mob.EntitySpider;
 import net.minecraft.entity.living.creature.mob.EntityZombie;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.pathfinding.PathEntity;
 import net.minecraft.entity.pathfinding.PathPoint;
 import net.minecraft.entity.pathfinding.Pathfinder;
@@ -170,7 +169,7 @@ public final class SpawnerAnimals {
 	}
 
 	private static boolean canCreatureTypeSpawnAtLocation(net.minecraft.entity.EnumCreatureType var0, net.minecraft.world.World var1, int var2, int var3, int var4) {
-		return var0.getCreatureMaterial() == Material.water ? var1.getBlockMaterial(var2, var3, var4).getIsLiquid() && !var1.isBlockNormalCube(var2, var3 + 1, var4) : var1.isBlockNormalCube(var2, var3 - 1, var4) && !var1.isBlockNormalCube(var2, var3, var4) && !var1.getBlockMaterial(var2, var3, var4).getIsLiquid() && !var1.isBlockNormalCube(var2, var3 + 1, var4);
+		return var0.getCreatureMaterial() == Material.water ? var1.getBlockMaterial(var2, var3, var4).isLiquid() && !var1.isBlockNormalCube(var2, var3 + 1, var4) : var1.isBlockNormalCube(var2, var3 - 1, var4) && !var1.isBlockNormalCube(var2, var3, var4) && !var1.getBlockMaterial(var2, var3, var4).isLiquid() && !var1.isBlockNormalCube(var2, var3 + 1, var4);
 	}
 
 	private static void creatureSpecificInit(EntityLiving var0, net.minecraft.world.World var1, float var2, float var3, float var4) {

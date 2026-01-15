@@ -10,7 +10,7 @@ import java.util.Random;
 public class BlockFlower extends Block {
 	public BlockFlower(int var1, int var2) {
 		super(var1, Material.plants);
-		this.setBlockIndexInTexture(var2);
+		this.blockIndexInTexture = var2;
 		this.setTickOnLoad(true);
 		float var3 = 0.2F;
 		this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, var3 * 3.0F, 0.5F + var3);
@@ -21,7 +21,8 @@ public class BlockFlower extends Block {
 	}
 
 	protected boolean canThisPlantGrowOnThisBlockID(int var1) {
-		return var1 == Block.grass.getBlockID() || var1 == Block.dirt.getBlockID() || var1 == Block.tilledField.getBlockID();
+		if (var1 == Block.grass.blockID || var1 == Block.dirt.blockID) return true;
+		return var1 == Block.tilledField.blockID;
 	}
 
 	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {

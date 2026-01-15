@@ -11,14 +11,14 @@ import java.util.Random;
 public class BlockCrops extends BlockFlower {
 	public BlockCrops(int var1, int var2) {
 		super(var1, var2);
-		this.setBlockIndexInTexture(var2);
+		this.blockIndexInTexture = var2;
 		this.setTickOnLoad(true);
 		float var3 = 0.5F;
 		this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 0.25F, 0.5F + var3);
 	}
 
 	protected boolean canThisPlantGrowOnThisBlockID(int var1) {
-		return var1 == Block.tilledField.getBlockID();
+		return var1 == Block.tilledField.blockID;
 	}
 
 	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
@@ -50,17 +50,15 @@ public class BlockCrops extends BlockFlower {
 		int northEastBlock = world.getBlockId(x + 1, y, z - 1);
 		int southEastBlock = world.getBlockId(x + 1, y, z + 1);
 		int southWestBlock = world.getBlockId(x - 1, y, z + 1);
-		boolean areAnyEastWestCropsEqual = westBlock == this.getBlockID() || eastBlock == this.getBlockID();
-		boolean areAnyNorthSouthCropsEqual = northBlock == this.getBlockID() || southBlock == this.getBlockID();
-		boolean areAnyDiagonalCropsEqual = northWestBlock == this.getBlockID() || northEastBlock == this.getBlockID() || southEastBlock == this.getBlockID() || southWestBlock == this.getBlockID();
+		boolean areAnyEastWestCropsEqual = westBlock == blockID || eastBlock == blockID;
+		boolean areAnyNorthSouthCropsEqual = northBlock == blockID || southBlock == blockID;
+		boolean areAnyDiagonalCropsEqual = northWestBlock == blockID || northEastBlock == blockID || southEastBlock == blockID || southWestBlock == blockID;
 
-		for(int currentX = x - 1; currentX <= x + 1; currentX++) { // Loops through all x positions
-			for(int currentZ = z - 1; currentZ <= z + 1; currentZ++) { // Loops through all z positions
-
-				// All this code loops through all the x and z
-				int checkedBlockID = world.getBlockId(currentX, y - 1, currentZ); // checking ground around
+		for(int currentX = x - 1; currentX <= x + 1; currentX++) {
+			for(int currentZ = z - 1; currentZ <= z + 1; currentZ++) {
+				int checkedBlockID = world.getBlockId(currentX, y - 1, currentZ);
 				float checkedBlockModifier = 0.0F;
-				if(checkedBlockID == Block.tilledField.getBlockID()) {
+				if(checkedBlockID == Block.tilledField.blockID) {
 					checkedBlockModifier = 1.0F;
 					if(world.getBlockMetadata(currentX, y - 1, currentZ) > 0) {
 						checkedBlockModifier = 3.0F;
@@ -68,7 +66,7 @@ public class BlockCrops extends BlockFlower {
 				}
 
 				if(currentX != x || currentZ != z) {
-					checkedBlockModifier /= 4.0F; // Less influence if not directly under
+					checkedBlockModifier /= 4.0F;
 				}
 
 				growthRate += checkedBlockModifier;
@@ -76,18 +74,18 @@ public class BlockCrops extends BlockFlower {
 		}
 
 		if(areAnyDiagonalCropsEqual || areAnyEastWestCropsEqual && areAnyNorthSouthCropsEqual) {
-			growthRate /= 2.0F; // Doesn't like if crops are same. Doesn't punish rows and columns though. So long as they aren't + shaped.
+			growthRate /= 2.0F;
 		}
 
 		return growthRate;
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int whichSide, int metadata) {
-		if(metadata < 0) { // Clamp it backwards?
+		if(metadata < 0) {
 			metadata = 7;
 		}
 
-		return this.getBlockIndexInTexture() + metadata;
+		return blockIndexInTexture + metadata;
 	}
 
 	public int getRenderType() {

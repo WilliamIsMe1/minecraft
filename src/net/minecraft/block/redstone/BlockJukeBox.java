@@ -15,7 +15,7 @@ public class BlockJukeBox extends BlockContainer {
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return this.getBlockIndexInTexture() + (var1 == 1 ? 1 : 0);
+		return blockIndexInTexture + (var1 == 1 ? 1 : 0);
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {

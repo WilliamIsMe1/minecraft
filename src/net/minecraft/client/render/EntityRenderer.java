@@ -214,7 +214,7 @@ public class EntityRenderer {
 			GL11.glTranslatef(0.0F, 0.3F, 0.0F);
 			if(!this.mc.gameSettings.field_22273_E) {
 				int var10 = this.mc.theWorld.getBlockId(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
-				if(var10 == Block.blockBed.getBlockID()) {
+				if(var10 == Block.blockBed.blockID) {
 					int var11 = this.mc.theWorld.getBlockMetadata(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
 					int var12 = var11 & 3;
 					GL11.glRotatef((float)(var12 * 90), 0.0F, 1.0F, 0.0F);
@@ -625,17 +625,17 @@ public class EntityRenderer {
 					float var20 = this.random.nextFloat();
 					float var21 = this.random.nextFloat();
 					if(var19 > 0) {
-						if(Block.blocksList[var19].getBlockMaterial() == Material.lava) {
-							this.mc.effectRenderer.addEffect(new EntitySmokeFX(var3, (double)((float)var16 + var20), (double)((float)var18 + 0.1F) - Block.blocksList[var19].getMinY(), (double)((float)var17 + var21), 0.0D, 0.0D, 0.0D));
+						if(Block.blocksList[var19].blockMaterial == Material.lava) {
+							this.mc.effectRenderer.addEffect(new EntitySmokeFX(var3, (double)((float)var16 + var20), (double)((float)var18 + 0.1F) - Block.blocksList[var19].minY, (double)((float)var17 + var21), 0.0D, 0.0D, 0.0D));
 						} else {
 							++var14;
 							if(this.random.nextInt(var14) == 0) {
 								var8 = (double)((float)var16 + var20);
-								var10 = (double)((float)var18 + 0.1F) - Block.blocksList[var19].getMinY();
+								var10 = (double)((float)var18 + 0.1F) - Block.blocksList[var19].minY;
 								var12 = (double)((float)var17 + var21);
 							}
 
-							this.mc.effectRenderer.addEffect(new EntityRainFX(var3, (double)((float)var16 + var20), (double)((float)var18 + 0.1F) - Block.blocksList[var19].getMinY(), (double)((float)var17 + var21)));
+							this.mc.effectRenderer.addEffect(new EntityRainFX(var3, (double)((float)var16 + var20), (double)((float)var18 + 0.1F) - Block.blocksList[var19].minY, (double)((float)var17 + var21)));
 						}
 					}
 				}

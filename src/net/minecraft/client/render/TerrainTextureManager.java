@@ -102,80 +102,82 @@ public class TerrainTextureManager {
 								Block var16 = Block.blocksList[var2.getBlockId(var9, var14, var8)];
 								if(var16 == null) {
 									var13 = false;
-								} else if(var16.getBlockMaterial() == Material.water) {
-									int var24 = var2.getBlockId(var9, var14 + 1, var8);
-									if(var24 == 0 || Block.blocksList[var24].getBlockMaterial() != Material.water) {
-										float var25 = (float)var14 / 127.0F * 0.6F + 0.4F;
-										float var26 = var2.getLightBrightness(var9, var14 + 1, var8) * var25;
-										if(var15 >= 0 && var15 < 160) {
-											int var27 = var12 + var15 * 32;
-											if(var12 >= 0 && var12 <= 32 && this.field_1185_d[var27] <= var14) {
-												this.field_1185_d[var27] = var14;
-												this.field_1184_e[var27] = (int)(var26 * 127.0F);
-											}
-
-											if(var12 >= -1 && var12 <= 31 && this.field_1185_d[var27 + 1] <= var14) {
-												this.field_1185_d[var27 + 1] = var14;
-												this.field_1184_e[var27 + 1] = (int)(var26 * 127.0F);
-											}
-
-											var13 = false;
-										}
-									}
 								} else {
-									if(var13) {
-										if(var15 < this.field_1183_f[var12]) {
-											this.field_1183_f[var12] = var15;
-										}
+									if(var16.blockMaterial == Material.water) {
+										int var24 = var2.getBlockId(var9, var14 + 1, var8);
+										if(var24 == 0 || Block.blocksList[var24].blockMaterial != Material.water) {
+											float var25 = (float)var14 / 127.0F * 0.6F + 0.4F;
+											float var26 = var2.getLightBrightness(var9, var14 + 1, var8) * var25;
+											if(var15 >= 0 && var15 < 160) {
+												int var27 = var12 + var15 * 32;
+												if(var12 >= 0 && var12 <= 32 && this.field_1185_d[var27] <= var14) {
+													this.field_1185_d[var27] = var14;
+													this.field_1184_e[var27] = (int)(var26 * 127.0F);
+												}
 
-										if(var15 < this.field_1183_f[var12 + 1]) {
-											this.field_1183_f[var12 + 1] = var15;
-										}
-									}
+												if(var12 >= -1 && var12 <= 31 && this.field_1185_d[var27 + 1] <= var14) {
+													this.field_1185_d[var27 + 1] = var14;
+													this.field_1184_e[var27 + 1] = (int)(var26 * 127.0F);
+												}
 
-									float var17 = (float)var14 / 127.0F * 0.6F + 0.4F;
-									int var18;
-									int var19;
-									float var20;
-									float var22;
-									if(var15 >= 0 && var15 < 160) {
-										var18 = var12 + var15 * 32;
-										var19 = this.field_1182_g[var16.getBlockID() * 3 + 0];
-										var20 = (var2.getLightBrightness(var9, var14 + 1, var8) * 0.8F + 0.2F) * var17;
-										if(var12 >= 0 && this.field_1186_c[var18] <= var14) {
-											this.field_1186_c[var18] = var14;
-											this.field_1180_b[var18] = -16777216 | (int)(this.field_1181_a[var19 * 3 + 0] * var20) << 16 | (int)(this.field_1181_a[var19 * 3 + 1] * var20) << 8 | (int)(this.field_1181_a[var19 * 3 + 2] * var20);
-										}
-
-										if(var12 < 31) {
-											var22 = var20 * 0.9F;
-											if(this.field_1186_c[var18 + 1] <= var14) {
-												this.field_1186_c[var18 + 1] = var14;
-												this.field_1180_b[var18 + 1] = -16777216 | (int)(this.field_1181_a[var19 * 3 + 0] * var22) << 16 | (int)(this.field_1181_a[var19 * 3 + 1] * var22) << 8 | (int)(this.field_1181_a[var19 * 3 + 2] * var22);
+												var13 = false;
 											}
 										}
-									}
+									} else {
+										if(var13) {
+											if(var15 < this.field_1183_f[var12]) {
+												this.field_1183_f[var12] = var15;
+											}
 
-									if(var15 >= -1 && var15 < 159) {
-										var18 = var12 + (var15 + 1) * 32;
-										var19 = this.field_1182_g[var16.getBlockID() * 3 + 1];
-										var20 = var2.getLightBrightness(var9 - 1, var14, var8) * 0.8F + 0.2F;
-										int var21 = this.field_1182_g[var16.getBlockID() * 3 + 2];
-										var22 = var2.getLightBrightness(var9, var14, var8 + 1) * 0.8F + 0.2F;
-										float var23;
-										if(var12 >= 0) {
-											var23 = var20 * var17 * 0.6F;
-											if(this.field_1186_c[var18] <= var14 - 1) {
-												this.field_1186_c[var18] = var14 - 1;
-												this.field_1180_b[var18] = -16777216 | (int)(this.field_1181_a[var19 * 3 + 0] * var23) << 16 | (int)(this.field_1181_a[var19 * 3 + 1] * var23) << 8 | (int)(this.field_1181_a[var19 * 3 + 2] * var23);
+											if(var15 < this.field_1183_f[var12 + 1]) {
+												this.field_1183_f[var12 + 1] = var15;
 											}
 										}
 
-										if(var12 < 31) {
-											var23 = var22 * 0.9F * var17 * 0.4F;
-											if(this.field_1186_c[var18 + 1] <= var14 - 1) {
-												this.field_1186_c[var18 + 1] = var14 - 1;
-												this.field_1180_b[var18 + 1] = -16777216 | (int)(this.field_1181_a[var21 * 3 + 0] * var23) << 16 | (int)(this.field_1181_a[var21 * 3 + 1] * var23) << 8 | (int)(this.field_1181_a[var21 * 3 + 2] * var23);
+										float var17 = (float)var14 / 127.0F * 0.6F + 0.4F;
+										int var18;
+										int var19;
+										float var20;
+										float var22;
+										if(var15 >= 0 && var15 < 160) {
+											var18 = var12 + var15 * 32;
+											var19 = this.field_1182_g[var16.blockID * 3 + 0];
+											var20 = (var2.getLightBrightness(var9, var14 + 1, var8) * 0.8F + 0.2F) * var17;
+											if(var12 >= 0 && this.field_1186_c[var18] <= var14) {
+												this.field_1186_c[var18] = var14;
+												this.field_1180_b[var18] = -16777216 | (int)(this.field_1181_a[var19 * 3 + 0] * var20) << 16 | (int)(this.field_1181_a[var19 * 3 + 1] * var20) << 8 | (int)(this.field_1181_a[var19 * 3 + 2] * var20);
+											}
+
+											if(var12 < 31) {
+												var22 = var20 * 0.9F;
+												if(this.field_1186_c[var18 + 1] <= var14) {
+													this.field_1186_c[var18 + 1] = var14;
+													this.field_1180_b[var18 + 1] = -16777216 | (int)(this.field_1181_a[var19 * 3 + 0] * var22) << 16 | (int)(this.field_1181_a[var19 * 3 + 1] * var22) << 8 | (int)(this.field_1181_a[var19 * 3 + 2] * var22);
+												}
+											}
+										}
+
+										if(var15 >= -1 && var15 < 159) {
+											var18 = var12 + (var15 + 1) * 32;
+											var19 = this.field_1182_g[var16.blockID * 3 + 1];
+											var20 = var2.getLightBrightness(var9 - 1, var14, var8) * 0.8F + 0.2F;
+											int var21 = this.field_1182_g[var16.blockID * 3 + 2];
+											var22 = var2.getLightBrightness(var9, var14, var8 + 1) * 0.8F + 0.2F;
+											float var23;
+											if(var12 >= 0) {
+												var23 = var20 * var17 * 0.6F;
+												if(this.field_1186_c[var18] <= var14 - 1) {
+													this.field_1186_c[var18] = var14 - 1;
+													this.field_1180_b[var18] = -16777216 | (int)(this.field_1181_a[var19 * 3 + 0] * var23) << 16 | (int)(this.field_1181_a[var19 * 3 + 1] * var23) << 8 | (int)(this.field_1181_a[var19 * 3 + 2] * var23);
+												}
+											}
+
+											if(var12 < 31) {
+												var23 = var22 * 0.9F * var17 * 0.4F;
+												if(this.field_1186_c[var18 + 1] <= var14 - 1) {
+													this.field_1186_c[var18 + 1] = var14 - 1;
+													this.field_1180_b[var18 + 1] = -16777216 | (int)(this.field_1181_a[var21 * 3 + 0] * var23) << 16 | (int)(this.field_1181_a[var21 * 3 + 1] * var23) << 8 | (int)(this.field_1181_a[var21 * 3 + 2] * var23);
+												}
 											}
 										}
 									}

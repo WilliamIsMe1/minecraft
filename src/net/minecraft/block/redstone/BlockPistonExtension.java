@@ -34,7 +34,7 @@ public class BlockPistonExtension extends Block {
 		var3 += PistonBlockTextures.field_31059_c[var6];
 		var4 += PistonBlockTextures.field_31058_d[var6];
 		int var7 = var1.getBlockId(var2, var3, var4);
-		if(var7 == Block.pistonBase.getBlockID() || var7 == Block.pistonStickyBase.getBlockID()) {
+		if(var7 == Block.pistonBase.blockID || var7 == Block.pistonStickyBase.blockID) {
 			var5 = var1.getBlockMetadata(var2, var3, var4);
 			if(BlockPistonBase.isPowered(var5)) {
 				Block.blocksList[var7].dropBlockAsItem(var1, var2, var3, var4, var5);
@@ -46,7 +46,19 @@ public class BlockPistonExtension extends Block {
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
 		int var3 = func_31050_c(var2);
-		return var1 == var3 ? (this.field_31053_a >= 0 ? this.field_31053_a : ((var2 & 8) != 0 ? this.getBlockIndexInTexture() - 1 : this.getBlockIndexInTexture())) : (var1 == PistonBlockTextures.field_31057_a[var3] ? 107 : 108);
+		if (var1 == var3) {
+			if (this.field_31053_a >= 0) {
+				return (this.field_31053_a);
+			} else {
+				if ((var2 & 8) != 0) {
+					return ((blockIndexInTexture - 1));
+				} else {
+					return blockIndexInTexture;
+				}
+			}
+		} else {
+			return (var1 == PistonBlockTextures.field_31057_a[var3] ? 107 : 108);
+		}
 	}
 
 	public int getRenderType() {
@@ -143,7 +155,7 @@ public class BlockPistonExtension extends Block {
 	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
 		int var6 = func_31050_c(var1.getBlockMetadata(var2, var3, var4));
 		int var7 = var1.getBlockId(var2 - PistonBlockTextures.field_31056_b[var6], var3 - PistonBlockTextures.field_31059_c[var6], var4 - PistonBlockTextures.field_31058_d[var6]);
-		if(var7 != Block.pistonBase.getBlockID() && var7 != Block.pistonStickyBase.getBlockID()) {
+		if(var7 != Block.pistonBase.blockID && var7 != Block.pistonStickyBase.blockID) {
 			var1.setBlockWithNotify(var2, var3, var4, 0);
 		} else {
 			Block.blocksList[var7].onNeighborBlockChange(var1, var2 - PistonBlockTextures.field_31056_b[var6], var3 - PistonBlockTextures.field_31059_c[var6], var4 - PistonBlockTextures.field_31058_d[var6], var5);

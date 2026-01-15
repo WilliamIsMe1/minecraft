@@ -38,12 +38,12 @@ public class BlockRedstoneRepeater extends Block {
 		int var6 = var1.getBlockMetadata(var2, var3, var4);
 		boolean var7 = this.func_22022_g(var1, var2, var3, var4, var6);
 		if(this.isRepeaterPowered && !var7) {
-			var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.redstoneRepeaterIdle.getBlockID(), var6);
+			var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.redstoneRepeaterIdle.blockID, var6);
 		} else if(!this.isRepeaterPowered) {
-			var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.redstoneRepeaterActive.getBlockID(), var6);
+			var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.redstoneRepeaterActive.blockID, var6);
 			if(!var7) {
 				int var8 = (var6 & 12) >> 2;
-				var1.scheduleBlockUpdate(var2, var3, var4, Block.redstoneRepeaterActive.getBlockID(), field_22023_b[var8] * 2);
+				var1.scheduleBlockUpdate(var2, var3, var4, Block.redstoneRepeaterActive.blockID, field_22023_b[var8] * 2);
 			}
 		}
 
@@ -87,9 +87,9 @@ public class BlockRedstoneRepeater extends Block {
 			boolean var7 = this.func_22022_g(var1, var2, var3, var4, var6);
 			int var8 = (var6 & 12) >> 2;
 			if(this.isRepeaterPowered && !var7) {
-				var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), field_22023_b[var8] * 2);
+				var1.scheduleBlockUpdate(var2, var3, var4, blockID, field_22023_b[var8] * 2);
 			} else if(!this.isRepeaterPowered && var7) {
-				var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), field_22023_b[var8] * 2);
+				var1.scheduleBlockUpdate(var2, var3, var4, blockID, field_22023_b[var8] * 2);
 			}
 
 		}
@@ -99,13 +99,17 @@ public class BlockRedstoneRepeater extends Block {
 		int var6 = var5 & 3;
 		switch(var6) {
 		case 0:
-			return var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 + 1, 3) || var1.getBlockId(var2, var3, var4 + 1) == Block.redstoneWire.getBlockID() && var1.getBlockMetadata(var2, var3, var4 + 1) > 0;
+			if (var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 + 1, 3)) return true;
+			return var1.getBlockId(var2, var3, var4 + 1) == Block.redstoneWire.blockID && var1.getBlockMetadata(var2, var3, var4 + 1) > 0;
 		case 1:
-			return var1.isBlockIndirectlyProvidingPowerTo(var2 - 1, var3, var4, 4) || var1.getBlockId(var2 - 1, var3, var4) == Block.redstoneWire.getBlockID() && var1.getBlockMetadata(var2 - 1, var3, var4) > 0;
+			if (var1.isBlockIndirectlyProvidingPowerTo(var2 - 1, var3, var4, 4)) return true;
+			return var1.getBlockId(var2 - 1, var3, var4) == Block.redstoneWire.blockID && var1.getBlockMetadata(var2 - 1, var3, var4) > 0;
 		case 2:
-			return var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 - 1, 2) || var1.getBlockId(var2, var3, var4 - 1) == Block.redstoneWire.getBlockID() && var1.getBlockMetadata(var2, var3, var4 - 1) > 0;
+			if (var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 - 1, 2)) return true;
+			return var1.getBlockId(var2, var3, var4 - 1) == Block.redstoneWire.blockID && var1.getBlockMetadata(var2, var3, var4 - 1) > 0;
 		case 3:
-			return var1.isBlockIndirectlyProvidingPowerTo(var2 + 1, var3, var4, 5) || var1.getBlockId(var2 + 1, var3, var4) == Block.redstoneWire.getBlockID() && var1.getBlockMetadata(var2 + 1, var3, var4) > 0;
+			if (var1.isBlockIndirectlyProvidingPowerTo(var2 + 1, var3, var4, 5)) return true;
+			return var1.getBlockId(var2 + 1, var3, var4) == Block.redstoneWire.blockID && var1.getBlockMetadata(var2 + 1, var3, var4) > 0;
 		default:
 			return false;
 		}
@@ -128,18 +132,18 @@ public class BlockRedstoneRepeater extends Block {
 		var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
 		boolean var7 = this.func_22022_g(var1, var2, var3, var4, var6);
 		if(var7) {
-			var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), 1);
+			var1.scheduleBlockUpdate(var2, var3, var4, blockID, 1);
 		}
 
 	}
 
 	public void onBlockAdded(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, this.getBlockID());
-		var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, this.getBlockID());
-		var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, this.getBlockID());
-		var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, this.getBlockID());
-		var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
-		var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.getBlockID());
+		var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, blockID);
+		var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, blockID);
+		var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, blockID);
+		var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, blockID);
+		var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
+		var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, blockID);
 	}
 
 	public boolean isOpaqueCube() {

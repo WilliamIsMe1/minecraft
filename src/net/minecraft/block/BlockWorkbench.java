@@ -8,12 +8,24 @@ import net.minecraft.world.World;
 public class BlockWorkbench extends Block {
 	public BlockWorkbench(int var1) {
 		super(var1, Material.wood);
-		this.setBlockIndexInTexture(59);
+		this.blockIndexInTexture = 59;
 	}
 
 	@Override
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.getBlockIndexInTexture() - 16 : (var1 == 0 ? Block.planks.getBlockTextureFromSide(0) : (var1 != 2 && var1 != 4 ? this.getBlockIndexInTexture() : this.getBlockIndexInTexture() + 1));
+		if (var1 == 1) {
+			return blockIndexInTexture - 16;
+		} else {
+			if (var1 == 0) {
+				return (Block.planks.getBlockTextureFromSide(0));
+			} else {
+				if (var1 != 2 && var1 != 4) {
+					return blockIndexInTexture;
+				} else {
+					return ((blockIndexInTexture + 1));
+				}
+			}
+		}
 	}
 
 	@Override

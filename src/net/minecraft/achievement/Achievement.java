@@ -73,6 +73,7 @@ public class Achievement extends StatBase {
 		return this.statStringFormatter != null ? this.statStringFormatter.formatString(this.achievementDescription) : this.achievementDescription;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public Achievement setStatStringFormatter(IStatStringFormat var1) {
 		this.statStringFormatter = var1;
 		return this;

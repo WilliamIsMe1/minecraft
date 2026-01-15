@@ -83,7 +83,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 	}
 
 	public boolean canEntityBeSeen(Entity var1) {
-		return this.worldObj.rayTraceBlocks(net.minecraft.core.Vec3D.createVector(this.posX, this.posY + (double)this.getEyeHeight(), this.posZ), net.minecraft.core.Vec3D.createVector(var1.posX, var1.posY + (double)var1.getEyeHeight(), var1.posZ)) == null;
+		return this.worldObj.rayTraceBlocks(Vec3D.createVector(this.posX, this.posY + (double)this.getEyeHeight(), this.posZ), Vec3D.createVector(var1.posX, var1.posY + (double)var1.getEyeHeight(), var1.posZ)) == null;
 	}
 
 	public String getEntityTexture() {
@@ -123,7 +123,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 		}
 
 		if(this.isEntityAlive() && this.isEntityInsideOpaqueBlock()) {
-			this.attackEntityFrom((Entity)null, 1);
+			this.attackEntityFrom(null, 1);
 		}
 
 		if(this.isImmuneToFire || this.worldObj.multiplayerWorld) {
@@ -143,7 +143,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 					this.worldObj.spawnParticle("bubble", this.posX + (double)var2, this.posY + (double)var3, this.posZ + (double)var4, this.motionX, this.motionY, this.motionZ);
 				}
 
-				this.attackEntityFrom((Entity)null, 2);
+				this.attackEntityFrom(null, 2);
 			}
 
 			this.fire = 0;
@@ -207,8 +207,8 @@ public abstract class EntityLiving extends Entity implements ILiving {
 		this.newPosX = var1;
 		this.newPosY = var3;
 		this.newPosZ = var5;
-		this.newRotationYaw = (double)var7;
-		this.newRotationPitch = (double)var8;
+		this.newRotationYaw = var7;
+		this.newRotationPitch = var8;
 		this.newPosRotationIncrements = var9;
 	}
 
@@ -408,10 +408,10 @@ public abstract class EntityLiving extends Entity implements ILiving {
 		this.motionY /= 2.0D;
 		this.motionZ /= 2.0D;
 		this.motionX -= var3 / (double)var7 * (double)var8;
-		this.motionY += (double)0.4F;
+		this.motionY += 0.4F;
 		this.motionZ -= var5 / (double)var7 * (double)var8;
 		if(this.motionY > (double)0.4F) {
-			this.motionY = (double)0.4F;
+			this.motionY = 0.4F;
 		}
 
 	}
@@ -451,12 +451,12 @@ public abstract class EntityLiving extends Entity implements ILiving {
 
 	protected void fall(float var1) {
 		super.fall(var1);
-		int var2 = (int)Math.ceil((double)(var1 - 3.0F));
+		int var2 = (int)Math.ceil(var1 - 3.0F);
 		if(var2 > 0) {
-			this.attackEntityFrom((Entity)null, var2);
+			this.attackEntityFrom(null, var2);
 			int var3 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY - (double)0.2F - (double)this.yOffset), MathHelper.floor_double(this.posZ));
 			if(var3 > 0) {
-				StepSound var4 = Block.blocksList[var3].getStepSound();
+				StepSound var4 = Block.blocksList[var3].stepSound;
 				this.worldObj.playSoundAtEntity(this, var4.func_1145_d(), var4.getVolume() * 0.5F, var4.getPitch() * (12.0F / 16.0F));
 			}
 		}
@@ -469,12 +469,12 @@ public abstract class EntityLiving extends Entity implements ILiving {
 			var3 = this.posY;
 			this.moveFlying(var1, var2, 0.02F);
 			this.moveEntity(this.motionX, this.motionY, this.motionZ);
-			this.motionX *= (double)0.8F;
-			this.motionY *= (double)0.8F;
-			this.motionZ *= (double)0.8F;
+			this.motionX *= 0.8F;
+			this.motionY *= 0.8F;
+			this.motionZ *= 0.8F;
 			this.motionY -= 0.02D;
 			if(this.isCollidedHorizontally && this.isOffsetPositionInLiquid(this.motionX, this.motionY + (double)0.6F - this.posY + var3, this.motionZ)) {
-				this.motionY = (double)0.3F;
+				this.motionY = 0.3F;
 			}
 		} else if(this.handleLavaMovement()) {
 			var3 = this.posY;
@@ -485,7 +485,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 			this.motionZ *= 0.5D;
 			this.motionY -= 0.02D;
 			if(this.isCollidedHorizontally && this.isOffsetPositionInLiquid(this.motionX, this.motionY + (double)0.6F - this.posY + var3, this.motionZ)) {
-				this.motionY = (double)0.3F;
+				this.motionY = 0.3F;
 			}
 		} else {
 			float var8 = 0.91F;
@@ -493,7 +493,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 				var8 = 546.0F * 0.1F * 0.1F * 0.1F;
 				int var4 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
 				if(var4 > 0) {
-					var8 = Block.blocksList[var4].getSlipperiness() * 0.91F;
+					var8 = Block.blocksList[var4].slipperiness * 0.91F;
 				}
 			}
 
@@ -504,26 +504,26 @@ public abstract class EntityLiving extends Entity implements ILiving {
 				var8 = 546.0F * 0.1F * 0.1F * 0.1F;
 				int var5 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
 				if(var5 > 0) {
-					var8 = Block.blocksList[var5].getSlipperiness() * 0.91F;
+					var8 = Block.blocksList[var5].slipperiness * 0.91F;
 				}
 			}
 
 			if(this.isOnLadder()) {
 				float var10 = 0.15F;
 				if(this.motionX < (double)(-var10)) {
-					this.motionX = (double)(-var10);
+					this.motionX = -var10;
 				}
 
 				if(this.motionX > (double)var10) {
-					this.motionX = (double)var10;
+					this.motionX = var10;
 				}
 
 				if(this.motionZ < (double)(-var10)) {
-					this.motionZ = (double)(-var10);
+					this.motionZ = -var10;
 				}
 
 				if(this.motionZ > (double)var10) {
-					this.motionZ = (double)var10;
+					this.motionZ = var10;
 				}
 
 				this.fallDistance = 0.0F;
@@ -542,9 +542,9 @@ public abstract class EntityLiving extends Entity implements ILiving {
 			}
 
 			this.motionY -= 0.08D;
-			this.motionY *= (double)0.98F;
-			this.motionX *= (double)var8;
-			this.motionZ *= (double)var8;
+			this.motionY *= 0.98F;
+			this.motionX *= var8;
+			this.motionZ *= var8;
 		}
 
 		this.field_705_Q = this.field_704_R;
@@ -563,10 +563,10 @@ public abstract class EntityLiving extends Entity implements ILiving {
 		int var1 = MathHelper.floor_double(this.posX);
 		int var2 = MathHelper.floor_double(this.boundingBox.minY);
 		int var3 = MathHelper.floor_double(this.posZ);
-		return this.worldObj.getBlockId(var1, var2, var3) == Block.ladder.getBlockID();
+		return this.worldObj.getBlockId(var1, var2, var3) == Block.ladder.blockID;
 	}
 
-	public void writeEntityToNBT(net.minecraft.util.nbt.NBTTagCompound var1) {
+	public void writeEntityToNBT(NBTTagCompound var1) {
 		var1.setShort("Health", (short)this.health);
 		var1.setShort("HurtTime", (short)this.hurtTime);
 		var1.setShort("DeathTime", (short)this.deathTime);
@@ -611,13 +611,13 @@ public abstract class EntityLiving extends Entity implements ILiving {
 			--this.newPosRotationIncrements;
 			this.setPosition(var1, var3, var5);
 			this.setRotation(this.rotationYaw, this.rotationPitch);
-			List var9 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.func_28195_e(1.0D / 32.0D, 0.0D, 1.0D / 32.0D));
-			if(var9.size() > 0) {
+			List<AxisAlignedBB> var9 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.func_28195_e(1.0D / 32.0D, 0.0D, 1.0D / 32.0D));
+			if(!var9.isEmpty()) {
 				double var10 = 0.0D;
 
-				for(int var12 = 0; var12 < var9.size(); ++var12) {
-					net.minecraft.misc.AxisAlignedBB var13 = (AxisAlignedBB)var9.get(var12);
-					if(var13.maxY > var10) {
+				for (AxisAlignedBB o : var9) {
+					AxisAlignedBB var13 = (AxisAlignedBB) o;
+					if (var13.maxY > var10) {
 						var10 = var13.maxY;
 					}
 				}
@@ -640,9 +640,9 @@ public abstract class EntityLiving extends Entity implements ILiving {
 		boolean var2 = this.handleLavaMovement();
 		if(this.isJumping) {
 			if(var14) {
-				this.motionY += (double)0.04F;
+				this.motionY += 0.04F;
 			} else if(var2) {
-				this.motionY += (double)0.04F;
+				this.motionY += 0.04F;
 			} else if(this.onGround) {
 				this.jump();
 			}
@@ -652,7 +652,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 		this.moveForward *= 0.98F;
 		this.randomYawVelocity *= 0.9F;
 		this.moveEntityWithHeading(this.moveStrafing, this.moveForward);
-		List var15 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand((double)0.2F, 0.0D, (double)0.2F));
+		List var15 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.2F, 0.0D, 0.2F));
 		if(var15 != null && var15.size() > 0) {
 			for(int var4 = 0; var4 < var15.size(); ++var4) {
 				Entity var16 = (Entity)var15.get(var4);
@@ -669,7 +669,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 	}
 
 	protected void jump() {
-		this.motionY = (double)0.42F;
+		this.motionY = 0.42F;
 	}
 
 	protected boolean canDespawn() {
@@ -706,7 +706,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 		this.moveForward = 0.0F;
 		float var2 = 8.0F;
 		if(this.rand.nextFloat() < 0.02F) {
-			var1 = this.worldObj.getClosestPlayerToEntity(this, (double)var2);
+			var1 = this.worldObj.getClosestPlayerToEntity(this, var2);
 			if(var1 != null) {
 				this.currentTarget = var1;
 				this.numTicksToChaseTarget = 10 + this.rand.nextInt(20);
@@ -752,7 +752,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 			var6 = (var1.boundingBox.minY + var1.boundingBox.maxY) / 2.0D - (this.posY + (double)this.getEyeHeight());
 		}
 
-		double var14 = (double) MathHelper.sqrt_double(var4 * var4 + var8 * var8);
+		double var14 = MathHelper.sqrt_double(var4 * var4 + var8 * var8);
 		float var12 = (float)(Math.atan2(var8, var4) * 180.0D / (double)((float)Math.PI)) - 90.0F;
 		float var13 = (float)(-(Math.atan2(var6, var14) * 180.0D / (double)((float)Math.PI)));
 		this.rotationPitch = -this.updateRotation(this.rotationPitch, var13, var3);
@@ -795,7 +795,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 	}
 
 	protected void kill() {
-		this.attackEntityFrom((Entity)null, 4);
+		this.attackEntityFrom(null, 4);
 	}
 
 	public float getSwingProgress(float var1) {
@@ -807,22 +807,22 @@ public abstract class EntityLiving extends Entity implements ILiving {
 		return this.prevSwingProgress + var2 * var1;
 	}
 
-	public net.minecraft.core.Vec3D getPosition(float var1) {
+	public Vec3D getPosition(float var1) {
 		if(var1 == 1.0F) {
-			return net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
+			return Vec3D.createVector(this.posX, this.posY, this.posZ);
 		} else {
 			double var2 = this.prevPosX + (this.posX - this.prevPosX) * (double)var1;
 			double var4 = this.prevPosY + (this.posY - this.prevPosY) * (double)var1;
 			double var6 = this.prevPosZ + (this.posZ - this.prevPosZ) * (double)var1;
-			return net.minecraft.core.Vec3D.createVector(var2, var4, var6);
+			return Vec3D.createVector(var2, var4, var6);
 		}
 	}
 
-	public net.minecraft.core.Vec3D getLookVec() {
+	public Vec3D getLookVec() {
 		return this.getLook(1.0F);
 	}
 
-	public net.minecraft.core.Vec3D getLook(float var1) {
+	public Vec3D getLook(float var1) {
 		float var2;
 		float var3;
 		float var4;
@@ -832,7 +832,7 @@ public abstract class EntityLiving extends Entity implements ILiving {
 			var3 = MathHelper.sin(-this.rotationYaw * ((float)Math.PI / 180.0F) - (float)Math.PI);
 			var4 = -MathHelper.cos(-this.rotationPitch * ((float)Math.PI / 180.0F));
 			var5 = MathHelper.sin(-this.rotationPitch * ((float)Math.PI / 180.0F));
-			return net.minecraft.core.Vec3D.createVector((double)(var3 * var4), (double)var5, (double)(var2 * var4));
+			return Vec3D.createVector(var3 * var4, var5, var2 * var4);
 		} else {
 			var2 = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * var1;
 			var3 = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * var1;
@@ -840,13 +840,13 @@ public abstract class EntityLiving extends Entity implements ILiving {
 			var5 = MathHelper.sin(-var3 * ((float)Math.PI / 180.0F) - (float)Math.PI);
 			float var6 = -MathHelper.cos(-var2 * ((float)Math.PI / 180.0F));
 			float var7 = MathHelper.sin(-var2 * ((float)Math.PI / 180.0F));
-			return net.minecraft.core.Vec3D.createVector((double)(var5 * var6), (double)var7, (double)(var4 * var6));
+			return Vec3D.createVector(var5 * var6, var7, var4 * var6);
 		}
 	}
 
 	public MovingObjectPosition rayTrace(double var1, float var3) {
-		net.minecraft.core.Vec3D var4 = this.getPosition(var3);
-		net.minecraft.core.Vec3D var5 = this.getLook(var3);
+		Vec3D var4 = this.getPosition(var3);
+		Vec3D var5 = this.getLook(var3);
 		Vec3D var6 = var4.addVector(var5.xCoord * var1, var5.yCoord * var1, var5.zCoord * var1);
 		return this.worldObj.rayTraceBlocks(var4, var6);
 	}
@@ -860,17 +860,17 @@ public abstract class EntityLiving extends Entity implements ILiving {
 	}
 
 	public void handleHealthUpdate(byte var1) {
-		if(var1 == 2) {
+		if((int) var1 == 2) {
 			this.field_704_R = 1.5F;
 			this.heartsLife = this.heartsHalvesLife;
 			this.hurtTime = this.maxHurtTime = 10;
 			this.attackedAtYaw = 0.0F;
 			this.worldObj.playSoundAtEntity(this, this.getHurtSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-			this.attackEntityFrom((Entity)null, 0);
-		} else if(var1 == 3) {
+			this.attackEntityFrom(null, 0);
+		} else if((int) var1 == 3) {
 			this.worldObj.playSoundAtEntity(this, this.getDeathSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
 			this.health = 0;
-			this.onDeath((Entity)null);
+			this.onDeath(null);
 		} else {
 			super.handleHealthUpdate(var1);
 		}

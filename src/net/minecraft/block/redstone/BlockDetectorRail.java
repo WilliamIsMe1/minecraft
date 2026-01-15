@@ -46,34 +46,34 @@ public class BlockDetectorRail extends BlockRail {
 	}
 
 	public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
-		return (var1.getBlockMetadata(var2, var3, var4) & 8) == 0 ? false : var5 == 1;
+		return (var1.getBlockMetadata(var2, var3, var4) & 8) != 0 && var5 == 1;
 	}
 
 	private void setStateIfMinecartInteractsWithRail(World var1, int var2, int var3, int var4, int var5) {
 		boolean var6 = (var5 & 8) != 0;
 		boolean var7 = false;
 		float var8 = 2.0F / 16.0F;
-		List var9 = var1.getEntitiesWithinAABB(EntityMinecart.class, AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var8), (double)var3, (double)((float)var4 + var8), (double)((float)(var2 + 1) - var8), (double)var3 + 0.25D, (double)((float)(var4 + 1) - var8)));
-		if(var9.size() > 0) {
+		List<Entity> var9 = var1.getEntitiesWithinAABB(EntityMinecart.class, AxisAlignedBB.getBoundingBoxFromPool((float)var2 + var8, var3, (float)var4 + var8, (float)(var2 + 1) - var8, (double)var3 + 0.25D, (float)(var4 + 1) - var8));
+		if(!var9.isEmpty()) {
 			var7 = true;
 		}
 
 		if(var7 && !var6) {
 			var1.setBlockMetadataWithNotify(var2, var3, var4, var5 | 8);
-			var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
+			var1.notifyBlocksOfNeighborChange(var2, var3, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
 			var1.markBlocksDirty(var2, var3, var4, var2, var3, var4);
 		}
 
 		if(!var7 && var6) {
 			var1.setBlockMetadataWithNotify(var2, var3, var4, var5 & 7);
-			var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.getBlockID());
-			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
+			var1.notifyBlocksOfNeighborChange(var2, var3, var4, blockID);
+			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
 			var1.markBlocksDirty(var2, var3, var4, var2, var3, var4);
 		}
 
 		if(var7) {
-			var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), this.tickRate());
+			var1.scheduleBlockUpdate(var2, var3, var4, blockID, this.tickRate());
 		}
 
 	}

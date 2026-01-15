@@ -223,9 +223,9 @@ public class Tessellator {
 		}
 	}
 
-	public void addVertexWithUV(double var1, double var3, double var5, double var7, double var9) {
-		this.setTextureUV(var7, var9);
-		this.addVertex(var1, var3, var5);
+	public void addVertexWithUV(double x, double y, double z, double u, double v) {
+		this.setTextureUV(u, v);
+		this.addVertex(x, y, z);
 	}
 
 	public void addVertex(double var1, double var3, double var5) {

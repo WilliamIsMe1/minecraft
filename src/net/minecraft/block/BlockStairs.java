@@ -16,11 +16,11 @@ public class BlockStairs extends Block {
 	private Block modelBlock;
 
 	public BlockStairs(int var1, Block var2) {
-		super(var1, var2.getBlockIndexInTexture(), var2.getBlockMaterial());
+		super(var1, var2.blockIndexInTexture, var2.blockMaterial);
 		this.modelBlock = var2;
-		this.setHardness(var2.getBlockHardness());
-		this.setResistance(var2.getBlockResistance() / 3.0F);
-		this.setStepSound(var2.getStepSound());
+		this.setHardness(var2.blockHardness);
+		this.setResistance(var2.blockResistance / 3.0F);
+		this.setStepSound(var2.stepSound);
 		this.setLightOpacity(255);
 	}
 

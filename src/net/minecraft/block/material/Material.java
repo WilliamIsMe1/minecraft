@@ -42,7 +42,7 @@ public class Material {
 		this.materialMapColor = var1;
 	}
 
-	public boolean getIsLiquid() {
+	public boolean isLiquid() {
 		return false;
 	}
 

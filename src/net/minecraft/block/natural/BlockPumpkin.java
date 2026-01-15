@@ -11,28 +11,56 @@ public class BlockPumpkin extends Block {
 
 	public BlockPumpkin(int var1, int var2, boolean var3) {
 		super(var1, Material.pumpkin);
-		this.setBlockIndexInTexture(var2);
+		this.blockIndexInTexture = var2;
 		this.setTickOnLoad(true);
 		this.blockType = var3;
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
 		if(var1 == 1) {
-			return this.getBlockIndexInTexture();
+			return blockIndexInTexture;
 		} else if(var1 == 0) {
-			return this.getBlockIndexInTexture();
+			return blockIndexInTexture;
 		} else {
-			int var3 = this.getBlockIndexInTexture() + 1 + 16;
+			int var3 = blockIndexInTexture + 1 + 16;
 			if(this.blockType) {
 				++var3;
 			}
 
-			return var2 == 2 && var1 == 2 ? var3 : (var2 == 3 && var1 == 5 ? var3 : (var2 == 0 && var1 == 3 ? var3 : (var2 == 1 && var1 == 4 ? var3 : this.getBlockIndexInTexture() + 16)));
+			if (var2 == 2 && var1 == 2) {
+				return var3;
+			} else {
+				if (var2 == 3 && var1 == 5) {
+					return (var3);
+				} else {
+					if (var2 == 0 && var1 == 3) {
+						return ((var3));
+					} else {
+						if (var2 == 1 && var1 == 4) {
+							return (((var3)));
+						} else {
+							return (((blockIndexInTexture + 16)));
+						}
+					}
+				}
+			}
 		}
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? this.getBlockIndexInTexture() : (var1 == 0 ? this.getBlockIndexInTexture() : (var1 == 3 ? this.getBlockIndexInTexture() + 1 + 16 : this.getBlockIndexInTexture() + 16));
+		if (var1 == 1) {
+			return blockIndexInTexture;
+		} else {
+			if (var1 == 0) {
+				return blockIndexInTexture;
+			} else {
+				if (var1 == 3) {
+					return ((blockIndexInTexture + 1 + 16));
+				} else {
+					return ((blockIndexInTexture + 16));
+				}
+			}
+		}
 	}
 
 	public void onBlockAdded(World var1, int var2, int var3, int var4) {
@@ -41,7 +69,7 @@ public class BlockPumpkin extends Block {
 
 	public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockId(var2, var3, var4);
-		return (var5 == 0 || Block.blocksList[var5].getBlockMaterial().getIsGroundCover()) && var1.isBlockNormalCube(var2, var3 - 1, var4);
+		return (var5 == 0 || Block.blocksList[var5].blockMaterial.getIsGroundCover()) && var1.isBlockNormalCube(var2, var3 - 1, var4);
 	}
 
 	public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {

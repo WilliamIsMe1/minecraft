@@ -11,14 +11,14 @@ import java.util.Random;
 public class BlockFarmland extends Block {
 	public BlockFarmland(int var1) {
 		super(var1, Material.ground);
-		this.setBlockIndexInTexture(87);
+		this.blockIndexInTexture = 87;
 		this.setTickOnLoad(true);
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 15.0F / 16.0F, 1.0F);
 		this.setLightOpacity(255);
 	}
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-		return AxisAlignedBB.getBoundingBoxFromPool((double)(var2 + 0), (double)(var3 + 0), (double)(var4 + 0), (double)(var2 + 1), (double)(var3 + 1), (double)(var4 + 1));
+		return AxisAlignedBB.getBoundingBoxFromPool(var2, var3, var4, var2 + 1, var3 + 1, var4 + 1);
 	}
 
 	public boolean isOpaqueCube() {
@@ -30,7 +30,15 @@ public class BlockFarmland extends Block {
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-		return var1 == 1 && var2 > 0 ? this.getBlockIndexInTexture() - 1 : (var1 == 1 ? this.getBlockIndexInTexture() : 2);
+		if (var1 == 1 && var2 > 0) {
+			return blockIndexInTexture - 1;
+		} else {
+			if (var1 == 1) {
+				return blockIndexInTexture;
+			} else {
+				return (2);
+			}
+		}
 	}
 
 	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
@@ -40,7 +48,7 @@ public class BlockFarmland extends Block {
 				if(var6 > 0) {
 					var1.setBlockMetadataWithNotify(var2, var3, var4, var6 - 1);
 				} else if(!this.isCropsNearby(var1, var2, var3, var4)) {
-					var1.setBlockWithNotify(var2, var3, var4, Block.dirt.getBlockID());
+					var1.setBlockWithNotify(var2, var3, var4, Block.dirt.blockID);
 				}
 			} else {
 				var1.setBlockMetadataWithNotify(var2, var3, var4, 7);
@@ -51,7 +59,7 @@ public class BlockFarmland extends Block {
 
 	public void onEntityWalking(World var1, int var2, int var3, int var4, Entity var5) {
 		if(var1.rand.nextInt(4) == 0) {
-			var1.setBlockWithNotify(var2, var3, var4, Block.dirt.getBlockID());
+			var1.setBlockWithNotify(var2, var3, var4, Block.dirt.blockID);
 		}
 
 	}
@@ -61,7 +69,7 @@ public class BlockFarmland extends Block {
 
 		for(int var6 = var2 - var5; var6 <= var2 + var5; ++var6) {
 			for(int var7 = var4 - var5; var7 <= var4 + var5; ++var7) {
-				if(var1.getBlockId(var6, var3 + 1, var7) == Block.crops.getBlockID()) {
+				if(var1.getBlockId(var6, var3 + 1, var7) == Block.crops.blockID) {
 					return true;
 				}
 			}
@@ -88,7 +96,7 @@ public class BlockFarmland extends Block {
 		super.onNeighborBlockChange(var1, var2, var3, var4, var5);
 		Material var6 = var1.getBlockMaterial(var2, var3 + 1, var4);
 		if(var6.isSolid()) {
-			var1.setBlockWithNotify(var2, var3, var4, Block.dirt.getBlockID());
+			var1.setBlockWithNotify(var2, var3, var4, Block.dirt.blockID);
 		}
 
 	}

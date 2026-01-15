@@ -32,11 +32,11 @@ public class BlockButton extends Block {
 	}
 
 	public boolean canPlaceBlockOnSide(World var1, int var2, int var3, int var4, int var5) {
-		return var5 == 2 && var1.isBlockNormalCube(var2, var3, var4 + 1) ? true : (var5 == 3 && var1.isBlockNormalCube(var2, var3, var4 - 1) ? true : (var5 == 4 && var1.isBlockNormalCube(var2 + 1, var3, var4) ? true : var5 == 5 && var1.isBlockNormalCube(var2 - 1, var3, var4)));
+		return var5 == 2 && var1.isBlockNormalCube(var2, var3, var4 + 1) || (var5 == 3 && var1.isBlockNormalCube(var2, var3, var4 - 1) || (var5 == 4 && var1.isBlockNormalCube(var2 + 1, var3, var4) || var5 == 5 && var1.isBlockNormalCube(var2 - 1, var3, var4)));
 	}
 
 	public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-		return var1.isBlockNormalCube(var2 - 1, var3, var4) ? true : (var1.isBlockNormalCube(var2 + 1, var3, var4) ? true : (var1.isBlockNormalCube(var2, var3, var4 - 1) ? true : var1.isBlockNormalCube(var2, var3, var4 + 1)));
+		return var1.isBlockNormalCube(var2 - 1, var3, var4) || (var1.isBlockNormalCube(var2 + 1, var3, var4) || (var1.isBlockNormalCube(var2, var3, var4 - 1) || var1.isBlockNormalCube(var2, var3, var4 + 1)));
 	}
 
 	public void onBlockPlaced(World var1, int var2, int var3, int var4, int var5) {
@@ -65,10 +65,7 @@ public class BlockButton extends Block {
 	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
 		if(this.func_305_h(var1, var2, var3, var4)) {
 			int var6 = var1.getBlockMetadata(var2, var3, var4) & 7;
-			boolean var7 = false;
-			if(!var1.isBlockNormalCube(var2 - 1, var3, var4) && var6 == 1) {
-				var7 = true;
-			}
+			boolean var7 = !var1.isBlockNormalCube(var2 - 1, var3, var4) && var6 == 1;
 
 			if(!var1.isBlockNormalCube(var2 + 1, var3, var4) && var6 == 2) {
 				var7 = true;
@@ -138,20 +135,20 @@ public class BlockButton extends Block {
 			var1.setBlockMetadataWithNotify(var2, var3, var4, var7 + var8);
 			var1.markBlocksDirty(var2, var3, var4, var2, var3, var4);
 			var1.playSoundEffect((double)var2 + 0.5D, (double)var3 + 0.5D, (double)var4 + 0.5D, "random.click", 0.3F, 0.6F);
-			var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.getBlockID());
+			var1.notifyBlocksOfNeighborChange(var2, var3, var4, blockID);
 			if(var7 == 1) {
-				var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, blockID);
 			} else if(var7 == 2) {
-				var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, blockID);
 			} else if(var7 == 3) {
-				var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, blockID);
 			} else if(var7 == 4) {
-				var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, blockID);
 			} else {
-				var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
 			}
 
-			var1.scheduleBlockUpdate(var2, var3, var4, this.getBlockID(), this.tickRate());
+			var1.scheduleBlockUpdate(var2, var3, var4, blockID, this.tickRate());
 			return true;
 		}
 	}
@@ -159,18 +156,18 @@ public class BlockButton extends Block {
 	public void onBlockRemoval(World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockMetadata(var2, var3, var4);
 		if((var5 & 8) > 0) {
-			var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.getBlockID());
+			var1.notifyBlocksOfNeighborChange(var2, var3, var4, blockID);
 			int var6 = var5 & 7;
 			if(var6 == 1) {
-				var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, blockID);
 			} else if(var6 == 2) {
-				var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, blockID);
 			} else if(var6 == 3) {
-				var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, blockID);
 			} else if(var6 == 4) {
-				var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, blockID);
 			} else {
-				var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
 			}
 		}
 
@@ -187,7 +184,7 @@ public class BlockButton extends Block {
 			return false;
 		} else {
 			int var7 = var6 & 7;
-			return var7 == 5 && var5 == 1 ? true : (var7 == 4 && var5 == 2 ? true : (var7 == 3 && var5 == 3 ? true : (var7 == 2 && var5 == 4 ? true : var7 == 1 && var5 == 5)));
+			return var7 == 5 && var5 == 1 || (var7 == 4 && var5 == 2 || (var7 == 3 && var5 == 3 || (var7 == 2 && var5 == 4 || var7 == 1 && var5 == 5)));
 		}
 	}
 
@@ -200,18 +197,18 @@ public class BlockButton extends Block {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
 			if((var6 & 8) != 0) {
 				var1.setBlockMetadataWithNotify(var2, var3, var4, var6 & 7);
-				var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.getBlockID());
+				var1.notifyBlocksOfNeighborChange(var2, var3, var4, blockID);
 				int var7 = var6 & 7;
 				if(var7 == 1) {
-					var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, this.getBlockID());
+					var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, blockID);
 				} else if(var7 == 2) {
-					var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, this.getBlockID());
+					var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, blockID);
 				} else if(var7 == 3) {
-					var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, this.getBlockID());
+					var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, blockID);
 				} else if(var7 == 4) {
-					var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, this.getBlockID());
+					var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, blockID);
 				} else {
-					var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.getBlockID());
+					var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, blockID);
 				}
 
 				var1.playSoundEffect((double)var2 + 0.5D, (double)var3 + 0.5D, (double)var4 + 0.5D, "random.click", 0.3F, 0.5F);

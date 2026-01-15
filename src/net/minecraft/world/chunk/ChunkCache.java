@@ -75,7 +75,7 @@ public class ChunkCache implements IBlockAccess {
 			int var6;
 			if(var4) {
 				var5 = this.getBlockId(var1, var2, var3);
-				if(var5 == Block.stairSingle.getBlockID() || var5 == Block.tilledField.getBlockID() || var5 == Block.stairCompactPlanks.getBlockID() || var5 == Block.stairCompactCobblestone.getBlockID()) {
+				if(var5 == Block.stairSingle.blockID || var5 == Block.tilledField.blockID || var5 == Block.stairCompactPlanks.blockID || var5 == Block.stairCompactCobblestone.blockID) {
 					var6 = this.getLightValueExt(var1, var2 + 1, var3, false);
 					int var7 = this.getLightValueExt(var1 + 1, var2, var3, false);
 					int var8 = this.getLightValueExt(var1 - 1, var2, var3, false);
@@ -134,7 +134,11 @@ public class ChunkCache implements IBlockAccess {
 
 	public Material getBlockMaterial(int var1, int var2, int var3) {
 		int var4 = this.getBlockId(var1, var2, var3);
-		return var4 == 0 ? Material.air : Block.blocksList[var4].getBlockMaterial();
+		if (var4 == 0) {
+			return Material.air;
+		} else {
+			return Block.blocksList[var4].blockMaterial;
+		}
 	}
 
 	public WorldChunkManager getWorldChunkManager() {
@@ -148,6 +152,10 @@ public class ChunkCache implements IBlockAccess {
 
 	public boolean isBlockNormalCube(int var1, int var2, int var3) {
 		Block var4 = Block.blocksList[this.getBlockId(var1, var2, var3)];
-		return var4 == null ? false : var4.getBlockMaterial().getIsSolid() && var4.renderAsNormalBlock();
+		if (var4 == null) {
+			return false;
+		} else {
+			return var4.blockMaterial.getIsSolid() && var4.renderAsNormalBlock();
+		}
 	}
 }

@@ -122,7 +122,7 @@ public class Explosion {
 				int var38 = this.worldObj.getBlockId(var36, var37, var16);
 				int var18 = this.worldObj.getBlockId(var36, var37 - 1, var16);
 				if(var38 == 0 && Block.opaqueCubeLookup[var18] && this.ExplosionRNG.nextInt(3) == 0) {
-					this.worldObj.setBlockWithNotify(var36, var37, var16, Block.fire.getBlockID());
+					this.worldObj.setBlockWithNotify(var36, var37, var16, Block.fire.blockID);
 				}
 			}
 		}

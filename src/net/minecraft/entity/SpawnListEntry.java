@@ -1,4 +1,4 @@
-package net.minecraft.core;
+package net.minecraft.entity;
 
 public class SpawnListEntry {
 	public Class entityClass;

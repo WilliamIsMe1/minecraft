@@ -12,7 +12,7 @@ public class EntityDiggingFX extends EntityFX {
 		super(var1, var2, var4, var6, var8, var10, var12);
 		this.field_4082_a = var14;
 		this.particleTextureIndex = var14.getBlockTextureFromSideAndMetadata(0, var16);
-		this.particleGravity = var14.getBlockParticleGravity();
+		this.particleGravity = var14.blockParticleGravity;
 		this.particleRed = this.particleGreen = this.particleBlue = 0.6F;
 		this.particleScale /= 2.0F;
 		this.field_32001_o = var15;

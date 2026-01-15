@@ -1,4 +1,4 @@
-package net.minecraft.client.render.entity.model;
+package net.minecraft.client.render.block.model;
 
 public class ModelBed {
 	public static final int[] field_22280_a = new int[]{3, 4, 2, 5};

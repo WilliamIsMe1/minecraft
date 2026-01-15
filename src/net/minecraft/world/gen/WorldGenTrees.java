@@ -28,8 +28,10 @@ public class WorldGenTrees extends WorldGenerator {
 					for(var11 = var5 - var9; var11 <= var5 + var9 && var7; ++var11) {
 						if(var8 >= 0 && var8 < 128) {
 							var12 = var1.getBlockId(var10, var8, var11);
-							if(var12 != 0 && var12 != Block.leaves.getBlockID()) {
-								var7 = false;
+							if(var12 != 0) {
+								if (var12 != Block.leaves.blockID) {
+									var7 = false;
+								}
 							}
 						} else {
 							var7 = false;
@@ -42,8 +44,8 @@ public class WorldGenTrees extends WorldGenerator {
 				return false;
 			} else {
 				var8 = var1.getBlockId(var3, var4 - 1, var5);
-				if((var8 == Block.grass.getBlockID() || var8 == Block.dirt.getBlockID()) && var4 < 128 - var6 - 1) {
-					var1.setBlock(var3, var4 - 1, var5, Block.dirt.getBlockID());
+				if((var8 == Block.grass.blockID || var8 == Block.dirt.blockID) && var4 < 128 - var6 - 1) {
+					var1.setBlock(var3, var4 - 1, var5, Block.dirt.blockID);
 
 					int var16;
 					for(var16 = var4 - 3 + var6; var16 <= var4 + var6; ++var16) {
@@ -56,7 +58,7 @@ public class WorldGenTrees extends WorldGenerator {
 							for(int var14 = var5 - var11; var14 <= var5 + var11; ++var14) {
 								int var15 = var14 - var5;
 								if((Math.abs(var13) != var11 || Math.abs(var15) != var11 || var2.nextInt(2) != 0 && var10 != 0) && !Block.opaqueCubeLookup[var1.getBlockId(var12, var16, var14)]) {
-									var1.setBlock(var12, var16, var14, Block.leaves.getBlockID());
+									var1.setBlock(var12, var16, var14, Block.leaves.blockID);
 								}
 							}
 						}
@@ -64,8 +66,8 @@ public class WorldGenTrees extends WorldGenerator {
 
 					for(var16 = 0; var16 < var6; ++var16) {
 						var10 = var1.getBlockId(var3, var4 + var16, var5);
-						if(var10 == 0 || var10 == Block.leaves.getBlockID()) {
-							var1.setBlock(var3, var4 + var16, var5, Block.wood.getBlockID());
+						if(var10 == 0 || var10 == Block.leaves.blockID) {
+							var1.setBlock(var3, var4 + var16, var5, Block.wood.blockID);
 						}
 					}
 

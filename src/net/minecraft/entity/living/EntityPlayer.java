@@ -645,14 +645,16 @@ public abstract class EntityPlayer extends EntityLiving {
 		this.resetHeight();
 		ChunkCoordinates var4 = this.bedChunkCoordinates;
 		ChunkCoordinates var5 = this.bedChunkCoordinates;
-		if(var4 != null && this.worldObj.getBlockId(var4.x, var4.y, var4.z) == Block.blockBed.getBlockID()) {
-			net.minecraft.block.BlockBed.setBedOccupied(this.worldObj, var4.x, var4.y, var4.z, false);
-			var5 = net.minecraft.block.BlockBed.getNearestEmptyChunkCoordinates(this.worldObj, var4.x, var4.y, var4.z, 0);
-			if(var5 == null) {
-				var5 = new ChunkCoordinates(var4.x, var4.y + 1, var4.z);
-			}
+		if(var4 != null) {
+			if (this.worldObj.getBlockId(var4.x, var4.y, var4.z) == Block.blockBed.blockID) {
+				BlockBed.setBedOccupied(this.worldObj, var4.x, var4.y, var4.z, false);
+				var5 = BlockBed.getNearestEmptyChunkCoordinates(this.worldObj, var4.x, var4.y, var4.z, 0);
+				if (var5 == null) {
+					var5 = new ChunkCoordinates(var4.x, var4.y + 1, var4.z);
+				}
 
-			this.setPosition((double)((float)var5.x + 0.5F), (double)((float)var5.y + this.yOffset + 0.1F), (double)((float)var5.z + 0.5F));
+				this.setPosition((double) ((float) var5.x + 0.5F), (double) ((float) var5.y + this.yOffset + 0.1F), (double) ((float) var5.z + 0.5F));
+			}
 		}
 
 		this.sleeping = false;
@@ -673,7 +675,7 @@ public abstract class EntityPlayer extends EntityLiving {
 	}
 
 	private boolean isInBed() {
-		return this.worldObj.getBlockId(this.bedChunkCoordinates.x, this.bedChunkCoordinates.y, this.bedChunkCoordinates.z) == Block.blockBed.getBlockID();
+		return this.worldObj.getBlockId(this.bedChunkCoordinates.x, this.bedChunkCoordinates.y, this.bedChunkCoordinates.z) == Block.blockBed.blockID;
 	}
 
 	public static ChunkCoordinates func_25060_a(World var0, ChunkCoordinates var1) {
@@ -682,7 +684,7 @@ public abstract class EntityPlayer extends EntityLiving {
 		var2.prepareChunk(var1.x + 3 >> 4, var1.z - 3 >> 4);
 		var2.prepareChunk(var1.x - 3 >> 4, var1.z + 3 >> 4);
 		var2.prepareChunk(var1.x + 3 >> 4, var1.z + 3 >> 4);
-		if(var0.getBlockId(var1.x, var1.y, var1.z) != Block.blockBed.getBlockID()) {
+		if(var0.getBlockId(var1.x, var1.y, var1.z) != Block.blockBed.blockID) {
 			return null;
 		} else {
 			ChunkCoordinates var3 = net.minecraft.block.BlockBed.getNearestEmptyChunkCoordinates(var0, var1.x, var1.y, var1.z, 0);

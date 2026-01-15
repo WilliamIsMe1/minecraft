@@ -9,7 +9,7 @@ public class MaterialLiquid extends Material {
 		this.setNoPushMobility();
 	}
 
-	public boolean getIsLiquid() {
+	public boolean isLiquid() {
 		return true;
 	}
 

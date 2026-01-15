@@ -93,7 +93,7 @@ public class PlayerControllerMP extends PlayerController {
 					Block var6 = Block.blocksList[var5];
 					this.curBlockDamageMP += var6.blockStrength(this.mc.thePlayer);
 					if(this.field_9441_h % 4.0F == 0.0F && var6 != null) {
-						this.mc.sndManager.playSound(var6.getStepSound().func_1145_d(), (float)var1 + 0.5F, (float)var2 + 0.5F, (float)var3 + 0.5F, (var6.getStepSound().getVolume() + 1.0F) / 8.0F, var6.getStepSound().getPitch() * 0.5F);
+						this.mc.sndManager.playSound(var6.stepSound.func_1145_d(), (float)var1 + 0.5F, (float)var2 + 0.5F, (float)var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);
 					}
 
 					++this.field_9441_h;

@@ -181,25 +181,25 @@ public class GuiAchievements extends GuiScreen {
 				var21.setSeed((long)(1234 + var12 + var24));
 				var21.nextInt();
 				int var25 = var21.nextInt(1 + var13 + var22) + (var13 + var22) / 2;
-				int var26 = Block.sand.getBlockIndexInTexture();
+				int var26 = Block.sand.blockIndexInTexture;
 				if(var25 <= 37 && var13 + var22 != 35) {
 					if(var25 == 22) {
 						if(var21.nextInt(2) == 0) {
-							var26 = Block.oreDiamond.getBlockIndexInTexture();
+							var26 = Block.oreDiamond.blockIndexInTexture;
 						} else {
-							var26 = Block.oreRedstone.getBlockIndexInTexture();
+							var26 = Block.oreRedstone.blockIndexInTexture;
 						}
 					} else if(var25 == 10) {
-						var26 = Block.oreIron.getBlockIndexInTexture();
+						var26 = Block.oreIron.blockIndexInTexture;
 					} else if(var25 == 8) {
-						var26 = Block.oreCoal.getBlockIndexInTexture();
+						var26 = Block.oreCoal.blockIndexInTexture;
 					} else if(var25 > 4) {
-						var26 = Block.stone.getBlockIndexInTexture();
+						var26 = Block.stone.blockIndexInTexture;
 					} else if(var25 > 0) {
-						var26 = Block.dirt.getBlockIndexInTexture();
+						var26 = Block.dirt.blockIndexInTexture;
 					}
 				} else {
-					var26 = Block.bedrock.getBlockIndexInTexture();
+					var26 = Block.bedrock.blockIndexInTexture;
 				}
 
 				this.drawTexturedModalRect(var10 + var24 * 16 - var14, var11 + var22 * 16 - var15, var26 % 16 << 4, var26 >> 4 << 4, 16, 16);
@@ -215,7 +215,7 @@ public class GuiAchievements extends GuiScreen {
 		int var33;
 		int var38;
 		for(var12 = 0; var12 < AchievementList.achievementList.size(); ++var12) {
-			Achievement var28 = (Achievement)AchievementList.achievementList.get(var12);
+			Achievement var28 = AchievementList.achievementList.get(var12);
 			if(var28.parentAchievement != null) {
 				var14 = var28.displayColumn * 24 - var4 + 11 + var10;
 				var15 = var28.displayRow * 24 - var5 + 11 + var11;
